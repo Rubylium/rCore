@@ -32,6 +32,23 @@ rUtils.GetClosestPlayer = function(coords)
 end
 
 
+rUtils.GetPlayersInArea = function(coords, area)
+	local players       = GetActivePlayers()
+	local playersInArea = {}
+
+	for i=1, #players, 1 do
+		local target       = GetPlayerPed(players[i])
+		local targetCoords = GetEntityCoords(target)
+		local distance     = GetDistanceBetweenCoords(targetCoords, coords.x, coords.y, coords.z, true)
+
+		if distance <= area then
+			table.insert(playersInArea, players[i])
+		end
+	end
+
+	return playersInArea
+end
+
 
 local entityEnumerator = {
 	__gc = function(enum)
