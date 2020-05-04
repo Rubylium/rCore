@@ -60,7 +60,7 @@ rUtils.GetVehicles = function()
 end
 
 rUtils.GetClosestVehicle = function(coords)
-	local vehicles        = ESX.Game.GetVehicles()
+	local vehicles        = rUtils.GetVehicles()
 	local closestDistance = -1
 	local closestVehicle  = -1
 	local coords          = coords
@@ -84,7 +84,7 @@ rUtils.GetClosestVehicle = function(coords)
 end
 
 rUtils.GetVehiclesInArea = function(coords, area)
-	local vehicles       = ESX.Game.GetVehicles()
+	local vehicles       = rUtils.GetVehicles()
 	local vehiclesInArea = {}
 
 	for i=1, #vehicles, 1 do
