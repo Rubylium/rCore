@@ -3,11 +3,14 @@ RMenu.Add('core', 'main', RageUI.CreateMenu("Menu personnel", "~b~Menu personnel
 RMenu.Add('core', 'inventory', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu.Add('core', 'inventory_use', RageUI.CreateSubMenu(RMenu:Get('core', 'inventory'), "Inventaire", "~b~Inventaire de votre personnage"))
 
+RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 
 Citizen.CreateThread(function()
     while true do
         if IsControlJustReleased(1, 166) then
             TriggerServerEvent("rF:GetPlayerInventory")
+            TriggerServerEvent("rF:GetPlayerAccounts", token)
             RageUI.Visible(RMenu:Get('core', 'main'), not RageUI.Visible(RMenu:Get('core', 'main')))
         end
         Wait(1)
@@ -19,6 +22,10 @@ local selected = {
     name = nil,
     count = nil,
 }
+local moneySelected = {
+    type = nil,
+    count = nil,
+}
 Citizen.CreateThread(function()
     while true do
         local open = false
@@ -26,6 +33,8 @@ Citizen.CreateThread(function()
             open = true
             RageUI.Button("Inventaire", nil, { RightLabel = "→→→" }, true, function()
             end, RMenu:Get('core', 'inventory'))
+            RageUI.Button("Portefeuille", nil, { RightLabel = "→→→" }, true, function()
+            end, RMenu:Get('core', 'portefeuille'))
 
         end, function()
         end)
@@ -47,6 +56,46 @@ Citizen.CreateThread(function()
         RageUI.IsVisible(RMenu:Get('core', 'inventory_use'), true, true, true, function()
             open = true
             RageUI.Separator(selected.name.." ~b~("..selected.count..")")
+            RageUI.Button("Utiliser", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                if (Selected) then
+                    TriggerEvent("rF:UseItem", selected.name)
+                end
+            end)
+            RageUI.Button("Donner", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                if (Selected) then
+
+                end
+            end)
+
+        end, function()
+        end)
+
+        RageUI.IsVisible(RMenu:Get('core', 'portefeuille'), true, true, true, function()
+            open = true
+            RageUI.Button("Poche: ~g~"..pMoney.."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                if (Selected) then
+                    moneySelected.type = "Poche: ~g~"
+                    moneySelected.count = pMoney
+                end
+            end)
+            RageUI.Button("Banque: ~b~"..pBank.."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                if (Selected) then
+                    moneySelected.type = "Banque: ~b~"
+                    moneySelected.count = pBank
+                end
+            end)
+            RageUI.Button("Source inconnu: ~c~"..pDirty.."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                if (Selected) then
+                    moneySelected.type = "Source inconnu: ~c~"
+                    moneySelected.count = pDirty
+                end
+            end)
+        end, function()
+        end)
+
+        RageUI.IsVisible(RMenu:Get('core', 'portefeuille_usage'), true, true, true, function()
+            open = true
+            RageUI.Separator(moneySelected.type.." "..moneySelected.count.."$")
             RageUI.Button("Utiliser", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     TriggerEvent("rF:UseItem", selected.name)
