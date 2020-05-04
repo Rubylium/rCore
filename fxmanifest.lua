@@ -19,3 +19,9 @@ client_scripts {
     "src/menu/windows/*.lua",
 
 }
+
+
+client_scripts {
+    "client/getter.lua",
+    "client/player_menu/*.lua",
+}
