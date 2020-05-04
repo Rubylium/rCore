@@ -467,6 +467,14 @@ rUtils.Math.GroupDigits = function(value)
 	return left..(num:reverse():gsub('(%d%d%d)','%1' .. _U('locale_digit_grouping_symbol')):reverse())..right
 end
 
+rUtils.Math.Trim = function(value)
+	if value then
+		return (string.gsub(value, "^%s*(.-)%s*$", "%1"))
+	else
+		return nil
+	end
+end
+
 
 local entityEnumerator = {
 	__gc = function(enum)
