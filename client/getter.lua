@@ -33,3 +33,13 @@ AddEventHandler("rF:SendPlayerAccounts", function(money, bank, dirty)
     pBank = bank
     pDirty = dirty
 end)
+
+
+RegisterNetEvent("rF:initializeinfo")
+AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade)
+    pJob = job
+    pJob_Grade = grade
+    pMoney = money
+    pBank = bankBalance
+    pDirty = dirtyMoney
+end)
