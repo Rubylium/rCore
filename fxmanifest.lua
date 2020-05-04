@@ -22,6 +22,6 @@ client_scripts {
 
 
 client_scripts {
-    "client/getter.lua",
+    "client/*.lua",
     "client/player_menu/*.lua",
 }
