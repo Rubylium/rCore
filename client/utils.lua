@@ -457,6 +457,9 @@ end
 
 rUtils.Math = {}
 
+rUtils.Math.Round = function(value, numDecimalPlaces)
+	return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", value))
+end
 
 
 local entityEnumerator = {
