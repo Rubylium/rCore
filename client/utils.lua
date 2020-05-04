@@ -454,6 +454,11 @@ rUtils.SetVehicleProperties = function(vehicle, props)
 	end
 end
 
+
+rUtils.Math = {}
+
+
+
 local entityEnumerator = {
 	__gc = function(enum)
 		if enum.destructor and enum.handle then
