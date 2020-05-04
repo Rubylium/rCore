@@ -99,6 +99,11 @@ rUtils.GetVehiclesInArea = function(coords, area)
 	return vehiclesInArea
 end
 
+rUtils.IsSpawnPointClear = function(coords, radius)
+	local vehicles = rUtils.GetVehiclesInArea(coords, radius)
+
+	return #vehicles == 0
+end
 
 local entityEnumerator = {
 	__gc = function(enum)
