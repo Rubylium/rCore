@@ -42,7 +42,7 @@ Citizen.CreateThread(function()
         RageUI.IsVisible(RMenu:Get('core', 'inventory'), true, true, true, function()
             open = true
             for k,v in pairs(pInventory) do
-                RageUI.Button(v.name.." ~b~("..v.count..")", description, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                RageUI.Button(v.name.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         selected.event = v.event
                         selected.name = v.name
@@ -55,7 +55,7 @@ Citizen.CreateThread(function()
 
         RageUI.IsVisible(RMenu:Get('core', 'inventory_use'), true, true, true, function()
             open = true
-            RageUI.Separator(selected.name.." ~b~("..selected.count..")")
+            RageUI.Separator(selected.name.." ~b~("..rUtils.Math.GroupDigits(selected.count)..")")
             RageUI.Button("Utiliser", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     TriggerEvent("rF:UseItem", selected.name)
@@ -72,19 +72,19 @@ Citizen.CreateThread(function()
 
         RageUI.IsVisible(RMenu:Get('core', 'portefeuille'), true, true, true, function()
             open = true
-            RageUI.Button("Poche: ~g~"..pMoney.."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+            RageUI.Button("Poche: ~g~"..rUtils.Math.GroupDigits(pMoney).."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     moneySelected.type = "Poche: ~g~"
                     moneySelected.count = pMoney
                 end
             end)
-            RageUI.Button("Banque: ~b~"..pBank.."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+            RageUI.Button("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     moneySelected.type = "Banque: ~b~"
                     moneySelected.count = pBank
                 end
             end)
-            RageUI.Button("Source inconnu: ~c~"..pDirty.."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+            RageUI.Button("Source inconnu: ~c~"..rUtils.Math.GroupDigits(pDirty).."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     moneySelected.type = "Source inconnu: ~c~"
                     moneySelected.count = pDirty
@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
 
         RageUI.IsVisible(RMenu:Get('core', 'portefeuille_usage'), true, true, true, function()
             open = true
-            RageUI.Separator(moneySelected.type.." "..moneySelected.count.."$")
+            RageUI.Separator(moneySelected.type.." "..rUtils.Math.GroupDigits(moneySelected.count).."$")
             RageUI.Button("Utiliser", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     TriggerEvent("rF:UseItem", selected.name)
