@@ -45,7 +45,7 @@ Citizen.CreateThread(function()
         if NearShop then
             Wait(1)
         else
-            Wait(250)
+            Wait(1000)
         end
     end
 end)
