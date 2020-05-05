@@ -10,6 +10,7 @@ local ATMHash = {
     GetHashKey("prop_atm_01"),
     GetHashKey("prop_atm_02"),
     GetHashKey("prop_atm_03"),
+    GetHashKey("prop_fleeca_atm"),
 }
 function OpenAtmIfPossible()
     local pPed = GetPlayerPed(-1)
@@ -39,7 +40,6 @@ end
 
 
 function KillBankCam()
-    print("Test")
     RenderScriptCams(0, 1, 1000, 0, 0)
     Wait(1000)
     SetCamActive(BankCam, 0)
