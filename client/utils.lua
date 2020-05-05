@@ -105,6 +105,21 @@ rUtils.IsSpawnPointClear = function(coords, radius)
 	return #vehicles == 0
 end
 
+function rUtils.GetClosestObject(vector, radius, modelHash, testFunction)
+	if not vector or not radius then return end
+	local handle, veh = FindFirstObject()
+	local success, theVeh
+	repeat
+		local firstDist = GetDistanceBetweenCoords(GetEntityCoords(veh), vector.x, vector.y, vector.z, true)
+		if firstDist < radius and (not modelHash or modelHash == GetEntityModel(veh)) and (not theVeh or firstDist < GetDistanceBetweenCoords(GetEntityCoords(theVeh), GetEntityCoords(veh), true)) and (not testFunction or testFunction(veh)) then
+			theVeh = veh
+		end
+		success, veh = FindNextObject(handle)
+	until not success
+		EndFindObject(handle)
+	return theVeh
+end
+
 rUtils.GetVehicleProperties = function(vehicle)
 	local color1, color2 = GetVehicleColours(vehicle)
 	local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
