@@ -26,4 +26,5 @@ client_scripts {
     "client/player_menu/*.lua",
     "client/bank/*.lua",
     "client/247shops/*.lua",
+    "client/mecano/*.lua",
 }
