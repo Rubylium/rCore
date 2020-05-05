@@ -70,7 +70,7 @@ Citizen.CreateThread(function()
             RageUI.Separator("Prix "..SelectedItem.item..": ~b~"..rUtils.Math.GroupDigits(SelectedItem.price).."$")
             RageUI.Button("Acheter", nil, {}, true, function(_,_,s)
                 if s then
-                    -- Faire achats
+                    TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, 1, SelectedItem.price)
                 end
             end)
         end, function()
