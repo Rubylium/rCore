@@ -24,6 +24,7 @@ RegisterNetEvent("rF:JobRefresh")
 AddEventHandler("rF:JobRefresh", function(job, grade)
     pJob = job
     pJob_Grade = grade
+    LoadData()
 end)
 
 
@@ -42,4 +43,5 @@ AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, jo
     pMoney = money
     pBank = bankBalance
     pDirty = dirtyMoney
+    LoadData()
 end)

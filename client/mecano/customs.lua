@@ -87,7 +87,7 @@ function InitMenu()
         UpdateVehProps()
         if not MenuOuvert then
             MenuOuvert = true
-            RageUI.Visible(RMenu:Get('core', 'lscustom'), not RageUI.Visible(RMenu:Get('core', 'lscustom')))
+            RageUI.Visible(RMenu:Get('core', 'lscustom'), true)
             local pPed = GetPlayerPed(-1)
             local pVeh = GetVehiclePedIsIn(pPed, 0)
             SetVehicleEngineOn(pVeh, 0, 0, 1)
@@ -103,7 +103,6 @@ function InitMenu()
                 local open = false
                 local pPed = GetPlayerPed(-1)
                 local pVeh = GetVehiclePedIsIn(pPed, 0)
-         --     RageUI.IsVisible(menu, header, glare, instructional, items, panels)
                 RageUI.IsVisible(RMenu:Get('core', 'lscustom'), true, true, true, function()
                     open = true
                     RageUI.Button("Changement externe", nil, { RightLabel = "→→→" }, true, function(_,_,s)
