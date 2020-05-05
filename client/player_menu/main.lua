@@ -118,7 +118,7 @@ Citizen.CreateThread(function()
         if open then
             Wait(1)
         else
-            Wait(100)
+            Wait(250)
         end
     end
 end)
