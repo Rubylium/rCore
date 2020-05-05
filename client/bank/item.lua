@@ -5,7 +5,7 @@ AddEventHandler("core:UseCreditCard", function()
 end)
 
 
-
+local BankCam = nil
 local ATMHash = {
     GetHashKey("prop_atm_01"),
     GetHashKey("prop_atm_02"),
@@ -23,7 +23,24 @@ function OpenAtmIfPossible()
     if not obj then
         rUtils.Notif("Aucun ATM Proche.")
     else
+        local oCoords = GetOffsetFromEntityInWorldCoords(obj, 0.0, -0.6, 1.2)
+        local CoordToPoint = GetOffsetFromEntityInWorldCoords(obj, 0.0, 0.0, 1.0)
+        BankCam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 0)
+        SetCamActive(BankCam, 1)
+        SetCamCoord(BankCam, oCoords)
+        SetCamFov(BankCam, 55.0)
+        PointCamAtCoord(BankCam, CoordToPoint)
+        RenderScriptCams(1, 1, 1000, 0, 0)
         TaskTurnPedToFaceEntity(pPed, obj, 2500)
+        Wait(1000)
         OpenATM()
     end
+end
+
+
+function KillBankCam()
+    print("Test")
+    RenderScriptCams(0, 1, 1000, 0, 0)
+    Wait(1000)
+    SetCamActive(BankCam, 0)
 end
