@@ -24,4 +24,5 @@ client_scripts {
 client_scripts {
     "client/*.lua",
     "client/player_menu/*.lua",
+    "client/bank/*.lua",
 }
