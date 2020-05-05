@@ -1,14 +1,15 @@
 RMenu.Add('core', 'atm', RageUI.CreateMenu("", "~b~Menu ATM de votre personnage", nil, nil, "root_cause", "shopui_title_fleecabank"))
 RMenu:Get('core', 'atm').Closed = function()
     PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+    KillBankCam()
 end
 
 RMenu.Add('core', 'atm_deposer', RageUI.CreateSubMenu(RMenu:Get('core', 'atm'), "", "~b~ATM de votre personnage", nil, nil, "root_cause", "shopui_title_fleecabank"))
-RMenu:Get('core', 'atm').Closed = function()
+RMenu:Get('core', 'atm_deposer').Closed = function()
     PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
 end
 RMenu.Add('core', 'atm_retirer', RageUI.CreateSubMenu(RMenu:Get('core', 'atm'), "", "~b~ATM de votre personnage", nil, nil, "root_cause", "shopui_title_fleecabank"))
-RMenu:Get('core', 'atm').Closed = function()
+RMenu:Get('core', 'atm_retirer').Closed = function()
     PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
 end
 
