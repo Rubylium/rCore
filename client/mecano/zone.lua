@@ -32,7 +32,7 @@ function InitMecanoZones()
             if NearZone then
                 Wait(1)
             else
-                Wait(150)
+                Wait(500)
             end
         end
     end)

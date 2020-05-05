@@ -507,7 +507,7 @@ function InitMenu()
                 if open then
                     Wait(1)
                 else
-                    Wait(250)
+                    Wait(550)
                 end
             end
         end)
