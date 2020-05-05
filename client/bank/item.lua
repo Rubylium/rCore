@@ -23,6 +23,7 @@ function OpenAtmIfPossible()
     if not obj then
         rUtils.Notif("Aucun ATM Proche.")
     else
+        TaskTurnPedToFaceEntity(pPed, obj, 4000)
         OpenATM()
     end
 end
