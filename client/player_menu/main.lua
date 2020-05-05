@@ -31,9 +31,9 @@ Citizen.CreateThread(function()
         local open = false
         RageUI.IsVisible(RMenu:Get('core', 'main'), true, true, true, function()
             open = true
-            RageUI.Button("Inventaire", nil, { RightLabel = "→→→" }, true, function()
+            RageUI.Button("Inventaire", nil, { RightLabel = "→→" }, true, function()
             end, RMenu:Get('core', 'inventory'))
-            RageUI.Button("Portefeuille", nil, { RightLabel = "→→→" }, true, function()
+            RageUI.Button("Portefeuille", nil, { RightLabel = "→→" }, true, function()
             end, RMenu:Get('core', 'portefeuille'))
 
         end, function()
@@ -41,8 +41,9 @@ Citizen.CreateThread(function()
 
         RageUI.IsVisible(RMenu:Get('core', 'inventory'), true, true, true, function()
             open = true
+            RageUI.Separator("Poid: ~b~"..pWeight.."/50.0")
             for k,v in pairs(pInventory) do
-                RageUI.Button(v.name.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                RageUI.Button(v.name.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         selected.event = v.event
                         selected.name = v.name
@@ -56,12 +57,12 @@ Citizen.CreateThread(function()
         RageUI.IsVisible(RMenu:Get('core', 'inventory_use'), true, true, true, function()
             open = true
             RageUI.Separator(selected.name.." ~b~("..rUtils.Math.GroupDigits(selected.count)..")")
-            RageUI.Button("Utiliser", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+            RageUI.Button("Utiliser", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     TriggerEvent("rF:UseItem", selected.name)
                 end
             end)
-            RageUI.Button("Donner", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+            RageUI.Button("Donner", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
 
                 end
