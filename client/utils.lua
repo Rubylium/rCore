@@ -497,6 +497,15 @@ rUtils.Math.Trim = function(value)
 end
 
 
+function rUtils.TableToString(tab)
+	local str = ""
+	for i = 1, #tab do
+		str = str .. " " .. tab[i]
+	end
+	return str
+end
+
+
 local entityEnumerator = {
 	__gc = function(enum)
 		if enum.destructor and enum.handle then
