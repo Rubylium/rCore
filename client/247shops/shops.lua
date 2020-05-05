@@ -35,4 +35,13 @@ shops = {
             {item="Bread", price=3},
         },
     },
+    {
+        name = "LTD",
+        pos = vector3(1698.33, 4924.29, 42.06),
+        type = 2,
+        items = {
+            {item="Apple", price=1},
+            {item="Bread", price=3},
+        },
+    },
 }
