@@ -6,8 +6,8 @@ local Upgrades = {}
 local Comsetics = {}
 
 function LoadMecanoData()
-    RMenu.Add('lscustom', 'main', RageUI.CreateMenu("", "~b~RAGEUI lscustom", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-    RMenu:Get('lscustom', 'main').Closed = function()
+    RMenu.Add('core', 'lscustom', RageUI.CreateMenu("", "~b~LSCUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    RMenu:Get('core', 'lscustom').Closed = function()
         local pPed = GetPlayerPed(-1)
         local pVeh = GetVehiclePedIsIn(pPed, 0)
         rUtils.SetVehicleProperties(pVeh, VehProps)
@@ -16,13 +16,13 @@ function LoadMecanoData()
         MenuOuvert = false
     end
 
-    RMenu.Add('lscustom', 'cosmetic', RageUI.CreateSubMenu(RMenu:Get('lscustom', 'main'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-    RMenu.Add('lscustom', 'upgrade', RageUI.CreateSubMenu(RMenu:Get('lscustom', 'main'), "", "~b~Custom interne du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-    RMenu.Add('lscustom', 'option', RageUI.CreateSubMenu(RMenu:Get('lscustom', 'main'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-    RMenu.Add('lscustom', 'peinture', RageUI.CreateSubMenu(RMenu:Get('lscustom', 'main'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-    RMenu.Add('lscustom', 'Choixcouleur', RageUI.CreateSubMenu(RMenu:Get('lscustom', 'peinture'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-    RMenu.Add('lscustom', 'couleur', RageUI.CreateSubMenu(RMenu:Get('lscustom', 'Choixcouleur'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-    RMenu.Add('lscustom', 'neon', RageUI.CreateSubMenu(RMenu:Get('lscustom', 'peinture'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    RMenu.Add('core', 'cosmetic', RageUI.CreateSubMenu(RMenu:Get('core', 'lscustom'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    RMenu.Add('core', 'upgrade', RageUI.CreateSubMenu(RMenu:Get('core', 'lscustom'), "", "~b~Custom interne du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    RMenu.Add('core', 'option', RageUI.CreateSubMenu(RMenu:Get('core', 'lscustom'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    RMenu.Add('core', 'peinture', RageUI.CreateSubMenu(RMenu:Get('core', 'lscustom'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    RMenu.Add('core', 'Choixcouleur', RageUI.CreateSubMenu(RMenu:Get('core', 'peinture'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    RMenu.Add('core', 'couleur', RageUI.CreateSubMenu(RMenu:Get('core', 'Choixcouleur'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    RMenu.Add('core', 'neon', RageUI.CreateSubMenu(RMenu:Get('core', 'peinture'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
     InitMenu()
     InitMecanoZones()
 end
@@ -30,8 +30,8 @@ end
 function InitMenu()
     Citizen.CreateThread(function()
         for k,v in ipairs(Interne) do
-            RMenu.Add('lscustom', v.name, RageUI.CreateSubMenu(RMenu:Get('lscustom', 'upgrade'), "", "~b~LS CUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-            RMenu:Get('lscustom', v.name).Closed = function()
+            RMenu.Add('core', v.name, RageUI.CreateSubMenu(RMenu:Get('core', 'upgrade'), "", "~b~LS CUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+            RMenu:Get('core', v.name).Closed = function()
                 local pPed = GetPlayerPed(-1)
                 local pVeh = GetVehiclePedIsIn(pPed, 0)
                 rUtils.SetVehicleProperties(pVeh, VehProps)
@@ -40,8 +40,8 @@ function InitMenu()
         end
 
         for k,v in ipairs(Externe) do
-            RMenu.Add('lscustom', v.name, RageUI.CreateSubMenu(RMenu:Get('lscustom', 'cosmetic'), "", "~b~LS CUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-            RMenu:Get('lscustom', v.name).Closed = function()
+            RMenu.Add('core', v.name, RageUI.CreateSubMenu(RMenu:Get('core', 'cosmetic'), "", "~b~LS CUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+            RMenu:Get('core', v.name).Closed = function()
                 local pPed = GetPlayerPed(-1)
                 local pVeh = GetVehiclePedIsIn(pPed, 0)
                 rUtils.SetVehicleProperties(pVeh, VehProps)
@@ -51,8 +51,8 @@ function InitMenu()
         end
 
         for k,v in ipairs(weels) do
-            RMenu.Add('lscustom', v.name, RageUI.CreateSubMenu(RMenu:Get('lscustom', 'Roue'), "", "~b~LS CUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-            RMenu:Get('lscustom', v.name).Closed = function()
+            RMenu.Add('core', v.name, RageUI.CreateSubMenu(RMenu:Get('core', 'Roue'), "", "~b~LS CUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+            RMenu:Get('core', v.name).Closed = function()
                 local pPed = GetPlayerPed(-1)
                 local pVeh = GetVehiclePedIsIn(pPed, 0)
                 rUtils.SetVehicleProperties(pVeh, VehProps)
@@ -62,8 +62,8 @@ function InitMenu()
         end
 
         for k,v in ipairs(Colors) do
-            RMenu.Add('lscustom', v.value, RageUI.CreateSubMenu(RMenu:Get('lscustom', 'Choixcouleur'), "", "~b~LS CUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-            RMenu:Get('lscustom', v.value).Closed = function()
+            RMenu.Add('core', v.value, RageUI.CreateSubMenu(RMenu:Get('core', 'Choixcouleur'), "", "~b~LS CUSTOMS", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+            RMenu:Get('core', v.value).Closed = function()
                 local pPed = GetPlayerPed(-1)
                 local pVeh = GetVehiclePedIsIn(pPed, 0)
                 rUtils.SetVehicleProperties(pVeh, VehProps)
@@ -87,7 +87,7 @@ function InitMenu()
         UpdateVehProps()
         if not MenuOuvert then
             MenuOuvert = true
-            RageUI.Visible(RMenu:Get('lscustom', 'main'), not RageUI.Visible(RMenu:Get('lscustom', 'main')))
+            RageUI.Visible(RMenu:Get('core', 'lscustom'), not RageUI.Visible(RMenu:Get('core', 'lscustom')))
             local pPed = GetPlayerPed(-1)
             local pVeh = GetVehiclePedIsIn(pPed, 0)
             SetVehicleEngineOn(pVeh, 0, 0, 1)
@@ -100,37 +100,39 @@ function InitMenu()
     function LoadMenu()
         Citizen.CreateThread(function()
             while true do
+                local open = false
                 local pPed = GetPlayerPed(-1)
                 local pVeh = GetVehiclePedIsIn(pPed, 0)
          --     RageUI.IsVisible(menu, header, glare, instructional, items, panels)
-                RageUI.IsVisible(RMenu:Get('lscustom', 'main'), true, true, true, function()
-                    --- Items
+                RageUI.IsVisible(RMenu:Get('core', 'lscustom'), true, true, true, function()
+                    open = true
                     RageUI.Button("Changement externe", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) end
-                    end, RMenu:Get('lscustom', 'cosmetic'))
+                    end, RMenu:Get('core', 'cosmetic'))
 
                     RageUI.Button("Changement interne", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) end
-                    end, RMenu:Get('lscustom', 'upgrade'))
+                    end, RMenu:Get('core', 'upgrade'))
 
                     RageUI.Button("options du véhicule", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) SetVehicleEngineOn(pVeh, 1, 1, 0) end
-                    end, RMenu:Get('lscustom', 'option'))
+                    end, RMenu:Get('core', 'option'))
 
                     RageUI.Button("Repeindre le véhicule", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) end
-                    end, RMenu:Get('lscustom', 'peinture'))
+                    end, RMenu:Get('core', 'peinture'))
 
 
                 end, function()
                 end)
 
 
-                RageUI.IsVisible(RMenu:Get('lscustom', 'cosmetic'), true, true, true, function()
+                RageUI.IsVisible(RMenu:Get('core', 'cosmetic'), true, true, true, function()
+                    open = true
                     for k,v in ipairs(Externe) do
 
                         RageUI.Button(v.name, nil, { RightLabel = "→→→" }, true, function()
-                        end, RMenu:Get('lscustom', v.name))
+                        end, RMenu:Get('core', v.name))
 
                     end
 
@@ -139,18 +141,20 @@ function InitMenu()
 
 
 
-                RageUI.IsVisible(RMenu:Get('lscustom', 'upgrade'), true, true, true, function()
+                RageUI.IsVisible(RMenu:Get('core', 'upgrade'), true, true, true, function()
+                    open = true
                     for k,v in ipairs(Interne) do
 
                         RageUI.Button(v.name, nil, { RightLabel = "→→→" }, true, function()
-                        end, RMenu:Get('lscustom', v.name))
+                        end, RMenu:Get('core', v.name))
 
                     end
 
                 end, function()
                 end)
 
-                RageUI.IsVisible(RMenu:Get('lscustom', 'option'), true, true, true, function()
+                RageUI.IsVisible(RMenu:Get('core', 'option'), true, true, true, function()
+                    open = true
                     RageUI.Button("Phares xenon ~g~ON", nil, {}, true, function(_,_,selected)
                         if selected then
                             rUtils.SetVehicleProperties(pVeh, {modXenon = true})
@@ -209,44 +213,44 @@ function InitMenu()
                 end, function()
                 end)
 
-                RageUI.IsVisible(RMenu:Get('lscustom', 'peinture'), true, true, true, function()
-
+                RageUI.IsVisible(RMenu:Get('core', 'peinture'), true, true, true, function()
+                    open = true
                     RageUI.Button("Changer des reflets", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 1
                         end
-                    end, RMenu:Get('lscustom', "Choixcouleur"))
+                    end, RMenu:Get('core', "Choixcouleur"))
 
                     RageUI.Button("Changer la couleur primaire", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 2
                         end
-                    end, RMenu:Get('lscustom', "Choixcouleur"))
+                    end, RMenu:Get('core', "Choixcouleur"))
 
                     RageUI.Button("Changer la couleur secondaire", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 3
                         end
-                    end, RMenu:Get('lscustom', "Choixcouleur"))
+                    end, RMenu:Get('core', "Choixcouleur"))
 
                     RageUI.Button("Changer la couleur des jantes", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 4
                         end
-                    end, RMenu:Get('lscustom', "Choixcouleur"))
+                    end, RMenu:Get('core', "Choixcouleur"))
 
                     RageUI.Button("Géstion des néons", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 4
                         end
-                    end, RMenu:Get('lscustom', "neon"))
+                    end, RMenu:Get('core', "neon"))
 
 
                 end, function()
                 end)
 
-                RageUI.IsVisible(RMenu:Get('lscustom', "neon"), true, true, true, function()
-
+                RageUI.IsVisible(RMenu:Get('core', "neon"), true, true, true, function()
+                    open = true
                     local pPed = GetPlayerPed(-1)
                     local pVeh = GetVehiclePedIsIn(pPed, 0)
                     local neons = GetNeons()
@@ -281,17 +285,19 @@ function InitMenu()
                 end, function()
                 end)
 
-                RageUI.IsVisible(RMenu:Get('lscustom', "Choixcouleur"), true, true, true, function()
+                RageUI.IsVisible(RMenu:Get('core', "Choixcouleur"), true, true, true, function()
+                    open = true
                     for k,v in ipairs(Colors) do
                         RageUI.Button(v.label, nil, { RightLabel = "→→→" }, true, function(_,_,s)
-                        end, RMenu:Get('lscustom', v.value))
+                        end, RMenu:Get('core', v.value))
                     end
                 end, function()
                 end)
 
 
                 for k,v in ipairs(Colors) do
-                    RageUI.IsVisible(RMenu:Get('lscustom', v.value), true, true, true, function()
+                    RageUI.IsVisible(RMenu:Get('core', v.value), true, true, true, function()
+                        open = true
                         local pPed = GetPlayerPed(-1)
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
                         local colors = GetColors(v.value)
@@ -334,7 +340,8 @@ function InitMenu()
 
 
                 for k,v in ipairs(Externe) do
-                    RageUI.IsVisible(RMenu:Get('lscustom', v.name), true, true, true, function()
+                    RageUI.IsVisible(RMenu:Get('core', v.name), true, true, true, function()
+                        open = true
                         local pPed = GetPlayerPed(-1)
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
                         local num = GetNumVehicleMods(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType)
@@ -352,7 +359,7 @@ function InitMenu()
                             for _, j in pairs(weels) do
                                 RageUI.Button(j.name, nil, { RightLabel = "→→→" }, true, function(_,_,s)
                                     if s then SetVehicleWheelType(pVeh, j.type) end
-                                end, RMenu:Get('lscustom', j.name))
+                                end, RMenu:Get('core', j.name))
                             end
                         end
 
@@ -431,7 +438,8 @@ function InitMenu()
 
 
                 for k,v in ipairs(weels) do
-                    RageUI.IsVisible(RMenu:Get('lscustom', v.name), true, true, true, function()
+                    RageUI.IsVisible(RMenu:Get('core', v.name), true, true, true, function()
+                        open = true
                         local pPed = GetPlayerPed(-1)
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
                         SetVehicleWheelType(pVeh, v.type)
@@ -456,7 +464,8 @@ function InitMenu()
                 end
 
                 for k,v in ipairs(Interne) do
-                    RageUI.IsVisible(RMenu:Get('lscustom', v.name), true, true, true, function()
+                    RageUI.IsVisible(RMenu:Get('core', v.name), true, true, true, function()
+                        open = true
                         local num = GetNumVehicleMods(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType)
                         local installed = GetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType)
                         local pPed = GetPlayerPed(-1)
@@ -495,6 +504,11 @@ function InitMenu()
 
                     end, function()
                     end)
+                end
+                if open then
+                    Wait(1)
+                else
+                    Wait(250)
                 end
             end
         end)
