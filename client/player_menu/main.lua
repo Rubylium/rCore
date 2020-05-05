@@ -73,19 +73,19 @@ Citizen.CreateThread(function()
 
         RageUI.IsVisible(RMenu:Get('core', 'portefeuille'), true, true, true, function()
             open = true
-            RageUI.Button("Poche: ~g~"..rUtils.Math.GroupDigits(pMoney).."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+            RageUI.Button("Poche: ~g~"..rUtils.Math.GroupDigits(pMoney).."$", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     moneySelected.type = "Poche: ~g~"
                     moneySelected.count = pMoney
                 end
             end)
-            RageUI.Button("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+            RageUI.Button("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     moneySelected.type = "Banque: ~b~"
                     moneySelected.count = pBank
                 end
             end)
-            RageUI.Button("Source inconnu: ~c~"..rUtils.Math.GroupDigits(pDirty).."$", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+            RageUI.Button("Source inconnu: ~c~"..rUtils.Math.GroupDigits(pDirty).."$", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     moneySelected.type = "Source inconnu: ~c~"
                     moneySelected.count = pDirty
