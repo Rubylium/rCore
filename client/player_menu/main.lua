@@ -6,16 +6,7 @@ RMenu.Add('core', 'inventory_use', RageUI.CreateSubMenu(RMenu:Get('core', 'inven
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 
-Citizen.CreateThread(function()
-    while true do
-        if IsControlJustReleased(1, 166) then
-            TriggerServerEvent("rF:GetPlayerInventory")
-            TriggerServerEvent("rF:GetPlayerAccounts", token)
-            RageUI.Visible(RMenu:Get('core', 'main'), not RageUI.Visible(RMenu:Get('core', 'main')))
-        end
-        Wait(1)
-    end
-end)
+RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 
 local selected = {
     event = nil,
@@ -35,6 +26,8 @@ Citizen.CreateThread(function()
             end, RMenu:Get('core', 'inventory'))
             RageUI.Button("Portefeuille", nil, { RightLabel = "→→" }, true, function()
             end, RMenu:Get('core', 'portefeuille'))
+            RageUI.Button("Divers", nil, { RightLabel = "→→" }, true, function()
+            end, RMenu:Get('core', 'divers'))
 
         end, function()
         end)
@@ -105,6 +98,17 @@ Citizen.CreateThread(function()
             RageUI.Button("Donner", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                 if (Selected) then
 
+                end
+            end)
+
+        end, function()
+        end)
+
+        RageUI.IsVisible(RMenu:Get('core', 'divers'), true, true, true, function()
+            open = true
+            RageUI.Button("Activer/Desactiver l'HUD", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                if (Selected) then
+                    TriggerEvent("rF:HudToogle")
                 end
             end)
 
