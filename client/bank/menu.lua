@@ -48,12 +48,23 @@ Citizen.CreateThread(function()
                     end
                 end)
             end
+            RageUI.Button("Montant personnalisé", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                if s then
+                    PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+                    local montant = BankCustomAmount()
+                    if montant ~= 0 and montant ~= nil then
+                        TriggerServerEvent("rF:MoveMoneyToBank", token, montant)
+                        TriggerServerEvent("rF:GetPlayerAccounts", token)
+                        PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+                    end
+                end
+            end)
         end, function()
         end)
 
         RageUI.IsVisible(RMenu:Get('core', 'atm_retirer'), true, true, true, function()
             open = true
-            RageUI.Separator("Poche: ~b~"..rUtils.Math.GroupDigits(pMoney).."$")
+            RageUI.Separator("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$")
             for k,v in pairs(bank_template) do
                 RageUI.Button("Retirer "..rUtils.Math.GroupDigits(v).."$", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                     if s then
@@ -63,6 +74,17 @@ Citizen.CreateThread(function()
                     end
                 end)
             end
+            RageUI.Button("Montant personnalisé", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                if s then
+                    PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+                    local montant = BankCustomAmount()
+                    if montant ~= 0 and montant ~= nil then
+                        TriggerServerEvent("rF:MoveMoneyFromBankToPlayer", token, montant)
+                        TriggerServerEvent("rF:GetPlayerAccounts", token)
+                        PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+                    end
+                end
+            end)
         end, function()
         end)
 
@@ -73,3 +95,22 @@ Citizen.CreateThread(function()
         end
     end
 end)
+
+
+function BankCustomAmount()
+    local montant = nil
+    AddTextEntry("BANK_CUSTOM_AMOUNT", "Entrez le montant")
+    DisplayOnscreenKeyboard(1, "BANK_CUSTOM_AMOUNT", '', "", '', '', '', 15)
+
+    while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+        Citizen.Wait(0)
+    end
+
+    if UpdateOnscreenKeyboard() ~= 2 then
+        montant = GetOnscreenKeyboardResult()
+        Citizen.Wait(1)
+    else
+        Citizen.Wait(1)
+    end
+    return tonumber(montant)
+end
