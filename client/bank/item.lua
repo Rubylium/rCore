@@ -7,9 +7,9 @@ end)
 
 
 local ATMHash = {
-    GetHashKey("prop_atm_01")
-    GetHashKey("prop_atm_02")
-    GetHashKey("prop_atm_03")
+    GetHashKey("prop_atm_01"),
+    GetHashKey("prop_atm_02"),
+    GetHashKey("prop_atm_03"),
 }
 function OpenAtmIfPossible()
     local pPed = GetPlayerPed(-1)
@@ -25,9 +25,4 @@ function OpenAtmIfPossible()
     else
         OpenATM()
     end
-end
-
-
-function OpenATM()
-    print("ATM Ouvert")
 end
