@@ -120,6 +120,12 @@ function rUtils.GetClosestObject(vector, radius, modelHash, testFunction)
 	return theVeh
 end
 
+function rUtils.Notif(text)
+    SetNotificationTextEntry('STRING')
+    AddTextComponentString(text)
+    DrawNotification(false, false)
+end
+
 rUtils.GetVehicleProperties = function(vehicle)
 	local color1, color2 = GetVehicleColours(vehicle)
 	local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
