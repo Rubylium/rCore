@@ -26,3 +26,8 @@ function OpenAtmIfPossible()
         OpenATM()
     end
 end
+
+
+function OpenATM()
+    print("ATM Ouvert")
+end
