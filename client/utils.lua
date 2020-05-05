@@ -505,6 +505,12 @@ function rUtils.TableToString(tab)
 	return str
 end
 
+rUtils.RegisterControlKey = function(action, description, defaultKey, callback)
+    RegisterKeyMapping(action, description, 'keyboard', defaultKey)
+    RegisterCommand(action, function()
+        callback()
+    end, false)
+end
 
 local entityEnumerator = {
 	__gc = function(enum)
