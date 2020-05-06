@@ -43,4 +43,5 @@ function KillBankCam()
     RenderScriptCams(0, 1, 1000, 0, 0)
     Wait(1000)
     SetCamActive(BankCam, 0)
+    BankCam = nil
 end
