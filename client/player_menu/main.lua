@@ -11,6 +11,7 @@ RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inv
 local selected = {
     event = nil,
     name = nil,
+    label = nil,
     count = nil,
 }
 local moneySelected = {
@@ -36,10 +37,11 @@ Citizen.CreateThread(function()
             open = true
             RageUI.Separator("Poid: ~b~"..pWeight.."/50.0")
             for k,v in pairs(pInventory) do
-                RageUI.Button(v.name.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                RageUI.Button(v.label.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         selected.event = v.event
                         selected.name = v.name
+                        selected.label = v.label
                         selected.count = v.count
                     end
                 end, RMenu:Get('core', 'inventory_use'))
@@ -49,7 +51,7 @@ Citizen.CreateThread(function()
 
         RageUI.IsVisible(RMenu:Get('core', 'inventory_use'), true, true, true, function()
             open = true
-            RageUI.Separator(selected.name.." ~b~("..rUtils.Math.GroupDigits(selected.count)..")")
+            RageUI.Separator(selected.label.." ~b~("..rUtils.Math.GroupDigits(selected.count)..")")
             RageUI.Button("Utiliser", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     TriggerEvent("rF:UseItem", selected.name)
