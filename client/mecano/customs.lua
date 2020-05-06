@@ -23,8 +23,10 @@ function LoadMecanoData()
     RMenu.Add('core', 'Choixcouleur', RageUI.CreateSubMenu(RMenu:Get('core', 'peinture'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
     RMenu.Add('core', 'couleur', RageUI.CreateSubMenu(RMenu:Get('core', 'Choixcouleur'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
     RMenu.Add('core', 'neon', RageUI.CreateSubMenu(RMenu:Get('core', 'peinture'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
+    
     InitMenu()
     InitMecanoZones()
+    InitMecanoActionMenu()
 end
 
 function InitMenu()
