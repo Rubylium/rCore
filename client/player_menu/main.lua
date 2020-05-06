@@ -48,15 +48,27 @@ Citizen.CreateThread(function()
             open = true
             RageUI.Separator("Poid: ~b~"..pWeight.."/50.0")
             for k,v in pairs(pInventory) do
-                RageUI.Button(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
-                    if (Selected) then
-                        selected.event = v.event
-                        selected.name = v.name
-                        selected.olabel = v.olabel
-                        selected.label = v.label
-                        selected.count = v.count
-                    end
-                end, RMenu:Get('core', 'inventory_use'))
+                if v.olabel == v.label then
+                    RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        if (Selected) then
+                            selected.event = v.event
+                            selected.name = v.name
+                            selected.olabel = v.olabel
+                            selected.label = v.label
+                            selected.count = v.count
+                        end
+                    end, RMenu:Get('core', 'inventory_use'))
+                else
+                    RageUI.Button(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        if (Selected) then
+                            selected.event = v.event
+                            selected.name = v.name
+                            selected.olabel = v.olabel
+                            selected.label = v.label
+                            selected.count = v.count
+                        end
+                    end, RMenu:Get('core', 'inventory_use'))
+                end
             end
         end, function()
         end)
@@ -91,7 +103,7 @@ Citizen.CreateThread(function()
                     end
                 end)
             else
-                RageUI.Button("Réinitialiser ", "~r~Tu ne peu pas rename un item déja rename, tu doit le réinitialiser avant.", { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                RageUI.Button("Réinitialiser ", "~r~Tu ne peu pas rename un item déja rename, tu doit le réinitialiser avant.", { RightLabel = "🛠" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         TriggerServerEvent("rF:ResetRenameItem", token, selected.name, selected.olabel, selected.label)
                         TriggerServerEvent("rF:GetPlayerInventory")

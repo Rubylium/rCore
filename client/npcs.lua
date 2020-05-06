@@ -3,6 +3,7 @@ local npcs = {
         model = "s_m_m_fiboffice_02",
         pos = vector3(243.6, 226.25, 106.2),
         heading = 167.0,
+        haveAction = true,
         action = function(ped, _offset, camOffset)
             OpenBankDialog(ped, _offset, camOffset)
         end,
@@ -29,16 +30,20 @@ Citizen.CreateThread(function()
                     v.entity = CreatePed(1, v.model, v.pos.x, v.pos.y, v.pos.z-1.0, v.heading, 0, 0)
                     TaskSetBlockingOfNonTemporaryEvents(v.entity, true)
                     FreezeEntityPosition(v.entity, true)
-                    table.insert(ActiveNpcs, {pos=v.pos, action=v.action, offset=v.camOffset, ped=v.entity, cam=v.camCoords})
+                    if v.haveAction then
+                        table.insert(ActiveNpcs, {pos=v.pos, action=v.action, offset=v.camOffset, ped=v.entity, cam=v.camCoords})
+                    end
                 end
             else
                 if dst > v.LoadDst then
                     if DoesEntityExist(v.entity) then
                         v.spawned = false
                         DeleteEntity(v.entity)
-                        for k,i in pairs(ActiveNpcs) do
-                            if v.pos == i.pos then
-                                table.remove(ActiveNpcs, k)
+                        if v.haveAction then
+                            for k,i in pairs(ActiveNpcs) do
+                                if v.pos == i.pos then
+                                    table.remove(ActiveNpcs, k)
+                                end
                             end
                         end
                     end

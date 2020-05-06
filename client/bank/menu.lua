@@ -12,6 +12,10 @@ RMenu.Add('core', 'atm_retirer', RageUI.CreateSubMenu(RMenu:Get('core', 'atm'), 
 RMenu:Get('core', 'atm_retirer').Closed = function()
     PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
 end
+RMenu.Add('core', 'transaction', RageUI.CreateSubMenu(RMenu:Get('core', 'atm'), "", "~b~ATM de votre personnage", nil, nil, "root_cause", "shopui_title_fleecabank"))
+RMenu:Get('core', 'transaction').Closed = function()
+    PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+end
 
 function OpenATM()
     TriggerServerEvent("rF:GetPlayerAccounts", token)
@@ -33,6 +37,9 @@ Citizen.CreateThread(function()
             RageUI.Button("Retirer", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                 if s then PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1) end
             end, RMenu:Get('core', 'atm_retirer'))
+            RageUI.Button("Liste des transactions", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                if s then PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1) end
+            end, RMenu:Get('core', 'transaction'))
 
         end, function()
         end)
@@ -43,9 +50,12 @@ Citizen.CreateThread(function()
             for k,v in pairs(bank_template) do
                 RageUI.Button("Déposer "..rUtils.Math.GroupDigits(v).."$", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                     if s then
-                        PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
-                        TriggerServerEvent("rF:MoveMoneyToBank", token, v)
-                        TriggerServerEvent("rF:GetPlayerAccounts", token)
+                        if v <= pMoney then
+                            PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+                            TriggerServerEvent("rF:MoveMoneyToBank", token, v)
+                            TriggerServerEvent("rF:GetPlayerAccounts", token)
+                            AddBankTransaction("Dépot de "..v.."$")
+                        end
                     end
                 end)
             end
@@ -54,9 +64,12 @@ Citizen.CreateThread(function()
                     PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
                     local montant = BankCustomAmount()
                     if montant ~= 0 and montant ~= nil then
-                        TriggerServerEvent("rF:MoveMoneyToBank", token, montant)
-                        TriggerServerEvent("rF:GetPlayerAccounts", token)
-                        PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+                        if montant <= pMoney then
+                            TriggerServerEvent("rF:MoveMoneyToBank", token, montant)
+                            TriggerServerEvent("rF:GetPlayerAccounts", token)
+                            PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+                            AddBankTransaction("Dépot de "..montant.."$")
+                        end
                     end
                 end
             end)
@@ -72,6 +85,7 @@ Citizen.CreateThread(function()
                         PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
                         TriggerServerEvent("rF:MoveMoneyFromBankToPlayer", token, v)
                         TriggerServerEvent("rF:GetPlayerAccounts", token)
+                        AddBankTransaction("Retrait de "..v.."$")
                     end
                 end)
             end
@@ -83,9 +97,30 @@ Citizen.CreateThread(function()
                         TriggerServerEvent("rF:MoveMoneyFromBankToPlayer", token, montant)
                         TriggerServerEvent("rF:GetPlayerAccounts", token)
                         PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+                        AddBankTransaction("Retrait de "..montant.."$")
                     end
                 end
             end)
+        end, function()
+        end)
+
+        RageUI.IsVisible(RMenu:Get('core', 'transaction'), true, true, true, function()
+            open = true
+            RageUI.Button("Clear les transactions", nil, {}, true, function(_,_,s)
+                if s then PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)ClearTransaction() end
+            end)
+            if #bankTransaction == 0 then
+                RageUI.Button("Aucune transaction", nil, {}, true, function(_,_,s)
+                    if s then PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1) end
+                end)
+            else
+
+            end
+            for k,v in pairs(bankTransaction) do
+                RageUI.Button(v, nil, {}, true, function(_,_,s)
+                    if s then PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)end
+                end)
+            end
         end, function()
         end)
 
