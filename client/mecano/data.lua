@@ -14,6 +14,21 @@ Colors = {
 	{ label = "or", value = 'gold'}
 }
 
+animations = {
+    {
+        nom = "Changer des pièces debout",
+        command = "e mechanic",
+    },
+    {
+        nom = "Changer des pièces debout 2",
+        command = "e mechanic4",
+    },
+    {
+        nom = "Changer des pièces accroupie",
+        command = "e mechanic3",
+    },
+}
+
 
 Interne = {
 	{
