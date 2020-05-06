@@ -1,5 +1,13 @@
 rUtils = {}
 
+
+Citizen.CreateThread(function()
+	while true do
+		ClearPlayerWantedLevel(GetPlayerIndex())
+		Wait(1000)
+	end
+end)
+
 rUtils.GetClosestPlayer = function(coords)
 	local players         = GetActivePlayers()
 	local closestDistance = -1
