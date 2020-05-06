@@ -4,6 +4,9 @@ rUtils = {}
 Citizen.CreateThread(function()
 	while true do
 		ClearPlayerWantedLevel(GetPlayerIndex())
+		SetPlayerVisibleLocally(PlayerId(), false)
+		NetworkSetEntityInvisibleToNetwork(GetPlayerPed(-1), 0)
+		SetPlayerInvisibleLocally(PlayerId(), false)
 		Wait(1000)
 	end
 end)
@@ -518,6 +521,16 @@ rUtils.RegisterControlKey = function(action, description, defaultKey, callback)
     RegisterCommand(action, function()
         callback()
     end, false)
+end
+
+
+function rUtils.LoadModel(_model)
+	local model = GetHashKey(_model)
+	RequestModel(model)
+	while not HasModelLoaded(model) do
+		print("Waiting model ".._model)
+		Wait(1)
+	end
 end
 
 local entityEnumerator = {
