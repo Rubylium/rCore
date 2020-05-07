@@ -7,3 +7,8 @@ RegisterNetEvent("core:CantPayFacture")
 AddEventHandler("core:CantPayFacture", function(target, montant)
     TriggerClientEvent("rF:notification", target, "La personne à essayé de payer la facture de ~g~"..montant.."~w~$ mais n'avais pas assez.")
 end)
+
+RegisterNetEvent("core:CancelFacture")
+AddEventHandler("core:CancelFacture", function(target, montant)
+    TriggerClientEvent("rF:notification", target, "La personne à refuser de payer la facture de ~g~"..montant.."~w~$.")
+end)
