@@ -26,11 +26,13 @@ client_scripts {
     "client/player_menu/*.lua",
     "client/bank/*.lua",
     "client/247shops/*.lua",
+    "client/facture/*.lua",
 
     -- jobs
     "client/mecano/*.lua",
 }
 
 server_scripts {
+    "server/*.lua",
     "server/job/*.lua",
 }
