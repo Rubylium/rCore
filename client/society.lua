@@ -27,3 +27,15 @@ function GetGradeLabel(job, grade)
         end
     end
 end
+function IsPatron(job, grade)
+    for k,v in pairs(societyList) do    
+        if v.name == job then
+            local label = v.grade[grade].label
+            if label == "Patron" then
+                return true
+            else
+                return false
+            end
+        end
+    end
+end
