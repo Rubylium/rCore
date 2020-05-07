@@ -43,6 +43,17 @@ rUtils.GetClosestPlayer = function(coords)
 end
 
 
+rUtils.DisplayClosetPlayer = function()
+	local pPed = GetPlayerPed(-1)
+	local pCoords = GetEntityCoords(pPed)
+	local pCloset = rUtils.GetClosestPlayer(pCoords)
+	if pCloset ~= -1 then
+		local cCoords = GetEntityCoords(GetPlayerPed(pCloset))
+		DrawMarker(20, cCoords.x, cCoords.y, cCoords.z+1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.3, 0.3, 255, 255, 255, 170, 0, 1, 2, 0, nil, nil, 0)
+	end
+end
+
+
 rUtils.GetPlayersInArea = function(coords, area)
 	local players       = GetActivePlayers()
 	local playersInArea = {}
