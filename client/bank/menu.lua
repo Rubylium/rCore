@@ -54,7 +54,7 @@ Citizen.CreateThread(function()
                             PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
                             TriggerServerEvent("rF:MoveMoneyToBank", token, v)
                             TriggerServerEvent("rF:GetPlayerAccounts", token)
-                            AddBankTransaction("Dépot de "..v.."$")
+                            AddBankTransaction("Dépot de ~g~"..v.."~w~$")
                         end
                     end
                 end)
@@ -68,7 +68,7 @@ Citizen.CreateThread(function()
                             TriggerServerEvent("rF:MoveMoneyToBank", token, montant)
                             TriggerServerEvent("rF:GetPlayerAccounts", token)
                             PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
-                            AddBankTransaction("Dépot de "..montant.."$")
+                            AddBankTransaction("Dépot de ~g~"..montant.."~w~$")
                         end
                     end
                 end
@@ -85,7 +85,7 @@ Citizen.CreateThread(function()
                         PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
                         TriggerServerEvent("rF:MoveMoneyFromBankToPlayer", token, v)
                         TriggerServerEvent("rF:GetPlayerAccounts", token)
-                        AddBankTransaction("Retrait de "..v.."$")
+                        AddBankTransaction("Retrait de ~r~"..v.."~w~$")
                     end
                 end)
             end
@@ -97,7 +97,7 @@ Citizen.CreateThread(function()
                         TriggerServerEvent("rF:MoveMoneyFromBankToPlayer", token, montant)
                         TriggerServerEvent("rF:GetPlayerAccounts", token)
                         PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
-                        AddBankTransaction("Retrait de "..montant.."$")
+                        AddBankTransaction("Retrait de ~r~"..montant.."~w~$")
                     end
                 end
             end)
