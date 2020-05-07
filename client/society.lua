@@ -9,6 +9,8 @@ societyList = {
         }
     }
 }
+
+
 function GetSocietyLabels(society)
     for k,v in pairs(societyList) do
         if society == v.name then
@@ -16,6 +18,7 @@ function GetSocietyLabels(society)
         end
     end
 end
+
 function GetGradeLabel(job, grade)
     for k,v in pairs(societyList) do    
         if v.name == job then
@@ -27,6 +30,8 @@ function GetGradeLabel(job, grade)
         end
     end
 end
+
+
 function IsPatron(job, grade)
     for k,v in pairs(societyList) do    
         if v.name == job then
