@@ -6,6 +6,8 @@ pJob_Grade = 0
 pMoney = 0
 pBank = 0
 pDirty = 0
+pSocietyTable = {}
+pSocietyTable.money = 0
 
 RegisterNetEvent("rF:SendPlayerInventory")
 AddEventHandler("rF:SendPlayerInventory", function(inv, weight)
@@ -41,4 +43,11 @@ AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, jo
     pBank = bankBalance
     pDirty = dirtyMoney
     LoadData()
+end)
+
+
+RegisterNetEvent("rF:SendSocietyInfo")
+AddEventHandler("rF:SendSocietyInfo", function(societyTable)
+    pSocietyTable = societyTable
+    pSocietyTable.money = societyTable.money
 end)
