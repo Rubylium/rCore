@@ -31,7 +31,7 @@ function InitMecanoActionMenu()
 
             RageUI.Button("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                 if Selected then
-                    MakeBill()
+                    OpenBillCreation()
                 end
             end)
 
@@ -144,11 +144,6 @@ function InitMecanoActionMenu()
         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
         local vCoords = GetEntityCoords(veh)
         DrawMarker(2, vCoords.x, vCoords.y, vCoords.z+1.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 255, 255, 255, 170, 0, 1, 2, 0, nil, nil, 0)
-    end
-    
-    
-    function MakeBill()
-        -- a faire
     end
     
     function OpenVehicle()
