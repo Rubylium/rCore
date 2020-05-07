@@ -135,6 +135,14 @@ Citizen.CreateThread(function()
                     moneySelected.count = pDirty
                 end
             end)
+
+            if IsPatron(pJob, pJob_Grade) then
+                RageUI.Button("Ouvrire le menu patron: ~c~"..pJob, nil, {}, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        OpenBossMenu(pJob)
+                    end
+                end)
+            end
         end, function()
         end)
 
