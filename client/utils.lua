@@ -12,34 +12,31 @@ Citizen.CreateThread(function()
 end)
 
 rUtils.GetClosestPlayer = function(coords)
-	local players         = GetActivePlayers()
-	local closestDistance = -1
-	local closestPlayer   = -1
-	local coords          = coords
-	local usePlayerPed    = false
-	local playerPed       = PlayerPedId()
-	local playerId        = PlayerId()
-
-	if coords == nil then
-		usePlayerPed = true
-		coords       = GetEntityCoords(playerPed)
-	end
-
-	for i=1, #players, 1 do
-		local target = GetPlayerPed(players[i])
-
-		if not usePlayerPed or (usePlayerPed and players[i] ~= playerId) then
-			local targetCoords = GetEntityCoords(target)
-			local distance     = GetDistanceBetweenCoords(targetCoords, coords.x, coords.y, coords.z, true)
-
-			if closestDistance == -1 or closestDistance > distance then
-				closestPlayer   = players[i]
-				closestDistance = distance
+	local players = GetActivePlayers()
+	local me = GetPlayerIndex()
+	local pCloset = nil
+	local pClosetPos = nil
+	local pClosetDst = nil
+	for k,v in pairs(players) do
+		if v ~= me then
+			local oPed = GetPlayerPed(v)
+			local oCoords = GetEntityCoords(oPed)
+			local dst = GetDistanceBetweenCoords(oCoords, coords, true)
+			if pCloset == nil then
+				pCloset = v
+				pClosetPos = oCoords
+				pClosetDst = dst
+			else
+				if dst < pClosetDst then
+					pCloset = v
+					pClosetPos = oCoords
+					pClosetDst = dst
+				end
 			end
 		end
 	end
 
-	return closestPlayer, closestDistance
+	return pCloset, pClosetDst
 end
 
 
