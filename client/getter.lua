@@ -14,10 +14,7 @@ AddEventHandler("rF:SendPlayerInventory", function(inv, weight)
 end)
 
 
-RegisterNetEvent("rF:SendToken")
-AddEventHandler("rF:SendToken", function(NewToken)
-    token = NewToken
-end)
+RegisterNetEvent("rF:SendToken")AddEventHandler("rF:SendToken", function(NewToken)token = NewToken end)
 
 
 RegisterNetEvent("rF:JobRefresh")
