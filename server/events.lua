@@ -18,3 +18,8 @@ RegisterNetEvent("core:PayFacture")
 AddEventHandler("core:PayFacture", function(target, montant)
     TriggerClientEvent("rF:notification", target, "La personne à payer la facture de ~g~"..montant.."~w~$.")
 end)
+
+RegisterNetEvent("core:PayFactureSociety")
+AddEventHandler("core:PayFactureSociety", function(target, montant)
+    TriggerClientEvent("rF:notification", target, "La personne à payer la facture de société de ~g~"..montant.."~w~$.")
+end)
