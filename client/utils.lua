@@ -4,9 +4,10 @@ rUtils = {}
 Citizen.CreateThread(function()
 	while true do
 		ClearPlayerWantedLevel(GetPlayerIndex())
-		SetPlayerVisibleLocally(PlayerId(), false)
-		NetworkSetEntityInvisibleToNetwork(GetPlayerPed(-1), 0)
-		SetPlayerInvisibleLocally(PlayerId(), false)
+		SetEveryoneIgnorePlayer(GetPlayerIndex(), true)
+		SetIgnoreLowPriorityShockingEvents(GetPlayerIndex(), true)
+		SetPlayerNoiseMultiplier(GetPlayerIndex(), -5.0)
+		SetPlayerSneakingNoiseMultiplier(GetPlayerIndex(), 500.0)
 		Wait(1000)
 	end
 end)
