@@ -14,6 +14,21 @@ local npcs = {
         LoadDst = 25,
     },
 
+    { -- bank
+        model = "s_m_m_fiboffice_02",
+        pos = vector3(-112.40, 6471.175, 31.6),
+        heading = 143.4,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            OpenBankDialog(ped, _offset, camOffset)
+        end,
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 25,
+    },
+
     { -- apu
         model = "mp_m_shopkeep_01",
         pos = vector3(24.48, -1347.432, 29.49),
