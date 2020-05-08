@@ -534,6 +534,10 @@ rUtils.RegisterControlKey = function(action, description, defaultKey, callback)
     end, false)
 end
 
+ActionZone = {}
+rUtils.RegisterActionZone = function(zone)
+	table.insert(ActionZone, zone)
+end
 
 function rUtils.LoadModel(_model)
 	local model = GetHashKey(_model)
