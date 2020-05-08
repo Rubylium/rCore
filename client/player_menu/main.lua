@@ -85,12 +85,19 @@ Citizen.CreateThread(function()
                 if (Selected) then
                     local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                     local cSid = GetPlayerServerId(ClosetPlayer)
-                    if ClosetPlayer ~= -1 and dst <= 3.0 then
-                        TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, cSid, selected.name, selected.count, selected.label)
-                        TriggerServerEvent("rF:GetPlayerInventory")
+                    if ClosetPlayer ~= -1 then
+                        local amount = CustomAmount()
+                        if amount <= selected.count then
+                            TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, cSid, selected.name, amount, selected.label)
+                            TriggerServerEvent("rF:GetPlayerInventory")
+                            RageUI.Visible(RMenu:Get('core', 'inventory'), true)
+                        end
                     else
                         RageUI.Popup({message = "Aucune personne proche."})
                     end
+                end
+                if Active then
+                    rUtils.DisplayClosetPlayer()
                 end
             end, RMenu:Get('core', 'inventory'))
             if selected.label == selected.olabel then
@@ -117,6 +124,7 @@ Citizen.CreateThread(function()
 
         RageUI.IsVisible(RMenu:Get('core', 'portefeuille'), true, true, true, function()
             open = true
+            RageUI.Separator(pJob.." - "..GetGradeLabel(pJob, pJob_Grade))
             RageUI.Button("Poche: ~g~"..rUtils.Math.GroupDigits(pMoney).."$", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     moneySelected.type = "Poche: ~g~"
@@ -149,11 +157,6 @@ Citizen.CreateThread(function()
         RageUI.IsVisible(RMenu:Get('core', 'portefeuille_usage'), true, true, true, function()
             open = true
             RageUI.Separator(moneySelected.type.." "..rUtils.Math.GroupDigits(moneySelected.count).."$")
-            RageUI.Button("Utiliser", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
-                if (Selected) then
-                    TriggerEvent("rF:UseItem", selected.name)
-                end
-            end)
             RageUI.Button("Donner", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                 if (Selected) then
 
@@ -228,6 +231,23 @@ function ReloadColor()
     end)
 end
 
+function CustomAmount()
+    local montant = nil
+    AddTextEntry("BANK_CUSTOM_AMOUNT", "Entrez le montant")
+    DisplayOnscreenKeyboard(1, "BANK_CUSTOM_AMOUNT", '', "", '', '', '', 15)
+
+    while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+        Citizen.Wait(0)
+    end
+
+    if UpdateOnscreenKeyboard() ~= 2 then
+        montant = GetOnscreenKeyboardResult()
+        Citizen.Wait(1)
+    else
+        Citizen.Wait(1)
+    end
+    return tonumber(montant)
+end
 
 function RenameAnItem()
     AddTextEntry("ITEM_CUSTOM_LABEL", "Entrez le nouveau nom de l'item")
