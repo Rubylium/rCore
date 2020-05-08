@@ -539,6 +539,11 @@ rUtils.RegisterActionZone = function(zone)
 	table.insert(ActionZone, zone)
 end
 
+FarmZone = {}
+rUtils.RegisterFarmZone = function(zone)
+	table.insert(FarmZone, zone)
+end
+
 function rUtils.LoadModel(_model)
 	local model = GetHashKey(_model)
 	RequestModel(model)
