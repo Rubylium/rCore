@@ -80,7 +80,9 @@ Citizen.CreateThread(function()
             for k,v in pairs(societyLabels) do
                 RageUI.Button("Promouvoir -> "..v.label, nil, {}, true, function(_,h,s)
                     if s then 
-                        TriggerServerEvent("rF:ChangePlayerJobGrade", token, k)
+                        local ClosetPlayer, dst = rUtils.GetClosestPlayer()
+                        local cSid = GetPlayerServerId(ClosetPlayer)
+                        TriggerServerEvent("rF:ChangePlayerJobGrade", token, cSid, k)
                     end
                     if h then
                         rUtils.DisplayClosetPlayer()
