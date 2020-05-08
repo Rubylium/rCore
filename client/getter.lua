@@ -49,5 +49,4 @@ end)
 RegisterNetEvent("rF:SendSocietyInfo")
 AddEventHandler("rF:SendSocietyInfo", function(societyTable)
     pSocietyTable = societyTable
-    pSocietyTable.money = societyTable.money
 end)
