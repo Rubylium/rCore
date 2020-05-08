@@ -2,6 +2,8 @@ rUtils = {}
 
 
 Citizen.CreateThread(function()
+	NetworkSetFriendlyFireOption(true)
+    SetCanAttackFriendly(PlayerPedId(), true, true)
 	while true do
 		ClearPlayerWantedLevel(GetPlayerIndex())
 		SetEveryoneIgnorePlayer(GetPlayerIndex(), true)
