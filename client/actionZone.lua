@@ -18,7 +18,7 @@ Citizen.CreateThread(function()
             local dst = GetDistanceBetweenCoords(pCoords, v.pos, true)
             if dst < 10.0 then
                 NearZone = true
-                DrawMarker(25, posX, posY, posZ, dirX, dirY, dirZ, rotX, rotY, rotZ, scaleX, scaleY, scaleZ, red, green, blue, alpha, bobUpAndDown, faceCamera, p19, rotate, textureDict, textureName, drawOnEnts)
+                DrawMarker(25, v.pos.x, v.pos.y, v.pos.z-0.8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 255, 255, 255, 200, 0, 1, 2, 0, nil, nil, 0)
                 if dst < 2.0 then
                     RageUI.Text({message="Appuyer sur E pour intérargir."})
                     if IsControlJustReleased(1, 38) then
