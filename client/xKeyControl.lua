@@ -10,3 +10,11 @@ rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function(
         RageUI.Visible(RMenu:Get('core', 'mecano_main'), not RageUI.Visible(RMenu:Get('core', 'mecano_main')))
     end
 end)
+
+rUtils.RegisterControlKey("speed", "Ouvrir le menu de métier", "9", function()
+    SetTimeScale(1.0)
+end)
+
+rUtils.RegisterControlKey("slow", "Ouvrir le menu de métier", "6", function()
+    SetTimeScale(0.25)
+end)
