@@ -8,6 +8,7 @@ pBank = 0
 pDirty = 0
 pSocietyTable = {}
 pSocietyTable.money = 0
+pSocietyTable.inventory = {}
 
 RegisterNetEvent("rF:SendPlayerInventory")
 AddEventHandler("rF:SendPlayerInventory", function(inv, weight)
