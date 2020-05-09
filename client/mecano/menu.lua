@@ -11,10 +11,6 @@ function InitMecanoActionMenu()
         capot = false,
         coffre = false,
     }
-
-    function OpenMecanoMenu()
-
-    end
     
     
     RageUI.CreateWhile(1.0, RMenu:Get('core', 'mecano_main'), nil, function()
