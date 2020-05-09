@@ -35,6 +35,12 @@ function LoadMecanoData()
             OpenSocietyInvMenu()
         end,
     })
+
+    rUtils.RegisterFarmZone({
+        pos = vector3(964.5, -1019.9, 40.8),
+        type = 1,
+        item = "Apple",
+    })
 end
 
 function InitMenu()
