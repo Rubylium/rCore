@@ -142,6 +142,19 @@ function rUtils.GetZoneFromTable(table)
 		end
 	end
 end
+
+function rUtils.SpawnVehicle(model, coords, heading, props)
+	rUtils.LoadModel(model)
+	local vehicle = CreateVehicle(GetHashKey(model), coords, heading, 1, 1)
+	SetVehicleOnGroundProperly(vehicle)
+	SetVehicleDirtLevel(vehicle, 0.0)
+	SetEntityCoordsNoOffset(entity, xPos, yPos, zPos, xAxis, yAxis, zAxis)
+	DecorSetBool(vehicle, "veh_allowed", true)
+	if props ~= nil then
+		rUtils.SetVehicleProperties(vehicle, props)
+	end
+end
+
 function rUtils.GetClosestObject(vector, radius, modelHash, testFunction)
 	if not vector or not radius then return end
 	local handle, veh = FindFirstObject()
