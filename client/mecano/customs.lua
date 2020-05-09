@@ -28,6 +28,13 @@ function LoadMecanoData()
     InitMecanoZones()
     InitMecanoActionMenu()
     InitMecanoGarage()
+
+    rUtils.RegisterActionZone({
+        pos = vector3(-204.2, -1328.3, 34.8),
+        action = function()
+            OpenSocietyInvMenu()
+        end,
+    })
 end
 
 function InitMenu()
