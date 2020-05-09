@@ -14,10 +14,13 @@ function InitMecanoGarage()
     }
 
     local vehs = {
-        {spawn = "blista", nom = "Vehicle de déplacement"}
+        {spawn = "flatbed", nom = "flatbed"},
+        {spawn = "dloader", nom = "Vieux SUV"},
+        {spawn = "towtruck", nom = "Véhicule à remorquage"},
+        {spawn = "towtruck2", nom = "Véhicule à remorquage 2"},
     }
 
-    RMenu.Add('core', 'mecano_garage', RageUI.CreateMenu("", "~b~Ménu garage mécano"))
+    RMenu.Add('core', 'mecano_garage', RageUI.CreateMenu("Garage", "~b~Ménu garage mécano"))
 
     function OpenMecanoGarage()
         RageUI.Visible(RMenu:Get('core', 'mecano_garage'), not RageUI.Visible(RMenu:Get('core', 'mecano_garage')))
