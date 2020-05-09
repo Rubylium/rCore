@@ -132,24 +132,28 @@ function rUtils.GetZoneFromTable(table)
 	local found = false
 	local try = 0
 	while not found do
-		local try = try + 1
+		try = try + 1
 		local i = math.random(1,#table)
-		if rUtils.IsSpawnPointClear(v.pos[i], v.heading[i], 3.0) then
+		print(table[i].pos, table[i].heading)
+		if rUtils.IsSpawnPointClear(table[i].pos, 3.0) then
 			found = true
-			return v.pos[i], v.heading[i]
+			return table[i].pos, table[i].heading
 		end
 		if try > #table then
 			return false
 		end
+		Wait(1)
 	end
 end
 
 function rUtils.SpawnVehicle(model, coords, heading, props)
+	print(model, coords, heading, props)
 	rUtils.LoadModel(model)
 	local vehicle = CreateVehicle(GetHashKey(model), coords, heading, 1, 1)
 	SetVehicleOnGroundProperly(vehicle)
 	SetVehicleDirtLevel(vehicle, 0.0)
-	SetEntityCoordsNoOffset(entity, xPos, yPos, zPos, xAxis, yAxis, zAxis)
+	SetEntityCoordsNoOffset(vehicle, coords, 0.0, 0.0, 0.0)
+	SetEntityHeading(vehicle, heading)
 	DecorSetBool(vehicle, "veh_allowed", true)
 	if props ~= nil then
 		rUtils.SetVehicleProperties(vehicle, props)
@@ -566,6 +570,7 @@ end
 ActionZone = {}
 rUtils.RegisterActionZone = function(zone)
 	table.insert(ActionZone, zone)
+	print("^2Adding action zone. Zones: "..#ActionZone)
 end
 
 FarmZone = {}
