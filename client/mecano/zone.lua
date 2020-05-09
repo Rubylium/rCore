@@ -17,13 +17,15 @@ function InitMecanoZones()
             if pJob == "mecano" then
                 local pPed = GetPlayerPed(-1)
                 local pCoords = GetEntityCoords(pPed)
-                for k,v in pairs(CustomsZone) do
-                    local dst = GetDistanceBetweenCoords(pCoords, v.pos, true)
-                    if dst <= 10.0 then
-                        NearZone = true
+                if IsPedInAnyVehicle(pPed, 0) then
+                    for k,v in pairs(CustomsZone) do
+                        local dst = GetDistanceBetweenCoords(pCoords, v.pos, true)
                         if dst <= 10.0 then
-                            if IsControlJustReleased(1, 38) then
-                                OpenCustomMenu()
+                            NearZone = true
+                            if dst <= 10.0 then
+                                if IsControlJustReleased(1, 38) then
+                                    OpenCustomMenu()
+                                end
                             end
                         end
                     end
