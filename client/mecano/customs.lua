@@ -27,6 +27,7 @@ function LoadMecanoData()
     InitMenu()
     InitMecanoZones()
     InitMecanoActionMenu()
+    InitMecanoGarage()
 end
 
 function InitMenu()
