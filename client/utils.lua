@@ -586,6 +586,12 @@ function rUtils.LoadModel(_model)
 	end
 end
 
+function rUtils.PlayAnim(dict, anim, flag)
+	RequestAnimDict(dict)
+	while not HasAnimDictLoaded(dict) do Wait(1) end
+	TaskPlayAnim(GetPlayerPed(-1), dict, anim, 1.0, 1.0, -1, flag, 1.0, 0, 0, 0)
+end	
+
 local entityEnumerator = {
 	__gc = function(enum)
 		if enum.destructor and enum.handle then
