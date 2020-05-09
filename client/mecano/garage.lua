@@ -1,8 +1,16 @@
  
 function InitMecanoGarage()
 
+    rUtils.RegisterActionZone({
+        pos = vector3(-175.0, -1289.13, 31.29),
+        action = function()
+            OpenMecanoGarage()
+        end,
+    })
+
     local PointDeSortie = {
-        {pos = vector3(), heading = },
+        {pos = vector3(-187.9, -1290.517, 30.62), heading = 266.71 },
+        {pos = vector3(-187.0, -1284.5, 30.59), heading = 270.15 },
     }
 
     local vehs = {
@@ -44,6 +52,6 @@ function InitMecanoGarage()
                 Wait(1)
             end
         end
-    end
+    end)
 
 end
