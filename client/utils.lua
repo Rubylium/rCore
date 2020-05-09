@@ -147,7 +147,6 @@ function rUtils.GetZoneFromTable(table)
 end
 
 function rUtils.SpawnVehicle(model, coords, heading, props)
-	print(model, coords, heading, props)
 	rUtils.LoadModel(model)
 	local vehicle = CreateVehicle(GetHashKey(model), coords, heading, 1, 1)
 	SetVehicleOnGroundProperly(vehicle)
