@@ -3,9 +3,10 @@ rUtils = {}
 
 Citizen.CreateThread(function()
 	NetworkSetFriendlyFireOption(true)
-    SetCanAttackFriendly(PlayerPedId(), true, true)
+	SetCanAttackFriendly(PlayerPedId(), true, true)
+	DecorRegister("veh_allowed", 2)
 	while true do
-		ClearPlayerWantedLevel(GetPlayerIndex())
+		--ClearPlayerWantedLevel(GetPlayerIndex())
 		SetEveryoneIgnorePlayer(GetPlayerIndex(), true)
 		SetIgnoreLowPriorityShockingEvents(GetPlayerIndex(), true)
 		SetPlayerNoiseMultiplier(GetPlayerIndex(), -5.0)
