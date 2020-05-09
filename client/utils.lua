@@ -127,6 +127,21 @@ rUtils.IsSpawnPointClear = function(coords, radius)
 	return #vehicles == 0
 end
 
+function rUtils.GetZoneFromTable(table)
+	local found = false
+	local try = 0
+	while not found do
+		local try = try + 1
+		local i = math.random(1,#table)
+		if rUtils.IsSpawnPointClear(v.pos[i], v.heading[i], 3.0) then
+			found = true
+			return v.pos[i], v.heading[i]
+		end
+		if try > #table then
+			return false
+		end
+	end
+end
 function rUtils.GetClosestObject(vector, radius, modelHash, testFunction)
 	if not vector or not radius then return end
 	local handle, veh = FindFirstObject()
