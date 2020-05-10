@@ -15,6 +15,10 @@ Citizen.CreateThread(function()
                     if IsControlJustReleased(1, 38) then
                         if v.type == 1 then
                             StartRecolte(v.item)
+                        elseif v.type == 2 then
+                            StartTrait(v.oItem, v.iItem)
+                        elseif v.type == 3 then
+                            StartSell(v.item, v.price)
                         end
                     end
                     break
@@ -57,6 +61,64 @@ function StartRecolte(item)
                 rUtils.PlayAnim(dict, anim, flag)
             end
             TriggerServerEvent("rF:GiveItem", token, item, 1)
+        end
+
+        Wait(0)
+    end
+end
+
+
+function StartTrait(oItem, iItem)
+    local oldTime = nil
+    local StillWant = true
+
+    Citizen.CreateThread(function()
+        while StillWant do
+            RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
+            if IsControlPressed(1, 73) then
+                StillWant = false
+                ClearPedTasks(GetPlayerPed(-1))
+            end
+            Wait(1)
+        end
+    end)
+
+    while StillWant do
+        if oldTime == nil or oldTime + 3500 < GetGameTimer() then
+            oldTime = GetGameTimer()
+            if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
+                rUtils.PlayAnim(dict, anim, flag)
+            end
+            TriggerServerEvent("rF:ExhangeItem", token, oItem, iItem)
+        end
+
+        Wait(0)
+    end
+end
+
+
+function StartSell(item, price)
+    local oldTime = nil
+    local StillWant = true
+
+    Citizen.CreateThread(function()
+        while StillWant do
+            RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
+            if IsControlPressed(1, 73) then
+                StillWant = false
+                ClearPedTasks(GetPlayerPed(-1))
+            end
+            Wait(1)
+        end
+    end)
+
+    while StillWant do
+        if oldTime == nil or oldTime + 3500 < GetGameTimer() then
+            oldTime = GetGameTimer()
+            if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
+                rUtils.PlayAnim(dict, anim, flag)
+            end
+            TriggerServerEvent("rF:SellItem", token, item, price)
         end
 
         Wait(0)
