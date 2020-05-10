@@ -28,6 +28,7 @@ client_scripts {
     "client/247shops/*.lua",
     "client/facture/*.lua",
     "client/society/*.lua",
+    "client/skincreator/*.lua",
 
     -- jobs
     "client/mecano/*.lua",
