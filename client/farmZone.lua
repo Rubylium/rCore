@@ -40,7 +40,7 @@ local dict = "anim@mp_snowball"
 local anim = "pickup_snowball"
 local flag = 1
 function StartRecolte(item)
-    local oldTime = nil
+    local oldTime = GetGameTimer()
     local StillWant = true
 
     Citizen.CreateThread(function()
@@ -55,7 +55,7 @@ function StartRecolte(item)
     end)
 
     while StillWant do
-        if oldTime == nil or oldTime + 3500 < GetGameTimer() then
+        if oldTime + 3500 < GetGameTimer() then
             oldTime = GetGameTimer()
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
@@ -69,7 +69,7 @@ end
 
 
 function StartTrait(oItem, iItem)
-    local oldTime = nil
+    local oldTime = GetGameTimer()
     local StillWant = true
 
     Citizen.CreateThread(function()
@@ -84,7 +84,7 @@ function StartTrait(oItem, iItem)
     end)
 
     while StillWant do
-        if oldTime == nil or oldTime + 3500 < GetGameTimer() then
+        if oldTime + 3500 < GetGameTimer() then
             oldTime = GetGameTimer()
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
@@ -98,7 +98,7 @@ end
 
 
 function StartSell(item, price)
-    local oldTime = nil
+    local oldTime = GetGameTimer()
     local StillWant = true
 
     Citizen.CreateThread(function()
@@ -113,7 +113,7 @@ function StartSell(item, price)
     end)
 
     while StillWant do
-        if oldTime == nil or oldTime + 3500 < GetGameTimer() then
+        if oldTime + 3500 < GetGameTimer() then
             oldTime = GetGameTimer()
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
