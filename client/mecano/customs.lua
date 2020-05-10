@@ -37,20 +37,20 @@ function LoadMecanoData()
     })
 
     rUtils.RegisterFarmZone({
-        pos = vector3(964.5, -1019.9, 40.8),
+        pos = vector3(-551.6, -1695.06, 19.21),
         type = 1,
         item = "metal",
     })
 
     rUtils.RegisterFarmZone({
-        pos = vector3(964.7, -1026.8, 40.8),
+        pos = vector3(1103.005, -2003.993, 29.43),
         type = 2,
         oItem = "metal",
         iItem = "metal2",
     })
 
     rUtils.RegisterFarmZone({
-        pos = vector3(961.5, -1042.1, 40.8),
+        pos = vector3(678.1, -2728.8, 6.003),
         type = 3,
         item = "metal2",
         price = 16,
