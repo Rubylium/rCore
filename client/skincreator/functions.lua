@@ -37,7 +37,7 @@ function SwitchCam(backto, type)
             SetCamFov(CreatorCam, offset.fov)
             PointCamAtCoord(CreatorCam, posLook.x, posLook.y, posLook.z)
             SetCamActiveWithInterp(CreatorCam, cam2, 1000, 1, 1)
-            PlayRandomClothAnim()
+            
         else
             SetCamActive(cam2, 1)
 
@@ -45,7 +45,6 @@ function SwitchCam(backto, type)
             SetCamFov(cam2, offset.fov)
             PointCamAtCoord(cam2, posLook.x, posLook.y, posLook.z)
             SetCamActiveWithInterp(cam2, CreatorCam, 1000, 1, 1)
-            PlayRandomClothAnim()
         end
     end)
 end
