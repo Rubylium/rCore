@@ -35,6 +35,11 @@ RMenu.Add('core', 'skincreator_model', RageUI.CreateSubMenu(RMenu:Get('core', 's
 
 local values = {}
 local peds = {}
+local Identity = {
+    nom = nil,
+    prenom = nil,
+    age = nil,
+}
 function OpenCreatorMenu()
     values, peds = GetMaxVals()
     CreateCreatorCam()
@@ -162,7 +167,6 @@ function CreatorMenuThread()
                     open = true
                     if v.c ~= nil then
                         local value = GetValue(v.c)
-                        --local max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), value, GetPedDrawableVariation(GetPlayerPed(-1), value)) - 1
                         print(v.item, value, value)
                         for i = v.min, value do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
@@ -209,7 +213,73 @@ function CreatorMenuThread()
 
             RageUI.IsVisible(RMenu:Get('core', "skincreator_identity"), true, true, true, function()
                 open = true
+                if Identity.prenom == nil then
+                    RageUI.Button("Prénom: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                        if s then
+                            local prenom = CustomString()
+                            if prenom ~= nil and prenom ~= "" then
+                                Identity.prenom = tostring(prenom)
+                            end
+                        end
+                    end) 
+                else
+                    RageUI.Button("Prénom: ", nil, { RightLabel = "~g~"..Identity.prenom }, not usingVipPed, function(_,h,s)
+                        if s then
+                            local prenom = CustomString()
+                            if prenom ~= nil and prenom ~= "" then
+                                Identity.prenom = tostring(prenom)
+                            end
+                        end
+                    end) 
+                end
 
+                if Identity.nom == nil then
+                    RageUI.Button("Nom: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                        if s then
+                            local nom = CustomString()
+                            if nom ~= nil and nom ~= "" then
+                                Identity.nom = tostring(nom)
+                            end
+                        end
+                    end) 
+                else
+                    RageUI.Button("Nom: ", nil, { RightLabel = "~g~"..Identity.nom }, not usingVipPed, function(_,h,s)
+                        if s then
+                            local nom = CustomString()
+                            if nom ~= nil and nom ~= "" then
+                                Identity.nom = tostring(nom)
+                            end
+                        end
+                    end) 
+                end
+
+                if Identity.age == nil then
+                    RageUI.Button("Age: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                        if s then
+                            local age = tonumber(CustomString())
+                            if age ~= nil and age ~= "" then
+                                if age > 15 and age < 80 then
+                                    Identity.age = tostring(age)
+                                else
+                                    RageUI.Popup({message = "~r~Action impossible.\n~w~Merci d'entrer un age réaliste."})
+                                end
+                            end
+                        end
+                    end) 
+                else
+                    RageUI.Button("Age: ", nil, { RightLabel = "~g~"..Identity.age }, not usingVipPed, function(_,h,s)
+                        if s then
+                            local age = tonumber(CustomString())
+                            if age ~= nil and age ~= "" then
+                                if age > 15 and age < 80 then
+                                    Identity.age = tostring(age)
+                                else
+                                    RageUI.Popup({message = "~r~Action impossible.\n~w~Merci d'entrer un age réaliste."})
+                                end
+                            end
+                        end
+                    end) 
+                end
 
             end, function()
 
@@ -223,4 +293,23 @@ function CreatorMenuThread()
             end
         end
     end)
+end
+
+
+function CustomString()
+    local txt = nil
+    AddTextEntry("CREATOR_TXT", "Entrez votre texte.")
+    DisplayOnscreenKeyboard(1, "CREATOR_TXT", '', "", '', '', '', 15)
+
+    while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+        Citizen.Wait(0)
+    end
+
+    if UpdateOnscreenKeyboard() ~= 2 then
+        txt = GetOnscreenKeyboardResult()
+        Citizen.Wait(1)
+    else
+        Citizen.Wait(1)
+    end
+    return txt
 end
