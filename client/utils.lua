@@ -592,6 +592,13 @@ function rUtils.PlayAnim(dict, anim, flag)
 	TaskPlayAnim(GetPlayerPed(-1), dict, anim, 1.0, 1.0, -1, flag, 1.0, 0, 0, 0)
 end	
 
+
+function rUtils.showHelpNotification(msg)
+	AddTextEntry('HelpNotification', msg)
+	BeginTextCommandDisplayHelp('HelpNotification')
+	EndTextCommandDisplayHelp(0, false, false, 1)
+end
+
 local entityEnumerator = {
 	__gc = function(enum)
 		if enum.destructor and enum.handle then
