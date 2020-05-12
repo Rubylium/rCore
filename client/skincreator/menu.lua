@@ -1,3 +1,10 @@
+local values = {}
+local peds = {}
+local corps = {}
+local accessorie = {}
+local FaceCustom = {}
+values, peds, corps, accessorie, FaceCustom = GetMaxVals()
+
 RMenu.Add('core', 'skincreator', RageUI.CreateMenu("Création personnage", "~b~Menu de création de votre personnage."))
 RMenu:Get('core', 'skincreator').Closable = false
 RMenu:Get('core', 'skincreator').Closed = function()
@@ -9,6 +16,7 @@ RMenu.Add('core', 'skincreator_skin', RageUI.CreateSubMenu(RMenu:Get('core', 'sk
 RMenu.Add('core', 'skincreator_face', RageUI.CreateSubMenu(RMenu:Get('core', 'skincreator'), "Création personnage", "~b~Menu de création de votre personnage."))
 RMenu:Get('core', 'skincreator_face').Closed = function()
     SwitchCam(true, "default")
+    values, peds, corps, accessorie, FaceCustom = GetMaxVals()
 end;
 
 RMenu.Add('core', 'skincreator_identity', RageUI.CreateSubMenu(RMenu:Get('core', 'skincreator'), "Création personnage", "~b~Menu de création de votre personnage."))
@@ -18,6 +26,7 @@ for k,v in pairs(GetMaxVals()) do
     RMenu:Get('core', v.item).Closed = function()
         SwitchCam(true, "default")
         PlayRandomClothAnim()
+        values, peds, corps, accessorie, FaceCustom = GetMaxVals()
     end;
 end
 
@@ -26,6 +35,7 @@ for k,v in pairs(FaceCustom) do
     RMenu:Get('core', v.item).Closed = function()
         SwitchCam(true, "default_face")
         PlayRandomClothAnim()
+        values, peds, corps, accessorie, FaceCustom = GetMaxVals()
     end;
 end
 
@@ -33,18 +43,19 @@ RMenu.Add('core', 'skincreator_model', RageUI.CreateSubMenu(RMenu:Get('core', 's
 
 
 
-local values = {}
-local peds = {}
+
 local Identity = {
     nom = nil,
     prenom = nil,
     age = nil,
 }
 function OpenCreatorMenu()
-    values, peds = GetMaxVals()
+    TriggerEvent("skinchanger:change", "sex", "mp_m_freemode_01")
+    values, peds, corps, accessorie, FaceCustom = GetMaxVals()
     CreateCreatorCam()
     CreatorMenuThread()
     RageUI.Visible(RMenu:Get('core', 'skincreator'), true)
+    PlayUrl("creatorMusic","https://www.youtube.com/watch?v=EwMjazrwPak",0.5, false)
 end
 
 
@@ -76,9 +87,15 @@ function CreatorMenuThread()
                 RageUI.Separator("")
                 RageUI.Button("~g~Valider la création de votre personnage.", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then
+                        if Identity.prenom == nil or Identity.nom == nil or Identity.age == nil then
+                            RageUI.Popup({message = "~r~Action impossible\n~w~Certains champs n'ont pas été remplie."})
+                            return
+                        end
+                        TriggerServerEvent("rF:ChangePlayerIdentity", Identity)
                         KillCreatorCam()
                         RageUI.CloseAll()
                         DisplayMenu = false
+                        Destroy("creatorMusic")
                     end
                 end)
             end, function()
@@ -106,7 +123,7 @@ function CreatorMenuThread()
                             if s then
                                 TriggerEvent("skinchanger:change", v.item, i)
                                 TriggerEvent("rF:SaveSkin")
-                                values, peds = GetMaxVals()
+                                values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                             end
                             if h then
                                 if NotSpamming[k] ~= i then
@@ -131,6 +148,7 @@ function CreatorMenuThread()
                         if s then
                             SwitchCam(false, v.item)
                             PlayRandomClothAnim()
+                            values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                         end
                     end, RMenu:Get('core', v.item))
                 end
@@ -144,7 +162,7 @@ function CreatorMenuThread()
                         if s then
                             TriggerEvent("skinchanger:change", "sex", v.model)
                             TriggerEvent("rF:SaveSkin")
-                            values = GetMaxVals()
+                            values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                             if v.vip == true then
                                 usingVipPed = true
                             else
@@ -167,14 +185,13 @@ function CreatorMenuThread()
                     open = true
                     if v.c ~= nil then
                         local value = GetValue(v.c)
-                        print(v.item, value, value)
                         for i = v.min, value do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
                             RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin")
-                                   values = GetMaxVals()
+                                   values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                                end
                                if h then
                                     if NotSpamming[k] ~= i then
@@ -190,14 +207,12 @@ function CreatorMenuThread()
                             RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
-                                   TriggerEvent("skinchanger:change", v.r, v.min)
                                    TriggerEvent("rF:SaveSkin")
-                                   values = GetMaxVals()
+                                   values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                                end
                                if h then
                                    if NotSpamming[k] ~= i then
                                        TriggerEvent("skinchanger:change", v.item, i)
-                                       TriggerEvent("skinchanger:change", v.r, v.min)
                                        NotSpamming[k] = i
                                    end
                                end
