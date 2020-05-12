@@ -151,6 +151,12 @@ Citizen.CreateThread(function()
                     end
                 end)
             end
+
+            RageUI.Button("Regarder sa carte d'identité", nil, {}, true, function(Hovered, Active, Selected)
+                if (Selected) then
+                    ShowIdentityCard()
+                end
+            end)
         end, function()
         end)
 
@@ -266,4 +272,11 @@ function RenameAnItem()
     else
         Citizen.Wait(1)
     end
+end
+
+
+function ShowIdentityCard()
+    local mug, txd = rUtils.GetPedMugshot(GetPlayerPed(-1))
+    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..pPrenom.."~w~\nNom: ~o~"..pNom.."~w~\nAge:~o~ "..pAge.."~w~\nMétier: ~o~"..pJob, txd, 7, false, false)
+    UnregisterPedheadshot(mug)
 end
