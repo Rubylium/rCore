@@ -10,6 +10,10 @@ pSocietyTable = {}
 pSocietyTable.money = 0
 pSocietyTable.inventory = {}
 
+pPrenom = ""
+pNom = ""
+pAge = ""
+
 RegisterNetEvent("rF:SendPlayerInventory")
 AddEventHandler("rF:SendPlayerInventory", function(inv, weight)
     pInventory = inv
@@ -37,12 +41,17 @@ end)
 
 
 RegisterNetEvent("rF:initializeinfo")
-AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade)
+AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, identity)
     pJob = job
     pJob_Grade = grade
     pMoney = money
     pBank = bankBalance
     pDirty = dirtyMoney
+    if identity ~= nil then
+        pPrenom = identity.prenom
+        pNom = identity.nom
+        pAge = identity.age
+    end
     LoadData()
 end)
 
@@ -50,4 +59,11 @@ end)
 RegisterNetEvent("rF:SendSocietyInfo")
 AddEventHandler("rF:SendSocietyInfo", function(societyTable)
     pSocietyTable = societyTable
+end)
+
+RegisterNetEvent("rF:UpdateIdentity")
+AddEventHandler("rF:UpdateIdentity", function(identity)
+    pPrenom = identity.prenom
+    pNom = identity.nom
+    pAge = identity.age
 end)
