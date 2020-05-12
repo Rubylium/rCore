@@ -26,7 +26,77 @@ function GetMaxVals()
 		{label = "Fabriquant de meth", model = "mp_m_meth_01", vip = true},	
 	}
 
-	return data, peds
+
+	local corps = {
+		{label = "pillositée torse", 		item = "chest_1", 		max = GetNumHeadOverlayValues(10)-1,													min = 0,},
+		{label = "opacité pillositée", 		item = "chest_2", 		max = 10,																				min = 0,},
+		{label = "couleur pillositée", 		item = "chest_3", 		max = GetNumHairColors()-1,																min = 0,},
+		{label = "imperfections du corps", 	item = "bodyb_1", 		max = GetNumHeadOverlayValues(11)-1,													min = 0,},
+		{label = "opacité imperfections", 	item = "bodyb_2", 		max = 10,																				min = 0,},
+	}
+	
+	local accessorie = {
+		{label = "chaine 1", 				item = "chain_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 7) - 1,								min = 0,},
+		{label = "chaine 2", 				item = "chain_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 7, GetPedTextureVariation(GetPlayerPed(-1), 7)) - 1,			min = 0,},
+		{label = "sac", 					item = "bags_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 5) - 1,								min = 0,},
+		{label = "couleur sac", 			item = "bags_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 5, GetPedTextureVariation(GetPlayerPed(-1), 5)) - 1,			min = 0,},
+		{label = "casque 1", 				item = "helmet_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 0) - 1,							min = -1,},
+		{label = "casque 2", 				item = "helmet_2", 		max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 0, GetPedTextureVariation(GetPlayerPed(-1), 0)) - 1,		min = 0,},
+		{label = "lunettes 1", 				item = "glasses_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = 0,},
+		{label = "lunettes 2", 				item = "glasses_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(GetPlayerPed(-1), 1) - 1),	min = 0,},
+		{label = "montre 1", 				item = "watches_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 6) - 1,							min = -1,},
+		{label = "montre 2", 				item = "watches_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 6, GetPedTextureVariation(GetPlayerPed(-1), 6)) - 1,	min = 0,},
+		{label = "bracelet 1", 				item = "bracelets_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 7) - 1,							min = -1,},
+		{label = "bracelet 2", 				item = "bracelets_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 7, GetPedTextureVariation(GetPlayerPed(-1), 7) - 1),	min = 0,},
+		{label = "accessoire oreilles", 	item = "ears_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = -1,},
+		{label = "couleur accessoire", 		item = "ears_2", 		max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(GetPlayerPed(-1), 1) - 1),		min = 0,},
+		{label = "masque 1", 				item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
+		{label = "masque 2", 				item = "mask_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(GetPlayerPed(-1), 1)) - 1,			min = 0,},
+		{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
+		{label = "gilet pare-balle 2", 		item = "bproof_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
+	}
+	
+	
+	local FaceCustom = {
+		{label = "visage",                  item = "face", 			max = 45,																				min = 0,},
+		{label = "peau",                    item = "skin", 			max = 45,																				min = 0,},	
+		{label = "rides",                   item = "age_1", 		max = GetNumHeadOverlayValues(3)-1,														min = 0,},
+		{label = "épaisseur rides",         item = "age_2", 		max = 10,																				min = 0,},
+		{label = "type barbe",              item = "beard_1", 		max = GetNumHeadOverlayValues(1)-1,														min = 0,},
+		{label = "taille barbe",            item = "beard_2", 		max = 10,																				min = 0,},
+		{label = "couleur barbe 1",         item = "beard_3", 		max = GetNumHairColors()-1,																min = 0,},
+		{label = "couleur barbe 2",         item = "beard_4", 		max = GetNumHairColors()-1,																min = 0,},
+		{label = "cheveux",               	item = "hair_1",		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 2) - 1,						min = 0,},
+		{label = "Style des cheveux",       item = "hair_2",		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 2, GetPedTextureVariation(GetPlayerPed(-1), 2)) - 1, min = 0,},
+		{label = "couleur cheveux 1",       item = "hair_color_1", 	max = GetNumHairColors()-1,																min = 0,},
+		{label = "couleur cheveux 2",       item = "hair_color_2", 	max = GetNumHairColors()-1,																min = 0,},
+		{label = "lentilles colorées",      item = "eye_color", 	max = 31,																				min = 0,},
+		{label = "type sourcils",           item = "eyebrows_1", 	max = GetNumHeadOverlayValues(2)-1,														min = 0,},
+		{label = "taille sourcils",         item = "eyebrows_2", 	max = 10,																				min = 0,},
+		{label = "couleur sourcils 1", 		item = "eyebrows_3", 	max = GetNumHairColors()-1,																min = 0,},
+		{label = "couleur sourcils 2", 		item = "eyebrows_4", 	max = GetNumHairColors()-1,																min = 0,},
+		{label = "type maquillage", 		item = "makeup_1", 		max = GetNumHeadOverlayValues(4)-1,														min = 0,},
+		{label = "épaisseur maquillage", 	item = "makeup_2", 		max = 10,																				min = 0,},
+		{label = "couleur maquillage 1", 	item = "makeup_3", 		max = GetNumHairColors()-1,																min = 0,},
+		{label = "couleur maquillage 2", 	item = "makeup_4", 		max = GetNumHairColors()-1,																min = 0,},
+		{label = "type lipstick", 			item = "lipstick_1", 	max = GetNumHeadOverlayValues(8)-1,														min = 0,},
+		{label = "épaisseur lipstick", 		item = "lipstick_2", 	max = 10,																				min = 0,},
+		{label = "couleur lipstick 1", 		item = "lipstick_3", 	max = GetNumHairColors()-1,																min = 0,},
+		{label = "couleur lipstick 2", 		item = "lipstick_4", 	max = GetNumHairColors()-1,																min = 0,},
+		{label = "Boutons", 				item = "blemishes_1", 	max = GetNumHeadOverlayValues(0)-1,														min = 0,},
+		{label = "opacité des boutons", 	item = "blemishes_2", 	max = 10,																				min = 0,},
+		{label = "rougeur", 				item = "blush_1", 		max = GetNumHeadOverlayValues(5)-1,														min = 0,},
+		{label = "opacité rougeur", 		item = "blush_2", 		max = 10,																				min = 0,},
+		{label = "couleur rougeur", 		item = "blush_3", 		max = GetNumHairColors()-1,																min = 0,},
+		{label = "teint", 					item = "complexion_1", 	max = GetNumHeadOverlayValues(6)-1,														min = 0,},
+		{label = "opacité teint", 			item = "complexion_2", 	max = 10,																				min = 0,},
+		{label = "dommages UV", 			item = "sun_1", 		max = GetNumHeadOverlayValues(7)-1,														min = 0,},
+		{label = "opacité dommages UV", 	item = "sun_2", 		max = 10,																				min = 0,},
+		{label = "taches de rousseur", 		item = "moles_1", 		max = GetNumHeadOverlayValues(9)-1,														min = 0,},
+		{label = "opacité rousseur", 		item = "moles_2", 		max = 10,																				min = 0,},
+	}
+
+	return data, peds, corps, accessorie, FaceCustom
 end
 
 
@@ -44,74 +114,6 @@ function GetValue(key)
 	return returning
 end
 
-corps = {
-	{label = "pillositée torse", 		item = "chest_1", 		max = GetNumHeadOverlayValues(10)-1,													min = 0,},
-	{label = "opacité pillositée", 		item = "chest_2", 		max = 10,																				min = 0,},
-	{label = "couleur pillositée", 		item = "chest_3", 		max = GetNumHairColors()-1,																min = 0,},
-	{label = "imperfections du corps", 	item = "bodyb_1", 		max = GetNumHeadOverlayValues(11)-1,													min = 0,},
-	{label = "opacité imperfections", 	item = "bodyb_2", 		max = 10,																				min = 0,},
-}
-
-accessorie = {
-	{label = "chaine 1", 				item = "chain_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 7) - 1,								min = 0,},
-	{label = "chaine 2", 				item = "chain_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 7, GetPedTextureVariation(playerPed, 7)) - 1,			min = 0,},
-	{label = "sac", 					item = "bags_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 5) - 1,								min = 0,},
-	{label = "couleur sac", 			item = "bags_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 5, GetPedTextureVariation(playerPed, 5)) - 1,			min = 0,},
-	{label = "casque 1", 				item = "helmet_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 0) - 1,							min = -1,},
-	{label = "casque 2", 				item = "helmet_2", 		max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 0, GetPedTextureVariation(playerPed, 0)) - 1,		min = 0,},
-	{label = "lunettes 1", 				item = "glasses_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = 0,},
-	{label = "lunettes 2", 				item = "glasses_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(playerPed, 1) - 1),	min = 0,},
-	{label = "montre 1", 				item = "watches_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 6) - 1,							min = -1,},
-	{label = "montre 2", 				item = "watches_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 6, GetPedTextureVariation(playerPed, 6)) - 1,	min = 0,},
-	{label = "bracelet 1", 				item = "bracelets_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 7) - 1,							min = -1,},
-	{label = "bracelet 2", 				item = "bracelets_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 7, GetPedTextureVariation(playerPed, 7) - 1),	min = 0,},
-	{label = "accessoire oreilles", 	item = "ears_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = -1,},
-	{label = "couleur accessoire", 		item = "ears_2", 		max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(playerPed, 1) - 1),		min = 0,},
-	{label = "masque 1", 				item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
-	{label = "masque 2", 				item = "mask_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(playerPed, 1)) - 1,			min = 0,},
-	{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
-	{label = "gilet pare-balle 2", 		item = "bproof_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(playerPed, 9)) - 1,			min = 0,},
-}
-
-
-FaceCustom = {
-	{label = "visage",                  item = "face", 			max = 45,																				min = 0,},
-	{label = "peau",                    item = "skin", 			max = 45,																				min = 0,},	
-	{label = "rides",                   item = "age_1", 		max = GetNumHeadOverlayValues(3)-1,														min = 0,},
-	{label = "épaisseur rides",         item = "age_2", 		max = 10,																				min = 0,},
-	{label = "type barbe",              item = "beard_1", 		max = GetNumHeadOverlayValues(1)-1,														min = 0,},
-	{label = "taille barbe",            item = "beard_2", 		max = 10,																				min = 0,},
-	{label = "couleur barbe 1",         item = "beard_3", 		max = GetNumHairColors()-1,																min = 0,},
-	{label = "couleur barbe 2",         item = "beard_4", 		max = GetNumHairColors()-1,																min = 0,},
-	{label = "cheveux",               	item = "hair_1",		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 2) - 1,								min = 0,},
-	{label = "Style des cheveux",       item = "hair_2",		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 2, GetPedTextureVariation(GetPlayerPed(-1), 2)) - 1, min = 0,},
-	{label = "couleur cheveux 1",       item = "hair_color_1", 	max = GetNumHairColors()-1,																min = 0,},
-	{label = "couleur cheveux 2",       item = "hair_color_2", 	max = GetNumHairColors()-1,																min = 0,},
-	{label = "lentilles colorées",      item = "eye_color", 	max = 31,																				min = 0,},
-	{label = "type sourcils",           item = "eyebrows_1", 	max = GetNumHeadOverlayValues(2)-1,														min = 0,},
-	{label = "taille sourcils",         item = "eyebrows_2", 	max = 10,																				min = 0,},
-	{label = "couleur sourcils 1", 		item = "eyebrows_3", 	max = GetNumHairColors()-1,																min = 0,},
-	{label = "couleur sourcils 2", 		item = "eyebrows_4", 	max = GetNumHairColors()-1,																min = 0,},
-	{label = "type maquillage", 		item = "makeup_1", 		max = GetNumHeadOverlayValues(4)-1,														min = 0,},
-	{label = "épaisseur maquillage", 	item = "makeup_2", 		max = 10,																				min = 0,},
-	{label = "couleur maquillage 1", 	item = "makeup_3", 		max = GetNumHairColors()-1,																min = 0,},
-	{label = "couleur maquillage 2", 	item = "makeup_4", 		max = GetNumHairColors()-1,																min = 0,},
-	{label = "type lipstick", 			item = "lipstick_1", 	max = GetNumHeadOverlayValues(8)-1,														min = 0,},
-	{label = "épaisseur lipstick", 		item = "lipstick_2", 	max = 10,																				min = 0,},
-	{label = "couleur lipstick 1", 		item = "lipstick_3", 	max = GetNumHairColors()-1,																min = 0,},
-	{label = "couleur lipstick 2", 		item = "lipstick_4", 	max = GetNumHairColors()-1,																min = 0,},
-	{label = "Boutons", 				item = "blemishes_1", 	max = GetNumHeadOverlayValues(0)-1,														min = 0,},
-	{label = "opacité des boutons", 	item = "blemishes_2", 	max = 10,																				min = 0,},
-	{label = "rougeur", 				item = "blush_1", 		max = GetNumHeadOverlayValues(5)-1,														min = 0,},
-	{label = "opacité rougeur", 		item = "blush_2", 		max = 10,																				min = 0,},
-	{label = "couleur rougeur", 		item = "blush_3", 		max = GetNumHairColors()-1,																min = 0,},
-	{label = "teint", 					item = "complexion_1", 	max = GetNumHeadOverlayValues(6)-1,														min = 0,},
-	{label = "opacité teint", 			item = "complexion_2", 	max = 10,																				min = 0,},
-	{label = "dommages UV", 			item = "sun_1", 		max = GetNumHeadOverlayValues(7)-1,														min = 0,},
-	{label = "opacité dommages UV", 	item = "sun_2", 		max = 10,																				min = 0,},
-	{label = "taches de rousseur", 		item = "moles_1", 		max = GetNumHeadOverlayValues(9)-1,														min = 0,},
-	{label = "opacité rousseur", 		item = "moles_2", 		max = 10,																				min = 0,},
-}
 
 
 local CamOffset = {
