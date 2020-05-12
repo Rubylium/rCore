@@ -180,6 +180,31 @@ function rUtils.Notif(text)
     DrawNotification(false, false)
 end
 
+function rUtils.ShowAdvancedNotification(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
+	if saveToBrief == nil then saveToBrief = true end
+	AddTextEntry('AdvancedNotification', msg)
+	BeginTextCommandThefeedPost('AdvancedNotification')
+	if hudColorIndex then ThefeedNextPostBackgroundColor(hudColorIndex) end
+	EndTextCommandThefeedPostMessagetext(textureDict, textureDict, false, iconType, sender, subject)
+	EndTextCommandThefeedPostTicker(flash or false, saveToBrief)
+end
+
+
+function rUtils.GetPedMugshot(ped)
+	if DoesEntityExist(ped) then
+		mugshot = RegisterPedheadshot(ped)
+
+		while not IsPedheadshotReady(mugshot) do
+			print("Waiting mugshot")
+			Citizen.Wait(10)
+		end
+
+		return mugshot, GetPedheadshotTxdString(mugshot)
+	else
+		return
+	end
+end
+
 rUtils.GetVehicleProperties = function(vehicle)
 	local color1, color2 = GetVehicleColours(vehicle)
 	local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
