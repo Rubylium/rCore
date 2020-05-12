@@ -1,13 +1,15 @@
 rUtils.RegisterControlKey("inventaire", "Ouvrir l'inventaire", "F5", function()
     TriggerServerEvent("rF:GetPlayerInventory")
     TriggerServerEvent("rF:GetPlayerAccounts", token)
-    RageUI.Visible(RMenu:Get('core', 'main'), not RageUI.Visible(RMenu:Get('core', 'main')))
+    OpenPlayerMenu()
+    RageUI.Visible(RMenu:Get('core', 'main'), true)
 end)
 
 
 rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function()
     if pJob == "mecano" then
         RageUI.Visible(RMenu:Get('core', 'mecano_main'), not RageUI.Visible(RMenu:Get('core', 'mecano_main')))
+        OpenMecanoActionMenu()
     end
 end)
 

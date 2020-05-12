@@ -102,7 +102,6 @@ function InitMenu()
             end
         end
 
-        LoadMenu()
     end)
 
 
@@ -122,19 +121,20 @@ function InitMenu()
             local pVeh = GetVehiclePedIsIn(pPed, 0)
             SetVehicleEngineOn(pVeh, 0, 0, 1)
             FreezeEntityPosition(pVeh, 1)
+            LoadMecanoCustomMenu()
         end
 
     end
 
     local PaintType = nil
-    function LoadMenu()
+    function LoadMecanoCustomMenu()
+        MenuOuvert = true
         Citizen.CreateThread(function()
-            while true do
-                local open = false
+            while MenuOuvert do
+                Wait(1)
                 local pPed = GetPlayerPed(-1)
                 local pVeh = GetVehiclePedIsIn(pPed, 0)
                 RageUI.IsVisible(RMenu:Get('core', 'lscustom'), true, true, true, function()
-                    open = true
                     RageUI.Button("Changement externe", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) end
                     end, RMenu:Get('core', 'cosmetic'))
@@ -157,7 +157,6 @@ function InitMenu()
 
 
                 RageUI.IsVisible(RMenu:Get('core', 'cosmetic'), true, true, true, function()
-                    open = true
                     for k,v in ipairs(Externe) do
 
                         RageUI.Button(v.name, nil, { RightLabel = "→→→" }, true, function()
@@ -171,7 +170,6 @@ function InitMenu()
 
 
                 RageUI.IsVisible(RMenu:Get('core', 'upgrade'), true, true, true, function()
-                    open = true
                     for k,v in ipairs(Interne) do
 
                         RageUI.Button(v.name, nil, { RightLabel = "→→→" }, true, function()
@@ -183,7 +181,6 @@ function InitMenu()
                 end)
 
                 RageUI.IsVisible(RMenu:Get('core', 'option'), true, true, true, function()
-                    open = true
                     RageUI.Button("Phares xenon ~g~ON", nil, {}, true, function(_,_,selected)
                         if selected then
                             rUtils.SetVehicleProperties(pVeh, {modXenon = true})
@@ -243,7 +240,6 @@ function InitMenu()
                 end)
 
                 RageUI.IsVisible(RMenu:Get('core', 'peinture'), true, true, true, function()
-                    open = true
                     RageUI.Button("Changer des reflets", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 1
@@ -279,7 +275,6 @@ function InitMenu()
                 end)
 
                 RageUI.IsVisible(RMenu:Get('core', "neon"), true, true, true, function()
-                    open = true
                     local pPed = GetPlayerPed(-1)
                     local pVeh = GetVehiclePedIsIn(pPed, 0)
                     local neons = GetNeons()
@@ -315,7 +310,6 @@ function InitMenu()
                 end)
 
                 RageUI.IsVisible(RMenu:Get('core', "Choixcouleur"), true, true, true, function()
-                    open = true
                     for k,v in ipairs(Colors) do
                         RageUI.Button(v.label, nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         end, RMenu:Get('core', v.value))
@@ -326,7 +320,6 @@ function InitMenu()
 
                 for k,v in ipairs(Colors) do
                     RageUI.IsVisible(RMenu:Get('core', v.value), true, true, true, function()
-                        open = true
                         local pPed = GetPlayerPed(-1)
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
                         local colors = GetColors(v.value)
@@ -370,7 +363,6 @@ function InitMenu()
 
                 for k,v in ipairs(Externe) do
                     RageUI.IsVisible(RMenu:Get('core', v.name), true, true, true, function()
-                        open = true
                         local pPed = GetPlayerPed(-1)
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
                         local num = GetNumVehicleMods(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType)
@@ -468,7 +460,6 @@ function InitMenu()
 
                 for k,v in ipairs(weels) do
                     RageUI.IsVisible(RMenu:Get('core', v.name), true, true, true, function()
-                        open = true
                         local pPed = GetPlayerPed(-1)
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
                         SetVehicleWheelType(pVeh, v.type)
@@ -494,7 +485,6 @@ function InitMenu()
 
                 for k,v in ipairs(Interne) do
                     RageUI.IsVisible(RMenu:Get('core', v.name), true, true, true, function()
-                        open = true
                         local num = GetNumVehicleMods(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType)
                         local installed = GetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType)
                         local pPed = GetPlayerPed(-1)
@@ -533,11 +523,6 @@ function InitMenu()
 
                     end, function()
                     end)
-                end
-                if open then
-                    Wait(1)
-                else
-                    Wait(550)
                 end
             end
         end)
