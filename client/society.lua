@@ -1,5 +1,11 @@
 societyList = {
     {
+        name = "Aucun",
+        grade = {
+            [0] = {label = "Sans job fix"},
+        },
+    },
+    {
         name = "mecano",
         grade = {
             [0] = {label = "Débutant"},
@@ -20,6 +26,9 @@ function GetSocietyLabels(society)
 end
 
 function GetGradeLabel(job, grade)
+    if grade == nil then
+        return "Sans emploi fix."
+    end
     for k,v in pairs(societyList) do    
         if v.name == job then
             if grade <= #v.grade then
