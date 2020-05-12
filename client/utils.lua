@@ -11,6 +11,7 @@ Citizen.CreateThread(function()
 		SetIgnoreLowPriorityShockingEvents(GetPlayerIndex(), true)
 		SetPlayerNoiseMultiplier(GetPlayerIndex(), -5.0)
 		SetPlayerSneakingNoiseMultiplier(GetPlayerIndex(), 500.0)
+		RestorePlayerStamina(PlayerId(), 1.0)
 		Wait(1000)
 	end
 end)
