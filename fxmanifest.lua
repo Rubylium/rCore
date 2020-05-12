@@ -39,6 +39,7 @@ client_scripts {
     "client/facture/*.lua",
     "client/society/*.lua",
     "client/skincreator/*.lua",
+    "client/vehicle/*.lua",
 
     -- jobs
     "client/mecano/*.lua",
@@ -48,6 +49,12 @@ client_scripts {
 }
 
 server_scripts {
+    '@mysql-async/lib/MySQL.lua',
     "server/*.lua",
     "server/job/*.lua",
+    "server/vehicle/*.lua",
+}
+
+dependencies {
+	'mysql-async'
 }
