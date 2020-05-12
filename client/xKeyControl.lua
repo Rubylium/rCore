@@ -24,3 +24,7 @@ end)
 rUtils.RegisterControlKey("creator", "Ouvrir le menu de création", "f1", function()
     OpenCreatorMenu()
 end)
+
+rUtils.RegisterControlKey("chest", "Ouvrir le coffre du véhicule", "k", function()
+    OpenVehicleChest()
+end)
