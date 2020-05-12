@@ -1,6 +1,16 @@
 fx_version 'adamant'
 games { 'gta5' };
 
+ui_page "client/API/html/index.html"
+
+files {
+	"client/API/html/index.html",
+	"client/API/html/scripts/listener.js",
+	"client/API/html/scripts/SoundPlayer.js",
+	"client/API/html/scripts/functions.js",
+}
+
+
 client_scripts {
     "src/RMenu.lua",
     "src/menu/RageUI.lua",
@@ -32,6 +42,9 @@ client_scripts {
 
     -- jobs
     "client/mecano/*.lua",
+
+    -- Audio
+	"client/API/client/*.lua",
 }
 
 server_scripts {
