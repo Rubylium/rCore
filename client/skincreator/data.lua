@@ -1,21 +1,20 @@
 function GetMaxVals()
-	local playerPed = PlayerPedId()
 
 	local data = {
 		--{label = "sexe",                    item = "sex", 			max = 1,                                    											min = 0,},
 
-		{label = "t-Shirt", 				item = "tshirt_1", 		max = GetNumberOfPedDrawableVariations(playerPed, 8) - 1,								min = 0,},
-		{label = "Couleur du t-Shirt", 		item = "tshirt_2", 		max = GetNumberOfPedTextureVariations(playerPed, 8, GetPedTextureVariation(playerPed, 8)) - 1,			min = 0,},
-		{label = "Veste", 					item = "torso_1", 		max	= GetNumberOfPedDrawableVariations(playerPed, 11) - 1,								min = 0,},
-		{label = "Couleur de la veste", 	item = "torso_2", 		max	= GetNumberOfPedTextureVariations(playerPed, 11, GetPedTextureVariation(playerPed, 11)) - 1,			min = 0,},
-		{label = "calques 1", 				item = "decals_1", 		max = GetNumberOfPedDrawableVariations(playerPed, 10) - 1,								min = 0,},
-		{label = "calques 2", 				item = "decals_2", 		max = GetNumberOfPedTextureVariations(playerPed, 10, GetPedTextureVariation(playerPed, 10)) - 1,		min = 0,},
-		{label = "bras", 					item = "arms", 			max = GetNumberOfPedDrawableVariations(playerPed, 3) - 1,								min = 0,},
-		{label = "Couleur des bras.", 		item = "arms_2", 		max = 10,																				min = 0,},
-		{label = "jambes 1", 				item = "pants_1", 		max = GetNumberOfPedDrawableVariations(playerPed, 4) - 1,								min = 0,},
-		{label = "jambes 2", 				item = "pants_2", 		max = GetNumberOfPedTextureVariations(playerPed, 4, GetPedTextureVariation(playerPed, 4)) - 1,			min = 0,},
-		{label = "chaussures 1", 			item = "shoes_1", 		max = GetNumberOfPedDrawableVariations(playerPed, 6) - 1,								min = 0,},
-		{label = "Style des chaussures", 	item = "shoes_2", 		max = GetNumberOfPedTextureVariations(playerPed, 6, GetPedTextureVariation(playerPed, 6)) - 1,			min = 0,},
+		{label = "t-Shirt", r = "tshirt_2", item = "tshirt_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 8) - 1,								min = 0,},
+		--{c = "tshirt_1", label = "Couleur du t-Shirt", 		item = "tshirt_2", 			min = 0,},
+		{label = "Veste", 	r = "torso_2", item = "torso_1", 					max	= GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 11) - 1,								min = 0,},
+		--{c = "torso_1", label = "Couleur de la veste", 	item = "torso_2", 		 		min = 0,},
+		{label = "calques 1", r = "decals_2", item = "decals_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 10) - 1,								min = 0,},
+		--{c = "decals_1", label = "calques 2", 				item = "decals_2", 			min = 0,},
+		{label = "bras", r = "arms_2", item = "arms", 						max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 3) - 1,								min = 0,},
+		{label = "Couleur des bras.", 		item = "arms_2", 					max = 10,																						min = 0,},
+		{label = "jambes 1", r = "pants_2", item = "pants_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 4) - 1,								min = 0,},
+		--{c = "pants_1", label = "jambes 2", 				item = "pants_2", 		 	min = 0,},
+		{label = "chaussures 1", r = "shoes_2", item = "shoes_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 6) - 1,								min = 0,},
+		--{c = "shoes_1", label = "Style des chaussures", 	item = "shoes_2", 		 	min = 0,},
 	}
 
 
@@ -30,6 +29,21 @@ function GetMaxVals()
 	return data, peds
 end
 
+
+function GetValue(key)
+	local value = nil
+	local returning = 0
+	TriggerEvent("skinchanger:GetKeyValue", key, function(_value)
+		value = _value
+	end)
+	for i = 0, GetNumberOfPedDrawableVariations(GetPlayerPed(-1), value) - 1 do				
+		if IsPedComponentVariationValid(GetPlayerPed(-1), value, i, 2) then
+			returning = returning + 1
+		end
+	end
+	return returning
+end
+
 corps = {
 	{label = "pillositée torse", 		item = "chest_1", 		max = GetNumHeadOverlayValues(10)-1,													min = 0,},
 	{label = "opacité pillositée", 		item = "chest_2", 		max = 10,																				min = 0,},
@@ -39,24 +53,24 @@ corps = {
 }
 
 accessorie = {
-	{label = "chaine 1", 				item = "chain_1", 		max = GetNumberOfPedDrawableVariations(playerPed, 7) - 1,								min = 0,},
-	{label = "chaine 2", 				item = "chain_2", 		max = GetNumberOfPedTextureVariations(playerPed, 7, GetPedTextureVariation(playerPed, 7)) - 1,			min = 0,},
-	{label = "sac", 					item = "bags_1", 		max = GetNumberOfPedDrawableVariations(playerPed, 5) - 1,								min = 0,},
-	{label = "couleur sac", 			item = "bags_2", 		max = GetNumberOfPedTextureVariations(playerPed, 5, GetPedTextureVariation(playerPed, 5)) - 1,			min = 0,},
-	{label = "casque 1", 				item = "helmet_1", 		max = GetNumberOfPedPropDrawableVariations(playerPed, 0) - 1,							min = -1,},
-	{label = "casque 2", 				item = "helmet_2", 		max = GetNumberOfPedPropTextureVariations(playerPed, 0, GetPedTextureVariation(playerPed, 0)) - 1,		min = 0,},
-	{label = "lunettes 1", 				item = "glasses_1", 	max = GetNumberOfPedPropDrawableVariations(playerPed, 1) - 1,							min = 0,},
-	{label = "lunettes 2", 				item = "glasses_2", 	max = GetNumberOfPedPropTextureVariations(playerPed, 1, GetPedTextureVariation(playerPed, 1) - 1),	min = 0,},
-	{label = "montre 1", 				item = "watches_1", 	max = GetNumberOfPedPropDrawableVariations(playerPed, 6) - 1,							min = -1,},
-	{label = "montre 2", 				item = "watches_2", 	max = GetNumberOfPedPropTextureVariations(playerPed, 6, GetPedTextureVariation(playerPed, 6)) - 1,	min = 0,},
-	{label = "bracelet 1", 				item = "bracelets_1", 	max = GetNumberOfPedPropDrawableVariations(playerPed, 7) - 1,							min = -1,},
-	{label = "bracelet 2", 				item = "bracelets_2", 	max = GetNumberOfPedPropTextureVariations(playerPed, 7, GetPedTextureVariation(playerPed, 7) - 1),	min = 0,},
-	{label = "accessoire oreilles", 	item = "ears_1", 		max = GetNumberOfPedPropDrawableVariations(playerPed, 1) - 1,							min = -1,},
-	{label = "couleur accessoire", 		item = "ears_2", 		max = GetNumberOfPedPropTextureVariations(playerPed, 1, GetPedTextureVariation(playerPed, 1) - 1),		min = 0,},
-	{label = "masque 1", 				item = "mask_1", 		max = GetNumberOfPedDrawableVariations(playerPed, 1) - 1,								min = 0,},
-	{label = "masque 2", 				item = "mask_2", 		max = GetNumberOfPedTextureVariations(playerPed, 1, GetPedTextureVariation(playerPed, 1)) - 1,			min = 0,},
-	{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(playerPed, 9) - 1,								min = 0,},
-	{label = "gilet pare-balle 2", 		item = "bproof_2", 		max = GetNumberOfPedTextureVariations(playerPed, 9, GetPedTextureVariation(playerPed, 9)) - 1,			min = 0,},
+	{label = "chaine 1", 				item = "chain_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 7) - 1,								min = 0,},
+	{label = "chaine 2", 				item = "chain_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 7, GetPedTextureVariation(playerPed, 7)) - 1,			min = 0,},
+	{label = "sac", 					item = "bags_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 5) - 1,								min = 0,},
+	{label = "couleur sac", 			item = "bags_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 5, GetPedTextureVariation(playerPed, 5)) - 1,			min = 0,},
+	{label = "casque 1", 				item = "helmet_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 0) - 1,							min = -1,},
+	{label = "casque 2", 				item = "helmet_2", 		max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 0, GetPedTextureVariation(playerPed, 0)) - 1,		min = 0,},
+	{label = "lunettes 1", 				item = "glasses_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = 0,},
+	{label = "lunettes 2", 				item = "glasses_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(playerPed, 1) - 1),	min = 0,},
+	{label = "montre 1", 				item = "watches_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 6) - 1,							min = -1,},
+	{label = "montre 2", 				item = "watches_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 6, GetPedTextureVariation(playerPed, 6)) - 1,	min = 0,},
+	{label = "bracelet 1", 				item = "bracelets_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 7) - 1,							min = -1,},
+	{label = "bracelet 2", 				item = "bracelets_2", 	max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 7, GetPedTextureVariation(playerPed, 7) - 1),	min = 0,},
+	{label = "accessoire oreilles", 	item = "ears_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = -1,},
+	{label = "couleur accessoire", 		item = "ears_2", 		max = GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(playerPed, 1) - 1),		min = 0,},
+	{label = "masque 1", 				item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
+	{label = "masque 2", 				item = "mask_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(playerPed, 1)) - 1,			min = 0,},
+	{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
+	{label = "gilet pare-balle 2", 		item = "bproof_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(playerPed, 9)) - 1,			min = 0,},
 }
 
 

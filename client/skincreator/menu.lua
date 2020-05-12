@@ -160,20 +160,45 @@ function CreatorMenuThread()
             for k,v in pairs(values) do
                 RageUI.IsVisible(RMenu:Get('core', v.item), true, true, true, function()
                     open = true
-                    for i = v.min, v.max do
-                        if NotSpamming[k] == nil then NotSpamming[k] = i end
-                        RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
-                            if s then
-                                TriggerEvent("skinchanger:change", v.item, i)
-                                TriggerEvent("rF:SaveSkin")
-                            end
-                            if h then
-                                if NotSpamming[k] ~= i then
-                                    TriggerEvent("skinchanger:change", v.item, i)
-                                    NotSpamming[k] = i
-                                end
-                            end
-                        end) 
+                    if v.c ~= nil then
+                        local value = GetValue(v.c)
+                        --local max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), value, GetPedDrawableVariation(GetPlayerPed(-1), value)) - 1
+                        print(v.item, value, value)
+                        for i = v.min, value do
+                            if NotSpamming[k] == nil then NotSpamming[k] = i end
+                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                               if s then
+                                   TriggerEvent("skinchanger:change", v.item, i)
+                                   TriggerEvent("rF:SaveSkin")
+                                   values = GetMaxVals()
+                               end
+                               if h then
+                                    if NotSpamming[k] ~= i then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                       NotSpamming[k] = i
+                                    end
+                               end
+                            end) 
+                        end
+                    else
+                        for i = v.min, v.max do
+                            if NotSpamming[k] == nil then NotSpamming[k] = i end
+                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                               if s then
+                                   TriggerEvent("skinchanger:change", v.item, i)
+                                   TriggerEvent("skinchanger:change", v.r, v.min)
+                                   TriggerEvent("rF:SaveSkin")
+                                   values = GetMaxVals()
+                               end
+                               if h then
+                                   if NotSpamming[k] ~= i then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                       TriggerEvent("skinchanger:change", v.r, v.min)
+                                       NotSpamming[k] = i
+                                   end
+                               end
+                            end) 
+                        end
                     end
 
                 end, function()
