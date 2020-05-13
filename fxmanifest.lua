@@ -41,6 +41,7 @@ client_scripts {
     "client/skincreator/*.lua",
     "client/vehicle/*.lua",
     "client/actionMe/*.lua",
+    "client/weapons/*.lua",
 
     -- jobs
     "client/mecano/*.lua",
