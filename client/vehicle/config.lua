@@ -1,3 +1,7 @@
+Citizen.CreateThread(function()
+ DecorRegister("TRUCK_OPEN", 2)
+
+end)
 
 invByClass = {
     [0] = {place = 40}, -- 0 Compacts
