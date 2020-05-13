@@ -3,23 +3,6 @@
 VehicleInventoryCache = {}
 
 
-MySQL.ready(function ()
-    local info = MySQL.Sync.fetchAll("SELECT * FROM `veh_inventory`", {
-        ['@identifier'] = player
-    })
-
-    for k,v in pairs(info) do
-        local decodedInv = json.decode(v.inventory)
-        table.insert(VehicleInventoryCache, {
-            plate = v.plate,
-            inventory = decodedInv,
-            owned = 1,
-            NetID = nil,
-        })
-        print("^2Added ^7["..v.plate.."] to vehicle cache with "..#decodedInv.." items in it.")
-    end
-end)
-
 local second = 1000
 local minute = 60*second
 Citizen.CreateThread(function()
@@ -45,7 +28,7 @@ end)
 
 
 RegisterNetEvent("core:GetVehicleInventory")
-AddEventHandler("core:GetVehicleInventory", function(plate, net)
+AddEventHandler("core:GetVehicleInventory", function(plate, net, _owned)
     local plate = plate
     for k,v in pairs(VehicleInventoryCache) do
         if v.plate == plate then
@@ -57,19 +40,39 @@ AddEventHandler("core:GetVehicleInventory", function(plate, net)
         end
     end
 
-    table.insert(VehicleInventoryCache, {
-        plate = plate,
-        inventory = {},
-        owned = 0, -- à changer
-        NetID = net,
+    local info = MySQL.Sync.fetchAll("SELECT * FROM `veh_inventory` WHERE plate = @plate", {
+        ['@plate'] = plate
     })
-    print("^2Added ^7["..plate.."] to vehicle cache.")
-    Citizen.CreateThread(function()
-        MySQL.Async.execute('INSERT INTO `veh_inventory` VALUES (@plate, @inventory)', {
-            ["@plate"] = plate,
-            ["@inventory"] = json.encode({}),
-        }, function(rowsChanged) end)
-    end)
+
+    if info[1] ~= nil then
+        for k,v in pairs(info) do
+            local decodedInv = json.decode(v.inventory)
+            table.insert(VehicleInventoryCache, {
+                plate = v.plate,
+                inventory = decodedInv,
+                owned = 1,
+                NetID = nil,
+            })
+            print("^2Added ^7["..v.plate.."] to vehicle cache with "..#decodedInv.." items in it.")
+        end
+    else
+        table.insert(VehicleInventoryCache, {
+            plate = plate,
+            inventory = {},
+            owned = _owned, -- à changer
+            NetID = net,
+        })
+        print("^2Creating dynamic cache for ^7["..plate.."] with an owned status of "..tostring(_owned)..".")
+        
+        if _owned then
+            Citizen.CreateThread(function()
+                MySQL.Async.execute('INSERT INTO `veh_inventory` VALUES (@plate, @inventory)', {
+                    ["@plate"] = plate,
+                    ["@inventory"] = json.encode({}),
+                }, function(rowsChanged) end)
+            end)
+        end
+    end
     return {}
 end)
 
@@ -84,11 +87,9 @@ function AddItemToVeh(source, plate, _item, _label, _olabel, _count)
     local iCount, i = GetVehItemCount(vCache, _label)
     if iCount == 0 then
         table.insert(VehicleInventoryCache[vCache].inventory, {name = _item, label = _label, olabel = _olabel, count = _count})
-        print(source, _item, _count)
         exports.rFramework:RemoveItemFromPlayerInv(source, _label, _count)
     else
         VehicleInventoryCache[vCache].inventory[i].count = VehicleInventoryCache[vCache].inventory[i].count + _count
-        print(source, _item, _count)
         exports.rFramework:RemoveItemFromPlayerInv(source, _label, _count)
     end
 end
