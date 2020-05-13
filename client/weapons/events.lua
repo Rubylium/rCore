@@ -1,0 +1,28 @@
+
+RegisterNetEvent("core:GetPistol")
+AddEventHandler("core:GetPistol", function()
+    local pPed = GetPlayerPed(-1)
+    GiveWeaponToPed(pPed, GetHashKey("weapon_pistol"), 255, false, true)
+    SendActionTxt(" sort son "..GetLabelText("WT_PIST"))
+end)
+
+RegisterNetEvent("core:GetTazer")
+AddEventHandler("core:GetTazer", function()
+    local pPed = GetPlayerPed(-1)
+    GiveWeaponToPed(pPed, GetHashKey("weapon_stungun"), 255, false, true)
+    SendActionTxt(" sort son "..GetLabelText("WT_STUN"))
+end)
+
+RegisterNetEvent("core:GetPistolmk2")
+AddEventHandler("core:GetPistolmk2", function()
+    local pPed = GetPlayerPed(-1)
+    GiveWeaponToPed(pPed, GetHashKey("weapon_pistol_mk2"), 255, false, true)
+    SendActionTxt(" sort son "..GetLabelText("WT_PIST2"))
+end)
+
+RegisterNetEvent("core:GetPistollspd")
+AddEventHandler("core:GetPistollspd", function()
+    local pPed = GetPlayerPed(-1)
+    GiveWeaponToPed(pPed, GetHashKey("weapon_combatpistol"), 255, false, true)
+    SendActionTxt(" sort son "..GetLabelText("WT_PIST_CBT"))
+end)
