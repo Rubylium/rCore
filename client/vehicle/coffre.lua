@@ -13,6 +13,7 @@ RMenu.Add('core', 'veh_main', RageUI.CreateMenu("Coffre véhicule", "~b~Menu cof
 RMenu:Get('core', 'veh_main').Closed = function()
     open = false
     TriggerServerEvent("core:OpenVehHood", VehToNet(entity), false)
+    DecorRemove(entity, "TRUCK_OPEN")
 end
 
 RMenu.Add('core', 'veh_inv', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~Coffre du véhicule"))
@@ -54,14 +55,19 @@ function OpenVehicleChest()
             entity = vehicle
             vClasse = GetVehicleClass(vehicle)
             vPlate = GetVehicleNumberPlateText(vehicle)
-            VehInventory = {}
-            TempAdd = 0
-            TriggerServerEvent("core:GetVehicleInventory", vPlate, VehToNet(vehicle), false)
-            GetVehLimit(vClasse)
-            RageUI.Visible(RMenu:Get('core', 'veh_main'), true)
-            OpenVehInventory()
-            TriggerServerEvent("core:OpenVehHood", VehToNet(vehicle), true)
-            SendActionTxt(" ouvre le coffre du véhicule.")
+            if not DecorExistOn(vehicle, "TRUCK_OPEN") then
+                VehInventory = {}
+                TempAdd = 0
+                TriggerServerEvent("core:GetVehicleInventory", vPlate, VehToNet(vehicle), false)
+                GetVehLimit(vClasse)
+                RageUI.Visible(RMenu:Get('core', 'veh_main'), true)
+                OpenVehInventory()
+                TriggerServerEvent("core:OpenVehHood", VehToNet(vehicle), true)
+                SendActionTxt(" ouvre le coffre du véhicule.")
+                DecorSetBool(vehicle, "TRUCK_OPEN", true)
+            else
+                RageUI.Popup({message = "~r~Action impossible\n~w~Quelqu'un regarde déja dans le coffre."})
+            end
         else
             RageUI.Popup({message = "~r~Action impossible\n~w~Aucun véhicule proche / tu n'est pas proche du coffre."})
         end
@@ -104,6 +110,7 @@ function OpenVehInventory()
                                     if VehInvTotal + amount <= VehLimit then
                                         rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
                                         TriggerServerEvent("core:AddItemToVeh", vPlate, v.name, v.label, v.olabel, amount)
+                                        IsItemAWeapon(v.name)
                                         if amount == v.count then
                                             table.remove(pInventory, k)
                                         else
@@ -124,6 +131,7 @@ function OpenVehInventory()
                                     if VehInvTotal + amount <= VehLimit then
                                         rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
                                         TriggerServerEvent("core:AddItemToVeh", vPlate, v.name, v.label, v.olabel, amount)
+                                        IsItemAWeapon(v.name)
                                         if amount == v.count then
                                             table.remove(pInventory, k)
                                         else
@@ -147,21 +155,39 @@ function OpenVehInventory()
                     RageUI.Button("Coffre vide.", nil, {}, true, function()end)
                 else
                     for k,v in pairs(VehInventory) do
-                        RageUI.Button("["..v.label.."] "..v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
-                            if (Selected) then
-                                local amount = CustomAmount()
-                                if amount > 0 and amount <= v.count then
-                                    rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
-                                    TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
-                                    if amount == v.count then
-                                        table.remove(VehInventory, k)
-                                    else
-                                        VehInventory[k].count = VehInventory[k].count - amount
+                        if v.olabel == v.label then
+                            RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                                if (Selected) then
+                                    local amount = CustomAmount()
+                                    if amount > 0 and amount <= v.count then
+                                        rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
+                                        TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
+                                        if amount == v.count then
+                                            table.remove(VehInventory, k)
+                                        else
+                                            VehInventory[k].count = VehInventory[k].count - amount
+                                        end
+                                        GetVehLimit(vClasse)
                                     end
-                                    GetVehLimit(vClasse)
                                 end
-                            end
-                        end)
+                            end)
+                        else
+                            RageUI.Button("["..v.label.."] "..v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                                if (Selected) then
+                                    local amount = CustomAmount()
+                                    if amount > 0 and amount <= v.count then
+                                        rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
+                                        TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
+                                        if amount == v.count then
+                                            table.remove(VehInventory, k)
+                                        else
+                                            VehInventory[k].count = VehInventory[k].count - amount
+                                        end
+                                        GetVehLimit(vClasse)
+                                    end
+                                end
+                            end)
+                        end
                     end
                 end
             end, function()
