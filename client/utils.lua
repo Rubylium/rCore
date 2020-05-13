@@ -612,10 +612,13 @@ function rUtils.LoadModel(_model)
 	end
 end
 
-function rUtils.PlayAnim(dict, anim, flag)
+function rUtils.PlayAnim(dict, anim, flag, blendin, blendout, playbackRate)
+	if blendin == nil then blendin = 1.0 end
+	if blendout == nil then blendout = 1.0 end
+	if playbackRate == nil then playbackRate = 1.0 end
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do Wait(1) end
-	TaskPlayAnim(GetPlayerPed(-1), dict, anim, 1.0, 1.0, -1, flag, 1.0, 0, 0, 0)
+	TaskPlayAnim(GetPlayerPed(-1), dict, anim, blendin, blendout, -1, flag, playbackRate, 0, 0, 0)
 end	
 
 
