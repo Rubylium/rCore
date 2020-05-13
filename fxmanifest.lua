@@ -40,6 +40,7 @@ client_scripts {
     "client/society/*.lua",
     "client/skincreator/*.lua",
     "client/vehicle/*.lua",
+    "client/actionMe/*.lua",
 
     -- jobs
     "client/mecano/*.lua",
@@ -53,6 +54,7 @@ server_scripts {
     "server/*.lua",
     "server/job/*.lua",
     "server/vehicle/*.lua",
+    "server/actionMe/*.lua",
 }
 
 dependencies {
