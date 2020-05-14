@@ -85,7 +85,8 @@ function OpenShop()
                 RageUI.Separator("Prix "..SelectedItem.item..": ~b~"..rUtils.Math.GroupDigits(SelectedItem.price).."$")
                 RageUI.Button("Acheter", nil, {}, true, function(_,_,s)
                     if s then
-                        TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, 1, SelectedItem.price)
+                        local amount = CustomAmount()
+                        TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, amount, SelectedItem.price)
                     end
                 end)
             end, function()
@@ -108,7 +109,8 @@ function OpenShop()
                 RageUI.Separator("Prix "..SelectedItem.item..": ~b~"..rUtils.Math.GroupDigits(SelectedItem.price).."$")
                 RageUI.Button("Acheter", nil, {}, true, function(_,_,s)
                     if s then
-                        TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, 1, SelectedItem.price)
+                        local amount = CustomAmount()
+                        TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, amount, SelectedItem.price)
                     end
                 end)
             end, function()
