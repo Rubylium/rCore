@@ -124,7 +124,7 @@ function OpenVehInventory()
                                         TriggerServerEvent("core:AddItemToVeh", vPlate, v.name, v.label, v.olabel, amount)
                                         IsItemAWeapon(v.name)
                                         if amount == v.count then
-                                            table.remove(pInventory, k)
+                                            pInventory[k] = nil
                                         else
                                             pInventory[k].count = pInventory[k].count - amount
                                         end
@@ -145,7 +145,7 @@ function OpenVehInventory()
                                         TriggerServerEvent("core:AddItemToVeh", vPlate, v.name, v.label, v.olabel, amount)
                                         IsItemAWeapon(v.name)
                                         if amount == v.count then
-                                            table.remove(pInventory, k)
+                                            pInventory[k] = nil
                                         else
                                             pInventory[k].count = pInventory[k].count - amount
                                         end
@@ -175,7 +175,7 @@ function OpenVehInventory()
                                         rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
                                         TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
                                         if amount == v.count then
-                                            table.remove(VehInventory, k)
+                                            VehInventory[k] = nil
                                         else
                                             VehInventory[k].count = VehInventory[k].count - amount
                                         end
@@ -191,7 +191,7 @@ function OpenVehInventory()
                                         rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
                                         TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
                                         if amount == v.count then
-                                            table.remove(VehInventory, k)
+                                            VehInventory[k] = nil
                                         else
                                             VehInventory[k].count = VehInventory[k].count - amount
                                         end
