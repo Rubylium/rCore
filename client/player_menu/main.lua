@@ -52,7 +52,7 @@ function OpenPlayerMenu()
                 RageUI.Separator("Poid: ~b~"..pWeight.."/50.0")
                 for k,v in pairs(pInventory) do
                     if v.olabel == v.label then
-                        RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 selected.event = v.event
                                 selected.name = v.name
@@ -62,7 +62,7 @@ function OpenPlayerMenu()
                             end
                         end, RMenu:Get('core', 'inventory_use'))
                     else
-                        RageUI.Button(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", description, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        RageUI.Button(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 selected.event = v.event
                                 selected.name = v.name
@@ -73,6 +73,7 @@ function OpenPlayerMenu()
                         end, RMenu:Get('core', 'inventory_use'))
                     end
                 end
+
             end, function()
             end)
 
