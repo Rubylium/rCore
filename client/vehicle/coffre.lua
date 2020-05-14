@@ -12,8 +12,9 @@ local anim = "purchase_beerbox_shopkeeper"
 RMenu.Add('core', 'veh_main', RageUI.CreateMenu("Coffre véhicule", "~b~Menu coffre de véhicule"))
 RMenu:Get('core', 'veh_main').Closed = function()
     open = false
-    TriggerServerEvent("core:OpenVehHood", VehToNet(entity), false)
-    DecorRemove(entity, "TRUCK_OPEN")
+    TriggerServerEvent("core:OpenVehHood", entity, false)
+    DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 0)
+    DecorRemove(NetToEnt(entity), "TRUCK_OPEN")
 end
 
 RMenu.Add('core', 'veh_inv', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~Coffre du véhicule"))
@@ -46,25 +47,36 @@ end
 function OpenVehicleChest()
     local pPed = GetPlayerPed(-1)
     local pCoords = GetEntityCoords(pPed)
-    local vehicle, _ = rUtils.GetClosestVehicle(pCoords)
+    local vehicle, dstV = rUtils.GetClosestVehicle(pCoords)
     local locked = GetVehicleDoorLockStatus(vehicle)
     if locked ~= 2 then
+        local dst
         local trunkpos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "neon_b"))
-        local dst = GetDistanceBetweenCoords(trunkpos, pCoords, 1)
-        if dst < 1.5 then
-            entity = vehicle
+        if trunkpos == vector3(0,0,0) then 
+            dst = GetDistanceBetweenCoords(GetEntityCoords(vehicle), pCoords, 1)
+        else
+            
+            dst = GetDistanceBetweenCoords(trunkpos, pCoords, 1)
+        end
+        
+        print(trunkpos, dst, dstV)
+        if dst < 2.5 then
+            entity = VehToNet(vehicle)
             vClasse = GetVehicleClass(vehicle)
             vPlate = GetVehicleNumberPlateText(vehicle)
-            if not DecorExistOn(vehicle, "TRUCK_OPEN") then
+            if not DecorExistOn(NetToEnt(entity), "TRUCK_OPEN") then
+                DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 0)
+            end
+            if DecorGetInt(NetToEnt(entity), "TRUCK_OPEN") == 0 then
+                DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 1)
                 VehInventory = {}
                 TempAdd = 0
-                TriggerServerEvent("core:GetVehicleInventory", vPlate, VehToNet(vehicle), false)
+                TriggerServerEvent("core:GetVehicleInventory", vPlate, entity, false)
                 GetVehLimit(vClasse)
                 RageUI.Visible(RMenu:Get('core', 'veh_main'), true)
                 OpenVehInventory()
-                TriggerServerEvent("core:OpenVehHood", VehToNet(vehicle), true)
+                TriggerServerEvent("core:OpenVehHood", entity, true)
                 SendActionTxt(" ouvre le coffre du véhicule.")
-                DecorSetBool(vehicle, "TRUCK_OPEN", true)
             else
                 RageUI.Popup({message = "~r~Action impossible\n~w~Quelqu'un regarde déja dans le coffre."})
             end
@@ -89,7 +101,7 @@ function OpenVehInventory()
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'veh_main'), true, true, true, function()
                 RageUI.Button("Prendre", nil, { RightLabel = "→→" }, true, function(_,_,s)
-                    if s then TriggerServerEvent("core:GetVehicleInventory", vPlate, VehToNet(vehicle), false) TempAdd = 0 end
+                    if s then TriggerServerEvent("core:GetVehicleInventory", vPlate, entity, false) TempAdd = 0 end
                 end, RMenu:Get('core', 'veh_inv'))
 
                 RageUI.Button("Déposer", nil, { RightLabel = "→→" }, true, function(_,_,s)
