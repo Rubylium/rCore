@@ -26,6 +26,10 @@ local weapons = {
     [GetHashKey("weapon_stungun")] = {item = "tazer"},
     [GetHashKey("weapon_pistol_mk2")] = {item = "pistoletmk2"},
     [GetHashKey("weapon_combatpistol")] = {item = "pistoletlspd"},
+
+    [GetHashKey("weapon_pumpshotgun")] = {item = "pompe"},
+    [GetHashKey("weapon_carbinerifle")] = {item = "m4"},
+    [GetHashKey("weapon_assaultrifle")] = {item = "AK-47"},
 }
 
 function IsItemAWeapon(item)
@@ -38,20 +42,20 @@ end
 
 function IsWeaponAllowed(hash)
     Citizen.CreateThread(function()
-        print(hash)
         local item = weapons[hash].item
         if item == nil then
             print("Detection arme give 1")
             RemoveWeaponFromPed(GetPlayerPed(-1), hash)
+            RemoveAllPedWeapons(GetPlayerPed(-1), 1)
         else
             for k,v in pairs(pInventory) do
                 if v.name == item then
-                    print("Allowed weapon")
                     return
                 end
             end
             print("Detection arme give 2")
             RemoveWeaponFromPed(GetPlayerPed(-1), hash)
+            RemoveAllPedWeapons(GetPlayerPed(-1), 1)
         end
     end)
 end
