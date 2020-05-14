@@ -1,6 +1,5 @@
 Citizen.CreateThread(function()
- DecorRegister("TRUCK_OPEN", 2)
-
+    DecorRegister("TRUCK_OPEN", 3)
 end)
 
 invByClass = {
