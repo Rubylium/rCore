@@ -34,6 +34,7 @@ rUtils.RegisterControlKey("removeweapon", "Ranger son arme", "1", function()
     if IsPedArmed(pPed, 7) then
         local _, pWeapon = GetCurrentPedWeapon(pPed, 1)
         RemoveWeaponFromPed(pPed, pWeapon)
+        RemoveAllPedWeapons(pPed, 1)
         SendActionTxt(" range son arme.")
     end
 end)
