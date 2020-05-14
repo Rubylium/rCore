@@ -193,7 +193,7 @@ end
 
 function rUtils.GetPedMugshot(ped)
 	if DoesEntityExist(ped) then
-		mugshot = RegisterPedheadshot(ped)
+		local mugshot = RegisterPedheadshot(ped)
 
 		while not IsPedheadshotReady(mugshot) do
 			print("Waiting mugshot")
