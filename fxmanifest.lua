@@ -44,7 +44,8 @@ client_scripts {
     "client/weapons/*.lua",
 
     -- jobs
-    "client/mecano/*.lua",
+    "client/job/mecano/*.lua",
+    "client/job/ems/*.lua",
 
     -- Audio
 	"client/API/client/*.lua",
