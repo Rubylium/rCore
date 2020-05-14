@@ -6,6 +6,7 @@ pJob_Grade = 0
 pMoney = 0
 pBank = 0
 pDirty = 0
+pDeath = false
 pSocietyTable = {}
 pSocietyTable.money = 0
 pSocietyTable.inventory = {}
