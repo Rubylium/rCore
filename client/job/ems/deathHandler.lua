@@ -36,9 +36,7 @@ function SyncDeathWithPlayers()
     ClearPlayerWantedLevel(GetPlayerIndex())
     SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
     Citizen.CreateThread(function()
-        
         while pDeath do
-
             local pPed = GetPlayerPed(-1)
             local test, bone = GetPedLastDamageBone(pPed, 0)
 
@@ -49,7 +47,7 @@ function SyncDeathWithPlayers()
                 for k,v in pairs(FatalDamage) do
                     if LastDamage == v then
                         if not IsPedRagdoll(pPed) then
-                            SetPedToRagdoll(pPed, 1000, 1000, 0, 0, 0, 0)
+                            SetPedToRagdoll(pPed, 5000, 5000, 0, 0, 0, 0)
                             FatalInjured = true
                             break
                         end
@@ -71,5 +69,15 @@ function SyncDeathWithPlayers()
             end
             Wait(10)
         end
+
+        NetworkResurrectLocalPlayer(pCoords, heading, 0, 0)
+        ClearPlayerWantedLevel(GetPlayerIndex())
+        SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
     end)
+end
+
+
+
+function ResetDeathStatus()
+    pDeath = false
 end
