@@ -21,6 +21,11 @@ Citizen.CreateThread(function()
                     ["@inventory"] = json.encode(v.inventory),
                 }, function(rowsChanged) end)  
                 print("^2Saving ^7["..v.plate.."] to BDD with "..#v.inventory.." items in it.") -- debug
+                local entity = NetworkGetEntityFromNetworkId(v.NetID)
+                if not DoesEntityExist(entity) then
+                    print("^1Removing ^7["..v.plate.."] from vehicle cache.") -- debug
+                    VehicleInventoryCache[v.plate] = nil
+                end
             end
         end
     end
