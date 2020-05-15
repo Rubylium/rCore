@@ -59,7 +59,6 @@ function OpenVehicleChest()
             dst = GetDistanceBetweenCoords(trunkpos, pCoords, 1)
         end
         
-        print(trunkpos, dst, dstV)
         if dst < 2.5 then
             entity = VehToNet(vehicle)
             vClasse = GetVehicleClass(vehicle)
@@ -163,43 +162,39 @@ function OpenVehInventory()
 
             RageUI.IsVisible(RMenu:Get('core', 'veh_inv'), true, true, true, function()
                 RageUI.Separator("Coffre: "..VehInvTotal.."/"..VehLimit)
-                if #VehInventory == 0 then
-                    RageUI.Button("Coffre vide.", nil, {}, true, function()end)
-                else
-                    for k,v in pairs(VehInventory) do
-                        if v.olabel == v.label then
-                            RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
-                                if (Selected) then
-                                    local amount = CustomAmount()
-                                    if amount > 0 and amount <= v.count then
-                                        rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
-                                        TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
-                                        if amount == v.count then
-                                            VehInventory[k] = nil
-                                        else
-                                            VehInventory[k].count = VehInventory[k].count - amount
-                                        end
-                                        GetVehLimit(vClasse)
+                for k,v in pairs(VehInventory) do
+                    if v.olabel == v.label then
+                        RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                            if (Selected) then
+                                local amount = CustomAmount()
+                                if amount > 0 and amount <= v.count then
+                                    rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
+                                    TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
+                                    if amount == v.count then
+                                        VehInventory[k] = nil
+                                    else
+                                        VehInventory[k].count = VehInventory[k].count - amount
                                     end
+                                    GetVehLimit(vClasse)
                                 end
-                            end)
-                        else
-                            RageUI.Button("["..v.label.."] "..v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
-                                if (Selected) then
-                                    local amount = CustomAmount()
-                                    if amount > 0 and amount <= v.count then
-                                        rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
-                                        TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
-                                        if amount == v.count then
-                                            VehInventory[k] = nil
-                                        else
-                                            VehInventory[k].count = VehInventory[k].count - amount
-                                        end
-                                        GetVehLimit(vClasse)
+                            end
+                        end)
+                    else
+                        RageUI.Button("["..v.label.."] "..v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                            if (Selected) then
+                                local amount = CustomAmount()
+                                if amount > 0 and amount <= v.count then
+                                    rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
+                                    TriggerServerEvent("core:RemoveItemFromVeh", pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
+                                    if amount == v.count then
+                                        VehInventory[k] = nil
+                                    else
+                                        VehInventory[k].count = VehInventory[k].count - amount
                                     end
+                                    GetVehLimit(vClasse)
                                 end
-                            end)
-                        end
+                            end
+                        end)
                     end
                 end
             end, function()
