@@ -8,12 +8,13 @@ end
 
 
 local society = nil
-local societyLabels = {}
+local societyLabels = {} 
 function OpenBossMenu(_society)
     society = _society
     TriggerServerEvent("rF:GetSocietyInfos", token, _society)
     RageUI.Visible(RMenu:Get('core', 'boss_menu'), true)
     Citizen.CreateThread(function()
+        open = true
         while open do
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'boss_menu'), true, true, true, function()
