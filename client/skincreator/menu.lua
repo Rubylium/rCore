@@ -55,7 +55,7 @@ function OpenCreatorMenu()
     CreateCreatorCam()
     CreatorMenuThread()
     RageUI.Visible(RMenu:Get('core', 'skincreator'), true)
-    PlayUrl("creatorMusic","https://www.youtube.com/watch?v=EwMjazrwPak",0.5, false)
+    PlayUrl("creatorMusic","https://www.youtube.com/watch?v=EwMjazrwPak",0.1, false)
 end
 
 
@@ -184,8 +184,9 @@ function CreatorMenuThread()
                 RageUI.IsVisible(RMenu:Get('core', v.item), true, true, true, function()
                     open = true
                     if v.c ~= nil then
-                        local value = GetValue(v.c)
-                        for i = v.min, value do
+                        local value = exports.rFramework:GetKeyValue(v.o)
+                        for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
+                            print(value, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1)
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
                             RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                                if s then

@@ -4,17 +4,17 @@ function GetMaxVals()
 		--{label = "sexe",                    item = "sex", 			max = 1,                                    											min = 0,},
 
 		{label = "t-Shirt", r = "tshirt_2", item = "tshirt_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 8) - 1,								min = 0,},
-		--{c = "tshirt_1", label = "Couleur du t-Shirt", 		item = "tshirt_2", 			min = 0,},
+		{c = 8, o = "tshirt_1", label = "Couleur du t-Shirt", 		item = "tshirt_2", 			min = 0,},
 		{label = "Veste", 	r = "torso_2", item = "torso_1", 					max	= GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 11) - 1,								min = 0,},
-		--{c = "torso_1", label = "Couleur de la veste", 	item = "torso_2", 		 		min = 0,},
+		{c = 11, o = "torso_1", label = "Couleur de la veste", 	item = "torso_2", 		 		min = 0,},
 		{label = "calques 1", r = "decals_2", item = "decals_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 10) - 1,								min = 0,},
-		--{c = "decals_1", label = "calques 2", 				item = "decals_2", 			min = 0,},
+		{c = 10, o = "decals_1", label = "calques 2", 				item = "decals_2", 			min = 0,},
 		{label = "bras", r = "arms_2", item = "arms", 						max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 3) - 1,								min = 0,},
 		{label = "Couleur des bras.", 		item = "arms_2", 					max = 10,																						min = 0,},
 		{label = "jambes 1", r = "pants_2", item = "pants_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 4) - 1,								min = 0,},
-		--{c = "pants_1", label = "jambes 2", 				item = "pants_2", 		 	min = 0,},
+		{c = 4, o = "pants_1", label = "jambes 2", 				item = "pants_2", 		 	min = 0,},
 		{label = "chaussures 1", r = "shoes_2", item = "shoes_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 6) - 1,								min = 0,},
-		--{c = "shoes_1", label = "Style des chaussures", 	item = "shoes_2", 		 	min = 0,},
+		{c = 6, o = "shoes_1", label = "Style des chaussures", 	item = "shoes_2", 		 	min = 0,},
 	}
 
 
