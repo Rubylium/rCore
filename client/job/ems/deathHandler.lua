@@ -15,7 +15,7 @@ Citizen.CreateThread(function()
                 SyncDeathWithPlayers()
             end
         end
-        Wait(5*1000)
+        Wait(2*1000)
     end
 end)
 
@@ -55,22 +55,40 @@ function SyncDeathWithPlayers()
                 end
             end
             if not FatalInjured then
-                if not IsEntityPlayingAnim(pPed, dict, anim, 1) then
+                SetPedCanRagdoll(pPed, false)
+                if IsControlPressed(1, 32) then
+                    if not IsEntityPlayingAnim(pPed, "move_injured_ground", "front_loop", 1) then
+                        rUtils.PlayAnim("move_injured_ground", "front_loop", 1)
+                    end
+                elseif IsControlPressed(1, 31) then
+                    if not IsEntityPlayingAnim(pPed, "move_injured_ground", "back_loop", 1) then
+                        rUtils.PlayAnim("move_injured_ground", "back_loop", 1)
+                    end
+                elseif IsControlPressed(1, 34) then
+                    if not IsEntityPlayingAnim(pPed, "move_injured_ground", "sidel_loop", 1) then
+                        rUtils.PlayAnim("move_injured_ground", "sidel_loop", 1)
+                    end
+                elseif IsControlPressed(1, 35) then
+                    if not IsEntityPlayingAnim(pPed, "move_injured_ground", "sider_loop", 1) then
+                        rUtils.PlayAnim("move_injured_ground", "sider_loop", 1)
+                    end
+                elseif not IsEntityPlayingAnim(pPed, dict, anim, 1) then
                     rUtils.PlayAnim(dict, anim, 1)
                 end
             else
+                SetPedCanRagdoll(pPed, true)
                 SetPedToRagdoll(pPed, 1000, 1000, 0, 0, 0, 0)
             end
 
             if IsPedDeadOrDying(pPed, 1) then
-                NetworkResurrectLocalPlayer(pCoords, heading, 0, 0)
+                NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
                 ClearPlayerWantedLevel(GetPlayerIndex())
                 SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
             end
             Wait(10)
         end
 
-        NetworkResurrectLocalPlayer(pCoords, heading, 0, 0)
+        NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
         ClearPlayerWantedLevel(GetPlayerIndex())
         SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
     end)
