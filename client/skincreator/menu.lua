@@ -67,7 +67,7 @@ AddEventHandler("core:OpenIdentityCreator", function()
 end)
 
 
-local NotSpamming = {}
+NotSpamming = {}
 local usingVipPed = false
 function CreatorMenuThread()
     local DisplayMenu = true

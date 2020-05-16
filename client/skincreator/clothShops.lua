@@ -1,0 +1,166 @@
+local ShopZone = {
+    vector3(-158.731, -297.06, 39.7),
+}
+
+for k,v in pairs(ShopZone) do
+    rUtils.RegisterActionZone({
+        pos = v,
+        action = function()
+            OpenClothShop()
+        end,
+    })
+end
+
+local open = false
+RMenu.Add('core', 'clothshop', RageUI.CreateMenu("Magasin vètement", "~b~Géstion des vétement de votre personnage."))
+RMenu:Get('core', 'clothshop').Closed = function()
+    exports.rFramework:ReloadPlayerCloth()
+    KillCreatorCam()
+    Destroy("clothshop_ambience")
+    open = false
+end;
+
+RMenu.Add('core', "tenues_create", RageUI.CreateSubMenu(RMenu:Get('core', 'clothshop'), "Magasin vètement", "~b~Géstion des vétement de votre personnage."))
+RMenu:Get('core', "tenues_create").Closed = function()
+    exports.rFramework:ReloadPlayerCloth()
+    PlayRandomClothAnim()
+end;
+
+RMenu.Add('core', "tenues", RageUI.CreateSubMenu(RMenu:Get('core', 'clothshop'), "Magasin vètement", "~b~Géstion des vétement de votre personnage."))
+RMenu:Get('core', "tenues").Closed = function()
+    exports.rFramework:ReloadPlayerCloth()
+    PlayRandomClothAnim()
+end;
+
+local clothing = {}
+function GetClothValues()
+    local _clothing = {
+        {label = "t-Shirt", r = "tshirt_2", item = "tshirt_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 8) - 1,								min = 0,},
+        {c = 8, o = "tshirt_1", label = "Couleur du t-Shirt", 		item = "tshirt_2", 			min = 0,},
+        {label = "Veste", 	r = "torso_2", item = "torso_1", 					max	= GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 11) - 1,								min = 0,},
+        {c = 11, o = "torso_1", label = "Couleur de la veste", 	item = "torso_2", 		 		min = 0,},
+        {label = "calques 1", r = "decals_2", item = "decals_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 10) - 1,								min = 0,},
+        {c = 10, o = "decals_1", label = "calques 2", 				item = "decals_2", 			min = 0,},
+        {label = "bras", r = "arms_2", item = "arms", 						max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 3) - 1,								min = 0,},
+        {label = "Couleur des gants.", 		item = "arms_2", 					max = 10,																						min = 0,},
+        {label = "Pantalon", r = "pants_2", item = "pants_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 4) - 1,								min = 0,},
+        {c = 4, o = "pants_1", label = "Variation du pantalon", 				item = "pants_2", 		 	min = 0,},
+        {label = "chaussures 1", r = "shoes_2", item = "shoes_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 6) - 1,								min = 0,},
+        {c = 6, o = "shoes_1", label = "Style des chaussures", 	item = "shoes_2", 		 	min = 0,},
+    }
+    clothing = _clothing
+end
+
+Citizen.CreateThread(function()
+    GetClothValues()
+    for k,v in pairs(clothing) do
+        RMenu.Add('core', v.item.."1", RageUI.CreateSubMenu(RMenu:Get('core', 'tenues_create'), "Création personnage", "~b~Géstion des vétement de votre personnage."))
+        RMenu:Get('core', v.item.."1").Closed = function()
+            exports.rFramework:ReloadPlayerCloth()
+            SwitchCam(true, "default")
+            PlayRandomClothAnim()
+        end
+    end
+end)
+
+
+function OpenClothShop()
+    RageUI.Visible(RMenu:Get('core', 'clothshop'), true)
+    CreateCreatorCam()
+    OpenClothShopThread()
+    PlayUrl("clothshop_ambience","https://www.youtube.com/watch?v=neV3EPgvZ3g", 0.05, false)
+    GetClothValues()
+end
+
+
+function OpenClothShopThread()
+    Citizen.CreateThread(function()
+        open = true
+        while open do
+            Wait(1)
+            RageUI.IsVisible(RMenu:Get('core', 'clothshop'), true, true, true, function()
+                RageUI.Button("Faire une nouvelle tenue", nil, { RightLabel = "→→" }, true, function()
+                end, RMenu:Get('core', 'tenues_create'))
+
+                RageUI.Button("Voir vos tenues", nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
+                end, RMenu:Get('core', 'tenues'))
+
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'tenues_create'), true, true, true, function()
+                for k,v in pairs(clothing) do
+                    RageUI.Button(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
+                        if s then
+                            SwitchCam(false, v.item)
+                        end
+                    end, RMenu:Get('core', v.item.."1"))
+                end
+
+            end, function()
+            end)
+
+            for k,v in pairs(clothing) do
+                RageUI.IsVisible(RMenu:Get('core', v.item.."1"), true, true, true, function()
+                    RageUI.Button("Faire tourner son personnage.", nil, {}, true, function(_,_,s)
+                        if s then
+                            ClearPedTasks(GetPlayerPed(-1))
+                            local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
+                            TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
+                        end
+                    end)
+                    if v.c ~= nil then
+                        local value = exports.rFramework:GetKeyValue(v.o)
+                        for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
+                            if NotSpamming[k] == nil then NotSpamming[k] = i end
+                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                               if s then
+                                   TriggerEvent("skinchanger:change", v.item, i)
+                                   TriggerEvent("rF:SaveSkin")
+                               end
+                               if h then
+                                    if NotSpamming[k] ~= i then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                       NotSpamming[k] = i
+                                    end
+                               end
+                            end) 
+                        end
+                    else
+                        for i = v.min, v.max do
+                            if NotSpamming[k] == nil then NotSpamming[k] = i end
+                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                               if s then
+                                   TriggerEvent("skinchanger:change", v.item, i)
+                                   TriggerEvent("rF:SaveSkin")
+                               end
+                               if h then
+                                   if NotSpamming[k] ~= i then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                       NotSpamming[k] = i
+                                   end
+                               end
+                            end) 
+                        end
+                    end
+
+                end, function()
+
+                end)
+            end
+
+            RageUI.IsVisible(RMenu:Get('core', 'tenues'), true, true, true, function()
+                open = true
+                for k,v in pairs(pClothing) do
+                    RageUI.Button(v.name, nil, { RightLabel = "Appliquer la tenue →" }, not usingVipPed, function(_,_,s)
+                        if s then
+                            TriggerEvent("skinchanger:loadSkin", v.data)
+                        end
+                    end)
+                end
+            end, function()
+            end)
+
+        end
+    end)
+end
