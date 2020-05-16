@@ -33,6 +33,10 @@ AddEventHandler("rF:JobRefresh", function(job, grade)
     LoadData()
 end)
 
+RegisterNetEvent("rF:RefreshCloths")
+AddEventHandler("rF:RefreshCloths", function(cloths)
+    pClothing = cloths
+end)
 
 RegisterNetEvent("rF:SendPlayerAccounts")
 AddEventHandler("rF:SendPlayerAccounts", function(money, bank, dirty)
@@ -43,7 +47,7 @@ end)
 
 
 RegisterNetEvent("rF:initializeinfo")
-AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity)
+AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths)
     pJob = job
     pJob_Grade = grade
     pMoney = money
@@ -54,6 +58,7 @@ AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, jo
         pNom = identity.nom
         pAge = identity.age
     end
+    pClothing = cloths
     LoadData()
 end)
 

@@ -51,6 +51,10 @@ client_scripts {
 	"client/API/client/*.lua",
 }
 
+exports {
+    "ResetDeathStatus",
+}
+
 server_scripts {
     '@mysql-async/lib/MySQL.lua',
     "server/*.lua",
