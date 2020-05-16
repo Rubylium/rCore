@@ -1,5 +1,6 @@
 token = ""
 pInventory = {}
+pClothing = {}
 pWeight = 0
 pJob = ""
 pJob_Grade = 0
