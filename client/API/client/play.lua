@@ -20,8 +20,6 @@ function PlayUrl(name_, url_, volume_, loop_)
     soundInfo[name_].loop = loop_ or false
 end
 
-print("Yes")
-
 function PlayUrlPos(name_, url_, volume_, pos, loop_)
     SendNUIMessage({
         status = "url",
