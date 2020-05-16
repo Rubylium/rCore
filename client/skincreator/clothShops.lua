@@ -89,6 +89,12 @@ function OpenClothShopThread()
             end)
 
             RageUI.IsVisible(RMenu:Get('core', 'tenues_create'), true, true, true, function()
+                RageUI.Button("Enregistrer la tenue actuel.", nil, {}, true, function(_,_,s)
+                    if s then
+                        local name = CustomString()
+                        TriggerEvent("rF:SaveCloth", name)
+                    end
+                end)
                 for k,v in pairs(clothing) do
                     RageUI.Button(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
                         if s then
@@ -143,7 +149,6 @@ function OpenClothShopThread()
                             end) 
                         end
                     end
-
                 end, function()
 
                 end)
@@ -152,9 +157,9 @@ function OpenClothShopThread()
             RageUI.IsVisible(RMenu:Get('core', 'tenues'), true, true, true, function()
                 open = true
                 for k,v in pairs(pClothing) do
-                    RageUI.Button(v.name, nil, { RightLabel = "Appliquer la tenue →" }, not usingVipPed, function(_,_,s)
+                    RageUI.Button(v.name, nil, { RightLabel = "Appliquer la tenue →" }, true, function(_,_,s)
                         if s then
-                            TriggerEvent("skinchanger:loadSkin", v.data)
+                            TriggerEvent("skinchanger:loadClothesOnly", v.data)
                         end
                     end)
                 end
