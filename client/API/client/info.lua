@@ -32,9 +32,10 @@ function soundExists(name_)
         return false
     end
     return true
-end
+end 
 
 function isPlaying(name_)
+    if soundInfo[name_] == nil then return false end
     return soundInfo[name_].playing
 end
 
