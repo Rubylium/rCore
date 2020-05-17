@@ -38,6 +38,7 @@ $(function() {
                 sd.play();
                 soundList[item.name] = sd;
             } else {
+                console.log(item.x, item.y, item.z, item.url, item.loop, item.volume);
                 sound.setLocation(item.x, item.y, item.z);
                 sound.setSoundUrl(item.url);
                 sound.setLoop(item.loop);
