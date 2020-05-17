@@ -129,7 +129,6 @@ class SoundPlayer {
         var vol = 0;
 
         var distance = (d_now / d_max);
-
         if (distance < 1) {
             distance = distance * 100;
             var far_away = 100 - distance;
