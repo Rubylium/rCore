@@ -17,7 +17,7 @@ function Position(name_, pos)
     })
     soundInfo[name_].position = pos
     soundInfo[name_].id = name_
-end
+end 
 
 function Destroy(name_)
     SendNUIMessage({
