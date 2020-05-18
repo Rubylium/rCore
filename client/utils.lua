@@ -7,12 +7,17 @@ Citizen.CreateThread(function()
 	DecorRegister("veh_allowed", 2)
 	while true do
 		--ClearPlayerWantedLevel(GetPlayerIndex())
-		SetEveryoneIgnorePlayer(GetPlayerIndex(), true)
-		SetIgnoreLowPriorityShockingEvents(GetPlayerIndex(), true)
-		SetPlayerNoiseMultiplier(GetPlayerIndex(), -5.0)
-		SetPlayerSneakingNoiseMultiplier(GetPlayerIndex(), 500.0)
+		for v in EnumeratePeds() do
+			if not IsPedAPlayer(v) then
+				SetPedAccuracy(v, 100.0)
+				SetPedCombatAbility(v, 2)
+				SetPedCombatAttributes(v, 1424, true)
+				SetPedCombatRange(v, 2)
+			end
+		end
+		SetWantedLevelDifficulty(PlayerId(), 1.0)
 		RestorePlayerStamina(PlayerId(), 1.0)
-		Wait(1000)
+		Wait(5000)
 	end
 end)
 
