@@ -2,7 +2,7 @@ rUtils.RegisterControlKey("inventaire", "Ouvrir l'inventaire", "F5", function()
     TriggerServerEvent("rF:GetPlayerInventory")
     TriggerServerEvent("rF:GetPlayerAccounts", token)
     OpenPlayerMenu()
-    RageUI.Visible(RMenu:Get('core', 'main'), true)
+    RageUI.Visible(RMenu:Get('core', 'main'), not RageUI.Visible(RMenu:Get('core', 'main')))
 end)
 
 
