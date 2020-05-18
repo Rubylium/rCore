@@ -79,10 +79,10 @@ function CreatorMenuThread()
                 RageUI.Button("Faire son identité", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'skincreator_identity'))
 
-                RageUI.Button("Personalisation du visage", nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
+                RageUI.Button("Personalisation du visage", nil, { RightLabel = "→→" }, true, function(_,_,s)
                 end, RMenu:Get('core', 'skincreator_face'))
 
-                RageUI.Button("Personalisation de la tenue", nil, { RightLabel = "→→" }, not usingVipPed, function()
+                RageUI.Button("Personalisation de la tenue", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'skincreator_skin'))
                 RageUI.Separator("")
                 RageUI.Button("~g~Valider la création de votre personnage.", nil, { RightLabel = "→→" }, true, function(_,_,s)
