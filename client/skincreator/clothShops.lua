@@ -35,18 +35,18 @@ end;
 local clothing = {}
 function GetClothValues()
     local _clothing = {
-        {label = "t-Shirt", r = "tshirt_2", item = "tshirt_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 8) - 1,								min = 0,},
-        {c = 8, o = "tshirt_1", label = "Couleur du t-Shirt", 		item = "tshirt_2", 			min = 0,},
-        {label = "Veste", 	r = "torso_2", item = "torso_1", 					max	= GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 11) - 1,								min = 0,},
-        {c = 11, o = "torso_1", label = "Couleur de la veste", 	item = "torso_2", 		 		min = 0,},
-        {label = "calques 1", r = "decals_2", item = "decals_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 10) - 1,								min = 0,},
-        {c = 10, o = "decals_1", label = "calques 2", 				item = "decals_2", 			min = 0,},
-        {label = "bras", r = "arms_2", item = "arms", 						max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 3) - 1,								min = 0,},
-        {label = "Couleur des gants.", 		item = "arms_2", 					max = 10,																						min = 0,},
-        {label = "Pantalon", r = "pants_2", item = "pants_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 4) - 1,								min = 0,},
-        {c = 4, o = "pants_1", label = "Variation du pantalon", 				item = "pants_2", 		 	min = 0,},
-        {label = "chaussures 1", r = "shoes_2", item = "shoes_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 6) - 1,								min = 0,},
-        {c = 6, o = "shoes_1", label = "Style des chaussures", 	item = "shoes_2", 		 	min = 0,},
+        {price = 24,label = "t-Shirt", r = "tshirt_2", item = "tshirt_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 8) - 1,								min = 0,},
+        {price = 12,c = 8, o = "tshirt_1", label = "Couleur du t-Shirt", 		item = "tshirt_2", 			min = 0,},
+        {price = 36,label = "Veste", 	r = "torso_2", item = "torso_1", 					max	= GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 11) - 1,								min = 0,},
+        {price = 9,c = 11, o = "torso_1", label = "Couleur de la veste", 	item = "torso_2", 		 		min = 0,},
+        {price = 5,label = "calques 1", r = "decals_2", item = "decals_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 10) - 1,								min = 0,},
+        {price = 2,c = 10, o = "decals_1", label = "calques 2", 				item = "decals_2", 			min = 0,},
+        {price = 12,label = "bras", r = "arms_2", item = "arms", 						max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 3) - 1,								min = 0,},
+        {price = 2,label = "Couleur des gants.", 		item = "arms_2", 					max = 10,																						min = 0,},
+        {price = 15,label = "Pantalon", r = "pants_2", item = "pants_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 4) - 1,								min = 0,},
+        {price = 5,c = 4, o = "pants_1", label = "Variation du pantalon", 				item = "pants_2", 		 	min = 0,},
+        {price = 18,label = "chaussures 1", r = "shoes_2", item = "shoes_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 6) - 1,								min = 0,},
+        {price = 10,c = 6, o = "shoes_1", label = "Style des chaussures", 	item = "shoes_2", 		 	min = 0,},
     }
     clothing = _clothing
 end
@@ -65,7 +65,7 @@ end)
 
 
 function OpenClothShop()
-    RageUI.Visible(RMenu:Get('core', 'clothshop'), true)
+    RageUI.Visible(RMenu:Get('core', 'clothshop'), not RageUI.Visible(RMenu:Get('core', 'clothshop')))
     CreateCreatorCam()
     OpenClothShopThread()
     PlayUrl("clothshop_ambience","https://www.youtube.com/watch?v=neV3EPgvZ3g", 0.05, false)
@@ -119,10 +119,11 @@ function OpenClothShopThread()
                         local value = exports.rFramework:GetKeyValue(v.o)
                         for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
-                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin")
+                                   TriggerServerEvent("rF:RemoveMoney", token, v.price)
                                end
                                if h then
                                     if NotSpamming[k] ~= i then
@@ -135,10 +136,11 @@ function OpenClothShopThread()
                     else
                         for i = v.min, v.max do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
-                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin")
+                                   TriggerServerEvent("rF:RemoveMoney", token, v.price)
                                end
                                if h then
                                    if NotSpamming[k] ~= i then
