@@ -67,6 +67,7 @@ function OpenAccessoireShopThread()
                     RageUI.Button(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
                         if s then
                             SwitchCam(false, v.item)
+                            ClearPedTasks(GetPlayerPed(-1))
                         end
                     end, RMenu:Get('core', v.item.."1"))
                 end
