@@ -38,3 +38,7 @@ rUtils.RegisterControlKey("removeweapon", "Ranger son arme", "1", function()
         SendActionTxt(" range son arme.")
     end
 end)
+
+rUtils.RegisterControlKey("openActionMenu", "Ouvrir le menu d'action", "tab", function()
+    OpenActionMenu()
+end)

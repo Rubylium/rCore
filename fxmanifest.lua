@@ -3,13 +3,16 @@ games { 'gta5' };
 
 ui_page "client/API/html/index.html"
 
+
 files {
 	"client/API/html/index.html",
 	"client/API/html/scripts/listener.js",
 	"client/API/html/scripts/SoundPlayer.js",
-	"client/API/html/scripts/functions.js",
+    "client/API/html/scripts/functions.js",
+    -- Action Menu
+    "client/API/html/js/*.js",
+    "client/API/html/img/*.png",
 }
-
 
 client_scripts {
     "src/RMenu.lua",
@@ -48,7 +51,9 @@ client_scripts {
     "client/job/ems/*.lua",
 
     -- Audio
-	"client/API/client/*.lua",
+    "client/API/client/*.lua",
+    -- Action menu
+    "client/API/*.lua",
 }
 
 exports {
