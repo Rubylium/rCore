@@ -133,6 +133,14 @@ MusicZone = {
         pos = vector3(-448.02, 271.02, 83.02),
         max = 0.09,
     },
+    {
+        name = "ifruit_ambient",
+        link = "https://www.youtube.com/watch?v=Eq7rItvK9Vg", 
+        dst = 25.0,
+        starting = 100.0,
+        pos = vector3(-628.32, -277.15, 35.5),
+        max = 0.07,
+    },
 }
 
 Citizen.CreateThread(function()
