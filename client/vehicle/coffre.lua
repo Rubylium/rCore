@@ -15,6 +15,7 @@ RMenu:Get('core', 'veh_main').Closed = function()
     TriggerServerEvent("core:OpenVehHood", entity, false)
     DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 0)
     DecorRemove(NetToEnt(entity), "TRUCK_OPEN")
+    StopGameplayHint(true)
 end
 
 RMenu.Add('core', 'veh_inv', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~Coffre du véhicule"))
@@ -60,6 +61,12 @@ function OpenVehicleChest()
         end
         
         if dst < 2.5 then
+            if trunkpos == vector3(0,0,0) then 
+                SetGameplayCoordHint(GetEntityCoords(vehicle), 1500, 1500, 1500, 0)
+            else
+                SetGameplayCoordHint(trunkpos.x, trunkpos.y, trunkpos.z+1.0, 1500, 1500, 1500, 0)
+            end
+            
             entity = VehToNet(vehicle)
             vClasse = GetVehicleClass(vehicle)
             vPlate = GetVehicleNumberPlateText(vehicle)
