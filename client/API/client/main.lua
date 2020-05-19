@@ -159,25 +159,22 @@ Citizen.CreateThread(function()
         local pCoords = GetEntityCoords(pPed)
         for k,v in pairs(MusicZone) do
             local dst = GetDistanceBetweenCoords(pCoords, v.pos, true)
-            if dst < v.starting then
-                NearZone = true
-                if soundExists(v.name) then
-                    Resume(v.name)
-                    break
+            if not NearZone then
+                if dst < v.starting then
+                    NearZone = true
+                    if soundExists(v.name) then
+                        Resume(v.name)
+                    else
+                        PlayUrlPos(v.name, v.link, v.max, v.pos, true)
+                        setVolumeMax(v.name, v.max)
+                        Distance(v.name, v.dst)
+                        print("Ambience "..v.name.." created and ^2started")
+                    end
                 else
-                    PlayUrlPos(v.name, v.link, v.max, v.pos, true)
-                    setVolumeMax(v.name, v.max)
-                    Distance(v.name, v.dst)
-                    print("Ambience "..v.name.." created and ^2started")
-                    break
-                end
-                break
-            else
-                if soundExists(v.name) then
-                    if not isPaused(v.name) then
-                        Destroy(v.name)
-                        print("Ambience "..v.name.." ^1stopped")
-                        break
+                    if soundExists(v.name) then
+                        if not isPaused(v.name) then
+                            Pause(v.name)
+                        end
                     end
                 end
             end
