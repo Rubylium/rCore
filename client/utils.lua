@@ -305,11 +305,20 @@ rUtils.GetVehicleProperties = function(vehicle)
 		modWindows        = GetVehicleMod(vehicle, 46),
 		modLivery         = GetVehicleLivery(vehicle),
 		windowStatus = {},
+		tyres = {},
 		
 	}
 
-	for i = 1,13 do
-		props.windowStatus[i] = IsVehicleWindowIntact(vehicle, i)
+	print(vehicle)
+	if vehicle ~= nil then
+		for i = 1,13 do
+			props.windowStatus[i] = IsVehicleWindowIntact(vehicle, i)
+		end
+
+		for i = 0, 5 do
+			props.tyres[i] = IsVehicleTyreBurst(vehicle, i, true)
+			print(props.tyres[i])
+		end
 	end
 
 	return props
@@ -568,9 +577,19 @@ rUtils.SetVehicleProperties = function(vehicle, props)
 		SetVehicleLivery(vehicle, props.modLivery)
 	end
 
-	for k,v in pairs(props.windowStatus) do
-		if not v then
-			SmashVehicleWindow(vehicle, k)
+	if props.windowStatus ~= nil then
+		for k,v in pairs(props.windowStatus) do
+			if not v then
+				SmashVehicleWindow(vehicle, k) 
+			end
+		end
+	end
+
+	if props.tyres ~= nil then
+		for k,v in pairs(props.tyres) do
+			if v then
+				SetVehicleTyreBurst(vehicle, tonumber(k), true, 1000.0)
+			end
 		end
 	end
 end
@@ -646,6 +665,15 @@ function rUtils.showHelpNotification(msg)
 	AddTextEntry('HelpNotification', msg)
 	BeginTextCommandDisplayHelp('HelpNotification')
 	EndTextCommandDisplayHelp(0, false, false, 1)
+end
+
+
+function rUtils.ShowFloatingHelpNotification(msg, coords)
+	AddTextEntry('FloatingNotif', msg)
+	SetFloatingHelpTextWorldPosition(1, coords)
+	SetFloatingHelpTextStyle(1, 1, 2, -1, 3, 0)
+	BeginTextCommandDisplayHelp('FloatingNotif')
+	EndTextCommandDisplayHelp(2, false, false, -1)
 end
 
 local entityEnumerator = {
