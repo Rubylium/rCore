@@ -43,12 +43,22 @@ AddEventHandler("core:DEV-SaveVehToGarage", function(name, plate, props)
 
     for k,v in pairs(PlayersVehCache[id]) do
         if v.plate == plate then
-            MySQL.Async.execute('UPDATE `player_vehs` SET player_vehs.props = @props WHERE player_vehs.plate = @plate', {
-                ["@props"] = vprops,
-                ["@plate"] = plate,
-            }, function(rowsChanged) end)  
-            print("^2UPDATING ^7Vehs props for veh "..plate..".")
-            v.props = json.encode(vprops)
+            if v.props ~= vprops then
+                local _props = json.decode(v.props)
+                print(_props.model, props.model)
+                if _props.model == props.model then
+                    MySQL.Async.execute('UPDATE `player_vehs` SET player_vehs.props = @props WHERE player_vehs.plate = @plate', {
+                        ["@props"] = vprops,
+                        ["@plate"] = plate,
+                    }, function(rowsChanged) end)  
+                    print("^2UPDATING ^7Vehs props for veh "..plate..".")
+                    v.props = vprops
+                else
+                    -- Anti cheat detection
+                end
+            else
+                print("^2UPDATING NOT NEEDED ^7Vehs props for veh "..plate..".")
+            end
             return
         end
     end
