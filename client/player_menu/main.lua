@@ -196,6 +196,7 @@ function OpenPlayerMenu()
                         if accessoire.casque then
                             accessoire.casque = false
                             ClearPedProp(GetPlayerPed(-1), 0)
+                            rUtils.PlayAnim("veh@bike@common@front@base", "take_off_helmet_stand", 11, 1.0, 1.0, 1.0, 850)
                         else
                             accessoire.casque = true
                             local key = exports.rFramework:GetKeyValue("helmet_1")
@@ -210,6 +211,7 @@ function OpenPlayerMenu()
                         if accessoire.lunette then
                             accessoire.lunette = false
                             ClearPedProp(GetPlayerPed(-1), 1)
+                            rUtils.PlayAnim("veh@bike@common@front@base", "take_off_helmet_stand", 11, 1.0, 1.0, 1.0, 850)
                         else
                             accessoire.lunette = true
                             local key = exports.rFramework:GetKeyValue("glasses_1")
@@ -226,11 +228,13 @@ function OpenPlayerMenu()
                             accessoire.mask = false
                             local key2 = exports.rFramework:GetKeyValue("mask_2")
                             SetPedComponentVariation(GetPlayerPed(-1), 1, 0, key2, 2)	
+                            rUtils.PlayAnim("missfbi4", "takeoff_mask", 11, 1.0, 1.0, 1.0, 850)
                         else
                             accessoire.mask = true
                             local key = exports.rFramework:GetKeyValue("mask_1")
                             local key2 = exports.rFramework:GetKeyValue("mask_2")
                             SetPedComponentVariation(GetPlayerPed(-1), 1, key, key2, 2)
+                            rUtils.PlayAnim("mp_masks@on_foot", "put_on_mask", 11, 1.0, 1.0, 1.0, 850)
                         end
                     end
                 end)
