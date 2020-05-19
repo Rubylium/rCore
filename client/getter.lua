@@ -13,9 +13,22 @@ pSocietyTable = {}
 pSocietyTable.money = 0
 pSocietyTable.inventory = {}
 
+pPed = nil
+pVeh = nil
+pVehLast = nil
+
 pPrenom = ""
 pNom = ""
 pAge = ""
+
+Citizen.CreateThread(function()
+    while true do
+        pPed = GetPlayerPed(-1)
+        pVeh = GetVehiclePedIsIn(pPed, 0)
+        pVehLast = GetVehiclePedIsIn(pPed, 1)
+        Wait(2000)
+    end
+end)
 
 RegisterNetEvent("rF:SendPlayerInventory")
 AddEventHandler("rF:SendPlayerInventory", function(inv, weight)
