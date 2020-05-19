@@ -98,6 +98,13 @@ function OpenVehInventory()
     Citizen.CreateThread(function()
         while open do
             Wait(1)
+            local trunkpos = GetWorldPositionOfEntityBone(NetToEnt(entity), GetEntityBoneIndexByName(NetToEnt(entity), "neon_b"))
+            if trunkpos == vector3(0,0,0) then 
+                trunkpos = GetEntityCoords(NetToEnt(entity))
+            else
+                trunkpos = vector3(trunkpos.x, trunkpos.y, trunkpos.z+0.4)
+            end
+            rUtils.ShowFloatingHelpNotification("Poids: "..VehInvTotal.."/"..VehLimit, trunkpos)
             RageUI.IsVisible(RMenu:Get('core', 'veh_main'), true, true, true, function()
                 RageUI.Button("Prendre", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then TriggerServerEvent("core:GetVehicleInventory", vPlate, entity, false) TempAdd = 0 end
