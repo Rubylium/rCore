@@ -19,10 +19,11 @@ function OpenVehMenu()
                 RageUI.Button("[DEV] Ajouter garage", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then
                         local pPed = GetPlayerPed(-1)
-                        local pVeh = GetVehiclePedIsIn(pPed, 0)
+                        local pVeh = GetVehiclePedIsIn(pPed, false)
                         local vName = GetDisplayNameFromVehicleModel(GetEntityModel(pVeh))
                         local props = rUtils.GetVehicleProperties(pVeh)
                         TriggerServerEvent("core:DEV-SaveVehToGarage", vName, props.plate, props)
+                        DeleteEntity(pVeh)
                     end
                 end)
                 for k,v in pairs(pVehs) do
