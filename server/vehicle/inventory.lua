@@ -7,7 +7,7 @@ local second = 1000
 local minute = 60*second
 Citizen.CreateThread(function()
     while true do
-        Wait(20*second)
+        Wait(1*minute)
         for k,v in pairs(VehicleInventoryCache) do
             if v.owned == false then
                 local entity = NetworkGetEntityFromNetworkId(v.NetID)
@@ -20,7 +20,7 @@ Citizen.CreateThread(function()
                     ["@plate"] = v.plate,
                     ["@inventory"] = json.encode(v.inventory),
                 }, function(rowsChanged) end)  
-                print("^2Saving ^7["..v.plate.."] to BDD with "..#v.inventory.." items in it.") -- debug
+                print("^2Saving ^7["..v.plate.."] to BDD.") -- debug
                 local entity = NetworkGetEntityFromNetworkId(v.NetID)
                 if not DoesEntityExist(entity) then
                     print("^1Removing ^7["..v.plate.."] from vehicle cache.") -- debug
