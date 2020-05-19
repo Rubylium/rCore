@@ -50,7 +50,7 @@ AddEventHandler("core:GetVehicleInventory", function(plate, net, _owned)
     if info[1] ~= nil then
         for k,v in pairs(info) do
             local decodedInv = json.decode(v.inventory)
-            VehicleInventoryCache[plate] = {plate = v.plate,inventory = decodedInv, owned = 1, NetID = nil}
+            VehicleInventoryCache[plate] = {plate = v.plate,inventory = decodedInv, owned = 1, NetID = net}
             print("^2Added ^7["..v.plate.."] to vehicle cache with "..#decodedInv.." items in it.")
         end
     else
