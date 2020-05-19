@@ -39,6 +39,8 @@ function OpenVehMenu()
                             end
                             rUtils.SpawnVehicle(name, pos, heading, props, function(veh)
                                 AddBlipForEntity(veh)
+                                DecorSetBool(veh, "OWNED_VEH", true)
+                                print(DecorExistOn(veh, "OWNED_VEH"))
                             end)
                             
                         end
