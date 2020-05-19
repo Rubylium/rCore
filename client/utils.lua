@@ -152,7 +152,7 @@ function rUtils.GetZoneFromTable(table)
 	end
 end
 
-function rUtils.SpawnVehicle(model, coords, heading, props)
+function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	rUtils.LoadModel(model)
 	local vehicle = CreateVehicle(GetHashKey(model), coords, heading, 1, 1)
 	SetVehicleOnGroundProperly(vehicle)
@@ -163,6 +163,7 @@ function rUtils.SpawnVehicle(model, coords, heading, props)
 	if props ~= nil then
 		rUtils.SetVehicleProperties(vehicle, props)
 	end
+	cb(vehicle)
 end
 
 function rUtils.GetClosestObject(vector, radius, modelHash, testFunction)
@@ -223,7 +224,7 @@ rUtils.GetVehicleProperties = function(vehicle)
 		end
 	end
 
-	return {
+	local props = {
 
 		model             = GetEntityModel(vehicle),
 
@@ -302,8 +303,16 @@ rUtils.GetVehicleProperties = function(vehicle)
 		modTrimB          = GetVehicleMod(vehicle, 44),
 		modTank           = GetVehicleMod(vehicle, 45),
 		modWindows        = GetVehicleMod(vehicle, 46),
-		modLivery         = GetVehicleLivery(vehicle)
+		modLivery         = GetVehicleLivery(vehicle),
+		windowStatus = {},
+		
 	}
+
+	for i = 1,13 do
+		props.windowStatus[i] = IsVehicleWindowIntact(vehicle, i)
+	end
+
+	return props
 end
 
 rUtils.SetVehicleProperties = function(vehicle, props)
@@ -557,6 +566,12 @@ rUtils.SetVehicleProperties = function(vehicle, props)
 	if props.modLivery ~= nil then
 		SetVehicleMod(vehicle, 48, props.modLivery, false)
 		SetVehicleLivery(vehicle, props.modLivery)
+	end
+
+	for k,v in pairs(props.windowStatus) do
+		if not v then
+			SmashVehicleWindow(vehicle, k)
+		end
 	end
 end
 
