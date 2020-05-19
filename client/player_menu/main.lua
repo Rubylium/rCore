@@ -9,6 +9,8 @@ RMenu.Add('core', 'inventory_use', RageUI.CreateSubMenu(RMenu:Get('core', 'inven
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 
+RMenu.Add('core', 'accessoire', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+
 RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 
 local selected = {
@@ -22,7 +24,11 @@ local moneySelected = {
     type = nil,
     count = nil,
 }
-
+local accessoire = {
+    casque = true,
+    lunette = true,
+    mask = true,
+}
 local menuColor = {66, 173, 245}
 Citizen.CreateThread(function()
     Wait(1000)
@@ -42,6 +48,8 @@ function OpenPlayerMenu()
                 end, RMenu:Get('core', 'inventory'))
                 RageUI.Button("Portefeuille", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'portefeuille'))
+                RageUI.Button("Géstion accessoire", nil, { RightLabel = "→→" }, true, function()
+                end, RMenu:Get('core', 'accessoire'))
                 RageUI.Button("Divers", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'divers'))
 
@@ -182,6 +190,38 @@ function OpenPlayerMenu()
             end, function()
             end)
 
+            RageUI.IsVisible(RMenu:Get('core', 'accessoire'), true, true, true, function()
+                RageUI.Button("Chapeau", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.casque) }, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        if accessoire.casque then
+                            accessoire.casque = false
+                            ClearPedProp(GetPlayerPed(-1), 0)
+                        else
+                            accessoire.casque = true
+                            local key = exports.rFramework:GetKeyValue("helmet_1")
+                            local key2 = exports.rFramework:GetKeyValue("helmet_2")
+                            SetPedPropIndex(GetPlayerPed(-1), 0, key, key2, 2)
+                        end
+                    end
+                end)
+
+                RageUI.Button("Lunette", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.lunette) }, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        if accessoire.lunette then
+                            accessoire.lunette = false
+                            ClearPedProp(GetPlayerPed(-1), 1)
+                        else
+                            accessoire.lunette = true
+                            local key = exports.rFramework:GetKeyValue("glasses_1")
+                            local key2 = exports.rFramework:GetKeyValue("glasses_2")
+                            SetPedPropIndex(GetPlayerPed(-1), 1, key, key2, 2)
+                        end
+                    end
+                end)
+
+            end, function()
+            end)
+
             RageUI.IsVisible(RMenu:Get('core', 'divers'), true, true, true, function()
                 RageUI.Button("Activer/Desactiver l'HUD", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
@@ -223,6 +263,14 @@ function OpenPlayerMenu()
 
         end
     end)
+end
+
+function MettreOuEnleverDisplay(status)
+    if status then
+        return " Enlever"
+    else
+        return " Mettre"
+    end
 end
 
 local AllMenuToChange = nil
