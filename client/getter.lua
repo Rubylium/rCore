@@ -1,6 +1,7 @@
 token = ""
 pInventory = {}
 pClothing = {}
+pVehs = {}
 pWeight = 0
 pJob = ""
 pJob_Grade = 0
@@ -36,6 +37,11 @@ end)
 RegisterNetEvent("rF:RefreshCloths")
 AddEventHandler("rF:RefreshCloths", function(cloths)
     pClothing = cloths
+end)
+
+RegisterNetEvent("core:GetPlayersVehicle")
+AddEventHandler("core:GetPlayersVehicle", function(vehs)
+    pVehs = vehs
 end)
 
 RegisterNetEvent("rF:SendPlayerAccounts")
