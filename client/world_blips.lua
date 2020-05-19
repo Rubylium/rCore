@@ -10,7 +10,7 @@ local blips = {
         sub = {
             title = "Banque Central",
             text = "Besoin d'ouvrir un compte bancaire ou de récupérer sa carte ? C'est ici que ça se passe.",
-            infuence = "~g~Puissante",
+            infuence = "~r~Puissante",
         },
     },
     {
@@ -22,7 +22,7 @@ local blips = {
         sub = {
             title = "Sprit Sides West - Comedy club",
             text = "Besoin d'une salle pour un soir où juste envie de venir rigoler un coup dans une ambiance qui vous fera oublié la réalité ? Sprit side West est l'endroit pour vous! Attention, tenu correct exigé.",
-            infuence = "~o~Faible",
+            infuence = "~e~Faible",
         },
     },
     {
@@ -83,6 +83,18 @@ local blips = {
             title = "LS Medical Center",
             text = "le LS-MC est un bâtiment d'état servant d'hôpital, si vous avez une blessure c'est ici qu'il faut se rendre !",
             infuence = "~b~Moyenne",
+        },
+    },
+    {
+        name = "LS Customs",
+        icon = 446,
+        size = 0.55,
+        color = 70,
+        pos = vector3(-90.2, -1805.3, 26.8),
+        sub = {
+            title = "LS Customs",
+            text = "Los Santos Customs, l'endroit pour tuner et réparer t'es caisse !",
+            infuence = "~o~Forte",
         },
     },
 }
