@@ -22,6 +22,13 @@ Citizen.CreateThread(function()
 	end
 end)
 
+Citizen.CreateThread(function()
+	while true do
+		SetRadarZoomToDistance(100.0)
+		Wait(1)
+	end
+end)
+
 rUtils.GetClosestPlayer = function(coords)
 	local players = GetActivePlayers()
 	local me = GetPlayerIndex()
@@ -141,7 +148,6 @@ function rUtils.GetZoneFromTable(table)
 	while not found do
 		try = try + 1
 		local i = math.random(1,#table)
-		print(table[i].pos, table[i].heading)
 		if rUtils.IsSpawnPointClear(table[i].pos, 3.0) then
 			found = true
 			return table[i].pos, table[i].heading
