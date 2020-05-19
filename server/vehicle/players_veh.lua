@@ -45,7 +45,6 @@ AddEventHandler("core:DEV-SaveVehToGarage", function(name, plate, props)
         if v.plate == plate then
             if v.props ~= vprops then
                 local _props = json.decode(v.props)
-                print(_props.model, props.model)
                 if _props.model == props.model then
                     MySQL.Async.execute('UPDATE `player_vehs` SET player_vehs.props = @props WHERE player_vehs.plate = @plate', {
                         ["@props"] = vprops,
