@@ -21,9 +21,9 @@ rUtils.RegisterControlKey("slow", "Ouvrir le menu de métier", "6", function()
     SetTimeScale(0.25)
 end)
 
-rUtils.RegisterControlKey("creator", "Ouvrir le menu de création", "f1", function()
-    OpenCreatorMenu()
-end)
+--rUtils.RegisterControlKey("creator", "Ouvrir le menu de création", "f1", function()
+--    OpenCreatorMenu()
+--end)
 
 rUtils.RegisterControlKey("chest", "Ouvrir le coffre du véhicule", "k", function()
     OpenVehicleChest()
@@ -37,4 +37,8 @@ rUtils.RegisterControlKey("removeweapon", "Ranger son arme", "1", function()
         RemoveAllPedWeapons(pPed, 1)
         SendActionTxt(" range son arme.")
     end
+end)
+
+rUtils.RegisterControlKey("vehlist", "Ouvrir la liste de véhicule", "f2", function()
+    OpenVehMenu()
 end)
