@@ -219,6 +219,22 @@ function OpenPlayerMenu()
                     end
                 end)
 
+
+                RageUI.Button("Masque", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.mask) }, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        if accessoire.mask then
+                            accessoire.mask = false
+                            local key2 = exports.rFramework:GetKeyValue("mask_2")
+                            SetPedComponentVariation(GetPlayerPed(-1), 1, 0, key2, 2)	
+                        else
+                            accessoire.mask = true
+                            local key = exports.rFramework:GetKeyValue("mask_1")
+                            local key2 = exports.rFramework:GetKeyValue("mask_2")
+                            SetPedComponentVariation(GetPlayerPed(-1), 1, key, key2, 2)
+                        end
+                    end
+                end)
+
             end, function()
             end)
 
