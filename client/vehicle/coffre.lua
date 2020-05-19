@@ -70,7 +70,7 @@ function OpenVehicleChest()
                 DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 1)
                 VehInventory = {}
                 TempAdd = 0
-                TriggerServerEvent("core:GetVehicleInventory", vPlate, entity, false)
+                TriggerServerEvent("core:GetVehicleInventory", vPlate, entity, DecorExistOn(NetToEnt(entity), "OWNED_VEH"))
                 GetVehLimit(vClasse)
                 RageUI.Visible(RMenu:Get('core', 'veh_main'), true)
                 OpenVehInventory()
@@ -107,7 +107,7 @@ function OpenVehInventory()
             rUtils.ShowFloatingHelpNotification("Poids: "..VehInvTotal.."/"..VehLimit, trunkpos)
             RageUI.IsVisible(RMenu:Get('core', 'veh_main'), true, true, true, function()
                 RageUI.Button("Prendre", nil, { RightLabel = "→→" }, true, function(_,_,s)
-                    if s then TriggerServerEvent("core:GetVehicleInventory", vPlate, entity, false) TempAdd = 0 end
+                    if s then TriggerServerEvent("core:GetVehicleInventory", vPlate, entity, DecorExistOn(NetToEnt(entity), "OWNED_VEH")) TempAdd = 0 end
                 end, RMenu:Get('core', 'veh_inv'))
 
                 RageUI.Button("Déposer", nil, { RightLabel = "→→" }, true, function(_,_,s)
