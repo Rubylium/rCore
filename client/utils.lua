@@ -684,6 +684,13 @@ function rUtils.ShowFloatingHelpNotification(msg, coords)
 	EndTextCommandDisplayHelp(2, false, false, -1)
 end
 
+
+function rUtils.EntityOwner(entity)
+	local owner = NetworkGetEntityOwner(entity)
+	local ownerId = GetPlayerServerId(owner)
+	return ownerId
+end
+
 local entityEnumerator = {
 	__gc = function(enum)
 		if enum.destructor and enum.handle then
