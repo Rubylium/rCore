@@ -18,8 +18,6 @@ function OpenVehMenu()
             RageUI.IsVisible(RMenu:Get('core', 'veh_list'), false, false, false, function()
                 RageUI.Button("[DEV] Ajouter garage", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then
-                        local pPed = GetPlayerPed(-1)
-                        local pVeh = GetVehiclePedIsIn(pPed, false)
                         local vName = GetDisplayNameFromVehicleModel(GetEntityModel(pVeh))
                         local props = rUtils.GetVehicleProperties(pVeh)
                         TriggerServerEvent("core:DEV-SaveVehToGarage", vName, props.plate, props)
@@ -31,7 +29,6 @@ function OpenVehMenu()
                     local name = GetDisplayNameFromVehicleModel(props.model)
                     RageUI.Button(name, nil, { RightLabel = "→→" }, true, function(_,_,s)
                         if s then
-                            local pPed = GetPlayerPed(-1)
                             local pCoords = GetEntityCoords(pPed)
                             local found, pos, heading = GetClosestVehicleNodeWithHeading(pCoords.x+math.random(10,30), pCoords.y-math.random(10,30), pCoords.z, 0, 3.0, 0)
                             while not rUtils.IsSpawnPointClear(pos, 6.0) do
