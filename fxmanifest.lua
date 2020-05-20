@@ -32,7 +32,7 @@ client_scripts {
 
 
 client_scripts {
-    '@rFramework/client/callback.lua',
+    --'@rFramework/client/callback.lua',
     "client/*.lua",
     "client/player_menu/*.lua",
     "client/bank/*.lua",
@@ -59,7 +59,7 @@ exports {
 
 server_scripts {
     '@mysql-async/lib/MySQL.lua',
-    '@rFramework/server/core/callback.lua',
+    --'@rFramework/server/core/callback.lua',
     "server/*.lua",
     "server/job/*.lua",
     "server/vehicle/*.lua",
