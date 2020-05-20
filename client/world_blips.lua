@@ -97,6 +97,14 @@ local blips = {
             infuence = "~o~Forte",
         },
     },
+    {
+        name = "Serrurier",
+        icon = 186,
+        size = 0.45,
+        color = 47,
+        pos = vector3(-55.5468, 67.99, 71.94),
+        sub = nil,
+    },
 }
 
 
