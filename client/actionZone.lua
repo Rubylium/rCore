@@ -12,7 +12,6 @@
 Citizen.CreateThread(function()
     while true do
         local NearZone = false
-        local pPed = GetPlayerPed(-1)
         local pCoords = GetEntityCoords(pPed)
         for k,v in pairs(ActionZone) do
             local dst = GetDistanceBetweenCoords(pCoords, v.pos, true)
