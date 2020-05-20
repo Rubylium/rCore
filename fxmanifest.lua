@@ -55,6 +55,7 @@ client_scripts {
 exports {
     "ResetDeathStatus",
     "OpenVehicleChest",
+    "OpenOrCloseVeh",
 }
 
 server_scripts {
