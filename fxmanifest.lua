@@ -33,6 +33,7 @@ client_scripts {
 
 client_scripts {
     --'@rFramework/client/callback.lua',
+    "client/utils.lua",
     "client/*.lua",
     "client/player_menu/*.lua",
     "client/bank/*.lua",
@@ -69,5 +70,4 @@ server_scripts {
 
 dependencies {
     'mysql-async',
-    'rFramework',
 }
