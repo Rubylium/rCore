@@ -523,6 +523,7 @@ function RageUI.Render(instructionalButton)
                         RageUI.NextMenu = nil
                         RageUI.Visible(RageUI.CurrentMenu, false)
                     end
+
                 end
             end
             if RageUI.NextMenu ~= nil then
