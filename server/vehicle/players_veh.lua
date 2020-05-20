@@ -51,7 +51,14 @@ AddEventHandler("core:DEV-SaveVehToGarage", function(name, plate, props)
                         ["@plate"] = plate,
                     }, function(rowsChanged) end)  
                     print("^2UPDATING ^7Vehs props for veh "..plate..".")
-                    v.props = vprops
+                    table.insert(PlayersVehCache[id], {
+                        plate = plate,
+                        props = vprops, 
+                        ranger = v.ranger, 
+                        NetID = v.NetID
+                    })
+                    table.remove(PlayersVehCache[id], k)
+                    
                 else
                     -- Anti cheat detection
                 end
