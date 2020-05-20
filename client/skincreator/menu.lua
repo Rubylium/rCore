@@ -55,7 +55,7 @@ function OpenCreatorMenu()
     CreateCreatorCam()
     CreatorMenuThread()
     RageUI.Visible(RMenu:Get('core', 'skincreator'), true)
-    PlayUrl("creatorMusic","https://www.youtube.com/watch?v=EwMjazrwPak",0.1, false)
+    PlayUrl("creatorMusic","https://www.youtube.com/watch?v=Eq7rItvK9Vg",0.05, false)
 end
 
 
@@ -96,7 +96,9 @@ function CreatorMenuThread()
                         RageUI.CloseAll()
                         DisplayMenu = false
                         Destroy("creatorMusic")
+                        TriggerEvent("rF:SaveSkin")
                         StartCreatorEndCinematic()
+                        
                     end
                 end)
             end, function()
@@ -123,7 +125,7 @@ function CreatorMenuThread()
                         RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                             if s then
                                 TriggerEvent("skinchanger:change", v.item, i)
-                                TriggerEvent("rF:SaveSkin")
+                                TriggerEvent("rF:SaveSkin", v.item, i)
                                 values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                             end
                             if h then
@@ -162,7 +164,7 @@ function CreatorMenuThread()
                     RageUI.Button(v.label, nil, { RightLabel = "→ Changer" }, true, function(_,h,s)
                         if s then
                             TriggerEvent("skinchanger:change", "sex", v.model)
-                            TriggerEvent("rF:SaveSkin")
+                            TriggerEvent("rF:SaveSkin", v.item, i)
                             values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                             if v.vip == true then
                                 usingVipPed = true
@@ -192,7 +194,7 @@ function CreatorMenuThread()
                             RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
-                                   TriggerEvent("rF:SaveSkin")
+                                   TriggerEvent("rF:SaveSkin", v.item, i)
                                    values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                                end
                                if h then
@@ -209,7 +211,7 @@ function CreatorMenuThread()
                             RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
-                                   TriggerEvent("rF:SaveSkin")
+                                   TriggerEvent("rF:SaveSkin", v.item, i)
                                    values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                                end
                                if h then
@@ -330,3 +332,4 @@ function CustomString()
     end
     return txt
 end
+
