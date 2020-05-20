@@ -68,5 +68,6 @@ server_scripts {
 }
 
 dependencies {
-	'mysql-async'
+    'mysql-async',
+    'rFramework',
 }
