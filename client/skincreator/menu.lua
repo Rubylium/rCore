@@ -96,6 +96,7 @@ function CreatorMenuThread()
                         RageUI.CloseAll()
                         DisplayMenu = false
                         Destroy("creatorMusic")
+                        StartCreatorEndCinematic()
                     end
                 end)
             end, function()
