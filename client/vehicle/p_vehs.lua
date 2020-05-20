@@ -39,7 +39,7 @@ function OpenVehMenu()
                                 DecorSetBool(veh, "OWNED_VEH", true)
                                 print(DecorExistOn(veh, "OWNED_VEH"))
                             end)
-                            TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
+                            exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
                                 if status then
                                     RageUI.Popup({message = "Vous avez sortie les clé de votre véhicule."})
                                 else
