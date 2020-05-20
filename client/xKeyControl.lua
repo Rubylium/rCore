@@ -41,3 +41,7 @@ end)
 rUtils.RegisterControlKey("vehlist", "Ouvrir la liste de véhicule", "f2", function()
     OpenVehMenu()
 end)
+
+rUtils.RegisterControlKey("lock", "Clé du véhicule", "u", function()
+    OpenOrCloseVeh()
+end)
