@@ -2,7 +2,7 @@
 pKeys = {}
 
 Citizen.CreateThread(function()
-    Wait(3000)
+    Wait(1000)
     exports.rFramework:TriggerServerCallback('core:GetKeysBack', function(keys)
         pKeys = keys
     end, token)
@@ -36,6 +36,6 @@ AddEventHandler("core:CloseVeh", function(net)
     if GetVehicleDoorLockStatus(vehicle) == 0 or GetVehicleDoorLockStatus(vehicle) == 1 then
         SetVehicleDoorsLocked(vehicle, 2)
     else
-        etVehicleDoorsLocked(vehicle, 0)
+        SetVehicleDoorsLocked(vehicle, 0)
     end
 end)
