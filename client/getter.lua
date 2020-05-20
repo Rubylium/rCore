@@ -13,9 +13,9 @@ pSocietyTable = {}
 pSocietyTable.money = 0
 pSocietyTable.inventory = {}
 
-pPed = nil
-pVeh = nil
-pVehLast = nil
+pPed = 0
+pVeh = 0
+pVehLast = 0
 
 pPrenom = ""
 pNom = ""
