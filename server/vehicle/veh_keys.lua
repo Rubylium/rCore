@@ -34,6 +34,6 @@ end)
 -- Events
 
 RegisterNetEvent("core:CloseVeh")
-AddEventHandler("core:CloseVeh", function()
+AddEventHandler("core:CloseVeh", function(target, veh)
     TriggerClientEvent("core:CloseVeh", target, veh)
 end)
