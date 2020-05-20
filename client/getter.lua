@@ -54,7 +54,7 @@ end)
 
 RegisterNetEvent("core:GetPlayersVehicle")
 AddEventHandler("core:GetPlayersVehicle", function(vehs)
-    pVehs = vehs
+    pVehs = vehs 
 end)
 
 RegisterNetEvent("rF:SendPlayerAccounts")
