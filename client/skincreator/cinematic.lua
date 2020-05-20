@@ -3,6 +3,7 @@ function StartCreatorEndCinematic()
     PlayRandomClothAnim()
     DoScreenFadeOut(500)
     while not IsScreenFadedOut() do Wait(1) end
+    SetEntityCoordsNoOffset(pPed, 389.0, -356.2, 48.0, 0.0, 0.0, 0.0)
 
     -- Default
     local cam2 = CreateCam("DEFAULT_SCRIPTED_CAMERA", 0)
@@ -37,12 +38,33 @@ function StartCreatorEndCinematic()
     local posLook = GetOffsetFromEntityInWorldCoords(pPed, 0.0, 0.0, 0.7)
     SetCamCoord(cam2, pos.x, pos.y, pos.z)
     PointCamAtCoord(cam2, posLook.x, posLook.y, posLook.z)
-
-
-    RenderScriptCams(0, 1, 7500, 0, 0)
-
-    DoScreenFadeIn(500)
-    Wait(7000)
     ClearPedTasks(pPed)
+    TaskGoToCoordAnyMeans(pPed, 395.5, -367.9, 46.8, 1.0, 0, 0, 786603, 0)
+
+    local blockControls = true
+    RenderScriptCams(0, 1, 14000, 0, 0)
+    DoScreenFadeIn(500)
+    Citizen.CreateThread(function()
+        while blockControls do
+            DisableControlAction(1, 1, true)
+            DisableControlAction(1, 2, true)
+            DisableControlAction(1, 4, true)
+            DisableControlAction(1, 6, true)
+            DisableControlAction(1, 270, true)
+            DisableControlAction(1, 271, true)
+            DisableControlAction(1, 272, true)
+            DisableControlAction(1, 273, true)
+            DisableControlAction(1, 282, true)
+            DisableControlAction(1, 283, true)
+            DisableControlAction(1, 284, true)
+            DisableControlAction(1, 285, true)
+            DisableControlAction(1, 286, true)
+            DisableControlAction(1, 290, true)
+            DisableControlAction(1, 291, true)
+            Wait(1)
+        end
+    end)
+    Wait(14000)
+    blockControls = false
 end
 
