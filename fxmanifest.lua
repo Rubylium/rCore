@@ -32,7 +32,7 @@ client_scripts {
 
 
 client_scripts {
-    --'@rFramework/client/callback.lua',
+    '@rFramework/client/cortana/check.lua',
     "client/utils.lua",
     "client/*.lua",
     "client/player_menu/*.lua",
