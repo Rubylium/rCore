@@ -46,7 +46,6 @@ function GetVehLimit(class)
 end
 
 function OpenVehicleChest()
-    local pPed = GetPlayerPed(-1)
     local pCoords = GetEntityCoords(pPed)
     local vehicle, dstV = rUtils.GetClosestVehicle(pCoords)
     local locked = GetVehicleDoorLockStatus(vehicle)
