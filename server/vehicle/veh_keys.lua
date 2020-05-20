@@ -2,17 +2,7 @@
 local VehKeys = {}
 
 
-RegisterServerCallback('core:GetKeysBack', function(source, cb)
-    local ids = GetPlayerIdentifier(source, 0)
-    if VehKeys[ids] == nil then
-        cb({})
-    else
-        cb(VehKeys[ids].keys)
-    end
-end)
-
-
-RegisterServerCallback('core:AddKeyIfNotAlreadyHave', function(source, cb, plate)
+exports.rFramework:RegisterServerCallback('core:AddKeyIfNotAlreadyHave', function(source, cb, plate)
     local ids = GetPlayerIdentifier(source, 0)
     if VehKeys[ids] == nil then
         VehKeys[ids] = {}
@@ -27,6 +17,17 @@ RegisterServerCallback('core:AddKeyIfNotAlreadyHave', function(source, cb, plate
 end)
 
 
+exports.rFramework:RegisterServerCallback('core:GetKeysBack', function(source, cb, things)
+    local ids = GetPlayerIdentifier(source, 0)
+    if VehKeys[ids] == nil then
+        cb({})
+        return
+    else
+        cb(VehKeys[ids].keys)
+        return
+    end
+    cb({})
+end)
 
 
 
