@@ -64,7 +64,6 @@ local npcs = {
 local ActiveNpcs = {}
 Citizen.CreateThread(function()
     while true do
-        local pPed = GetPlayerPed(-1)
         local pCoords = GetEntityCoords(pPed)
         for _,v in pairs(npcs) do
             local dst = GetDistanceBetweenCoords(v.pos, pCoords, true)
