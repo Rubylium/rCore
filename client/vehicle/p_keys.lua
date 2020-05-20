@@ -2,9 +2,10 @@
 pKeys = {}
 
 Citizen.CreateThread(function()
-    TriggerServerCallback('core:GetKeysBack', function(keys)
+    Wait(3000)
+    exports.rFramework:TriggerServerCallback('core:GetKeysBack', function(keys)
         pKeys = keys
-    end)
+    end, token)
 end)
 
 
