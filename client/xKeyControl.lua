@@ -30,7 +30,6 @@ rUtils.RegisterControlKey("chest", "Ouvrir le coffre du véhicule", "k", functio
 end)
 
 rUtils.RegisterControlKey("removeweapon", "Ranger son arme", "1", function()
-    local pPed = GetPlayerPed(-1)
     if IsPedArmed(pPed, 7) then
         local _, pWeapon = GetCurrentPedWeapon(pPed, 1)
         RemoveWeaponFromPed(pPed, pWeapon)
