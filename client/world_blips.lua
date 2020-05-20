@@ -120,7 +120,7 @@ Citizen.CreateThread(function()
         BeginTextCommandSetBlipName("STRING")
         AddTextComponentString(v.name)
         EndTextCommandSetBlipName(blip)
-        if v.sub.title ~= nil then
+        if v.sub ~= nil then
             exports.rui:SetBlipInfoTitle(blip, v.sub.title, false)
             exports.rui:AddBlipInfoName(blip, "Influence", v.sub.infuence)
             exports.rui:AddBlipInfoHeader(blip, "")
