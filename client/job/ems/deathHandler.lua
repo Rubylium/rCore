@@ -54,6 +54,7 @@ function SyncDeathWithPlayers()
                     end
                 end
             end
+            TriggerServerEvent("core:SetPlayerDeathStatus", FatalInjured)
             if not FatalInjured then
                 SetPedCanRagdoll(pPed, false)
                 if IsControlPressed(1, 32) then
@@ -94,7 +95,10 @@ function SyncDeathWithPlayers()
     end)
 end
 
-
+RegisterNetEvent("core:ResetDeathStatus")
+AddEventHandler("core:ResetDeathStatus", function()
+    pDeath = false
+end)
 
 function ResetDeathStatus()
     pDeath = false
