@@ -14,9 +14,12 @@ end)
 RegisterNetEvent("core:CallBackReady")
 AddEventHandler("core:CallBackReady", function()
     exports.rFramework:RegisterServerCallback('core:CheckPlayerDeathStatus', function(source, cb, target)
+        print(source, target, target2)
         if DeathStatus[target] ~= nil then
+            print(target, DeathStatus[target].NeedMedic)
             cb(DeathStatus[target].NeedMedic)
         else
+            print(target, 0)
             cb(0)
         end
     end)
