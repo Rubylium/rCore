@@ -57,7 +57,7 @@ function SyncDeathWithPlayers()
             end
             
             if not FatalInjured then
-                SetPedCanRagdoll(pPed, false)
+                SetPedCanRagdoll(pPed, true)
                 if IsControlPressed(1, 32) then
                     if not IsEntityPlayingAnim(pPed, "move_injured_ground", "front_loop", 1) then
                         rUtils.PlayAnim("move_injured_ground", "front_loop", 1)
