@@ -6,9 +6,17 @@ AddEventHandler("core:CallBackReady", function()
     DeployCb()
 end)
 
+function getIdentifiant(id)
+    for k, v in ipairs(GetPlayerIdentifiers(id)) do
+        if string.match(v, "license:") then
+           return v
+        end
+    end
+end
+
 function DeployCb()
     exports.rFramework:RegisterServerCallback('core:AddKeyIfNotAlreadyHave', function(source, cb, plate)
-        local ids = GetPlayerIdentifier(source, 0)
+        local ids = getIdentifiant(source)
         if VehKeys[ids] == nil then
             VehKeys[ids] = {}
             VehKeys[ids].keys = {}
@@ -23,13 +31,14 @@ function DeployCb()
 
 
     exports.rFramework:RegisterServerCallback('core:GiveKeyToTarget', function(source, cb, plate, target)
-        local ids = GetPlayerIdentifier(target, 0)
+        local ids = getIdentifiant(target)
+        print(target, ids)
         if VehKeys[ids] == nil then
             VehKeys[ids] = {}
             VehKeys[ids].keys = {}
             VehKeys[ids].keys[plate] = true
             print("^2KEYS: ^7Added key "..plate.." for user "..ids)
-            TriggerClientEvent("core:RefreshKeys", target)
+            TriggerClientEvent("core:RefreshKeys", target, VehKeys[ids].keys)
             cb(true)
         else
             print("^2KEYS: ^7Could not give key for "..plate.." the user "..ids.." already have them.")
@@ -39,7 +48,7 @@ function DeployCb()
     
     
     exports.rFramework:RegisterServerCallback('core:GetKeysBack', function(source, cb, things)
-        local ids = GetPlayerIdentifier(source, 0)
+        local ids = getIdentifiant(source)
         if VehKeys[ids] == nil then
             cb({})
             return
