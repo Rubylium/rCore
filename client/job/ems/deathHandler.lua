@@ -21,7 +21,6 @@ end)
 
 -- Injured with weapon "move_strafe@injured" "idle"
 
-
 local FatalDamage = {12844, 31086, 35731, 39317, 65068}
 
 local dict = "random@dealgonewrong"
@@ -35,6 +34,7 @@ function SyncDeathWithPlayers()
     NetworkResurrectLocalPlayer(pCoords, heading, 0, 0)
     ClearPlayerWantedLevel(GetPlayerIndex())
     SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
+    TriggerServerEvent("core:SetPlayerDeathStatus", FatalInjured)
     Citizen.CreateThread(function()
         while pDeath do
             local pPed = GetPlayerPed(-1)
@@ -49,12 +49,13 @@ function SyncDeathWithPlayers()
                         if not IsPedRagdoll(pPed) then
                             SetPedToRagdoll(pPed, 5000, 5000, 0, 0, 0, 0)
                             FatalInjured = true
+                            TriggerServerEvent("core:SetPlayerDeathStatus", FatalInjured)
                             break
                         end
-                    end
+                    end 
                 end
             end
-            TriggerServerEvent("core:SetPlayerDeathStatus", FatalInjured)
+            
             if not FatalInjured then
                 SetPedCanRagdoll(pPed, false)
                 if IsControlPressed(1, 32) then
