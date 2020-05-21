@@ -32,6 +32,7 @@ function StartCreatorEndCinematic()
                 if v ~= pPed then
                     SetEntityAlpha(v, 0, 0)
                     SetEntityCollision(v, false, true)
+                    SetEntityNoCollisionEntity(pPed, v, false)
                 end
             end
         end
@@ -39,6 +40,7 @@ function StartCreatorEndCinematic()
             if v ~= pPed then
                 ResetEntityAlpha(v)
                 SetEntityCollision(v, true, true)
+                SetEntityNoCollisionEntity(v, pPed, true)
             end
         end
     end)
@@ -85,6 +87,7 @@ function StartCreatorEndCinematic()
     SetCamFov(cam2, 15.0)
     ClearPedTasks(pPed)
     TaskGoToCoordAnyMeans(pPed, 399.3, -376.2, 46.9, 1.0, 0, 0, 786603, 0)
+    
     DoScreenFadeIn(500)
 
     
@@ -108,3 +111,47 @@ function StartCreatorEndCinematic()
     Destroy("cin_music")
 end
 
+
+
+
+Citizen.CreateThread(function()
+    while true do
+        local pCoords = GetEntityCoords(pPed)
+        local dst = GetDistanceBetweenCoords(pCoords, 389.0, -356.2, 48.0, false)
+        local InZone = false
+        if dst < 20.0 then
+            for v in EnumeratePeds() do
+                if v ~= pPed then
+                    SetEntityAlpha(v, 0, 0)
+                    SetEntityCollision(v, false, true)
+                    SetEntityNoCollisionEntity(pPed, v, false)
+                    SetEntityLocallyInvisible(v)
+                    NetworkSetEntityInvisibleToNetwork(v, true)
+                end
+            end
+            NetworkSetFriendlyFireOption(false)
+            SetCanAttackFriendly(PlayerPedId(), false, false)
+            SetEveryoneIgnorePlayer(GetPlayerIndex(), true)
+            SetIgnoreLowPriorityShockingEvents(GetPlayerIndex(), true)
+        else
+
+            NetworkSetFriendlyFireOption(true)
+            SetCanAttackFriendly(PlayerPedId(), true, true)
+            SetEveryoneIgnorePlayer(GetPlayerIndex(), false)
+            SetIgnoreLowPriorityShockingEvents(GetPlayerIndex(), false)
+
+            for v in EnumeratePeds() do
+                if v ~= pPed then
+                    ResetEntityAlpha(v)
+                    SetEntityCollision(v, true, true)
+                    SetEntityNoCollisionEntity(v, pPed, true)
+                    NetworkSetEntityInvisibleToNetwork(v, false)
+                    SetEntityLocallyVisible(v)
+                end
+            end
+        end
+
+
+        Wait(3500)
+    end
+end)
