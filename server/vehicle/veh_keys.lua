@@ -18,7 +18,7 @@ function DeployCb()
     exports.rFramework:RegisterServerCallback('core:AddKeyIfNotAlreadyHave', function(source, cb, plate)
         local ids = getIdentifiant(source)
         if VehKeys[ids] == nil then
-            VehKeys[ids] = {}
+            VehKeys[ids] = {} 
             VehKeys[ids].keys = {}
             VehKeys[ids].keys[plate] = true
             print("^2KEYS: ^7Added key "..plate.." for user "..ids)
