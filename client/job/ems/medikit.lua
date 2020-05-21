@@ -5,6 +5,7 @@ AddEventHandler("core:UseMedikit", function()
     if dst < 3.0 then
         local targetID = GetPlayerServerId(target)
         exports.rFramework:TriggerServerCallback('core:CheckPlayerDeathStatus', function(status)
+            print(status)
             if status == 1 then
                 RageUI.Popup({message = "Vous commencez à soigner la personne.\nLes soins vont duré 30 secondes."})
                 TaskStartScenarioInPlace(pPed, "CODE_HUMAN_MEDIC_TIME_OF_DEATH", -1, true)
@@ -16,8 +17,8 @@ AddEventHandler("core:UseMedikit", function()
             else
                 RageUI.Popup({message = "La personne n'a pas besoin de soin."})
             end
-        end, TargetID)
+        end, targetID) 
     else
         RageUI.Popup({message = "Aucune personne proche."})
     end
-end)
+end) 
