@@ -27,7 +27,7 @@ function OpenKeyDealerMenu()
             RageUI.IsVisible(RMenu:Get('core', 'key_dealer'), false, false, false, function()
                 for k,v in pairs(pKeys) do
                     RageUI.Button("["..k.."]", nil, { RightLabel = "Faire un double →" }, true, function(_,h,s)
-                        if s then
+                        if s then 
                             local target = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             local TargetID = GetPlayerServerId(target)
                             exports.rFramework:TriggerServerCallback('core:GiveKeyToTarget', function(status)
