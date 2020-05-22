@@ -31,7 +31,6 @@ function StartCreatorEndCinematic()
             for v in EnumeratePeds() do
                 if v ~= pPed then
                     SetEntityAlpha(v, 0, 0)
-                    SetEntityCollision(v, false, true)
                     SetEntityNoCollisionEntity(pPed, v, false)
                 end
             end
@@ -39,7 +38,6 @@ function StartCreatorEndCinematic()
         for v in EnumeratePeds() do
             if v ~= pPed then
                 ResetEntityAlpha(v)
-                SetEntityCollision(v, true, true)
                 SetEntityNoCollisionEntity(v, pPed, true)
             end
         end
@@ -47,7 +45,10 @@ function StartCreatorEndCinematic()
     
     while not IsScreenFadedOut() do Wait(3000) end
     Wait(2000)
+    NetworkOverrideClockTime(18, 00, 0)
+    SetOverrideWeather("EXTRASUNNY")
     SetEntityCoordsNoOffset(pPed, 389.0, -356.2, 48.0, 0.0, 0.0, 0.0)
+    SetEntityHeading(pPed, 272.0)
 
     -- Default
     local cam2 = CreateCam("DEFAULT_SCRIPTED_CAMERA", 0)
@@ -92,13 +93,13 @@ function StartCreatorEndCinematic()
 
     
     Wait(7000)
-    local pos = vector3(404.88, -349.58, 48.81)
+    local pos = vector3(421.8, -346.1, 55.2)
     SetCamCoord(cam2, pos.x, pos.y, pos.z)
     PointCamAtEntity(cam2, pPed, 1.0, 1.0, 1.0, 0)
-    SetCamFov(cam2, 50.0)
+    SetCamFov(cam2, 35.0)
 
-    RenderScriptCams(0, 1, 10000, 0, 0)
-    Wait(10000)
+    RenderScriptCams(0, 1, 12000, 0, 0)
+    Wait(11000)
     blockControls = false
     TriggerEvent("rF:HudToogle")
     DisplayRadar(true)
@@ -123,7 +124,6 @@ Citizen.CreateThread(function()
             for v in EnumeratePeds() do
                 if v ~= pPed then
                     SetEntityAlpha(v, 0, 0)
-                    SetEntityCollision(v, false, true)
                     SetEntityNoCollisionEntity(pPed, v, false)
                     SetEntityLocallyInvisible(v)
                     NetworkSetEntityInvisibleToNetwork(v, true)
@@ -143,7 +143,6 @@ Citizen.CreateThread(function()
             for v in EnumeratePeds() do
                 if v ~= pPed then
                     ResetEntityAlpha(v)
-                    SetEntityCollision(v, true, true)
                     SetEntityNoCollisionEntity(v, pPed, true)
                     NetworkSetEntityInvisibleToNetwork(v, false)
                     SetEntityLocallyVisible(v)
