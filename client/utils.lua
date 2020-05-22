@@ -170,7 +170,10 @@ function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	if props ~= nil then
 		rUtils.SetVehicleProperties(vehicle, props)
 	end
-	cb(vehicle)
+	if cb ~= nil then
+		cb(vehicle)
+	end
+	SetModelAsNoLongerNeeded(model)
 end
 
 function rUtils.GetClosestObject(vector, radius, modelHash, testFunction)
@@ -647,6 +650,10 @@ end
 FarmZone = {}
 rUtils.RegisterFarmZone = function(zone)
 	table.insert(FarmZone, zone)
+end
+
+rUtils.RegisterGarageZone = function(zone)
+	table.insert(GarageZone, zone)
 end
 
 function rUtils.LoadModel(_model)
