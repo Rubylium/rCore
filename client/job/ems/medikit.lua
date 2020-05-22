@@ -5,11 +5,35 @@ AddEventHandler("core:UseMedikit", function()
     if dst < 3.0 then
         local targetID = GetPlayerServerId(target)
         exports.rFramework:TriggerServerCallback('core:CheckPlayerDeathStatus', function(status)
-            print(status)
             if status == 1 then
                 RageUI.Popup({message = "Vous commencez à soigner la personne.\nLes soins vont duré 30 secondes."})
-                TaskStartScenarioInPlace(pPed, "CODE_HUMAN_MEDIC_TIME_OF_DEATH", -1, true)
-                Wait(30*1000)
+                TaskStartScenarioInPlace(pPed, "CODE_HUMAN_MEDIC_KNEEL", -1, true)
+                local oldTime = GetGameTimer()
+                local StillWant = true
+
+                Citizen.CreateThread(function()
+                    while StillWant do
+                        RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
+                        if IsControlPressed(1, 73) then
+                            StillWant = false
+                            ClearPedTasks(GetPlayerPed(-1))
+                        end
+                        Wait(1)
+                    end
+                end)
+            
+                Citizen.CreateThread(function()
+                    while StillWant do
+                        if oldTime + 30000 < GetGameTimer() then
+                            oldTime = GetGameTimer()
+                            ClearPedTasks(pPed)
+                            TriggerServerEvent("core:ResetDeathStatus", targetID)
+                            StillWant = false
+                        end
+                        Wait(0)
+                    end
+                end)
+                
                 ClearPedTasks(pPed)
                 TriggerServerEvent("core:ResetDeathStatus", targetID)
             elseif status == 2 then
