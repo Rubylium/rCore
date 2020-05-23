@@ -34,6 +34,7 @@ client_scripts {
 client_scripts {
     '@rFramework/client/cortana/check.lua',
     "client/utils.lua",
+    "shared/*.lua",
     "client/*.lua",
     "client/player_menu/*.lua",
     "client/bank/*.lua",
@@ -66,6 +67,7 @@ exports {
 server_scripts {
     '@mysql-async/lib/MySQL.lua',
     --'@rFramework/server/core/callback.lua',
+    "shared/*.lua",
     "server/*.lua",
     "server/job/*.lua",
     "server/vehicle/*.lua",
