@@ -16,6 +16,7 @@ function InitMecanoActionMenu()
     }
     
     function OpenMecanoActionMenu()
+        RageUI.Visible(RMenu:Get('core', 'mecano_main'), not RageUI.Visible(RMenu:Get('core', 'mecano_main')))
         open = true
         Citizen.CreateThread(function()
             while open do
