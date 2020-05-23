@@ -189,7 +189,6 @@ function CreatorMenuThread()
                     if v.c ~= nil then
                         local value = exports.rFramework:GetKeyValue(v.o)
                         for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
-                            print(value, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1)
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
                             RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                                if s then
