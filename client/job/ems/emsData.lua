@@ -2,7 +2,7 @@
 
  
 function LoadEmsData()
-
+    local open = false
     rUtils.RegisterGarageZone({
         pos = vector3(388.43, -1437.7, 29.43),
         spawns = {
@@ -37,5 +37,33 @@ function LoadEmsData()
         iItem = "medikit",
     })
 
+    RMenu.Add('core', 'ems_main', RageUI.CreateMenu("EMS", "~b~Ménu action EMS"))
+    RMenu:Get('core', 'ems_main').Closed = function()
+        open = false
+    end
+
+
+    function OpenEmsActionMenu()
+        open = true
+        RageUI.Visible(RMenu:Get('core', 'ems_main'), not RageUI.Visible(RMenu:Get('core', 'ems_main')))
+        Citizen.CreateThread(function()
+            while open do
+                Wait(1)
+                RageUI.IsVisible(RMenu:Get('core', 'ems_main'), true, true, true, function()
+
+                    RageUI.Button("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            OpenBillCreation()
+                        end
+                    end)
+
+                end, function()
+                    ---Panels
+                end)
+
+
+            end
+        end)
+    end    
 
 end
