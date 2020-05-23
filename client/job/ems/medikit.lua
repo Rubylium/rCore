@@ -34,8 +34,6 @@ AddEventHandler("core:UseMedikit", function()
                     end
                 end)
                 
-                ClearPedTasks(pPed)
-                TriggerServerEvent("core:ResetDeathStatus", targetID)
             elseif status == 2 then
                 RageUI.Popup({message = "La personne à besoin d'un médecin."})
             else
