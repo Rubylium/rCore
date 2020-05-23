@@ -676,6 +676,25 @@ function rUtils.PlayAnim(dict, anim, flag, blendin, blendout, playbackRate, dura
 end	
 
 
+
+RegisterCommand('spawnprop', function(source, args, rawCommand)
+	local coords = GetOffsetFromEntityInWorldCoords(pPed, 0.0, 2.0, 0.0)
+	rUtils.LoadModel(args[1])
+	local prop = CreateObject(GetHashKey(args[1]), coords, 0, 1, 0)
+	FreezeEntityPosition(prop, true)
+	table.insert(props, prop)
+end)
+
+RegisterCommand('clearprop', function(source, args, rawCommand)
+	for k,v in pairs(props) do
+		while DoesEntityExist(v) do
+			DeleteObject(v)
+			Wait(1)
+		end
+	end
+	props = {}
+end)
+
 function rUtils.showHelpNotification(msg)
 	AddTextEntry('HelpNotification', msg)
 	BeginTextCommandDisplayHelp('HelpNotification')
