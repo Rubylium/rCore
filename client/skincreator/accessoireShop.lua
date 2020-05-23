@@ -20,6 +20,7 @@ RMenu:Get('core', 'accesShop').Closed = function()
 end;
 
 local acce = {}
+local masks = nil
 function GetAccessoireValues()
     local accessorie = {
 		{price = 6,label = "Chaine", 				item = "chain_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 7) - 1,								min = 0,},
@@ -30,9 +31,27 @@ function GetAccessoireValues()
 		{price = 9,label = "Bracelet", 				item = "bracelets_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 7) - 1,							min = -1,},
 		{price = 13,label = "Accessoire oreilles", 	item = "ears_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = -1,},
 		{price = 24,label = "Masque", 				item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
-		--{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
+        {price = 3,label = "Variante masque",o="mask_1",item = "mask_2",c=1,max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(GetPlayerPed(-1), 1)) - 1,			min = 0,},
+        --{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
 		--{label = "gilet pare-balle 2", 		item = "bproof_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
-	}
+    }
+    if masks == nil then
+        masks = LoadResourceFile(GetCurrentResourceName(), 'client/skincreator/mask.json')
+        masks = json.decode(masks)
+        masks = masks[1]
+
+        for i = 0, 5600 do
+            if masks[tostring(i)] ~= nil then
+                if masks[tostring(i)][tostring(0)].GXT ~= "NO_LABEL" then
+                    masks[tostring(i)][tostring(0)].label = GetLabelText(masks[tostring(i)][tostring(0)].GXT)
+                else
+                    masks[tostring(i)][tostring(0)].label = "Inconnu"
+                end
+                masks[tostring(i)][tostring(0)].Localized = nil
+                print(masks[tostring(i)][tostring(0)].label)
+            end
+        end
+    end
     acce = accessorie
 end
 
@@ -84,21 +103,61 @@ function OpenAccessoireShopThread()
                             TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
                         end
                     end)
-                    for i = v.min, v.max do
-                        if NotSpamming[k] == nil then NotSpamming[k] = i end
-                        RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
-                           if s then
-                               TriggerEvent("skinchanger:change", v.item, i)
-                               TriggerEvent("rF:SaveSkin", v.item, i)
-                               TriggerServerEvent("rF:RemoveMoney", token, v.price)
-                           end
-                           if h then
-                               if NotSpamming[k] ~= i then
+                    if v.item == "mask_1" then
+                        for i = v.min, v.max do
+                            if NotSpamming[k] == nil then NotSpamming[k] = i end
+
+                            RageUI.Button("["..i.."] "..masks[tostring(i)][tostring(0)].label, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                               if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
-                                   NotSpamming[k] = i
+                                   TriggerEvent("rF:SaveSkin", v.item, i)
+                                   TriggerServerEvent("rF:RemoveMoney", token, v.price)
                                end
-                           end
-                        end) 
+                               if h then
+                                   if NotSpamming[k] ~= i then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                       NotSpamming[k] = i
+                                   end
+                               end
+                            end) 
+                        end
+                    elseif v.item == "mask_2" then
+
+                        local value = exports.rFramework:GetKeyValue(v.o)
+                        for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
+                            if NotSpamming[k] == nil then NotSpamming[k] = i end
+                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                               if s then
+                                   TriggerEvent("skinchanger:change", v.item, i)
+                                   TriggerEvent("rF:SaveSkin", v.item, i)
+                                   TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                               end
+                               if h then
+                                    if NotSpamming[k] ~= i then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                       NotSpamming[k] = i
+                                    end
+                               end
+                            end) 
+                        end
+
+                    else
+                        for i = v.min, v.max do
+                            if NotSpamming[k] == nil then NotSpamming[k] = i end
+                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                               if s then
+                                   TriggerEvent("skinchanger:change", v.item, i)
+                                   TriggerEvent("rF:SaveSkin", v.item, i)
+                                   TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                               end
+                               if h then
+                                   if NotSpamming[k] ~= i then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                       NotSpamming[k] = i
+                                   end
+                               end
+                            end) 
+                        end
                     end
                 end, function()
 
