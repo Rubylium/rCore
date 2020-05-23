@@ -8,8 +8,9 @@ end)
 
 rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function()
     if pJob == "mecano" then
-        RageUI.Visible(RMenu:Get('core', 'mecano_main'), not RageUI.Visible(RMenu:Get('core', 'mecano_main')))
         OpenMecanoActionMenu()
+    elseif pJob == "medecin" then
+        OpenEmsActionMenu()
     end
 end)
 
