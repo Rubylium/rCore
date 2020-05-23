@@ -14,6 +14,17 @@ societyList = {
             [3] = {label = "Patron"},
         },
     },
+    {
+        name = "medecin",
+        grade = {
+            [0] = {label = "Brancardier"},
+            [1] = {label = "Apprentie medecin"},
+            [2] = {label = "Medecin"},
+            [3] = {label = "Urgentiste"},
+            [4] = {label = "Chirurgien"},
+            [5] = {label = "Patron"},
+        },
+    },
 }
 
 
