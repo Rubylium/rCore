@@ -1,0 +1,31 @@
+
+
+JobServices = {}
+
+Citizen.CreateThread(function()
+    for k,v in pairs(societyList) do
+        JobServices[v.name] = {}
+    end
+    while true do
+        for _,i in pairs(societyList) do
+            for k,v in pairs(JobServices[i]) do
+                if GetPlayerPing(v.id) == 0 then
+                    JobServices[i][v.id] = nil
+                end
+            end
+        end
+        Wait(60*1000)
+    end
+end)
+
+
+RegisterNetEvent("core:SetServiceStatus")
+AddEventHandler("core:SetServiceStatus", function(job)
+    if JobServices[job][source] == nil then
+        JobServices[job][source] = {id = source}
+        TriggerClientEvent("rF:notification", source, "~g~Prise de service.\n~w~Tu à pris ton service "..job.."!")
+    else
+        JobServices[job][source] = nil
+        TriggerClientEvent("rF:notification", source, "~r~Retrait de service.\n~w~Tu n'est plus en service "..job.."!")
+    end
+end)
