@@ -23,7 +23,6 @@ end
 
 
 function SwitchCam(backto, type)
-    print(backto, type)
     if not DoesCamExist(cam2) then cam2 = CreateCam("DEFAULT_SCRIPTED_CAMERA", 0) end
     Citizen.CreateThread(function()
         local pPed = GetPlayerPed(-1)
@@ -46,6 +45,9 @@ function SwitchCam(backto, type)
             SetCamCoord(cam2, pos.x, pos.y, pos.z)
             SetCamFov(cam2, offset.fov)
             PointCamAtCoord(cam2, posLook.x, posLook.y, posLook.z)
+            SetCamDofMaxNearInFocusDistance(cam2, 1.0)
+            SetCamDofStrength(cam2, 500.0)
+            SetCamDofFocalLengthMultiplier(cam2, 500.0)
             SetCamActiveWithInterp(cam2, CreatorCam, 1000, 1, 1)
             Wait(1000)
         end
