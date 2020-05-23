@@ -48,7 +48,6 @@ function GetAccessoireValues()
                     masks[tostring(i)][tostring(0)].label = "Inconnu"
                 end
                 masks[tostring(i)][tostring(0)].Localized = nil
-                print(masks[tostring(i)][tostring(0)].label)
             end
         end
     end
