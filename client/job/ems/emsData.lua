@@ -3,6 +3,8 @@
  
 function LoadEmsData()
     local open = false
+
+
     rUtils.RegisterGarageZone({
         pos = vector3(388.43, -1437.7, 29.43),
         spawns = {
@@ -15,6 +17,8 @@ function LoadEmsData()
             {spawn = "lguard", nom = "Vehicule de surveillance de plage."},
         },
     })
+
+    
 
     rUtils.RegisterActionZone({
         pos = vector3(360.5, -1425.9, 32.5),
@@ -57,6 +61,12 @@ function LoadEmsData()
                         end
                     end)
 
+                    RageUI.Button("Soigner la personne la plus proche", nil, {}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            HelpPlayer()
+                        end
+                    end)
+
                 end, function()
                     ---Panels
                 end)
@@ -66,4 +76,48 @@ function LoadEmsData()
         end)
     end    
 
+end
+
+
+
+function HelpPlayer()
+    local target, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+    if dst < 3.0 then
+        local targetID = GetPlayerServerId(target)
+        exports.rFramework:TriggerServerCallback('core:CheckPlayerDeathStatus', function(status)
+            if status == 1 or status == 2 then
+                RageUI.Popup({message = "Vous commencez à soigner la personne.\nLes soins vont duré 30 secondes."})
+                TaskStartScenarioInPlace(pPed, "CODE_HUMAN_MEDIC_KNEEL", -1, true)
+                local oldTime = GetGameTimer()
+                local StillWant = true
+
+                Citizen.CreateThread(function()
+                    while StillWant do
+                        RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
+                        if IsControlPressed(1, 73) then
+                            StillWant = false
+                            ClearPedTasks(GetPlayerPed(-1))
+                        end
+                        Wait(1)
+                    end
+                end)
+            
+                Citizen.CreateThread(function()
+                    while StillWant do
+                        if oldTime + 30000 < GetGameTimer() then
+                            oldTime = GetGameTimer()
+                            ClearPedTasks(pPed)
+                            TriggerServerEvent("core:ResetDeathStatus", targetID)
+                            StillWant = false
+                        end
+                        Wait(0)
+                    end
+                end)
+            else
+                RageUI.Popup({message = "La personne n'a pas besoin de soin."})
+            end
+        end, targetID) 
+    else
+        RageUI.Popup({message = "Aucune personne proche."})
+    end
 end
