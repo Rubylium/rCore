@@ -30,7 +30,7 @@ function GetAccessoireValues()
 		{price = 15,label = "Montre", 				item = "watches_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 6) - 1,							min = -1,},
 		{price = 9,label = "Bracelet", 				item = "bracelets_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 7) - 1,							min = -1,},
 		{price = 13,label = "Accessoire oreilles", 	item = "ears_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = -1,},
-		{price = 24,label = "Masque", 				item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
+		{price = 24,label = "Masque",o="mask_2",item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
         {price = 3,label = "Variante masque",o="mask_1",item = "mask_2",c=1,max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(GetPlayerPed(-1), 1)) - 1,			min = 0,},
         --{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
 		--{label = "gilet pare-balle 2", 		item = "bproof_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
@@ -116,6 +116,7 @@ function OpenAccessoireShopThread()
                                if h then
                                    if NotSpamming[k] ~= i then
                                        TriggerEvent("skinchanger:change", v.item, i)
+                                       TriggerEvent("skinchanger:change", v.o, 0)
                                        NotSpamming[k] = i
                                    end
                                end
