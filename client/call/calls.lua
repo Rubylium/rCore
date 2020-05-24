@@ -34,15 +34,13 @@ end)
 
 
 RegisterNetEvent("core:CallTaken")
-AddEventHandler("core:CallTaken", function(pos)
-    local dst = GetDistanceBetweenCoords(pos, GetEntityCoords(pPed), true)
-    rUtils.Notif("L'appel à été pris !\nDistance: "..rUtils.Math.Round(dst, 0))
+AddEventHandler("core:CallTaken", function(dst)
+    rUtils.Notif("L'appel à été pris !\nDistance: ~g~"..rUtils.Math.Round(dst, 0).."m")
 
 end)
 
 
 RegisterNetEvent("core:CallTakenTarget")
-AddEventHandler("core:CallTakenTarget", function(coords)
-    local dst = GetDistanceBetweenCoords(coords, GetEntityCoords(pPed), true)
-    rUtils.Notif("L'appel à été pris !\nDistance: "..rUtils.Math.Round(dst, 0))
+AddEventHandler("core:CallTakenTarget", function(dst, job)
+    rUtils.Notif("L'appel à été pris part un "..job.."!\nDistance: ~o~"..rUtils.Math.Round(dst, 0).."m")
 end)
