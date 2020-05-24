@@ -12,3 +12,15 @@ AddEventHandler("core:RegisterCall", function(_job, _msg)
 end)
 
 
+RegisterNetEvent("core:TakeCall")
+AddEventHandler("core:TakeCall", function(callid)
+    if Calls[callid] ~= nil then
+        if  Calls[callid].taken == false then
+            Calls[callid].taken = true
+            TriggerClientEvent("core:CallTaken", source, Calls[callid].pos)
+            TriggerClientEvent("core:CallTakenTarget", Calls[callid].target, GetEntityCoords(GetPlayerPed(source)))
+        else
+            -- Notif appel déja pris
+        end
+    end
+end)
