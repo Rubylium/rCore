@@ -9,6 +9,9 @@ AddEventHandler("core:RegisterCall", function(_job, _msg)
     for k,v in pairs(PlayersInJobs) do
         TriggerClientEvent("core:SendCall", v.id, CallID, _msg, _job)
     end
+
+    
+    print(CallID, _msg)
 end)
 
 
