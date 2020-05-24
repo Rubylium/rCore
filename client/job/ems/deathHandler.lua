@@ -1,4 +1,4 @@
-RMenu.Add('core', 'death_call', RageUI.CreateMenu("EMS", "~b~Ménu action EMS"))
+RMenu.Add('core', 'death_call', RageUI.CreateMenu("Demande EMS", "~b~Demande de l'aide"))
 RMenu:Get('core', 'death_call').Closable = false
 RMenu:Get('core', 'death_call').Closed = function()
 
@@ -98,6 +98,7 @@ function SyncDeathWithPlayers()
                         if Selected then
                             DidCall = true
                             TriggerServerEvent("core:RegisterCall", "medecin", "Demande de réanimation de citoyen.")
+                            print("Appel")
                         end
                     end)
                 else
@@ -114,18 +115,6 @@ function SyncDeathWithPlayers()
                 ClearPlayerWantedLevel(GetPlayerIndex())
                 SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
             end
-
-            RageUI.IsVisible(RMenu:Get('core', 'death_call'), true, true, true, function()
-    
-                RageUI.Button("Demander un EMS.", nil, { }, true, function(Hovered, Active, Selected)
-                    if Selected then
-                        TriggerServerEvent("core:SetServiceStatus", pJob)
-                    end
-                end)
-    
-    
-            end, function()
-            end)
             Wait(1)
         end
 
