@@ -29,3 +29,12 @@ AddEventHandler("core:SetServiceStatus", function(job)
         TriggerClientEvent("rF:notification", source, "~r~Retrait de service.\n~w~Tu n'est plus en service "..job.."!")
     end
 end)
+
+
+function GetActivePlayersFromJob(job)
+    if JobServices[job] ~= nil then
+        return JobServices[job]
+    else
+        return {}
+    end
+end
