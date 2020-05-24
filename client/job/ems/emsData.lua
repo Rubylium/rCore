@@ -55,6 +55,12 @@ function LoadEmsData()
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'ems_main'), true, true, true, function()
 
+                    RageUI.Button("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            TriggerServerEvent("core:SetServiceStatus", pJob)
+                        end
+                    end)
+
                     RageUI.Button("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                         if Selected then
                             OpenBillCreation()
@@ -74,7 +80,8 @@ function LoadEmsData()
 
             end
         end)
-    end    
+    end  
+    
 
 end
 
