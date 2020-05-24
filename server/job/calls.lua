@@ -7,7 +7,7 @@ AddEventHandler("core:RegisterCall", function(_job, _msg)
     Calls[CallID] = {target = source, pos = pos, job = _job, msg = _msg, taken = false}
     local PlayersInJobs = GetActivePlayersFromJob(_job)
     for k,v in pairs(PlayersInJobs) do
-        TriggerClientEvent("core:SendCall", v.id, CallID, _msg)
+        TriggerClientEvent("core:SendCall", v.id, CallID, _msg, _job)
     end
 end)
 
@@ -20,7 +20,7 @@ AddEventHandler("core:TakeCall", function(callid)
             TriggerClientEvent("core:CallTaken", source, Calls[callid].pos)
             TriggerClientEvent("core:CallTakenTarget", Calls[callid].target, GetEntityCoords(GetPlayerPed(source)))
         else
-            -- Notif appel déja pris
+            TriggerClientEvent("rF:notification", source, "~r~L'appel à déja été pris!")
         end
     end
 end)
