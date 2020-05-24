@@ -1,3 +1,9 @@
+RMenu.Add('core', 'death_call', RageUI.CreateMenu("EMS", "~b~Ménu action EMS"))
+RMenu:Get('core', 'death_call').Closable = false
+RMenu:Get('core', 'death_call').Closed = function()
+
+end
+
 local LastDamage = 0
 local FatalInjured = false
 Citizen.CreateThread(function()
@@ -6,7 +12,6 @@ Citizen.CreateThread(function()
         local pPed = GetPlayerPed(-1)
         if IsPedDeadOrDying(pPed, 1) then
             if not pDeath then
-                print("^1Death of the ped")
                 pDeath = true
                 local test, bone = GetPedLastDamageBone(pPed, 0)
                 if test ~= false then 
@@ -22,12 +27,15 @@ end)
 -- Injured with weapon "move_strafe@injured" "idle"
 
 local FatalDamage = {12844, 31086, 35731, 39317, 65068}
+local DidCall = false
 
 local dict = "random@dealgonewrong"
 local anim = "idle_a"
 function SyncDeathWithPlayers()
     FatalInjured = false
-    print("^2Syncing death with players")
+    DidCall = false
+    RageUI.CloseAll()
+    RageUI.Visible(RMenu:Get('core', 'death_call'), not RageUI.Visible(RMenu:Get('core', 'death_call')))
     local pPed = GetPlayerPed(-1)
     local pCoords = GetEntityCoords(pPed)
     local heading GetEntityHeading(pPed)
@@ -80,19 +88,51 @@ function SyncDeathWithPlayers()
             else
                 SetPedCanRagdoll(pPed, true)
                 SetPedToRagdoll(pPed, 1000, 1000, 0, 0, 0, 0)
+
             end
+
+            RageUI.IsVisible(RMenu:Get('core', 'death_call'), true, true, true, function()
+    
+                if not DidCall then
+                    RageUI.Button("Demander un EMS.", nil, { }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            DidCall = true
+                            TriggerServerEvent("core:RegisterCall", "medecin", "Demande de réanimation de citoyen.")
+                        end
+                    end)
+                else
+                    RageUI.Button("Appel envoyé aux secours.", nil, { }, true, function(Hovered, Active, Selected)
+                    end)
+                end
+    
+    
+            end, function()
+            end)
 
             if IsPedDeadOrDying(pPed, 1) then
                 NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
                 ClearPlayerWantedLevel(GetPlayerIndex())
                 SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
             end
-            Wait(10)
+
+            RageUI.IsVisible(RMenu:Get('core', 'death_call'), true, true, true, function()
+    
+                RageUI.Button("Demander un EMS.", nil, { }, true, function(Hovered, Active, Selected)
+                    if Selected then
+                        TriggerServerEvent("core:SetServiceStatus", pJob)
+                    end
+                end)
+    
+    
+            end, function()
+            end)
+            Wait(1)
         end
 
         NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
         ClearPlayerWantedLevel(GetPlayerIndex())
         SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
+        RageUI.Visible(RMenu:Get('core', 'death_call'), false)
     end)
 end
 
