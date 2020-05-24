@@ -197,6 +197,12 @@ function rUtils.Notif(text)
     DrawNotification(false, false)
 end
 
+function rUtils.ImportantNotif(text)
+    SetNotificationTextEntry('STRING')
+    AddTextComponentString(text)
+    DrawNotification(true, false)
+end
+
 function rUtils.ShowAdvancedNotification(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
 	if saveToBrief == nil then saveToBrief = true end
 	AddTextEntry('AdvancedNotification', msg)
