@@ -122,7 +122,7 @@ function OpenClothShopThread()
                             RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
-                                   TriggerEvent("rF:SaveSkin")
+                                   TriggerEvent("rF:SaveSkin", v.item, i)
                                    TriggerServerEvent("rF:RemoveMoney", token, v.price)
                                end
                                if h then
@@ -139,7 +139,7 @@ function OpenClothShopThread()
                             RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
-                                   TriggerEvent("rF:SaveSkin")
+                                   TriggerEvent("rF:SaveSkin", v.item, i)
                                    TriggerServerEvent("rF:RemoveMoney", token, v.price)
                                end
                                if h then
