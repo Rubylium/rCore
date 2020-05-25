@@ -3,15 +3,6 @@
 
 GarageZone = {}
 
---template = {
---    {
---        pos = vector3(243.6, 226.25, 106.2),
---        action = function()
---            OpenBankDialog()
---        end,
---    },
---}
-
 RMenu.Add('core', 'garage_metier', RageUI.CreateMenu("Garage", "~b~Ménu garage"))
 RMenu.Add('core', 'garage_ranger', RageUI.CreateSubMenu(RMenu:Get('core', 'garage_metier'), "Garage"))
 RMenu:Get('core', 'garage_metier').Closed = function()
