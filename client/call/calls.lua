@@ -44,3 +44,24 @@ RegisterNetEvent("core:CallTakenTarget")
 AddEventHandler("core:CallTakenTarget", function(dst, job)
     rUtils.Notif("L'appel à été pris part un "..job.."!\nDistance: ~o~"..rUtils.Math.Round(dst, 0).."m")
 end)
+
+
+
+RegisterNetEvent("core:SendMsgToJob")
+AddEventHandler("core:SendMsgToJob", function(data)
+    local message = data.message
+    local job = data.number
+    if message == nil then
+        DisplayOnscreenKeyboard(1, "FMMC_MPM_NA", "", "", "", "", "", 200)
+        while UpdateOnscreenKeyboard() == 0 do
+            DisableAllControlActions(0)
+            Wait(0)
+        end
+        if GetOnscreenKeyboardResult() then
+            message =  GetOnscreenKeyboardResult()
+        end
+    end
+    if message ~= nil and message ~= "" then
+        TriggerServerEvent('core:RegisterCall', job, message)  
+    end
+end)
