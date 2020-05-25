@@ -662,6 +662,10 @@ rUtils.RegisterGarageZone = function(zone)
 	table.insert(GarageZone, zone)
 end
 
+rUtils.RegisterClothZone = function(zone)
+	table.insert(clothZone, zone)
+end
+
 function rUtils.LoadModel(_model)
 	local model = GetHashKey(_model)
 	RequestModel(model)
