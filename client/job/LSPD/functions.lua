@@ -18,8 +18,10 @@ AddEventHandler("core:CuffPlayer", function(status, freeze)
     if not status then
         if GetEntityModel(pPed) == femaleHash then -- mp female
             SetPedComponentVariation(pPed, 7, prevFemaleVariation, 0, 0)
+            print("Femme")
         elseif GetEntityModel(pPed) == maleHash then -- mp male
             SetPedComponentVariation(pPed, 7, prevMaleVariation, 0, 0)
+            print("Homme")
         end
 
         ClearPedTasks(pPed)
