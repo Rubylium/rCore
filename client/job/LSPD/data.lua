@@ -140,7 +140,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", true, true)
+                                TriggerServerEvent("core:CuffPlayer", sID, true, true)
                             end
                         end
                         if Active then
@@ -153,7 +153,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", true, false)
+                                TriggerServerEvent("core:CuffPlayer", sID, true, false)
                             end
                         end
                         if Active then
@@ -166,7 +166,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", false, false)
+                                TriggerServerEvent("core:CuffPlayer", sID, false, false)
                             end
                         end
                         if Active then
