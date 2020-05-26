@@ -13,6 +13,8 @@ rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function(
         OpenMecanoActionMenu()
     elseif pJob == "medecin" then
         OpenEmsActionMenu()
+    elseif pJob == "police" then
+        OpenPoliceActionMenu()
     end
 end)
 
