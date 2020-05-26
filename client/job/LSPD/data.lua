@@ -224,7 +224,6 @@ function LoadPoliceData()
                         if Selected then
                             for k,v in pairs(pInventory) do
                                 if v.name == "matraque" or v.name == "tazer" or v.name == "pistoletlspd" or v.name == "m4" then
-                                    print("Remove item ")
                                     TriggerServerEvent("rF:RemoveItem", token, v.label, v.count)
                                 end
                             end
