@@ -51,7 +51,13 @@ function OpenGarage(zones, vehs)
                         if Selected then
                             local pos, heading = rUtils.GetZoneFromTable(zones)
                             if pos then
-                                rUtils.SpawnVehicle(v.spawn, pos, heading)
+                                rUtils.SpawnVehicle(v.spawn, pos, heading, _, function(veh)
+                                    for i = 1,9 do
+                                        SetVehicleExtra(veh, i, false)
+                                    end
+                                    SetVehicleLivery(veh, 0)
+                                end)
+
                             else
                                 RageUI.Popup({message = "~r~Action impossible~w~\nAucun point de sortie disponible."})
                             end
@@ -73,7 +79,7 @@ function OpenGarage(zones, vehs)
                         local plate = GetVehicleNumberPlateText(veh)
                         RageUI.Button("Place #"..k.." - ~b~["..plate.."]", nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
                             if Selected then
-                                DeleteEntity(veh)
+                                TriggerServerEvent("DeleteEntity", VehToNet(veh))
                             end
                         end)
                     end
