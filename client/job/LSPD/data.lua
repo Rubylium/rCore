@@ -101,6 +101,13 @@ function LoadPoliceData()
         end,
     })
 
+    rUtils.RegisterActionZone({
+        pos = vector3(-1102.956, -829.2413, 14.28279),
+        action = function()
+            OpenPoliceArmorie()
+        end,
+    })
+
 
     RMenu.Add('core', 'lspd_main', RageUI.CreateMenu("POLICE", "~b~Menu action LSPD"))
     RMenu:Get('core', 'lspd_main').Closed = function()
@@ -175,5 +182,71 @@ function LoadPoliceData()
             end
         end)
     end 
+
+
+    local weapons = {
+        {
+            name = "Matraque",
+            item = "matraque",
+            grade = 0,
+        },
+        {
+            name = "Tazer",
+            item = "tazer",
+            grade = 0,
+        },
+        {
+            name = "Arme de poing",
+            item = "pistoletlspd",
+            grade = 2,
+        },
+        {
+            name = "Fusils d'assault LSPD",
+            item = "m4",
+            grade = 3,
+        },
+    }
+
+    RMenu.Add('core', 'lspd_armorie', RageUI.CreateMenu("POLICE", "~b~Menu action LSPD"))
+    RMenu:Get('core', 'lspd_armorie').Closed = function()
+        open = false
+    end
+
+    function OpenPoliceArmorie()
+        open = true
+        TriggerServerEvent("rF:GetPlayerInventory")
+        RageUI.Visible(RMenu:Get('core', 'lspd_armorie'), not RageUI.Visible(RMenu:Get('core', 'lspd_armorie')))
+        Citizen.CreateThread(function()
+            while open do
+                Wait(1)
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_armorie'), true, true, true, function()
+                    RageUI.Button("Déposer ses armes de services.", nil, { }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            for k,v in pairs(pInventory) do
+                                if v.name == "matraque" or v.name == "tazer" or v.name == "pistoletlspd" or v.name == "m4" then
+                                    print("Remove item ")
+                                    TriggerServerEvent("rF:RemoveItem", token, v.label, v.count)
+                                end
+                            end
+                        end
+                    end)
+
+                    for k,v in pairs(weapons) do
+                        RageUI.Button(v.name, nil, { }, v.grade <= pJob_Grade, function(Hovered, Active, Selected)
+                            if Selected then
+                                TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, v.item, 1)
+                            end
+                        end)
+                    end
+
+
+                end, function()
+                    ---Panels
+                end)
+
+
+            end
+        end)
+    end
 
 end
