@@ -13,21 +13,8 @@ local maleHash = GetHashKey("mp_m_freemode_01")
 local prevMaleVariation = 0
 local prevFemaleVariation = 0
 
-RegisterCommand("cuff", function(source, args, rawCommand)
-    TriggerEvent("core:CuffPlayer", true, false)
-end)
-
-RegisterCommand("cufffreeze", function(source, args, rawCommand)
-    TriggerEvent("core:CuffPlayer", true, true)
-end)
-
-RegisterCommand("uncuff", function(source, args, rawCommand)
-    TriggerEvent("core:CuffPlayer", false, false)
-end)
-
 RegisterNetEvent("core:CuffPlayer")
 AddEventHandler("core:CuffPlayer", function(status, freeze)
-    print("CuffPlayer", status, freeze)
     if not status then
         if GetEntityModel(pPed) == femaleHash then -- mp female
             SetPedComponentVariation(pPed, 7, prevFemaleVariation, 0, 0)
