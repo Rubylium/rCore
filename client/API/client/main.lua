@@ -59,7 +59,7 @@ MusicZone = {
         dst = 30.0,
         starting = 60.0,
         pos = vector3(-90.5, 994.2, 234.56),
-        max = 0.3,
+        max = 0.05,
     },
     {
         name = "hopital_restaurant_ambience",
@@ -148,6 +148,22 @@ MusicZone = {
         starting = 30.0,
         pos = vector3(25.74, -1345.8, 29.49),
         max = 0.09,
+    },
+    {
+        name = "radio_ambient",
+        link = "https://www.youtube.com/watch?v=RfDf9DSZfD0", 
+        dst = 15.0,
+        starting = 100.0,
+        pos = vector3(730.4, 2519.5, 73.5),
+        max = 0.04,
+    },
+    {
+        name = "weed_ambient",
+        link = "https://www.youtube.com/watch?v=5qdTU3i6-XI", 
+        dst = 15.0,
+        starting = 50.0,
+        pos = vector3(374.3, -826.14, 29.30),
+        max = 0.04,
     },
 }
 
