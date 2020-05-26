@@ -123,9 +123,42 @@ function LoadPoliceData()
                         end
                     end)
 
-                    RageUI.Button("Soigner la personne la plus proche", nil, {}, true, function(Hovered, Active, Selected)
+                    RageUI.Button("Menotter la personne", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
-                            HelpPlayer()
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent("core:CuffPlayer", true, true)
+                            end
+                        end
+                        if Active then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+
+                    RageUI.Button("Menotter la personne (Laisser bouger)", nil, {}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent("core:CuffPlayer", true, false)
+                            end
+                        end
+                        if Active then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+
+                    RageUI.Button("Retirer les menottes", nil, {}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent("core:CuffPlayer", false, false)
+                            end
+                        end
+                        if Active then
+                            rUtils.DisplayClosetPlayer()
                         end
                     end)
 
