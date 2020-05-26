@@ -8,7 +8,7 @@
 --}
 
 
-
+clothZone = {}
 Citizen.CreateThread(function()
     while true do
         local NearZone = false
