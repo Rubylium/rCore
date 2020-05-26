@@ -1,4 +1,5 @@
 rUtils.RegisterControlKey("inventaire", "Ouvrir l'inventaire", "F5", function()
+    if IsCuffed then return end
     TriggerServerEvent("rF:GetPlayerInventory")
     TriggerServerEvent("rF:GetPlayerAccounts", token)
     OpenPlayerMenu()
@@ -7,6 +8,7 @@ end)
 
 
 rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function()
+    if IsCuffed then return end
     if pJob == "mecano" then
         OpenMecanoActionMenu()
     elseif pJob == "medecin" then
@@ -40,9 +42,11 @@ rUtils.RegisterControlKey("removeweapon", "Ranger son arme", "1", function()
 end)
 
 rUtils.RegisterControlKey("vehlist", "Ouvrir la liste de véhicule", "f2", function()
+    if IsCuffed then return end
     OpenVehMenu()
 end)
 
 rUtils.RegisterControlKey("lock", "Clé du véhicule", "u", function()
+    if IsCuffed then return end
     OpenOrCloseVeh()
 end)
