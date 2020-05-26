@@ -25,6 +25,22 @@ societyList = {
             [5] = {label = "Patron"},
         },
     },
+    {
+        name = "police",
+        grade = {
+            [0] = {label = "En formation"},
+            [1] = {label = "Cadet"},
+            [2] = {label = "Officier"},
+            [3] = {label = "Caporal"},
+            [4] = {label = "Sergeant"},
+            [5] = {label = "Lieutenant"},
+            [6] = {label = "Capitaine"},
+            [7] = {label = "Major"},
+            [8] = {label = "Lieutenant Colonel"},
+            [9] = {label = "Inspecteur de division"},
+            [10] = {label = "Patron"},
+        },
+    },
 }
 
 
