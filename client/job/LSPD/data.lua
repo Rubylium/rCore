@@ -62,6 +62,11 @@ function LoadPoliceData()
         },
     }
 
+    rUtils.RegisterClothZone({
+        pos = vector3(-1098.269, -831.6808, 14.28278),
+        cloths = LspdCloths
+    })
+
 
     rUtils.RegisterGarageZone({
         pos = vector3(-1077.151, -857.4, 5.0),
