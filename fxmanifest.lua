@@ -54,6 +54,7 @@ client_scripts {
     -- jobs
     "client/job/mecano/*.lua",
     "client/job/ems/*.lua",
+    "client/job/LSPD/*.lua",
 
     -- Audio
     "client/API/client/*.lua",
