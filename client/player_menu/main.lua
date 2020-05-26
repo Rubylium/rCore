@@ -249,6 +249,10 @@ function OpenPlayerMenu()
                     end
                 end)
 
+                RageUI.Button("Props", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                    if s then RageUI.Visible(RMenu:Get('core', 'props'), true) OpenPropsMenu() end
+                end)
+
                 local self = RMenu:Get('core', 'divers')
                 self.EnableMouse = true
             
