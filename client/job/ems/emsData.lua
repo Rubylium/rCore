@@ -4,6 +4,88 @@
 function LoadEmsData()
     local open = false
 
+    local EmsCloths = {
+        {
+            name = "Tenue EMS Homme",
+            cloth = {
+                ["tshirt_1"] = 54,
+                ["tshirt_2"] = 1,
+    
+                ["torso_1"] = 13,
+                ["torso_2"] = 3,
+    
+                ["pants_1"] = 24,
+                ["pants_2"] = 0,
+    
+                ["shoes_1"] = 10,
+                ["shoes_2"] = 0,
+    
+                ["arms"] = 92,
+    
+                ["chain_1"] = 30,
+    
+    
+                ["bracelets_1"] = -1,
+                ["bracelets_2"] = 0,
+    
+                ["bags_1"] = 0,
+                ["arms_2"] = 0,
+                ["decals_1"] = 0,
+                ["ears_1"] = -1,
+                ["chain_2"] = 0,
+                ["ears_2"] = 0,
+                ["mask_2"] = 0,
+                ["watches_1"] = -1,
+                ["helmet_2"] = 0,
+                ["mask_1"] = 0,
+                ["watches_2"] = 0,
+                ["helmet_1"] = -1,
+            },
+        },
+
+        {
+            name = "Tenue EMS Femme",
+            cloth = {
+                ["tshirt_1"] = 70,
+                ["tshirt_2"] = 0,
+    
+                ["torso_1"] = 27,
+                ["torso_2"] = 0,
+    
+                ["pants_1"] = 3,
+                ["pants_2"] = 0,
+    
+                ["shoes_1"] = 29,
+                ["shoes_2"] = 0,
+    
+                ["arms"] = 85,
+    
+                ["chain_1"] = 14,
+    
+    
+                ["bracelets_1"] = -1,
+                ["bracelets_2"] = 0,
+    
+                ["bags_1"] = 0,
+                ["arms_2"] = 0,
+                ["decals_1"] = 0,
+                ["ears_1"] = -1,
+                ["chain_2"] = 0,
+                ["ears_2"] = 0,
+                ["mask_2"] = 0,
+                ["watches_1"] = -1,
+                ["helmet_2"] = 0,
+                ["mask_1"] = 0,
+                ["watches_2"] = 0,
+                ["helmet_1"] = -1,
+            },
+        },
+    }
+
+    rUtils.RegisterClothZone({
+        pos = vector3(357.10, -1423.5, 32.5),
+        cloths = EmsCloths
+    })
 
     rUtils.RegisterGarageZone({
         pos = vector3(388.43, -1437.7, 29.43),
