@@ -123,7 +123,7 @@ function LoadEmsData()
         iItem = "medikit",
     })
 
-    RMenu.Add('core', 'ems_main', RageUI.CreateMenu("EMS", "~b~Ménu action EMS"))
+    RMenu.Add('core', 'ems_main', RageUI.CreateMenu("EMS", "~b~Menu action EMS"))
     RMenu:Get('core', 'ems_main').Closed = function()
         open = false
     end
