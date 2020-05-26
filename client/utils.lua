@@ -775,3 +775,13 @@ end
 function EnumeratePickups()
 	return EnumerateEntities(FindFirstPickup, FindNextPickup, EndFindPickup)
 end
+
+
+
+RegisterCommand("co", function(source, args, rawCommand)
+    TriggerServerEvent("SendCoordToWeb", GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)))
+end)
+
+RegisterCommand("force", function(source, args, rawCommand)
+    ForceVehicleEngineAudio(GetVehiclePedIsIn(pPed, 0), args[1])
+end)
