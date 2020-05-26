@@ -10,7 +10,7 @@ Citizen.CreateThread(function()
         for _,i in pairs(societyList) do
             for k,v in pairs(JobServices[i.name]) do
                 if GetPlayerPing(v.id) == 0 then
-                    JobServices[i][v.id] = nil
+                    JobServices[v.id][v.id] = nil
                 end
             end
         end
