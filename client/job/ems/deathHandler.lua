@@ -32,6 +32,7 @@ local DidCall = false
 local dict = "random@dealgonewrong"
 local anim = "idle_a"
 function SyncDeathWithPlayers()
+    Wait(5000)
     FatalInjured = false
     DidCall = false
     RageUI.CloseAll()
