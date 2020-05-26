@@ -79,30 +79,28 @@ function DrawTxt(coords, text)
 end
 
 function SpawnObj(obj)
-    local playerPed = PlayerPedId()
-	local coords, forward = GetEntityCoords(playerPed), GetEntityForwardVector(playerPed)
+	local coords, forward = GetEntityCoords(pPed), GetEntityForwardVector(pPed)
     local objectCoords = (coords + forward * 2.5)
     local Ent = nil
 
     SpawnObject(obj, objectCoords, function(obj)
         SetEntityCoords(obj, objectCoords, 0.0, 0.0, 0.0, 0)
-        SetEntityHeading(obj, GetEntityHeading(playerPed))
+        SetEntityHeading(obj, GetEntityHeading(pPed))
         PlaceObjectOnGroundProperly(obj)
-        Ent = ob
+        Ent = obj
         Wait(1)
     end)
     Wait(1)
     while Ent == nil do Wait(1) end
-    SetEntityHeading(Ent, GetEntityHeading(playerPed))
+    SetEntityHeading(Ent, GetEntityHeading(pPed))
     PlaceObjectOnGroundProperly(Ent)
     local placed = false
-    SetEntityNoCollisionEntity(pPed, Ent, false)
     while not placed do
         Wait(1)
-        local coords, forward = GetEntityCoords(playerPed), GetEntityForwardVector(playerPed)
+        local coords, forward = GetEntityCoords(pPed), GetEntityForwardVector(pPed)
         local objectCoords = (coords + forward * 2.5)
         SetEntityCoords(Ent, objectCoords, 0.0, 0.0, 0.0, 0)
-        SetEntityHeading(Ent, GetEntityHeading(playerPed))
+        SetEntityHeading(Ent, GetEntityHeading(pPed))
         PlaceObjectOnGroundProperly(Ent)
 		SetEntityAlpha(Ent, 170, 170)
         SetEntityNoCollisionEntity(pPed, Ent, false)
@@ -116,7 +114,6 @@ function SpawnObj(obj)
             placed = true
         end
     end
- 
     SetEntityNoCollisionEntity(pPed, Ent, true)
 	SetEntityCollision(Ent, 1, 1)
     FreezeEntityPosition(Ent, true)
