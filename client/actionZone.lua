@@ -15,6 +15,9 @@ Citizen.CreateThread(function()
         local pCoords = GetEntityCoords(pPed)
         for k,v in pairs(ActionZone) do
             local dst = GetDistanceBetweenCoords(pCoords, v.pos, true)
+            if v.zAxe ~= nil then
+                dst = GetDistanceBetweenCoords(pCoords, v.pos, false)
+            end
             if dst < 10.0 then
                 NearZone = true
                 DrawMarker(25, v.pos.x, v.pos.y, v.pos.z-0.8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 255, 255, 255, 200, 0, 1, 2, 0, nil, nil, 0)
