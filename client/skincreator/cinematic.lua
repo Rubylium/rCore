@@ -8,7 +8,7 @@ function StartCreatorEndCinematic()
     local blockControls = true
     TriggerEvent("rF:HudToogle")
     DisplayRadar(false)
-    PlayUrl("cin_music", "https://www.youtube.com/watch?v=F1Vx-9TUyzA", 0.5, false)
+    PlayUrl("cin_music", "https://www.youtube.com/watch?v=F1Vx-9TUyzA", 0.2, false)
 
     Citizen.CreateThread(function()
         while blockControls do
