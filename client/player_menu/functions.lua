@@ -47,7 +47,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         if NearProp then
-            Wait(10)
+            Wait(1)
             local oCoords = GetEntityCoords(Nearest)
             FreezeEntityPosition(v, true)
             DrawTxt(vector3(oCoords.x, oCoords.y, oCoords.z+1.0), "Appuyer sur E pour enlever l'objets.")
