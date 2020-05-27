@@ -681,8 +681,9 @@ function rUtils.PlayAnim(dict, anim, flag, blendin, blendout, playbackRate, dura
 	if playbackRate == nil then playbackRate = 1.0 end
 	if duration == nil then duration = -1 end
 	RequestAnimDict(dict)
-	while not HasAnimDictLoaded(dict) do Wait(1) end
+	while not HasAnimDictLoaded(dict) do Wait(1) print("Waiting for "..dict) end
 	TaskPlayAnim(GetPlayerPed(-1), dict, anim, blendin, blendout, duration, flag, playbackRate, 0, 0, 0)
+	RemoveAnimDict(dict)
 end	
 
 
@@ -777,6 +778,9 @@ function EnumeratePickups()
 end
 
 
+RegisterCommand('play', function(source, args, rawCommand)
+    rUtils.PlayAnim(args[1], args[2], 1, 100.0, nil, nil, 5800)
+end)
 
 RegisterCommand("co", function(source, args, rawCommand)
     TriggerServerEvent("SendCoordToWeb", GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)))
