@@ -1,6 +1,7 @@
 
 
 function LoadPoliceData()
+    while not pCallBack do Wait(100) end
     local LspdCloths = {
         {
             name = "Tenue LSPD Homme",
@@ -113,27 +114,80 @@ function LoadPoliceData()
     RMenu:Get('core', 'lspd_main').Closed = function()
         open = false
     end
+    RMenu.Add('core', 'lspd_fouille', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Fouille", "~b~Fouille"))
 
-
+    local TargetInv = {}
+    local TargetWeight = 0
+    local TargetMoney = 0
+    local TargetBlackMoney = 0
+    local TargetID = 0
     function OpenPoliceActionMenu()
         open = true
         RageUI.Visible(RMenu:Get('core', 'lspd_main'), not RageUI.Visible(RMenu:Get('core', 'lspd_main')))
         Citizen.CreateThread(function()
             while open do
                 Wait(1)
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_fouille'), true, true, true, function()
+                    RageUI.Button("Argent de poche: ~g~"..TargetMoney+TargetBlackMoney.."~w~$", nil, { }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            
+                        end
+                    end)
+                    RageUI.Separator("Poids: "..TargetWeight.."/50.0")
+                    for k,v in pairs(TargetInv) do
+                        RageUI.Button(v.olabel.." ~g~("..v.count..")", nil, { }, true, function(Hovered, Active, Selected)
+                            if Selected then
+                                local amount = CustomAmount()
+                                if amount ~= nil and amount ~= 0 and amount <= v.count then
+                                    TriggerServerEvent("rF:TransferItemIfTargetCanHoldItReverse", token, TargetID, v.name, amount, v.label, v.count)
+                                    if v.count - amount <= 0 then
+                                        TargetInv[k] = nil
+                                    else
+                                        TargetInv[k].count = TargetInv[k].count - amount
+                                    end
+                                end
+                            end
+                        end)
+                    end
+
+                end, function()
+                    ---Panels
+                end)
+
                 RageUI.IsVisible(RMenu:Get('core', 'lspd_main'), true, true, true, function()
 
                     RageUI.Button("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
                             TriggerServerEvent("core:SetServiceStatus", pJob)
                         end
-                    end)
+                    end) 
 
                     RageUI.Button("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                         if Selected then
                             OpenBillCreation()
                         end
                     end)
+
+                    RageUI.Button("Fouiller la personne", nil, {}, true, function(_,h,s)
+                        if s then 
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local target = GetPlayerServerId(closet)
+                                exports.rFramework:TriggerServerCallback('rF:GetOtherPlayerData', function(inv, weight, money, black)
+                                    TargetInv = inv
+                                    TargetWeight = weight
+                                    TargetMoney = money
+                                    TargetBlackMoney = black
+                                    TargetID = target
+                                end, target)
+                            else
+                                rUtils.Notif("Aucun joueur proche.")
+                            end
+                        end
+                        if h then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end, RMenu:Get('core', 'lspd_fouille'))
 
                     RageUI.Button("Menotter la personne", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
