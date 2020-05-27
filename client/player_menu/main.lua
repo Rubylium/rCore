@@ -97,9 +97,9 @@ function OpenPlayerMenu()
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
                         if ClosetPlayer ~= -1 then
-                            local amount = CustomAmount()
+                            local amount = CustomAmount() 
                             if amount <= selected.count then
-                                TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, cSid, selected.name, amount, selected.label)
+                                TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, cSid, selected.name, amount, selected.label, selected.count)
                                 TriggerServerEvent("rF:GetPlayerInventory")
                                 RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                             end
