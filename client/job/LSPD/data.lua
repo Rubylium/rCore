@@ -195,6 +195,7 @@ function LoadPoliceData()
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
                                 TriggerServerEvent("core:CuffPlayer", sID, true, true)
+                                rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
                         if Active then
@@ -208,6 +209,7 @@ function LoadPoliceData()
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
                                 TriggerServerEvent("core:CuffPlayer", sID, true, false)
+                                rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
                         if Active then
@@ -221,6 +223,7 @@ function LoadPoliceData()
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
                                 TriggerServerEvent("core:CuffPlayer", sID, false, false)
+                                rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 100.0, nil, nil, 5800)
                             end
                         end
                         if Active then
