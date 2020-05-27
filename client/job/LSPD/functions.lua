@@ -26,6 +26,7 @@ AddEventHandler("core:CuffPlayer", function(status, freeze)
         FreezeEntityPosition(pPed, false)
         SetEnableHandcuffs(pPed, false)
         IsCuffed = false
+        rUtils.PlayAnim("mp_arresting", "b_uncuff", 1, 100.0, nil, nil, 5800)
     else 
         IsCuffed = true
         if GetEntityModel(pPed) == femaleHash then -- mp female
