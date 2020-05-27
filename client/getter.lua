@@ -1,4 +1,5 @@
 token = ""
+pCallBack = false
 pInventory = {}
 pClothing = {}
 pVehs = {}
@@ -92,4 +93,9 @@ AddEventHandler("rF:UpdateIdentity", function(identity)
     pPrenom = identity.prenom
     pNom = identity.nom
     pAge = identity.age
+end)
+
+RegisterNetEvent("core:CallBackReady")
+AddEventHandler("core:CallBackReady", function()
+    pCallBack = true
 end)
