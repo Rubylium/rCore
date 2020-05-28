@@ -1,7 +1,6 @@
 
 
 function LoadPoliceData()
-    while not pCallBack do Wait(100) end
     local LspdCloths = {
         {
             name = "Tenue LSPD Homme",
