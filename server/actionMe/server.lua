@@ -19,8 +19,10 @@
 -- --------------------------------------------
 
 RegisterNetEvent('3dme:shareDisplay')
-AddEventHandler('3dme:shareDisplay', function(idsToSend, text, pPedSID)
-    for k,v in pairs(idsToSend) do
-        TriggerClientEvent("3dme:shareDisplay", v, text, pPedSID)
+AddEventHandler('3dme:shareDisplay', function(token, idsToSend, text, pPedSID)
+    if exports.rFramework:CheckToken(token, source) then
+        for k,v in pairs(idsToSend) do
+            TriggerClientEvent("3dme:shareDisplay", v, text, pPedSID)
+        end
     end
 end)
