@@ -19,7 +19,7 @@ Citizen.CreateThread(function()
             RageUI.Separator("Géstion société: ~b~"..pJob.."")
             RageUI.Button("Déposer des objets", nil, { RightLabel = "→" }, true, function(_,_,s)
                 if s then
-                    TriggerServerEvent("rF:GetPlayerInventory")
+                    TriggerServerEvent("rF:GetPlayerInventory", token)
                 end
             end, RMenu:Get('core', 'society_inv_player'))
 
@@ -40,7 +40,7 @@ Citizen.CreateThread(function()
                             local amount = CustomAmount()
                             if amount <= v.count then
                                 TriggerServerEvent("rF:TransferItemFromInvToSociety", token, pJob, v.name, v.label, v.olabel, amount)
-                                TriggerServerEvent("rF:GetPlayerInventory")
+                                TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)
                             end
                         end
@@ -51,7 +51,7 @@ Citizen.CreateThread(function()
                             local amount = CustomAmount()
                             if amount <= v.count then
                                 TriggerServerEvent("rF:TransferItemFromInvToSociety", token, pJob, v.name, v.label, v.olabel, amount)
-                                TriggerServerEvent("rF:GetPlayerInventory")
+                                TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)
                             end
                         end
