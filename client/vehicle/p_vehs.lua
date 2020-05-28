@@ -8,7 +8,7 @@ end
 
 function OpenVehMenu()
     RageUI.CloseAll()
-    TriggerServerEvent("core:GetPlayersVehicle")
+    TriggerServerEvent("core:GetPlayersVehicle", token)
     local open = true
     RageUI.Visible(RMenu:Get('core', 'veh_list'), true)
 
@@ -20,7 +20,7 @@ function OpenVehMenu()
                     if s then
                         local vName = GetDisplayNameFromVehicleModel(GetEntityModel(pVeh))
                         local props = rUtils.GetVehicleProperties(pVeh)
-                        TriggerServerEvent("core:DEV-SaveVehToGarage", vName, props.plate, props)
+                        TriggerServerEvent("core:DEV-SaveVehToGarage", token, vName, props.plate, props)
                         DeleteEntity(pVeh)
                     end
                 end)
