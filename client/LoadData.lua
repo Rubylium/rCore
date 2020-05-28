@@ -8,7 +8,7 @@ function LoadData()
         LoadEmsData()
     elseif pJob == "police" then
         LoadPoliceData()
-    end
+    end 
 
     print("^2Loading "..pJob.." data.")
 end

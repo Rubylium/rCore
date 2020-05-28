@@ -50,7 +50,7 @@ end)
 
 
 
-local LockedControls = {166,167,168,288,289,38,311,182, 21}
+local LockedControls = {166,167,168,288,289,38,311,182,21,24,25,82}
 function StartCuffLoop()
     Citizen.CreateThread(function()
         while IsCuffed do
@@ -63,4 +63,37 @@ function StartCuffLoop()
             Wait(1)
         end
     end)
+end
+
+
+local EnTrainEscorter = false
+local PolicierEscorte = nil
+RegisterNetEvent("core:EscortPlayer")
+AddEventHandler("core:EscortPlayer", function(player)
+	EnTrainEscorter = not EnTrainEscorter
+    PolicierEscorte = policier
+    if EnTrainEscorter then
+        escort()
+    end
+end)
+
+
+function escort()
+	while EnTrainEscorter do
+		Citizen.Wait(1)
+		local targetPed = GetPlayerPed(GetPlayerFromServerId(PolicierEscorte))
+
+		if not IsPedSittingInAnyVehicle(targetPed) then
+			AttachEntityToEntity(pPed, targetPed, 11816, 0.54, 0.54, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
+		else
+			EnTrainEscorter = false
+			DetachEntity(pPed, true, false)
+		end
+
+		if IsPedDeadOrDying(targetPed, true) then
+			EnTrainEscorter = false
+			DetachEntity(pPed, true, false)
+		end
+    end
+    DetachEntity(pPed, true, false)
 end

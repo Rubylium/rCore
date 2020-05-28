@@ -41,6 +41,7 @@ client_scripts {
     "client/facture/*.lua",
     "client/society/*.lua",
     "client/call/*.lua",
+    "client/activity/*.lua",
 
     -- Skins datas
     "client/skincreator/mask.json",

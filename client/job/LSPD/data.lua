@@ -190,19 +190,6 @@ function LoadPoliceData()
                         end
                     end, RMenu:Get('core', 'lspd_fouille'))
 
-                    RageUI.ButtonWithStyle("Menotter la personne", nil, {}, true, function(Hovered, Active, Selected)
-                        if Selected then
-                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
-                            if dst < 2.0 then
-                                local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", token, sID, true, true)
-                                rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
-                            end
-                        end
-                        if Active then
-                            rUtils.DisplayClosetPlayer()
-                        end
-                    end)
 
                     RageUI.ButtonWithStyle("Menotter la personne (Laisser bouger)", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
