@@ -4,7 +4,6 @@
 --- DateTime: 21/04/2019 21:20
 ---
 
-
 ---CreateMenu
 ---@param Title string
 ---@param Subtitle string
@@ -31,7 +30,7 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
     Menu.X = X or 0
     Menu.Y = Y or 0
     Menu.Parent = nil
-    Menu.WidthOffset = 100
+    Menu.WidthOffset = RageUI.UI.Style[RageUI.UI.Current].Width
     Menu.Open = false
     Menu.Controls = RageUI.Settings.Controls
     Menu.Index = 1
@@ -44,6 +43,7 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
     Menu.Options = 0
     Menu.Closable = true
     Menu.InstructionalScaleform = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS")
+    Menu.CursorStyle = 1
 
     if string.starts(Menu.Subtitle, "~") then
         Menu.PageCounterColour = string.sub(Menu.Subtitle, 1, 3)
@@ -113,6 +113,7 @@ function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictiona
             Menu.Options = 0
             Menu.Closable = true
             Menu.InstructionalScaleform = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS")
+            Menu.CursorStyle = 1
 
             if string.starts(Menu.Subtitle, "~") then
                 Menu.PageCounterColour = string.sub(Menu.Subtitle, 1, 3)
@@ -153,8 +154,60 @@ function RageUI.Menus:SetTitle(Title)
     self.Title = Title
 end
 
----RefreshIndex
+---SetStyleSize
+---@param Value int
 ---@return nil
+---@public
+function RageUI.Menus:SetStyleSize(Value)
+    local witdh
+    if Value >= 0 and Value <= 100 then
+        witdh = Value
+    else
+        witdh = 100
+    end
+    self.WidthOffset = witdh
+end
+
+
+---GetStyleSize
+---@return any
+---@public
+function RageUI.Menus:GetStyleSize()
+    if(self.WidthOffset == 100)then
+        return "RageUI"
+    elseif(self.WidthOffset == 0)then
+        return "NativeUI";
+    else
+        return self.WidthOffset;
+    end
+end
+
+---SetStyleSize
+---@param Int string
+---@return void
+---@public
+function RageUI.Menus:SetCursorStyle(Int)
+    self.CursorStyle = Int or 1 or 0
+    SetMouseCursorSprite(Int)
+end
+
+---ResetCursorStyle
+---@return void
+---@public
+function RageUI.Menus:ResetCursorStyle()
+    self.CursorStyle = 1
+    SetMouseCursorSprite(1)
+end
+
+---UpdateCursorStyle
+---@return void
+---@public
+function RageUI.Menus:UpdateCursorStyle()
+    SetMouseCursorSprite(self.CursorStyle)
+end
+
+---RefreshIndex
+---@return void
 ---@public
 function RageUI.Menus:RefreshIndex()
     self.Index = 1
