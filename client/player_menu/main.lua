@@ -100,7 +100,7 @@ function OpenPlayerMenu()
                             local amount = CustomAmount() 
                             if amount <= selected.count then
                                 TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, cSid, selected.name, amount, selected.label, selected.count)
-                                TriggerServerEvent("rF:GetPlayerInventory")
+                                TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                             end
                         else
@@ -116,7 +116,7 @@ function OpenPlayerMenu()
                         if (Selected) then
                             RenameAnItem()
                             TriggerServerEvent("rF:RenameItem", token, selected.name, selected.newLabel, selected.label)
-                            TriggerServerEvent("rF:GetPlayerInventory")
+                            TriggerServerEvent("rF:GetPlayerInventory", token)
                             RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                         end
                     end)
@@ -124,7 +124,7 @@ function OpenPlayerMenu()
                     RageUI.Button("Réinitialiser ", "~r~Tu ne peu pas rename un item déja rename, tu doit le réinitialiser avant.", { RightLabel = "🛠" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             TriggerServerEvent("rF:ResetRenameItem", token, selected.name, selected.olabel, selected.label)
-                            TriggerServerEvent("rF:GetPlayerInventory")
+                            TriggerServerEvent("rF:GetPlayerInventory", token)
                             RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                         end
                     end)
@@ -362,7 +362,7 @@ function ShowIdentityCardToOther()
     local player, dst = rUtils.GetClosestPlayer(GetEntityCoords(GetPlayerPed(-1)))
     if dst <= 2.0 then
         local sID = GetPlayerServerId(player)
-        TriggerServerEvent("core:ShowIdentityCardToOther", sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pJob)
+        TriggerServerEvent("core:ShowIdentityCardToOther", token, sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pJob)
     else
         RageUI.Popup({message = "~r~Action impossible\n~w~Aucun joueur proche."})
     end
