@@ -29,6 +29,7 @@ end
 
 
 function OpenVespLiftMenu()
+    if open then return end
     open = true
     RageUI.Visible(RMenu:Get('core', 'vespucci_lift'), not RageUI.Visible(RMenu:Get('core', 'vespucci_lift')))
     Citizen.CreateThread(function()
