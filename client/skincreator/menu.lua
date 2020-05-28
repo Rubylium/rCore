@@ -76,16 +76,16 @@ function CreatorMenuThread()
             local open = false
             RageUI.IsVisible(RMenu:Get('core', 'skincreator'), true, true, true, function()
                 open = true
-                RageUI.Button("Faire son identité", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Faire son identité", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'skincreator_identity'))
 
-                RageUI.Button("Personalisation du visage", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Personalisation du visage", nil, { RightLabel = "→→" }, true, function(_,_,s)
                 end, RMenu:Get('core', 'skincreator_face'))
 
-                RageUI.Button("Personalisation de la tenue", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Personalisation de la tenue", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'skincreator_skin'))
                 RageUI.Separator("")
-                RageUI.Button("~g~Valider la création de votre personnage.", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("~g~Valider la création de votre personnage.", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then
                         if Identity.prenom == nil or Identity.nom == nil or Identity.age == nil then
                             RageUI.Popup({message = "~r~Action impossible\n~w~Certains champs n'ont pas été remplie."})
@@ -107,7 +107,7 @@ function CreatorMenuThread()
             RageUI.IsVisible(RMenu:Get('core', 'skincreator_face'), true, true, true, function()
                 open = true
                 for k,v in pairs(FaceCustom) do
-                    RageUI.Button(v.label, nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
+                    RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
                         if s then
                             ClearPedTasks(GetPlayerPed(-1))
                             SwitchCam(false, v.item)
@@ -122,7 +122,7 @@ function CreatorMenuThread()
                     open = true
                     for i = v.min, v.max do
                         if NotSpamming[k] == nil then NotSpamming[k] = i end
-                        RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                        RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                             if s then
                                 TriggerEvent("skinchanger:change", v.item, i)
                                 TriggerEvent("rF:SaveSkin", v.item, i)
@@ -144,10 +144,10 @@ function CreatorMenuThread()
 
             RageUI.IsVisible(RMenu:Get('core', 'skincreator_skin'), true, true, true, function()
                 open = true
-                RageUI.Button("Model", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Model", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', "skincreator_model"))
                 for k,v in pairs(values) do
-                    RageUI.Button(v.label, nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
+                    RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
                         if s then
                             SwitchCam(false, v.item)
                             PlayRandomClothAnim()
@@ -161,7 +161,7 @@ function CreatorMenuThread()
             RageUI.IsVisible(RMenu:Get('core', 'skincreator_model'), true, true, true, function()
                 open = true
                 for k,v in pairs(peds) do
-                    RageUI.Button(v.label, nil, { RightLabel = "→ Changer" }, true, function(_,h,s)
+                    RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→ Changer" }, true, function(_,h,s)
                         if s then
                             TriggerEvent("skinchanger:change", "sex", v.model)
                             TriggerEvent("rF:SaveSkin", v.item, i)
@@ -190,7 +190,7 @@ function CreatorMenuThread()
                         local value = exports.rFramework:GetKeyValue(v.o)
                         for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
-                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                            RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin", v.item, i)
@@ -207,7 +207,7 @@ function CreatorMenuThread()
                     else
                         for i = v.min, v.max do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
-                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                            RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin", v.item, i)
@@ -232,7 +232,7 @@ function CreatorMenuThread()
             RageUI.IsVisible(RMenu:Get('core', "skincreator_identity"), true, true, true, function()
                 open = true
                 if Identity.prenom == nil then
-                    RageUI.Button("Prénom: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Prénom: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                         if s then
                             local prenom = CustomString()
                             if prenom ~= nil and prenom ~= "" then
@@ -241,7 +241,7 @@ function CreatorMenuThread()
                         end
                     end) 
                 else
-                    RageUI.Button("Prénom: ", nil, { RightLabel = "~g~"..Identity.prenom }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Prénom: ", nil, { RightLabel = "~g~"..Identity.prenom }, not usingVipPed, function(_,h,s)
                         if s then
                             local prenom = CustomString()
                             if prenom ~= nil and prenom ~= "" then
@@ -252,7 +252,7 @@ function CreatorMenuThread()
                 end
 
                 if Identity.nom == nil then
-                    RageUI.Button("Nom: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Nom: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                         if s then
                             local nom = CustomString()
                             if nom ~= nil and nom ~= "" then
@@ -261,7 +261,7 @@ function CreatorMenuThread()
                         end
                     end) 
                 else
-                    RageUI.Button("Nom: ", nil, { RightLabel = "~g~"..Identity.nom }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Nom: ", nil, { RightLabel = "~g~"..Identity.nom }, not usingVipPed, function(_,h,s)
                         if s then
                             local nom = CustomString()
                             if nom ~= nil and nom ~= "" then
@@ -272,7 +272,7 @@ function CreatorMenuThread()
                 end
 
                 if Identity.age == nil then
-                    RageUI.Button("Age: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Age: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
                         if s then
                             local age = tonumber(CustomString())
                             if age ~= nil and age ~= "" then
@@ -285,7 +285,7 @@ function CreatorMenuThread()
                         end
                     end) 
                 else
-                    RageUI.Button("Age: ", nil, { RightLabel = "~g~"..Identity.age }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Age: ", nil, { RightLabel = "~g~"..Identity.age }, not usingVipPed, function(_,h,s)
                         if s then
                             local age = tonumber(CustomString())
                             if age ~= nil and age ~= "" then
