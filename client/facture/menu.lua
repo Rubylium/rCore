@@ -70,7 +70,7 @@ Citizen.CreateThread(function()
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
                         print(cSid)
-                        TriggerServerEvent("core:SendFacture", cSid, IsSocietyBill, pJob, raison, montant)
+                        TriggerServerEvent("core:SendFacture", token, cSid, IsSocietyBill, pJob, raison, montant)
                         RageUI.CloseAll()
                     end
                 end
@@ -97,16 +97,16 @@ Citizen.CreateThread(function()
                     if pMoney > montant then
                         if not IsSocietyBill then
                             TriggerServerEvent("rF:GiveMoneyToPlayer", token, sourceID, montant)
-                            TriggerServerEvent("core:PayFacture", sourceID, montant)
+                            TriggerServerEvent("core:PayFacture", token, sourceID, montant)
                             RageUI.CloseAll()
                         else
                             print(society, montant)
                             TriggerServerEvent("rF:PaySociety", token, society, montant)
-                            TriggerServerEvent("core:PayFactureSociety", sourceID, montant)
+                            TriggerServerEvent("core:PayFactureSociety", token, sourceID, montant)
                             RageUI.CloseAll()
                         end
                     else
-                        TriggerServerEvent("core:CantPayFacture", sourceID, montant)
+                        TriggerServerEvent("core:CantPayFacture", token, sourceID, montant)
                         RageUI.CloseAll()
                     end
                 end
@@ -114,7 +114,7 @@ Citizen.CreateThread(function()
             RageUI.Button("~r~Refuser la facture", nil, {}, true, function(_,h,s)
                 if s then 
                     if raison ~= nil and montant ~= nil then
-                        TriggerServerEvent("core:CancelFacture", sourceID, montant)
+                        TriggerServerEvent("core:CancelFacture", token, sourceID, montant)
                         RageUI.CloseAll()
                     end
                 end
