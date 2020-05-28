@@ -76,6 +76,7 @@ end
 
 
 function OpenAccessoireShopThread()
+    if open then return end
     Citizen.CreateThread(function()
         open = true
         while open do
