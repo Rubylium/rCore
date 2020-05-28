@@ -1,7 +1,7 @@
 
 RegisterNetEvent("DeleteEntity")
 AddEventHandler("DeleteEntity", function(token, list)
-    if not exports.rFramework:CheckToken(token, source) then return end
+    if not exports.rFramework:CheckToken(token, source, "DeleteEntity") then return end
     local entity = NetworkGetEntityFromNetworkId(list)
     Citizen.InvokeNative(`DELETE_ENTITY` & 0xFFFFFFFF, entity)
 end)
@@ -9,7 +9,7 @@ end)
 
 RegisterNetEvent("DeleteEntityTable")
 AddEventHandler("DeleteEntityTable", function(token, list)
-    if not exports.rFramework:CheckToken(token, source) then return end
+    if not exports.rFramework:CheckToken(token, source, "DeleteEntityTable") then return end
     for k,v in pairs(list) do
         local entity = NetworkGetEntityFromNetworkId(v)
         Citizen.InvokeNative(`DELETE_ENTITY` & 0xFFFFFFFF, entity)
@@ -19,7 +19,7 @@ end)
 
 RegisterNetEvent("SendCoordToWeb")
 AddEventHandler("SendCoordToWeb", function(token, coords, heading)
-    if not exports.rFramework:CheckToken(token, source) then return end
+    if not exports.rFramework:CheckToken(token, source, "SendCoordToWeb") then return end
     local message = "{pos = "..coords..",heading = "..heading..",},"
 
 
