@@ -121,6 +121,7 @@ function LoadPoliceData()
     local TargetBlackMoney = 0
     local TargetID = 0
     function OpenPoliceActionMenu()
+        if open then return end
         open = true
         RageUI.Visible(RMenu:Get('core', 'lspd_main'), not RageUI.Visible(RMenu:Get('core', 'lspd_main')))
         Citizen.CreateThread(function()
