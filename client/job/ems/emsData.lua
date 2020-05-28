@@ -139,7 +139,7 @@ function LoadEmsData()
 
                     RageUI.Button("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
-                            TriggerServerEvent("core:SetServiceStatus", pJob)
+                            TriggerServerEvent("core:SetServiceStatus", token, pJob)
                         end
                     end)
 
@@ -196,7 +196,7 @@ function HelpPlayer()
                         if oldTime + 30000 < GetGameTimer() then
                             oldTime = GetGameTimer()
                             ClearPedTasks(pPed)
-                            TriggerServerEvent("core:ResetDeathStatus", targetID)
+                            TriggerServerEvent("core:ResetDeathStatus", token, targetID)
                             StillWant = false
                         end
                         Wait(0)
