@@ -70,6 +70,7 @@ end)
 NotSpamming = {}
 local usingVipPed = false
 function CreatorMenuThread()
+    if DisplayMenu then return end
     local DisplayMenu = true
     Citizen.CreateThread(function()
         while DisplayMenu do
