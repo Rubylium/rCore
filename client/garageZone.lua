@@ -79,7 +79,7 @@ function OpenGarage(zones, vehs)
                         local plate = GetVehicleNumberPlateText(veh)
                         RageUI.Button("Place #"..k.." - ~b~["..plate.."]", nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
                             if Selected then
-                                TriggerServerEvent("DeleteEntity", VehToNet(veh))
+                                TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
                             end
                         end)
                     end
