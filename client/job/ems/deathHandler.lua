@@ -102,7 +102,7 @@ function SyncDeathWithPlayers()
             RageUI.IsVisible(RMenu:Get('core', 'death_call'), true, true, true, function()
     
                 if not DidCall then
-                    RageUI.Button("Demander un EMS.", nil, { }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Demander un EMS.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
                             DidCall = true
                             TriggerServerEvent("core:RegisterCall", token, "medecin", "Demande de réanimation de citoyen.")
@@ -110,7 +110,7 @@ function SyncDeathWithPlayers()
                         end
                     end)
                 else
-                    RageUI.Button("Appel envoyé aux secours.", nil, { }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Appel envoyé aux secours.", nil, { }, true, function(Hovered, Active, Selected)
                     end)
                 end
     
