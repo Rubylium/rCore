@@ -44,27 +44,27 @@ Citizen.CreateThread(function()
                 RageUI.Separator("Facture: ~b~"..pJob.."")
             end
 
-            RageUI.Button("Raison", raison, { RightLabel = "→" }, true, function(_,_,s)
+            RageUI.ButtonWithStyle("Raison", raison, { RightLabel = "→" }, true, function(_,_,s)
                 if s then 
                     raison = TextImput()
                 end
             end)
 
             if montant == nil then
-                RageUI.Button("Montant", nil, { RightLabel = "→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Montant", nil, { RightLabel = "→" }, true, function(_,_,s)
                     if s then 
                         montant = tonumber(TextImput())
                     end
                 end)
             else
-                RageUI.Button("Montant", nil, { RightLabel = montant.."$" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Montant", nil, { RightLabel = montant.."$" }, true, function(_,_,s)
                     if s then 
                         montant = tonumber(TextImput())
                     end
                 end)
             end
 
-            RageUI.Button("Donner la facture", nil, {}, true, function(_,h,s)
+            RageUI.ButtonWithStyle("Donner la facture", nil, {}, true, function(_,h,s)
                 if s then 
                     if raison ~= nil and montant ~= nil then
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
@@ -92,7 +92,7 @@ Citizen.CreateThread(function()
             RageUI.Separator("Raison: "..raison)
             RageUI.Separator("Montant: ~g~"..montant.."~w~$")
 
-            RageUI.Button("~g~Payer la facture", nil, {}, true, function(_,h,s)
+            RageUI.ButtonWithStyle("~g~Payer la facture", nil, {}, true, function(_,h,s)
                 if s then 
                     if pMoney > montant then
                         if not IsSocietyBill then
@@ -111,7 +111,7 @@ Citizen.CreateThread(function()
                     end
                 end
             end)
-            RageUI.Button("~r~Refuser la facture", nil, {}, true, function(_,h,s)
+            RageUI.ButtonWithStyle("~r~Refuser la facture", nil, {}, true, function(_,h,s)
                 if s then 
                     if raison ~= nil and montant ~= nil then
                         TriggerServerEvent("core:CancelFacture", token, sourceID, montant)
