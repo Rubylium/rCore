@@ -140,7 +140,7 @@ function OpenPropsMenu()
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'props'), true, true, true, function()
                 for k,v in pairs(categorie) do
-                    RageUI.Button(v, nil, { RightLabel = "→→→"  }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle(v, nil, { RightLabel = "→→→"  }, true, function(Hovered, Active, Selected)
                     end, RMenu:Get('core', v))
                 end
             end, function()
@@ -152,7 +152,7 @@ function OpenPropsMenu()
                     for _,i in pairs(propsList) do
                         if i.nom == v then
                             for _,j in pairs(i.props) do
-                                RageUI.Button(j.nom, nil, {}, true, function(Hovered, Active, Selected)
+                                RageUI.ButtonWithStyle(j.nom, nil, {}, true, function(Hovered, Active, Selected)
                                     if (Selected) then
                                         SpawnObj(j.prop)
                                     end
