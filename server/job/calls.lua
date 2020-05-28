@@ -2,6 +2,7 @@ Calls = {}
 
 RegisterNetEvent("core:RegisterCall")
 AddEventHandler("core:RegisterCall", function(token, _job, _msg)
+    print(token, _job, _msg)
     if exports.rFramework:CheckToken(token, source) then
         local CallID = math.random(10,9999)
         local _pos = GetEntityCoords(GetPlayerPed(source))
