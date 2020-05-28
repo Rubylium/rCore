@@ -325,15 +325,15 @@ rUtils.GetVehicleProperties = function(vehicle)
 		
 	}
 
-	print(vehicle)
 	if vehicle ~= nil then
-		for i = 1,13 do
-			props.windowStatus[i] = IsVehicleWindowIntact(vehicle, i)
+		if not AreAllVehicleWindowsIntact(vehicle) then
+			for i = 1,10 do
+				props.windowStatus[i] = IsVehicleWindowIntact(vehicle, i)
+			end
 		end
 
 		for i = 0, 5 do
 			props.tyres[i] = IsVehicleTyreBurst(vehicle, i, true)
-			print(props.tyres[i])
 		end
 	end
 

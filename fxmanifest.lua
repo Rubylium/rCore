@@ -32,7 +32,8 @@ client_scripts {
 
 client_scripts {
     '@rFramework/client/cortana/check.lua',
-    "client/utils.lua",
+    "client/utils/*.lua",
+    "client/zone/*.lua",
     "shared/*.lua",
     "client/*.lua",
     "client/player_menu/*.lua",
@@ -55,6 +56,7 @@ client_scripts {
     "client/job/mecano/*.lua",
     "client/job/ems/*.lua",
     "client/job/LSPD/*.lua",
+    "client/job/concessionnaire/*.lua",
 
     -- Audio
     "client/API/client/*.lua",
