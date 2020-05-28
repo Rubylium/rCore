@@ -44,10 +44,10 @@ function OpenGarage(zones, vehs)
     Citizen.CreateThread(function()
         while open do
             RageUI.IsVisible(RMenu:Get('core', 'garage_metier'), true, true, true, function()
-                RageUI.Button("Ranger un véhicule de service.", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Ranger un véhicule de service.", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 end, RMenu:Get('core', 'garage_ranger'))
                 for k,v in pairs(vehs) do
-                    RageUI.Button(v.nom, nil, {}, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle(v.nom, nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
                             local pos, heading = rUtils.GetZoneFromTable(zones)
                             if pos then
@@ -73,11 +73,11 @@ function OpenGarage(zones, vehs)
                 for k,v in pairs(zones) do
                     local clear = rUtils.IsSpawnPointClear(v.pos, 2.0)
                     if clear then
-                        RageUI.Button("Place #"..k, nil, {RightLabel = "~g~Disponble"}, true, function(Hovered, Active, Selected)end)
+                        RageUI.ButtonWithStyle("Place #"..k, nil, {RightLabel = "~g~Disponble"}, true, function(Hovered, Active, Selected)end)
                     else
                         local veh = rUtils.GetClosestVehicle(v.pos)
                         local plate = GetVehicleNumberPlateText(veh)
-                        RageUI.Button("Place #"..k.." - ~b~["..plate.."]", nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle("Place #"..k.." - ~b~["..plate.."]", nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
                             if Selected then
                                 TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
                             end
