@@ -5,6 +5,7 @@ AddEventHandler("core:CuffPlayer", function(token, target, cuff, freeze)
 end)
 
 RegisterNetEvent("core:EscortPlayer")
-AddEventHandler("core:EscortPlayer", function(target)
+AddEventHandler("core:EscortPlayer", function(token, target)
+    if not exports.rFramework:CheckToken(token, source, "EscortPlayer") then return end
     TriggerClientEvent("core:EscortPlayer", target, source)
 end)
