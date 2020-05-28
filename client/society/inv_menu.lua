@@ -17,13 +17,13 @@ Citizen.CreateThread(function()
         RageUI.IsVisible(RMenu:Get('core', 'society_inv'), true, true, true, function()
             open = true
             RageUI.Separator("Géstion société: ~b~"..pJob.."")
-            RageUI.Button("Déposer des objets", nil, { RightLabel = "→" }, true, function(_,_,s)
+            RageUI.ButtonWithStyle("Déposer des objets", nil, { RightLabel = "→" }, true, function(_,_,s)
                 if s then
                     TriggerServerEvent("rF:GetPlayerInventory", token)
                 end
             end, RMenu:Get('core', 'society_inv_player'))
 
-            RageUI.Button("Prendre des objets", nil, { RightLabel = "→" }, true, function(_,_,s)
+            RageUI.ButtonWithStyle("Prendre des objets", nil, { RightLabel = "→" }, true, function(_,_,s)
                 if s then
                     TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
                 end
@@ -35,7 +35,7 @@ Citizen.CreateThread(function()
             RageUI.Separator("Géstion société: ~b~"..pJob.."")
             for k,v in pairs(pInventory) do
                 if v.olabel == v.label then
-                    RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             local amount = CustomAmount()
                             if amount <= v.count then
@@ -46,7 +46,7 @@ Citizen.CreateThread(function()
                         end
                     end)
                 else
-                    RageUI.Button(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             local amount = CustomAmount()
                             if amount <= v.count then
@@ -64,7 +64,7 @@ Citizen.CreateThread(function()
             open = true
             RageUI.Separator("Géstion société: ~b~"..pJob.."")
             for k,v in pairs(pSocietyTable.inventory) do
-                RageUI.Button(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         local amount = CustomAmount()
                         if amount <= v.count then
