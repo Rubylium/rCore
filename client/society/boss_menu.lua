@@ -2,6 +2,7 @@ local open = false
 
 RMenu.Add('core', 'boss_menu', RageUI.CreateMenu("Menu Patron", "~b~Menu action patron"))
 RMenu.Add('core', 'boss_menu_promote', RageUI.CreateSubMenu(RMenu:Get('core', 'boss_menu'), "PROMOTION"))
+RMenu:Get('core', 'boss_menu_promote').Closed = function()end
 RMenu:Get('core', 'boss_menu').Closed = function()
     open = false
 end

@@ -19,7 +19,9 @@ RMenu:Get('core', 'veh_main').Closed = function()
 end
 
 RMenu.Add('core', 'veh_inv', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~Coffre du véhicule"))
+RMenu:Get('core', 'veh_inv').Closed = function()end
 RMenu.Add('core', 'veh_pInv', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~inventaire du joueur"))
+RMenu:Get('core', 'veh_pInv').Closed = function()end
 
 RegisterNetEvent("core:GetVehicleInventory")
 AddEventHandler("core:GetVehicleInventory", function(inv)
@@ -46,6 +48,7 @@ function GetVehLimit(class)
 end
 
 function OpenVehicleChest()
+    if open then return end
     local pCoords = GetEntityCoords(pPed)
     local vehicle, dstV = rUtils.GetClosestVehicle(pCoords)
     local locked = GetVehicleDoorLockStatus(vehicle)

@@ -3,14 +3,13 @@ local open = false
 RMenu.Add('core', 'veh_list', RageUI.CreateMenu("Véhicule", "~b~Menu de véhicule"))
 RMenu:Get('core', 'veh_list').Closed = function()
     open = false
-    RageUI.Visible(RMenu:Get('core', 'veh_list'), false)
 end
 
 function OpenVehMenu()
-    RageUI.CloseAll()
+    if open then return end
     TriggerServerEvent("core:GetPlayersVehicle", token)
-    local open = true
-    RageUI.Visible(RMenu:Get('core', 'veh_list'), true)
+    open = true
+    RageUI.Visible(RMenu:Get('core', 'veh_list'), not RageUI.Visible(RMenu:Get('core', 'veh_list')))
 
     Citizen.CreateThread(function()
         while open do

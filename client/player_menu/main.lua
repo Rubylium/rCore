@@ -4,14 +4,21 @@ RMenu:Get('core', 'main').Closed = function()
     open = false
 end
 RMenu.Add('core', 'inventory', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'inventory').Closed = function()end
+
 RMenu.Add('core', 'inventory_use', RageUI.CreateSubMenu(RMenu:Get('core', 'inventory'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'inventory_use').Closed = function()end
 
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'portefeuille').Closed = function()end
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'portefeuille_usage').Closed = function()end
 
 RMenu.Add('core', 'accessoire', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'accessoire').Closed = function()end
 
 RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'divers').Closed = function()end
 
 local selected = {
     event = nil,

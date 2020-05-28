@@ -1,8 +1,11 @@
 
 
 RMenu.Add('core', 'society_inv', RageUI.CreateMenu("Inventaire Société", "~b~Géstion des stocks"))
+RMenu:Get('core', 'society_inv').Closed = function()end
 RMenu.Add('core', 'society_inv_player', RageUI.CreateSubMenu(RMenu:Get('core', 'society_inv'), "Iventaire Société"))
+RMenu:Get('core', 'society_inv_player').Closed = function()end
 RMenu.Add('core', 'society_inv_inv', RageUI.CreateSubMenu(RMenu:Get('core', 'society_inv'), "Iventaire Société"))
+RMenu:Get('core', 'society_inv_inv').Closed = function()end
 
 
 function OpenSocietyInvMenu()

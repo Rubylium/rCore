@@ -2,6 +2,7 @@ RMenu.Add('core', 'facture_cree', RageUI.CreateMenu("", "~b~FACTURE", nil, nil, 
 
 RMenu.Add('core', 'facture_voir', RageUI.CreateMenu("", "~b~FACTURE", nil, nil, "root_cause", "shopui_title_fleecabank"))
 RMenu:Get('core', 'facture_voir').Closable = false
+RMenu:Get('core', 'facture_voir').Closed = function()end
 
 local IsSocietyBill = false
 local society = nil

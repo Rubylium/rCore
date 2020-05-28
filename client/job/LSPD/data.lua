@@ -114,6 +114,7 @@ function LoadPoliceData()
         open = false
     end
     RMenu.Add('core', 'lspd_fouille', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Fouille", "~b~Fouille"))
+    RMenu:Get('core', 'lspd_fouille').Closed = function()end
 
     local TargetInv = {}
     local TargetWeight = 0

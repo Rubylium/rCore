@@ -20,6 +20,7 @@ RMenu:Get('core', 'transaction').Closed = function()
 end
 
 function OpenATM()
+    if open then return end
     TriggerServerEvent("rF:GetPlayerAccounts", token)
     PlaySoundFrontend(-1, "ATM_WINDOW", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
     PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1)

@@ -18,7 +18,7 @@ function OpenKeyDealerMenu()
     RageUI.CloseAll()
     if not open then
         open = true
-        RageUI.Visible(RMenu:Get('core', 'key_dealer'), true)
+        RageUI.Visible(RMenu:Get('core', 'key_dealer'), not RageUI.Visible(RMenu:Get('core', 'key_dealer')))
     end
 
     Citizen.CreateThread(function()

@@ -127,6 +127,7 @@ local categorie = {}
 Citizen.CreateThread(function()
     for k,v in pairs(propsList) do
         RMenu.Add('core', v.nom, RageUI.CreateSubMenu(RMenu:Get('core', 'props'), "Props", "~b~Pose d'objets"))
+        RMenu:Get('core', v.nom).Closed = function()end
         table.insert(categorie, v.nom)
     end
 end)
