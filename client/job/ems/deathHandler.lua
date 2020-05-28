@@ -70,27 +70,27 @@ function SyncDeathWithPlayers()
                 SetPedCanRagdoll(pPed, true)
                 if IsControlPressed(1, 32) then
                     if not IsEntityPlayingAnim(pPed, "move_injured_ground", "front_loop", 1) then
-                        rUtils.PlayAnim("move_injured_ground", "front_loop", 1)
+                        rUtils.PlayAnim("move_injured_ground", "front_loop", 1, 100.0)
                         LastMove = "front"
                     end
                 elseif IsControlPressed(1, 31) then
                     if not IsEntityPlayingAnim(pPed, "move_injured_ground", "back_loop", 1) then
-                        rUtils.PlayAnim("move_injured_ground", "back_loop", 1)
+                        rUtils.PlayAnim("move_injured_ground", "back_loop", 1, 100.0)
                         LastMove = "back"
                     end
                 elseif IsControlPressed(1, 34) then
                     if not IsEntityPlayingAnim(pPed, "move_injured_ground", "sidel_loop", 1) then
-                        rUtils.PlayAnim("move_injured_ground", "sidel_loop", 1)
+                        rUtils.PlayAnim("move_injured_ground", "sidel_loop", 1, 100.0)
                     end
                 elseif IsControlPressed(1, 35) then
                     if not IsEntityPlayingAnim(pPed, "move_injured_ground", "sider_loop", 1) then
-                        rUtils.PlayAnim("move_injured_ground", "sider_loop", 1)
+                        rUtils.PlayAnim("move_injured_ground", "sider_loop", 1, 100.0)
                     end
                 elseif not IsEntityPlayingAnim(pPed, dict, anim, 1) then
                     if LastMove == "front" then
                         rUtils.PlayAnim(dict, anim, 1)
                     else
-                        rUtils.PlayAnim("move_injured_ground", "back_outro", 1)
+                        rUtils.PlayAnim("move_injured_ground", "back_outro", 1, 100.0)
                     end
                 end
             else
