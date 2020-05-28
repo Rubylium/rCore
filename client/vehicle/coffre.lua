@@ -112,11 +112,11 @@ function OpenVehInventory()
             end
             rUtils.ShowFloatingHelpNotification("Poids: "..VehInvTotal.."/"..VehLimit, trunkpos)
             RageUI.IsVisible(RMenu:Get('core', 'veh_main'), true, true, true, function()
-                RageUI.Button("Prendre", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Prendre", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then TriggerServerEvent("core:GetVehicleInventory", token, vPlate, entity, DecorExistOn(NetToEnt(entity), "OWNED_VEH")) TempAdd = 0 end
                 end, RMenu:Get('core', 'veh_inv'))
 
-                RageUI.Button("Déposer", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Déposer", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then TriggerServerEvent("rF:GetPlayerInventory", token) end
                 end, RMenu:Get('core', 'veh_pInv'))
                 
@@ -127,7 +127,7 @@ function OpenVehInventory()
                 RageUI.Separator("Coffre: "..VehInvTotal.."/"..VehLimit)
                 for k,v in pairs(pInventory) do
                     if v.olabel == v.label then
-                        RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 local amount = CustomAmount()
                                 if amount ~= nil and amount > 0 and amount <= v.count then
@@ -148,7 +148,7 @@ function OpenVehInventory()
                             end
                         end)
                     else
-                        RageUI.Button(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 local amount = CustomAmount()
                                 if amount ~= nil and amount > 0 and amount <= v.count then
@@ -177,7 +177,7 @@ function OpenVehInventory()
                 RageUI.Separator("Coffre: "..VehInvTotal.."/"..VehLimit)
                 for k,v in pairs(VehInventory) do
                     if v.olabel == v.label then
-                        RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 local amount = CustomAmount()
                                 if amount > 0 and amount <= v.count then
@@ -193,7 +193,7 @@ function OpenVehInventory()
                             end
                         end)
                     else
-                        RageUI.Button("["..v.label.."] "..v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle("["..v.label.."] "..v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 local amount = CustomAmount()
                                 if amount > 0 and amount <= v.count then
