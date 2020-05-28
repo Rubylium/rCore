@@ -533,8 +533,8 @@ function LoadConcessData()
                             if Selected then
                                 local id = GetPlayerServerId(v)
                                 local props = local_veh.props
-                                local props_final = CreateVeh(props)
-                                TriggerServerEvent("rVehicleShop:setVehicleOwnedPlayerId", id, props_final)
+                                local props_final, plate = CreateVeh(props)
+                                TriggerServerEvent("core:SaveVehToGarage", token, id, displaytext, plate, props_final)
                                 for n,i in pairs(vehs_avalaible) do
                                     if local_veh.props.plate == i.plate then
                                         table.remove(vehs_avalaible, n)
@@ -594,7 +594,7 @@ function LoadConcessData()
         RequestModel(model)
         while not HasModelLoaded(model) do Wait(1) end
     
-        local veh = CreateVehicle(model, -75.51985, 74.62209, 71.37163, 0, 0)
+        local veh = CreateVehicle(model, -75.51985, 74.62209, 71.37163, 255.0, true, true)
         SetVehicleOnGroundProperly(veh)
         FreezeEntityPosition(veh, 1)
         if props then
@@ -612,14 +612,21 @@ function LoadConcessData()
         RequestModel(props.model)
         while not HasModelLoaded(props.model) do Wait(1) end
     
-        local veh = CreateVehicle(props.model, -75.51985, 74.62209, 71.37163, 1, 0)
+        local veh = CreateVehicle(props.model, -75.51985, 74.62209, 71.37163, 255.0, true, true)
         SetVehicleOnGroundProperly(veh)
         if props then
             rUtils.SetVehicleProperties(veh, props)
         end
-        SetVehicleNumberPlateText(veh, GeneratePlate())
-    
-        return rUtils.GetVehicleProperties(veh)
+        rUtils.Notif("Création de la plaque en cours ...")
+        local plate = ""
+        exports.rFramework:TriggerServerCallback('core:GeneratePlate', function(_plate)
+            plate = _plate
+            rUtils.Notif("Plaque ["..plate.."] crée!")
+            SetVehicleNumberPlateText(veh, plate)
+            
+        end, token)    
+        while plate == "" do Wait(1000) end
+        return rUtils.GetVehicleProperties(veh), plate
     end
     
     

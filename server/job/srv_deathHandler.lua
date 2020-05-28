@@ -11,8 +11,10 @@ Citizen.CreateThread(function()
     end
 end)
 
+CallBackReady = false
 RegisterNetEvent("core:CallBackReady")
 AddEventHandler("core:CallBackReady", function()
+    CallBackReady = true
     exports.rFramework:RegisterServerCallback('core:CheckPlayerDeathStatus', function(source, cb, target)
         print(source, target, target2)
         if DeathStatus[target] ~= nil then
