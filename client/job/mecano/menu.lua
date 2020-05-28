@@ -62,7 +62,7 @@ function InitMecanoActionMenu()
                         if Selected then
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
                             local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-                            TriggerServerEvent("core:Repair", VehToNet(veh), ServerID)
+                            TriggerServerEvent("core:Repair", token, VehToNet(veh), ServerID)
                         end
                     end)
 
@@ -81,7 +81,7 @@ function InitMecanoActionMenu()
                         end
                         if Selected then
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
-                            TriggerServerEvent("DeleteEntity", VehToNet(veh))
+                            TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
                         end
                     end)
 
@@ -101,7 +101,7 @@ function InitMecanoActionMenu()
                         if Selected then
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
                             local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-                            TriggerServerEvent("core:OpenSomething", VehToNet(veh), ServerID, 4, not DoorStatus.capot)
+                            TriggerServerEvent("core:OpenSomething", token, VehToNet(veh), ServerID, 4, not DoorStatus.capot)
                             DoorStatus.capot = not DoorStatus.capot
                         end
                     end)
@@ -113,7 +113,7 @@ function InitMecanoActionMenu()
                         if Selected then
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
                             local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-                            TriggerServerEvent("core:OpenSomething", VehToNet(veh), ServerID, 5, not DoorStatus.coffre)
+                            TriggerServerEvent("core:OpenSomething", token, VehToNet(veh), ServerID, 5, not DoorStatus.coffre)
                             DoorStatus.coffre = not DoorStatus.coffre
                         end
                     end)
@@ -154,7 +154,7 @@ function InitMecanoActionMenu()
         Wait(10*1000)
         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
         local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-        TriggerServerEvent("core:OpenVehicle", ServerID, VehToNet(veh))
+        TriggerServerEvent("core:OpenVehicle", token, ServerID, VehToNet(veh))
         ClearPedTasksImmediately(GetPlayerPed(-1))
     end
     
@@ -164,7 +164,7 @@ function InitMecanoActionMenu()
         Citizen.Wait(10000)
         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
         local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-        TriggerServerEvent("core:CleanVehicle", ServerID, VehToNet(veh))
+        TriggerServerEvent("core:CleanVehicle", token, ServerID, VehToNet(veh))
         ClearPedTasksImmediately(GetPlayerPed(-1))
         rUtils.Notif("~g~Action terminé.")
     end
