@@ -120,7 +120,7 @@ RegisterCommand('me', function(source, args)
             table.insert(idsToSend, GetPlayerServerId(v))
         end
         local text = "* la personne" .. TableToString(args) .. " *"
-        TriggerServerEvent('3dme:shareDisplay', idsToSend, text, pPedSID)
+        TriggerServerEvent('3dme:shareDisplay', token, idsToSend, text, pPedSID)
         ActionMeCoolDown()
     end
 end)
@@ -135,7 +135,7 @@ function SendActionTxt(text)
             table.insert(idsToSend, GetPlayerServerId(v))
         end
         local text = "* la personne" .. text .. " *"
-        TriggerServerEvent('3dme:shareDisplay', idsToSend, text, pPedSID)
+        TriggerServerEvent('3dme:shareDisplay', token, idsToSend, text, pPedSID)
         ActionMeCoolDown()
     end
 end
