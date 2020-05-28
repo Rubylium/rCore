@@ -39,6 +39,7 @@ Citizen.CreateThread(function()
 end)
 
 function OpenPlayerMenu()
+    if open then return end
     open = true
     Citizen.CreateThread(function()
         while open do
