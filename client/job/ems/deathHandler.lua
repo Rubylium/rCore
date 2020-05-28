@@ -20,7 +20,7 @@ Citizen.CreateThread(function()
                 SyncDeathWithPlayers()
             end
         end
-        Wait(2*1000)
+        Wait(1*1000)
     end
 end)
 
@@ -32,6 +32,7 @@ local DidCall = false
 local dict = "random@dealgonewrong"
 local anim = "idle_a"
 function SyncDeathWithPlayers()
+    StartAudioScene("DEATH_SCENE")
     Wait(5000)
     FatalInjured = false
     DidCall = false
@@ -59,6 +60,9 @@ function SyncDeathWithPlayers()
                         if not IsPedRagdoll(pPed) then
                             SetPedToRagdoll(pPed, 5000, 5000, 0, 0, 0, 0)
                             FatalInjured = true
+                            StartAudioScene("SWITCH_TO_MP_SCENE")
+                            NetworkSetVoiceActive(false)
+                            StartScreenEffect("DeathFailOut", -1, true)
                             TriggerServerEvent("core:SetPlayerDeathStatus", token, FatalInjured)
                             break
                         end
@@ -119,6 +123,10 @@ function SyncDeathWithPlayers()
             end)
 
             if IsPedDeadOrDying(pPed, 1) then
+                FatalInjured = true
+                StartAudioScene("MP_LEADERBOARD_SCENE")
+                NetworkSetVoiceActive(false)
+                StartScreenEffect("DeathFailOut", -1, true)
                 NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
                 ClearPlayerWantedLevel(GetPlayerIndex())
                 SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
@@ -126,6 +134,10 @@ function SyncDeathWithPlayers()
             Wait(1)
         end
 
+        NetworkSetVoiceActive(true)
+        StopScreenEffect('DeathFailOut')
+        StopAudioScenes()
+        StopGameplayHint(true)
         NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
         ClearPlayerWantedLevel(GetPlayerIndex())
         SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
