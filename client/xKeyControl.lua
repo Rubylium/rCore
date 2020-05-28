@@ -1,6 +1,6 @@
 rUtils.RegisterControlKey("inventaire", "Ouvrir l'inventaire", "F5", function()
     if IsCuffed then return end
-    TriggerServerEvent("rF:GetPlayerInventory")
+    TriggerServerEvent("rF:GetPlayerInventory", token)
     TriggerServerEvent("rF:GetPlayerAccounts", token)
     OpenPlayerMenu()
     RageUI.Visible(RMenu:Get('core', 'main'), not RageUI.Visible(RMenu:Get('core', 'main')))
