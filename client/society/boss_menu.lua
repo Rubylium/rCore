@@ -20,7 +20,7 @@ function OpenBossMenu(_society)
             RageUI.IsVisible(RMenu:Get('core', 'boss_menu'), true, true, true, function()
                 RageUI.Separator("Géstion société: ~b~"..society.."")
                 RageUI.Separator("Compte de société: ~b~"..rUtils.Math.GroupDigits(pSocietyTable.money).."")
-                RageUI.Button("Recruter la personne la plus proche", "Permet de recruter la personne la plus proche de vous.", {}, true, function(_,h,s)
+                RageUI.ButtonWithStyle("Recruter la personne la plus proche", "Permet de recruter la personne la plus proche de vous.", {}, true, function(_,h,s)
                     if s then 
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
@@ -31,7 +31,7 @@ function OpenBossMenu(_society)
                     end
                 end)
 
-                RageUI.Button("Virer la personne la plus proche", "Permet de virer la personne la plus proche de vous.", {}, true, function(_,h,s)
+                RageUI.ButtonWithStyle("Virer la personne la plus proche", "Permet de virer la personne la plus proche de vous.", {}, true, function(_,h,s)
                     if s then 
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
@@ -42,13 +42,13 @@ function OpenBossMenu(_society)
                     end
                 end)
 
-                RageUI.Button("Promouvoir la personne", nil, { RightLabel = "→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Promouvoir la personne", nil, { RightLabel = "→" }, true, function(_,_,s)
                     if s then
                         societyLabels = GetSocietyLabels(society)
                     end
                 end, RMenu:Get('core', 'boss_menu_promote'))
 
-                RageUI.Button("Déposer de l'argent", nil, {}, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Déposer de l'argent", nil, {}, true, function(_,_,s)
                     if s then 
                         local amount = BankCustomAmount()
                         if amount <= pMoney then
@@ -59,7 +59,7 @@ function OpenBossMenu(_society)
                 end)
 
 
-                RageUI.Button("Retiré de l'argent", nil, {}, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Retiré de l'argent", nil, {}, true, function(_,_,s)
                     if s then 
                         local amount = BankCustomAmount()
                         if amount <= pSocietyTable.money then
@@ -76,7 +76,7 @@ function OpenBossMenu(_society)
                 RageUI.Separator("Géstion société: ~b~"..society.."")
 
                 for k,v in pairs(societyLabels) do
-                    RageUI.Button("Promouvoir -> "..v.label, nil, {}, true, function(_,h,s)
+                    RageUI.ButtonWithStyle("Promouvoir -> "..v.label, nil, {}, true, function(_,h,s)
                         if s then 
                             local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                             local cSid = GetPlayerServerId(ClosetPlayer)
