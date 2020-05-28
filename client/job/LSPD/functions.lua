@@ -71,7 +71,7 @@ local PolicierEscorte = nil
 RegisterNetEvent("core:EscortPlayer")
 AddEventHandler("core:EscortPlayer", function(player)
 	EnTrainEscorter = not EnTrainEscorter
-    PolicierEscorte = policier
+    PolicierEscorte = player
     if EnTrainEscorter then
         escort()
     end
@@ -80,7 +80,7 @@ end)
 
 function escort()
 	while EnTrainEscorter do
-		Citizen.Wait(1)
+		Wait(1)
 		local targetPed = GetPlayerPed(GetPlayerFromServerId(PolicierEscorte))
 
 		if not IsPedSittingInAnyVehicle(targetPed) then
