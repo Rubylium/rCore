@@ -52,7 +52,7 @@ Citizen.CreateThread(function()
             FreezeEntityPosition(v, true)
             DrawTxt(vector3(oCoords.x, oCoords.y, oCoords.z+1.0), "Appuyer sur E pour enlever l'objets.")
             if IsControlJustReleased(1, 38) then
-                TriggerServerEvent("DeleteEntity", NetworkGetNetworkIdFromEntity(Nearest))
+                TriggerServerEvent("DeleteEntity", token, NetworkGetNetworkIdFromEntity(Nearest))
             end
         else
             Wait(500)
