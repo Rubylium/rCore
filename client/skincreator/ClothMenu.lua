@@ -6,6 +6,7 @@ end
 
 
 function OpenClothZoneMenu(cloths)
+    if open then return end
     RageUI.Visible(RMenu:Get('core', 'job_cloth'), not RageUI.Visible(RMenu:Get('core', 'job_cloth')))
 
     Citizen.CreateThread(function()
