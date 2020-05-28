@@ -1,7 +1,6 @@
 
 
 function LoadPoliceData()
-    while not pCallBack do Wait(100) end
     local LspdCloths = {
         {
             name = "Tenue LSPD Homme",
@@ -189,6 +188,19 @@ function LoadPoliceData()
                         end
                     end, RMenu:Get('core', 'lspd_fouille'))
 
+                    RageUI.Button("Escorter la personne", nil, {}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent("core:EscortPlayer", sID)
+                            end
+                        end
+                        if Active then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+
                     RageUI.Button("Menotter la personne", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
@@ -202,6 +214,7 @@ function LoadPoliceData()
                             rUtils.DisplayClosetPlayer()
                         end
                     end)
+
 
                     RageUI.Button("Menotter la personne (Laisser bouger)", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
