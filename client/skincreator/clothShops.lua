@@ -74,6 +74,7 @@ end
 
 
 function OpenClothShopThread()
+    if open then return end
     Citizen.CreateThread(function()
         open = true
         while open do
