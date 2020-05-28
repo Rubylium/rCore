@@ -28,7 +28,7 @@ end)
 
 RegisterNetEvent("core:ResetDeathStatus")
 AddEventHandler("core:ResetDeathStatus", function(token, target)
-    if not exports.rFramework:CheckToken(token, source) then return end
+    if not exports.rFramework:CheckToken(token, source, "ResetDeathStatus") then return end
     if DeathStatus[target] ~= nil then
         DeathStatus[target] = {id = target, NeedMedic = 0}
         TriggerClientEvent("core:ResetDeathStatus", target)
@@ -38,7 +38,7 @@ end)
 
 RegisterNetEvent("core:SetPlayerDeathStatus")
 AddEventHandler("core:SetPlayerDeathStatus", function(token, status)
-    if not exports.rFramework:CheckToken(token, source) then return end
+    if not exports.rFramework:CheckToken(token, source, "SetPlayerDeathStatus") then return end
     if status then
         DeathStatus[source] = {id = source, NeedMedic = 2}
     else
