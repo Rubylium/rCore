@@ -43,7 +43,7 @@ function SyncDeathWithPlayers()
     NetworkResurrectLocalPlayer(pCoords, heading, 0, 0)
     ClearPlayerWantedLevel(GetPlayerIndex())
     SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
-    TriggerServerEvent("core:SetPlayerDeathStatus", FatalInjured)
+    TriggerServerEvent("core:SetPlayerDeathStatus", token, FatalInjured)
     Citizen.CreateThread(function()
         local LastMove = "front"
         while pDeath do
@@ -59,7 +59,7 @@ function SyncDeathWithPlayers()
                         if not IsPedRagdoll(pPed) then
                             SetPedToRagdoll(pPed, 5000, 5000, 0, 0, 0, 0)
                             FatalInjured = true
-                            TriggerServerEvent("core:SetPlayerDeathStatus", FatalInjured)
+                            TriggerServerEvent("core:SetPlayerDeathStatus", token, FatalInjured)
                             break
                         end
                     end 
@@ -105,7 +105,7 @@ function SyncDeathWithPlayers()
                     RageUI.Button("Demander un EMS.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
                             DidCall = true
-                            TriggerServerEvent("core:RegisterCall", "medecin", "Demande de réanimation de citoyen.")
+                            TriggerServerEvent("core:RegisterCall", token, "medecin", "Demande de réanimation de citoyen.")
                             print("Appel")
                         end
                     end)
