@@ -324,7 +324,7 @@ function RageUI.Visible(Menu, Value)
                     if RageUI.CurrentMenu ~= nil then
                         RageUI.CurrentMenu.Open = not Value
                     end
-                    Menu:UpdateInstructionalButtons(Value);
+                    Menu:UpdateInstructionalButtonWithStyles(Value);
                     RageUI.CurrentMenu = Menu
                     menuOpen = true
                 else
@@ -486,16 +486,16 @@ end
 
 
 ---Render
----@param instructionalButton boolean
+---@param instructionalButtonWithStyle boolean
 ---@return nil
 ---@public
-function RageUI.Render(instructionalButton)
+function RageUI.Render(instructionalButtonWithStyle)
     if RageUI.CurrentMenu ~= nil then
         if RageUI.CurrentMenu() then
             if RageUI.CurrentMenu.Safezone then
                 ResetScriptGfxAlign()
             end
-            if (instructionalButton) then
+            if (instructionalButtonWithStyle) then
                 DrawScaleformMovieFullscreen(RageUI.CurrentMenu.InstructionalScaleform, 255, 255, 255, 255, 0)
             end
             RageUI.CurrentMenu.Options = RageUI.Options
@@ -566,15 +566,15 @@ end
 ---@param CurrentMenu table
 ---@param Selected boolean
 ---@param Option number
----@param SettingsButton table
+---@param SettingsButtonWithStyle table
 ---@return boolean
 ---@public
-function RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton)
+function RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButtonWithStyle)
     ---@type boolean
     local Hovered = false
-    Hovered = RageUI.IsMouseInBounds(CurrentMenu.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + SettingsButton.Rectangle.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.Rectangle.Width + CurrentMenu.WidthOffset, SettingsButton.Rectangle.Height)
+    Hovered = RageUI.IsMouseInBounds(CurrentMenu.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + SettingsButtonWithStyle.Rectangle.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButtonWithStyle.Rectangle.Width + CurrentMenu.WidthOffset, SettingsButtonWithStyle.Rectangle.Height)
     if Hovered and not Selected then
-        RenderRectangle(CurrentMenu.X, CurrentMenu.Y + SettingsButton.Rectangle.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.Rectangle.Width + CurrentMenu.WidthOffset, SettingsButton.Rectangle.Height, 255, 255, 255, 20)
+        RenderRectangle(CurrentMenu.X, CurrentMenu.Y + SettingsButtonWithStyle.Rectangle.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButtonWithStyle.Rectangle.Width + CurrentMenu.WidthOffset, SettingsButtonWithStyle.Rectangle.Height, 255, 255, 255, 20)
         if CurrentMenu.Controls.Click.Active then
             CurrentMenu.Index = Option
             local Audio = RageUI.Settings.Audio

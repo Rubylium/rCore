@@ -64,6 +64,7 @@ end
 -- Events
 
 RegisterNetEvent("core:CloseVeh")
-AddEventHandler("core:CloseVeh", function(target, veh)
+AddEventHandler("core:CloseVeh", function(token, target, veh)
+    if not exports.rFramework:CheckToken(token, source, "CloseVeh") then return end
     TriggerClientEvent("core:CloseVeh", target, veh)
 end)

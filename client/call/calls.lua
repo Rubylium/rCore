@@ -17,7 +17,7 @@ AddEventHandler("core:SendCall", function(id, msg, job)
             end
 
             if IsControlJustReleased(1, takeCall) then
-                TriggerServerEvent("core:TakeCall", id)
+                TriggerServerEvent("core:TakeCall", token, id)
                 return
             end
 
@@ -63,7 +63,8 @@ AddEventHandler("core:SendMsgToJob", function(data)
     end
     if message ~= nil and message ~= "" then
         message = "["..GetPlayerServerId(GetPlayerIndex()).."] "..message
-        TriggerServerEvent('core:RegisterCall', job, message)  
+        print(token, job, message)
+        TriggerServerEvent('core:RegisterCall', token, job, message)  
     end
     rUtils.Notif("Votre message à été envoyé.")
 end)

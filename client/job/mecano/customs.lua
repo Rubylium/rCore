@@ -135,19 +135,19 @@ function InitMenu()
                 local pPed = GetPlayerPed(-1)
                 local pVeh = GetVehiclePedIsIn(pPed, 0)
                 RageUI.IsVisible(RMenu:Get('core', 'lscustom'), true, true, true, function()
-                    RageUI.Button("Changement externe", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Changement externe", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) end
                     end, RMenu:Get('core', 'cosmetic'))
 
-                    RageUI.Button("Changement interne", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Changement interne", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) end
                     end, RMenu:Get('core', 'upgrade'))
 
-                    RageUI.Button("options du véhicule", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("options du véhicule", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) SetVehicleEngineOn(pVeh, 1, 1, 0) end
                     end, RMenu:Get('core', 'option'))
 
-                    RageUI.Button("Repeindre le véhicule", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Repeindre le véhicule", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then SetVehicleModKit(pVeh, 0) end
                     end, RMenu:Get('core', 'peinture'))
 
@@ -159,7 +159,7 @@ function InitMenu()
                 RageUI.IsVisible(RMenu:Get('core', 'cosmetic'), true, true, true, function()
                     for k,v in ipairs(Externe) do
 
-                        RageUI.Button(v.name, nil, { RightLabel = "→→→" }, true, function()
+                        RageUI.ButtonWithStyle(v.name, nil, { RightLabel = "→→→" }, true, function()
                         end, RMenu:Get('core', v.name))
 
                     end
@@ -172,7 +172,7 @@ function InitMenu()
                 RageUI.IsVisible(RMenu:Get('core', 'upgrade'), true, true, true, function()
                     for k,v in ipairs(Interne) do
 
-                        RageUI.Button(v.name, nil, { RightLabel = "→→→" }, true, function()
+                        RageUI.ButtonWithStyle(v.name, nil, { RightLabel = "→→→" }, true, function()
                         end, RMenu:Get('core', v.name))
 
                     end
@@ -181,13 +181,13 @@ function InitMenu()
                 end)
 
                 RageUI.IsVisible(RMenu:Get('core', 'option'), true, true, true, function()
-                    RageUI.Button("Phares xenon ~g~ON", nil, {}, true, function(_,_,selected)
+                    RageUI.ButtonWithStyle("Phares xenon ~g~ON", nil, {}, true, function(_,_,selected)
                         if selected then
                             rUtils.SetVehicleProperties(pVeh, {modXenon = true})
                             UpdateVehProps()
                         end
                     end)
-                    RageUI.Button("Phares xenon ~r~OFF", nil, {}, true, function(_,_,selected)
+                    RageUI.ButtonWithStyle("Phares xenon ~r~OFF", nil, {}, true, function(_,_,selected)
                         if selected then
                             rUtils.SetVehicleProperties(pVeh, {modXenon = false})
                             UpdateVehProps()
@@ -196,7 +196,7 @@ function InitMenu()
                     RageUI.Separator("Teinte des vitres")
                     for i=  1,5 do
                         local vitre = GetWindowName(i)
-                        RageUI.Button(vitre, nil, {}, true, function(_,_,selected)
+                        RageUI.ButtonWithStyle(vitre, nil, {}, true, function(_,_,selected)
                             if selected then
                                 rUtils.SetVehicleProperties(pVeh, {windowTint = i})
                                 UpdateVehProps()
@@ -206,7 +206,7 @@ function InitMenu()
                     RageUI.Separator("Plaque de couleur")
                     for i = 0,4 do
                         local plaque = GetPlatesName(i)
-                        RageUI.Button(plaque, nil, {}, true, function(_,_,selected)
+                        RageUI.ButtonWithStyle(plaque, nil, {}, true, function(_,_,selected)
                             if selected then
                                 rUtils.SetVehicleProperties(pVeh, {plateIndex = i})
                                 UpdateVehProps()
@@ -214,13 +214,13 @@ function InitMenu()
                         end)
                     end
                     RageUI.Separator("Fumer des pneus")
-                    RageUI.Button("Fumer de couleur ~g~ON", nil, {}, true, function(_,_,selected)
+                    RageUI.ButtonWithStyle("Fumer de couleur ~g~ON", nil, {}, true, function(_,_,selected)
                         if selected then
                             rUtils.SetVehicleProperties(pVeh, {modSmokeEnabled = true})
                             UpdateVehProps()
                         end
                     end)
-                    RageUI.Button("Fumer de couleur ~r~OFF", nil, {}, true, function(_,_,selected)
+                    RageUI.ButtonWithStyle("Fumer de couleur ~r~OFF", nil, {}, true, function(_,_,selected)
                         if selected then
                             rUtils.SetVehicleProperties(pVeh, {modSmokeEnabled = false})
                             UpdateVehProps()
@@ -228,7 +228,7 @@ function InitMenu()
                     end)
                     local couleur = GetNeons()
                     for _,i in pairs(couleur) do
-                        RageUI.Button(i.label, nil, {}, true, function(_,_,selected)
+                        RageUI.ButtonWithStyle(i.label, nil, {}, true, function(_,_,selected)
                             if selected then
                                 rUtils.SetVehicleProperties(pVeh, {tyreSmokeColor = {i.r, i.g, i.b}})
                                 UpdateVehProps()
@@ -240,31 +240,31 @@ function InitMenu()
                 end)
 
                 RageUI.IsVisible(RMenu:Get('core', 'peinture'), true, true, true, function()
-                    RageUI.Button("Changer des reflets", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Changer des reflets", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 1
                         end
                     end, RMenu:Get('core', "Choixcouleur"))
 
-                    RageUI.Button("Changer la couleur primaire", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Changer la couleur primaire", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 2
                         end
                     end, RMenu:Get('core', "Choixcouleur"))
 
-                    RageUI.Button("Changer la couleur secondaire", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Changer la couleur secondaire", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 3
                         end
                     end, RMenu:Get('core', "Choixcouleur"))
 
-                    RageUI.Button("Changer la couleur des jantes", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Changer la couleur des jantes", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 4
                         end
                     end, RMenu:Get('core', "Choixcouleur"))
 
-                    RageUI.Button("Géstion des néons", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Géstion des néons", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         if s then
                             PaintType = 4
                         end
@@ -296,7 +296,7 @@ function InitMenu()
                         end
                     end)
                     for k,v in ipairs(neons) do
-                        RageUI.Button(v.label, nil, { }, true, function(_,a,s)
+                        RageUI.ButtonWithStyle(v.label, nil, { }, true, function(_,a,s)
                             if a then
                                 SetVehicleNeonLightsColour(pVeh, v.r, v.g, v.b)
                             end
@@ -311,7 +311,7 @@ function InitMenu()
 
                 RageUI.IsVisible(RMenu:Get('core', "Choixcouleur"), true, true, true, function()
                     for k,v in ipairs(Colors) do
-                        RageUI.Button(v.label, nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                        RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→→" }, true, function(_,_,s)
                         end, RMenu:Get('core', v.value))
                     end
                 end, function()
@@ -324,7 +324,7 @@ function InitMenu()
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
                         local colors = GetColors(v.value)
                         for _,i in pairs(colors) do
-                            RageUI.Button(i.label, nil, { }, true, function(_,a,s)
+                            RageUI.ButtonWithStyle(i.label, nil, { }, true, function(_,a,s)
                                 if a then
                                     if PaintType == 1 then
                                         rUtils.SetVehicleProperties(pVeh, {pearlescentColor = i.index})
@@ -378,13 +378,13 @@ function InitMenu()
 
                         if v.modType == 23 then
                             for _, j in pairs(weels) do
-                                RageUI.Button(j.name, nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                                RageUI.ButtonWithStyle(j.name, nil, { RightLabel = "→→→" }, true, function(_,_,s)
                                     if s then SetVehicleWheelType(pVeh, j.type) end
                                 end, RMenu:Get('core', j.name))
                             end
                         end
 
-                        RageUI.Button("Stock", nil, {}, true, function(_,Active,Selected)
+                        RageUI.ButtonWithStyle("Stock", nil, {}, true, function(_,Active,Selected)
                             if Selected then
                                 SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, -1, 0)
                                 UpdateVehProps()
@@ -398,7 +398,7 @@ function InitMenu()
                             local modName = GetModTextLabel(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i)
 
                             if v.modType == 14 then
-                                RageUI.Button(GetHornName(i), nil, {}, true, function(_,Active,Selected)
+                                RageUI.ButtonWithStyle(GetHornName(i), nil, {}, true, function(_,Active,Selected)
                                     if Selected then
                                         SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
                                         RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
@@ -409,7 +409,7 @@ function InitMenu()
                                     end
                                 end)
                             elseif v.modType == 48 then
-                                RageUI.Button(GetLabelText(modName), nil, {}, true, function(_,Active,Selected)
+                                RageUI.ButtonWithStyle(GetLabelText(modName), nil, {}, true, function(_,Active,Selected)
                                     if Selected then
                                         SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 48, i, 0)
                                         SetVehicleLivery(vehicle, i)
@@ -426,7 +426,7 @@ function InitMenu()
                                 break
                             else
                                 if installed == i then
-                                    RageUI.Button(GetLabelText(modName), nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(_,Active,Selected)
+                                    RageUI.ButtonWithStyle(GetLabelText(modName), nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(_,Active,Selected)
                                         if Selected then
                                             SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
                                             RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
@@ -437,7 +437,7 @@ function InitMenu()
                                         end
                                     end)
                                 else
-                                    RageUI.Button(GetLabelText(modName), nil, {}, true, function(_,Active,Selected)
+                                    RageUI.ButtonWithStyle(GetLabelText(modName), nil, {}, true, function(_,Active,Selected)
                                         if Selected then
                                             SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
                                             RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
@@ -467,7 +467,7 @@ function InitMenu()
 
                         for i = 0, num-1 do
                             local modName = GetModTextLabel(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 23, i)
-                            RageUI.Button(GetLabelText(modName), nil, {}, true, function(_,Active,Selected)
+                            RageUI.ButtonWithStyle(GetLabelText(modName), nil, {}, true, function(_,Active,Selected)
                                 if Selected then
                                     SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 23, i, 0)
                                     RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
@@ -491,7 +491,7 @@ function InitMenu()
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
 
                         if v.modType == 17 then
-                            RageUI.Button("Turbo", nil, {}, true, function(_,Active,Selected)
+                            RageUI.ButtonWithStyle("Turbo", nil, {}, true, function(_,Active,Selected)
                                 if Selected then
                                     ToggleVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 17, 1)
                                     rUtils.SetVehicleProperties(pVeh, {modTurbo = true})
@@ -503,7 +503,7 @@ function InitMenu()
 
                         for i = 0, num-1 do 
                             if installed == i then
-                                RageUI.Button(v.name.." - "..i+1, nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(_,Active,Selected)
+                                RageUI.ButtonWithStyle(v.name.." - "..i+1, nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(_,Active,Selected)
                                     if Selected then
                                         SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
                                         RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
@@ -511,7 +511,7 @@ function InitMenu()
                                     end
                                 end)
                             else
-                                RageUI.Button(v.name.." - "..i+1, nil, {}, true, function(_,Active,Selected)
+                                RageUI.ButtonWithStyle(v.name.." - "..i+1, nil, {}, true, function(_,Active,Selected)
                                     if Selected then
                                         SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
                                         RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})

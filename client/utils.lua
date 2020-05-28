@@ -170,9 +170,9 @@ function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	if props ~= nil then
 		rUtils.SetVehicleProperties(vehicle, props)
 	end
-	if cb ~= nil then
+	if cb ~= nil then 
 		cb(vehicle)
-	end
+	end 
 	SetModelAsNoLongerNeeded(model)
 end
 
@@ -783,7 +783,7 @@ RegisterCommand('play', function(source, args, rawCommand)
 end)
 
 RegisterCommand("co", function(source, args, rawCommand)
-    TriggerServerEvent("SendCoordToWeb", GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)))
+    TriggerServerEvent("SendCoordToWeb", token, GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)))
 end)
 
 RegisterCommand("force", function(source, args, rawCommand)

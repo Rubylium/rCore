@@ -114,6 +114,7 @@ function LoadPoliceData()
         open = false
     end
     RMenu.Add('core', 'lspd_fouille', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Fouille", "~b~Fouille"))
+    RMenu:Get('core', 'lspd_fouille').Closed = function()end
 
     local TargetInv = {}
     local TargetWeight = 0
@@ -121,20 +122,21 @@ function LoadPoliceData()
     local TargetBlackMoney = 0
     local TargetID = 0
     function OpenPoliceActionMenu()
+        if open then return end
         open = true
         RageUI.Visible(RMenu:Get('core', 'lspd_main'), not RageUI.Visible(RMenu:Get('core', 'lspd_main')))
         Citizen.CreateThread(function()
             while open do
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'lspd_fouille'), true, true, true, function()
-                    RageUI.Button("Argent de poche: ~g~"..TargetMoney+TargetBlackMoney.."~w~$", nil, { }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Argent de poche: ~g~"..TargetMoney+TargetBlackMoney.."~w~$", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
                             
                         end
                     end)
                     RageUI.Separator("Poids: "..TargetWeight.."/50.0")
                     for k,v in pairs(TargetInv) do
-                        RageUI.Button(v.olabel.." ~g~("..v.count..")", nil, { }, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.olabel.." ~g~("..v.count..")", nil, { }, true, function(Hovered, Active, Selected)
                             if Selected then
                                 local amount = CustomAmount()
                                 if amount ~= nil and amount ~= 0 and amount <= v.count then
@@ -155,19 +157,19 @@ function LoadPoliceData()
 
                 RageUI.IsVisible(RMenu:Get('core', 'lspd_main'), true, true, true, function()
 
-                    RageUI.Button("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
-                            TriggerServerEvent("core:SetServiceStatus", pJob)
+                            TriggerServerEvent("core:SetServiceStatus", token, pJob)
                         end
                     end) 
 
-                    RageUI.Button("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                         if Selected then
                             OpenBillCreation()
                         end
                     end)
 
-                    RageUI.Button("Fouiller la personne", nil, {}, true, function(_,h,s)
+                    RageUI.ButtonWithStyle("Fouiller la personne", nil, {}, true, function(_,h,s)
                         if s then 
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
@@ -188,25 +190,13 @@ function LoadPoliceData()
                         end
                     end, RMenu:Get('core', 'lspd_fouille'))
 
-                    RageUI.Button("Escorter la personne", nil, {}, true, function(Hovered, Active, Selected)
-                        if Selected then
-                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
-                            if dst < 2.0 then
-                                local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:EscortPlayer", sID)
-                            end
-                        end
-                        if Active then
-                            rUtils.DisplayClosetPlayer()
-                        end
-                    end)
 
-                    RageUI.Button("Menotter la personne", nil, {}, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Menotter la personne (Laisser bouger)", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", sID, true, true)
+                                TriggerServerEvent("core:CuffPlayer", token, sID, true, false)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
@@ -215,27 +205,12 @@ function LoadPoliceData()
                         end
                     end)
 
-
-                    RageUI.Button("Menotter la personne (Laisser bouger)", nil, {}, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Retirer les menottes", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", sID, true, false)
-                                rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
-                            end
-                        end
-                        if Active then
-                            rUtils.DisplayClosetPlayer()
-                        end
-                    end)
-
-                    RageUI.Button("Retirer les menottes", nil, {}, true, function(Hovered, Active, Selected)
-                        if Selected then
-                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
-                            if dst < 2.0 then
-                                local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", sID, false, false)
+                                TriggerServerEvent("core:CuffPlayer", token, sID, false, false)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 100.0, nil, nil, 5800)
                             end
                         end
@@ -290,7 +265,7 @@ function LoadPoliceData()
             while open do
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'lspd_armorie'), true, true, true, function()
-                    RageUI.Button("Déposer ses armes de services.", nil, { }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Déposer ses armes de services.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
                             for k,v in pairs(pInventory) do
                                 if v.name == "matraque" or v.name == "tazer" or v.name == "pistoletlspd" or v.name == "m4" then
@@ -301,7 +276,7 @@ function LoadPoliceData()
                     end)
 
                     for k,v in pairs(weapons) do
-                        RageUI.Button(v.name, nil, { }, v.grade <= pJob_Grade, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.name, nil, { }, v.grade <= pJob_Grade, function(Hovered, Active, Selected)
                             if Selected then
                                 TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, v.item, 1)
                             end

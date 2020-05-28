@@ -2,7 +2,8 @@
 
 PlayersVehCache = {}
 RegisterNetEvent("core:GetPlayersVehicle")
-AddEventHandler("core:GetPlayersVehicle", function()
+AddEventHandler("core:GetPlayersVehicle", function(token)
+    if not exports.rFramework:CheckToken(token, source, "GetPlayersVehicle") then return end
     local source = source
     local id = GetPlayerIdentifier(source, 1)
     if PlayersVehCache[id] ~= nil then
@@ -37,7 +38,8 @@ end)
 
 
 RegisterNetEvent("core:DEV-SaveVehToGarage")
-AddEventHandler("core:DEV-SaveVehToGarage", function(name, plate, props)
+AddEventHandler("core:DEV-SaveVehToGarage", function(token, name, plate, props)
+    if not exports.rFramework:CheckToken(token, source, "DEV-SaveVehToGarage") then return end
     local id = GetPlayerIdentifier(source, 1)
     local vprops = json.encode(props)
 

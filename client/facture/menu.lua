@@ -2,6 +2,7 @@ RMenu.Add('core', 'facture_cree', RageUI.CreateMenu("", "~b~FACTURE", nil, nil, 
 
 RMenu.Add('core', 'facture_voir', RageUI.CreateMenu("", "~b~FACTURE", nil, nil, "root_cause", "shopui_title_fleecabank"))
 RMenu:Get('core', 'facture_voir').Closable = false
+RMenu:Get('core', 'facture_voir').Closed = function()end
 
 local IsSocietyBill = false
 local society = nil
@@ -44,33 +45,33 @@ Citizen.CreateThread(function()
                 RageUI.Separator("Facture: ~b~"..pJob.."")
             end
 
-            RageUI.Button("Raison", raison, { RightLabel = "→" }, true, function(_,_,s)
+            RageUI.ButtonWithStyle("Raison", raison, { RightLabel = "→" }, true, function(_,_,s)
                 if s then 
                     raison = TextImput()
                 end
             end)
 
             if montant == nil then
-                RageUI.Button("Montant", nil, { RightLabel = "→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Montant", nil, { RightLabel = "→" }, true, function(_,_,s)
                     if s then 
                         montant = tonumber(TextImput())
                     end
                 end)
             else
-                RageUI.Button("Montant", nil, { RightLabel = montant.."$" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Montant", nil, { RightLabel = montant.."$" }, true, function(_,_,s)
                     if s then 
                         montant = tonumber(TextImput())
                     end
                 end)
             end
 
-            RageUI.Button("Donner la facture", nil, {}, true, function(_,h,s)
+            RageUI.ButtonWithStyle("Donner la facture", nil, {}, true, function(_,h,s)
                 if s then 
                     if raison ~= nil and montant ~= nil then
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
                         print(cSid)
-                        TriggerServerEvent("core:SendFacture", cSid, IsSocietyBill, pJob, raison, montant)
+                        TriggerServerEvent("core:SendFacture", token, cSid, IsSocietyBill, pJob, raison, montant)
                         RageUI.CloseAll()
                     end
                 end
@@ -92,29 +93,29 @@ Citizen.CreateThread(function()
             RageUI.Separator("Raison: "..raison)
             RageUI.Separator("Montant: ~g~"..montant.."~w~$")
 
-            RageUI.Button("~g~Payer la facture", nil, {}, true, function(_,h,s)
+            RageUI.ButtonWithStyle("~g~Payer la facture", nil, {}, true, function(_,h,s)
                 if s then 
                     if pMoney > montant then
                         if not IsSocietyBill then
                             TriggerServerEvent("rF:GiveMoneyToPlayer", token, sourceID, montant)
-                            TriggerServerEvent("core:PayFacture", sourceID, montant)
+                            TriggerServerEvent("core:PayFacture", token, sourceID, montant)
                             RageUI.CloseAll()
                         else
                             print(society, montant)
                             TriggerServerEvent("rF:PaySociety", token, society, montant)
-                            TriggerServerEvent("core:PayFactureSociety", sourceID, montant)
+                            TriggerServerEvent("core:PayFactureSociety", token, sourceID, montant)
                             RageUI.CloseAll()
                         end
                     else
-                        TriggerServerEvent("core:CantPayFacture", sourceID, montant)
+                        TriggerServerEvent("core:CantPayFacture", token, sourceID, montant)
                         RageUI.CloseAll()
                     end
                 end
             end)
-            RageUI.Button("~r~Refuser la facture", nil, {}, true, function(_,h,s)
+            RageUI.ButtonWithStyle("~r~Refuser la facture", nil, {}, true, function(_,h,s)
                 if s then 
                     if raison ~= nil and montant ~= nil then
-                        TriggerServerEvent("core:CancelFacture", sourceID, montant)
+                        TriggerServerEvent("core:CancelFacture", token, sourceID, montant)
                         RageUI.CloseAll()
                     end
                 end

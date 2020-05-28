@@ -137,19 +137,19 @@ function LoadEmsData()
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'ems_main'), true, true, true, function()
 
-                    RageUI.Button("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
-                            TriggerServerEvent("core:SetServiceStatus", pJob)
+                            TriggerServerEvent("core:SetServiceStatus", token, pJob)
                         end
                     end)
 
-                    RageUI.Button("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                         if Selected then
                             OpenBillCreation()
                         end
                     end)
 
-                    RageUI.Button("Soigner la personne la plus proche", nil, {}, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Soigner la personne la plus proche", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
                             HelpPlayer()
                         end
@@ -196,7 +196,7 @@ function HelpPlayer()
                         if oldTime + 30000 < GetGameTimer() then
                             oldTime = GetGameTimer()
                             ClearPedTasks(pPed)
-                            TriggerServerEvent("core:ResetDeathStatus", targetID)
+                            TriggerServerEvent("core:ResetDeathStatus", token, targetID)
                             StillWant = false
                         end
                         Wait(0)

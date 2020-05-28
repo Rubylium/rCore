@@ -1,5 +1,5 @@
 ---@type table
-local SettingsButton = {
+local SettingsButtonWithStyle = {
     Rectangle = { Y = 0, Width = 431, Height = 38 },
     Text = { X = 8, Y = 3, Scale = 0.33 },
     LeftBadge = { Y = -2, Width = 40, Height = 40 },
@@ -54,36 +54,36 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
 
                 ---@type boolean
                 if CurrentMenu.EnableMouse == true then
-                    Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton);
+                    Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButtonWithStyle);
                 end
 
                 local ProgressText = (Counter and ProgressStart .. "/" .. #Items or (type(Items[ProgressStart]) == "table") and tostring(Items[ProgressStart].Name) or tostring(Items[ProgressStart]))
 
                 if Selected then
-                    RenderSprite(SettingsButton.SelectedSprite.Dictionary, SettingsButton.SelectedSprite.Texture, CurrentMenu.X, CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset, SettingsProgress.Height)
+                    RenderSprite(SettingsButtonWithStyle.SelectedSprite.Dictionary, SettingsButtonWithStyle.SelectedSprite.Texture, CurrentMenu.X, CurrentMenu.Y + SettingsButtonWithStyle.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButtonWithStyle.SelectedSprite.Width + CurrentMenu.WidthOffset, SettingsProgress.Height)
                     ProgressHovered = RageUI.IsMouseInBounds(CurrentMenu.X + SettingsProgress.Bar.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + SettingsProgress.Bar.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset - 12, SettingsProgress.Bar.Width + CurrentMenu.WidthOffset, SettingsProgress.Bar.Height + 24)
                 end
 
                 if Enabled == true or Enabled == nil then
                     if Selected then
-                        RenderText(ProgressText, CurrentMenu.X + SettingsButton.RightText.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 0, 0, 0, 255, 2)
+                        RenderText(ProgressText, CurrentMenu.X + SettingsButtonWithStyle.RightText.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButtonWithStyle.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButtonWithStyle.RightText.Scale, 0, 0, 0, 255, 2)
 
-                        RenderText(Label, CurrentMenu.X + SettingsButton.Text.X, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 0, 0, 0, 255)
+                        RenderText(Label, CurrentMenu.X + SettingsButtonWithStyle.Text.X, CurrentMenu.Y + SettingsButtonWithStyle.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButtonWithStyle.Text.Scale, 0, 0, 0, 255)
 
                         RenderRectangle(CurrentMenu.X + SettingsProgress.Background.X, CurrentMenu.Y + SettingsProgress.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsProgress.Background.Width + CurrentMenu.WidthOffset, SettingsProgress.Background.Height, 0, 0, 0, 255)
                         RenderRectangle(CurrentMenu.X + SettingsProgress.Bar.X, CurrentMenu.Y + SettingsProgress.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, ((ProgressStart / #Items) * (SettingsProgress.Bar.Width + CurrentMenu.WidthOffset)), SettingsProgress.Bar.Height, 240, 240, 240, 255)
                     else
-                        RenderText(ProgressText, CurrentMenu.X + SettingsButton.RightText.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 245, 245, 245, 255, 2)
+                        RenderText(ProgressText, CurrentMenu.X + SettingsButtonWithStyle.RightText.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButtonWithStyle.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButtonWithStyle.RightText.Scale, 245, 245, 245, 255, 2)
 
-                        RenderText(Label, CurrentMenu.X + SettingsButton.Text.X, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 245, 245, 245, 255)
+                        RenderText(Label, CurrentMenu.X + SettingsButtonWithStyle.Text.X, CurrentMenu.Y + SettingsButtonWithStyle.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButtonWithStyle.Text.Scale, 245, 245, 245, 255)
 
                         RenderRectangle(CurrentMenu.X + SettingsProgress.Background.X, CurrentMenu.Y + SettingsProgress.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsProgress.Background.Width + CurrentMenu.WidthOffset, SettingsProgress.Background.Height, 240, 240, 240, 255)
                         RenderRectangle(CurrentMenu.X + SettingsProgress.Bar.X, CurrentMenu.Y + SettingsProgress.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, ((ProgressStart / #Items) * (SettingsProgress.Bar.Width + CurrentMenu.WidthOffset)), SettingsProgress.Bar.Height, 0, 0, 0, 255)
                     end
                 else
-                    RenderText(ProgressText, CurrentMenu.X + SettingsButton.RightText.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 163, 159, 148, 255, 2)
+                    RenderText(ProgressText, CurrentMenu.X + SettingsButtonWithStyle.RightText.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButtonWithStyle.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButtonWithStyle.RightText.Scale, 163, 159, 148, 255, 2)
 
-                    RenderText(Label, CurrentMenu.X + SettingsButton.Text.X, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 163, 159, 148, 255)
+                    RenderText(Label, CurrentMenu.X + SettingsButtonWithStyle.Text.X, CurrentMenu.Y + SettingsButtonWithStyle.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButtonWithStyle.Text.Scale, 163, 159, 148, 255)
                     if Selected then
                         RenderRectangle(CurrentMenu.X + SettingsProgress.Background.X, CurrentMenu.Y + SettingsProgress.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsProgress.Background.Width + CurrentMenu.WidthOffset, SettingsProgress.Background.Height, 0, 0, 0, 255)
                     else

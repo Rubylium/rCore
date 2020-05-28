@@ -4,14 +4,21 @@ RMenu:Get('core', 'main').Closed = function()
     open = false
 end
 RMenu.Add('core', 'inventory', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'inventory').Closed = function()end
+
 RMenu.Add('core', 'inventory_use', RageUI.CreateSubMenu(RMenu:Get('core', 'inventory'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'inventory_use').Closed = function()end
 
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'portefeuille').Closed = function()end
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'portefeuille_usage').Closed = function()end
 
 RMenu.Add('core', 'accessoire', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'accessoire').Closed = function()end
 
 RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'divers').Closed = function()end
 
 local selected = {
     event = nil,
@@ -39,18 +46,19 @@ Citizen.CreateThread(function()
 end)
 
 function OpenPlayerMenu()
+    if open then return end
     open = true
     Citizen.CreateThread(function()
         while open do
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'main'), true, true, true, function()
-                RageUI.Button("Inventaire", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Inventaire", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'inventory'))
-                RageUI.Button("Portefeuille", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Portefeuille", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'portefeuille'))
-                RageUI.Button("Géstion accessoire", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Géstion accessoire", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'accessoire'))
-                RageUI.Button("Divers", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Divers", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'divers'))
 
             end, function()
@@ -60,7 +68,7 @@ function OpenPlayerMenu()
                 RageUI.Separator("Poid: ~b~"..pWeight.."/50.0")
                 for k,v in pairs(pInventory) do
                     if v.olabel == v.label then
-                        RageUI.Button(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 selected.event = v.event
                                 selected.name = v.name
@@ -70,7 +78,7 @@ function OpenPlayerMenu()
                             end
                         end, RMenu:Get('core', 'inventory_use'))
                     else
-                        RageUI.Button(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 selected.event = v.event
                                 selected.name = v.name
@@ -87,12 +95,12 @@ function OpenPlayerMenu()
 
             RageUI.IsVisible(RMenu:Get('core', 'inventory_use'), true, true, true, function()
                 RageUI.Separator(selected.label.." ~b~("..rUtils.Math.GroupDigits(selected.count)..")")
-                RageUI.Button("Utiliser", nil, {}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Utiliser", nil, {}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         TriggerEvent("rF:UseItem", selected.name)
                     end
                 end)
-                RageUI.Button("Donner", nil, {RightLabel = "📦"}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Donner", nil, {RightLabel = "📦"}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
@@ -100,7 +108,7 @@ function OpenPlayerMenu()
                             local amount = CustomAmount() 
                             if amount <= selected.count then
                                 TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, cSid, selected.name, amount, selected.label, selected.count)
-                                TriggerServerEvent("rF:GetPlayerInventory")
+                                TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                             end
                         else
@@ -112,19 +120,19 @@ function OpenPlayerMenu()
                     end
                 end, RMenu:Get('core', 'inventory'))
                 if selected.label == selected.olabel then
-                    RageUI.Button("Renommer", nil, { RightLabel = "✍"  }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Renommer", nil, { RightLabel = "✍"  }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             RenameAnItem()
                             TriggerServerEvent("rF:RenameItem", token, selected.name, selected.newLabel, selected.label)
-                            TriggerServerEvent("rF:GetPlayerInventory")
+                            TriggerServerEvent("rF:GetPlayerInventory", token)
                             RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                         end
                     end)
                 else
-                    RageUI.Button("Réinitialiser ", "~r~Tu ne peu pas rename un item déja rename, tu doit le réinitialiser avant.", { RightLabel = "🛠" }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Réinitialiser ", "~r~Tu ne peu pas rename un item déja rename, tu doit le réinitialiser avant.", { RightLabel = "🛠" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             TriggerServerEvent("rF:ResetRenameItem", token, selected.name, selected.olabel, selected.label)
-                            TriggerServerEvent("rF:GetPlayerInventory")
+                            TriggerServerEvent("rF:GetPlayerInventory", token)
                             RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                         end
                     end)
@@ -135,19 +143,19 @@ function OpenPlayerMenu()
 
             RageUI.IsVisible(RMenu:Get('core', 'portefeuille'), true, true, true, function()
                 RageUI.Separator(pJob.." - "..GetGradeLabel(pJob, pJob_Grade))
-                RageUI.Button("Poche: ~g~"..rUtils.Math.GroupDigits(pMoney).."$", nil, {}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Poche: ~g~"..rUtils.Math.GroupDigits(pMoney).."$", nil, {}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         moneySelected.type = "Poche: ~g~"
                         moneySelected.count = pMoney
                     end
                 end)
-                RageUI.Button("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$", nil, {}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$", nil, {}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         moneySelected.type = "Banque: ~b~"
                         moneySelected.count = pBank
                     end
                 end)
-                RageUI.Button("Source inconnu: ~c~"..rUtils.Math.GroupDigits(pDirty).."$", nil, {}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Source inconnu: ~c~"..rUtils.Math.GroupDigits(pDirty).."$", nil, {}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         moneySelected.type = "Source inconnu: ~c~"
                         moneySelected.count = pDirty
@@ -155,20 +163,20 @@ function OpenPlayerMenu()
                 end)
 
                 if IsPatron(pJob, pJob_Grade) then
-                    RageUI.Button("Ouvrire le menu patron: ~c~"..pJob, nil, {}, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Ouvrire le menu patron: ~c~"..pJob, nil, {}, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             OpenBossMenu(pJob)
                         end
                     end)
                 end
 
-                RageUI.Button("Regarder sa carte d'identité", nil, {}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Regarder sa carte d'identité", nil, {}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         ShowIdentityCard()
                     end
                 end)
 
-                RageUI.Button("Montrer sa carte d'identité", nil, {}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Montrer sa carte d'identité", nil, {}, true, function(Hovered, Active, Selected)
                     if Selected then
                         ShowIdentityCardToOther()
                     end
@@ -181,7 +189,7 @@ function OpenPlayerMenu()
 
             RageUI.IsVisible(RMenu:Get('core', 'portefeuille_usage'), true, true, true, function()
                 RageUI.Separator(moneySelected.type.." "..rUtils.Math.GroupDigits(moneySelected.count).."$")
-                RageUI.Button("Donner", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Donner", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
 
                     end
@@ -191,7 +199,7 @@ function OpenPlayerMenu()
             end)
 
             RageUI.IsVisible(RMenu:Get('core', 'accessoire'), true, true, true, function()
-                RageUI.Button("Chapeau", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.casque) }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Chapeau", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.casque) }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         if accessoire.casque then
                             accessoire.casque = false
@@ -206,7 +214,7 @@ function OpenPlayerMenu()
                     end
                 end)
 
-                RageUI.Button("Lunette", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.lunette) }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Lunette", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.lunette) }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         if accessoire.lunette then
                             accessoire.lunette = false
@@ -222,7 +230,7 @@ function OpenPlayerMenu()
                 end)
 
 
-                RageUI.Button("Masque", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.mask) }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Masque", nil, { RightLabel = "→"..MettreOuEnleverDisplay(accessoire.mask) }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         if accessoire.mask then
                             accessoire.mask = false
@@ -243,13 +251,13 @@ function OpenPlayerMenu()
             end)
 
             RageUI.IsVisible(RMenu:Get('core', 'divers'), true, true, true, function()
-                RageUI.Button("Activer/Desactiver l'HUD", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Activer/Desactiver l'HUD", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         TriggerEvent("rF:HudToogle")
                     end
                 end)
 
-                RageUI.Button("Props", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Props", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then RageUI.Visible(RMenu:Get('core', 'props'), true) OpenPropsMenu() end
                 end)
 
@@ -273,7 +281,7 @@ function OpenPlayerMenu()
             
                 RageUI.Separator("")
             
-                RageUI.Button("Appliquer la couleur", nil, {}, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Appliquer la couleur", nil, {}, true, function(Hovered, Active, Selected)
                     if Selected then
                         SetResourceKvpInt("menuR", menuColor[1])
                         SetResourceKvpInt("menuG", menuColor[2])
@@ -362,7 +370,7 @@ function ShowIdentityCardToOther()
     local player, dst = rUtils.GetClosestPlayer(GetEntityCoords(GetPlayerPed(-1)))
     if dst <= 2.0 then
         local sID = GetPlayerServerId(player)
-        TriggerServerEvent("core:ShowIdentityCardToOther", sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pJob)
+        TriggerServerEvent("core:ShowIdentityCardToOther", token, sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pJob)
     else
         RageUI.Popup({message = "~r~Action impossible\n~w~Aucun joueur proche."})
     end

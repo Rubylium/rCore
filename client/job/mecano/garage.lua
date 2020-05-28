@@ -33,7 +33,7 @@ function InitMecanoGarage()
                 open = true
             
                 for k,v in pairs(vehs) do
-                    RageUI.Button(v.nom, nil, {}, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle(v.nom, nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
                             local pos, heading = rUtils.GetZoneFromTable(PointDeSortie)
                             if pos then

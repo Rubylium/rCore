@@ -24,25 +24,25 @@ function InitMecanoActionMenu()
                 RageUI.IsVisible(RMenu:Get('core', 'mecano_main'), true, true, true, function()
 
 
-                    RageUI.Button("Action sur véhicule", nil, { RightLabel = "→→→" }, true, function()
+                    RageUI.ButtonWithStyle("Action sur véhicule", nil, { RightLabel = "→→→" }, true, function()
                     end, RMenu:Get('core', 'vehAction'))
 
-                    RageUI.Button("Animation", nil, { RightLabel = "→→→" }, true, function()
+                    RageUI.ButtonWithStyle("Animation", nil, { RightLabel = "→→→" }, true, function()
                     end, RMenu:Get('core', 'animation'))
 
-                    RageUI.Button("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                         if Selected then
                             OpenBillCreation()
                         end
                     end)
 
-                    RageUI.Button("Annoncé mécano ouvert", nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Annoncé mécano ouvert", nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(Hovered, Active, Selected)
                         if Selected then
                             TriggerServerEvent('AnnounceMecanoOuvert')
                         end
                     end)
 
-                    RageUI.Button("Annoncé mécano fermer", nil, { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Annoncé mécano fermer", nil, { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
                         if Selected then
                             TriggerServerEvent('AnnounceMecanoFerme')
                         end
@@ -55,18 +55,18 @@ function InitMecanoActionMenu()
 
                 RageUI.IsVisible(RMenu:Get('core', 'vehAction'), true, true, true, function()
 
-                    RageUI.Button("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
                         if Selected then
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
                             local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-                            TriggerServerEvent("core:Repair", VehToNet(veh), ServerID)
+                            TriggerServerEvent("core:Repair", token, VehToNet(veh), ServerID)
                         end
                     end)
 
-                    RageUI.Button("Nettoyer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Nettoyer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
@@ -75,17 +75,17 @@ function InitMecanoActionMenu()
                         end
                     end)
 
-                    RageUI.Button("Mettre le véhicule en fourrière", "Permet de Mettre le véhicule le plus proche en fourrière.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Mettre le véhicule en fourrière", "Permet de Mettre le véhicule le plus proche en fourrière.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
                         if Selected then
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
-                            TriggerServerEvent("DeleteEntity", VehToNet(veh))
+                            TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
                         end
                     end)
 
-                    RageUI.Button("Ouvrir le véhicule", "Permet d'ouvrir le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Ouvrir le véhicule", "Permet d'ouvrir le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
@@ -94,26 +94,26 @@ function InitMecanoActionMenu()
                         end
                     end)
 
-                    RageUI.Button("Ouvrir/Fermer le capot", "Action sur le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Ouvrir/Fermer le capot", "Action sur le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
                         if Selected then
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
                             local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-                            TriggerServerEvent("core:OpenSomething", VehToNet(veh), ServerID, 4, not DoorStatus.capot)
+                            TriggerServerEvent("core:OpenSomething", token, VehToNet(veh), ServerID, 4, not DoorStatus.capot)
                             DoorStatus.capot = not DoorStatus.capot
                         end
                     end)
 
-                    RageUI.Button("Ouvrir/Fermer le coffre", "Action sur le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Ouvrir/Fermer le coffre", "Action sur le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
                         if Selected then
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
                             local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-                            TriggerServerEvent("core:OpenSomething", VehToNet(veh), ServerID, 5, not DoorStatus.coffre)
+                            TriggerServerEvent("core:OpenSomething", token, VehToNet(veh), ServerID, 5, not DoorStatus.coffre)
                             DoorStatus.coffre = not DoorStatus.coffre
                         end
                     end)
@@ -126,7 +126,7 @@ function InitMecanoActionMenu()
 
                 RageUI.IsVisible(RMenu:Get('core', 'animation'), true, true, true, function()
                     for k,v in pairs(animations) do
-                        RageUI.Button(v.nom, "Effectue l'animation ~g~"..v.command, {}, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.nom, "Effectue l'animation ~g~"..v.command, {}, true, function(Hovered, Active, Selected)
                             if Selected then
                                 ExecuteCommand(v.command)
                             end
@@ -154,7 +154,7 @@ function InitMecanoActionMenu()
         Wait(10*1000)
         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
         local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-        TriggerServerEvent("core:OpenVehicle", ServerID, VehToNet(veh))
+        TriggerServerEvent("core:OpenVehicle", token, ServerID, VehToNet(veh))
         ClearPedTasksImmediately(GetPlayerPed(-1))
     end
     
@@ -164,7 +164,7 @@ function InitMecanoActionMenu()
         Citizen.Wait(10000)
         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
         local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-        TriggerServerEvent("core:CleanVehicle", ServerID, VehToNet(veh))
+        TriggerServerEvent("core:CleanVehicle", token, ServerID, VehToNet(veh))
         ClearPedTasksImmediately(GetPlayerPed(-1))
         rUtils.Notif("~g~Action terminé.")
     end

@@ -29,6 +29,7 @@ end
 
 
 function OpenVespLiftMenu()
+    if open then return end
     open = true
     RageUI.Visible(RMenu:Get('core', 'vespucci_lift'), not RageUI.Visible(RMenu:Get('core', 'vespucci_lift')))
     Citizen.CreateThread(function()
@@ -36,7 +37,7 @@ function OpenVespLiftMenu()
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'vespucci_lift'), false, false, false, function()
                 for k,v in pairs(VespucciLift) do
-                    RageUI.Button(v.name, nil, { }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle(v.name, nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
                             SetEntityCoordsNoOffset(pPed, v.pos, 0.0, 0.0, 0.0)
                             SetEntityHeading(pPed, 33.0)

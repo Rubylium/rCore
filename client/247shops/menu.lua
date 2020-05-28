@@ -70,7 +70,7 @@ function OpenShop()
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', '247'), true, true, true, function()
                 for k,v in pairs(NearestShop.items) do
-                    RageUI.Button(v.item, nil, { RightLabel = v.price.."~g~$" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle(v.item, nil, { RightLabel = v.price.."~g~$" }, true, function(_,_,s)
                         if s then 
                             SelectedItem.item = v.item
                             SelectedItem.price = v.price
@@ -83,7 +83,7 @@ function OpenShop()
 
             RageUI.IsVisible(RMenu:Get('core', '247_confirm'), true, true, true, function()
                 RageUI.Separator("Prix "..SelectedItem.item..": ~b~"..rUtils.Math.GroupDigits(SelectedItem.price).."$")
-                RageUI.Button("Acheter", nil, {}, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Acheter", nil, {}, true, function(_,_,s)
                     if s then
                         local amount = CustomAmount()
                         TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, amount, SelectedItem.price)
@@ -94,7 +94,7 @@ function OpenShop()
 
             RageUI.IsVisible(RMenu:Get('core', 'ltd'), true, true, true, function()
                 for k,v in pairs(NearestShop.items) do
-                    RageUI.Button(v.item, nil, { RightLabel = v.price.."~g~$" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle(v.item, nil, { RightLabel = v.price.."~g~$" }, true, function(_,_,s)
                         if s then 
                             SelectedItem.item = v.item
                             SelectedItem.price = v.price
@@ -107,7 +107,7 @@ function OpenShop()
 
             RageUI.IsVisible(RMenu:Get('core', 'ltd_confirm'), true, true, true, function()
                 RageUI.Separator("Prix "..SelectedItem.item..": ~b~"..rUtils.Math.GroupDigits(SelectedItem.price).."$")
-                RageUI.Button("Acheter", nil, {}, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Acheter", nil, {}, true, function(_,_,s)
                     if s then
                         local amount = CustomAmount()
                         TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, amount, SelectedItem.price)

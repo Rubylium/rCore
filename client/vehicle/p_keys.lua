@@ -21,7 +21,7 @@ function OpenOrCloseVeh()
     local plate = GetVehicleNumberPlateText(veh)
     if pKeys[plate] ~= nil then
         local target = rUtils.EntityOwner(veh)
-        TriggerServerEvent("core:CloseVeh", target, VehToNet(veh))
+        TriggerServerEvent("core:CloseVeh", token, target, VehToNet(veh))
         SetVehicleLights(veh, 2)
         SoundVehicleHornThisFrame(veh)
         Wait(200)

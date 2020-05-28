@@ -1,6 +1,6 @@
 RMenu.Add('core', 'getCard', RageUI.CreateMenu("", "~b~Menu ATM de votre personnage", nil, nil, "root_cause", "shopui_title_fleecabank"))
 RMenu:Get('core', 'getCard').Closed = function()
-    PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1)
+    PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1)
     KillNpcCam()
 end
 
@@ -25,19 +25,19 @@ Citizen.CreateThread(function()
         RageUI.IsVisible(RMenu:Get('core', 'getCard'), true, true, true, function()
             open = true
             RageUI.Separator("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$")
-            RageUI.Button("Récupèrer votre carte bancaire", "Vous n'avez pas de carte bancaire ? C'est ici que vous l'a récupèrer.", {}, true, function(_,_,s)
+            RageUI.ButtonWithStyle("Récupèrer votre carte bancaire", "Vous n'avez pas de carte bancaire ? C'est ici que vous l'a récupèrer.", {}, true, function(_,_,s)
                 if s then 
                     TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, "CB", 1)
                 end
             end)
-            RageUI.Button("Déposer", nil, { RightLabel = "→→→" }, true, function(_,_,s)
-                if s then PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1) end
+            RageUI.ButtonWithStyle("Déposer", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                if s then PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1) end
             end, RMenu:Get('core', 'atm_deposer'))
-            RageUI.Button("Retirer", nil, { RightLabel = "→→→" }, true, function(_,_,s)
-                if s then PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1) end
+            RageUI.ButtonWithStyle("Retirer", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                if s then PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1) end
             end, RMenu:Get('core', 'atm_retirer'))
-            RageUI.Button("Liste des transactions", nil, { RightLabel = "→→→" }, true, function(_,_,s)
-                if s then PlaySoundFrontend(-1, "PIN_BUTTON", "ATM_SOUNDS", 1) end
+            RageUI.ButtonWithStyle("Liste des transactions", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                if s then PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1) end
             end, RMenu:Get('core', 'transaction'))
 
         end, function()

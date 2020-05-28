@@ -74,29 +74,30 @@ end
 
 
 function OpenClothShopThread()
+    if open then return end
     Citizen.CreateThread(function()
         open = true
         while open do
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'clothshop'), true, true, true, function()
-                RageUI.Button("Faire une nouvelle tenue", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Faire une nouvelle tenue", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'tenues_create'))
 
-                RageUI.Button("Voir vos tenues", nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
+                RageUI.ButtonWithStyle("Voir vos tenues", nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
                 end, RMenu:Get('core', 'tenues'))
 
             end, function()
             end)
 
             RageUI.IsVisible(RMenu:Get('core', 'tenues_create'), true, true, true, function()
-                RageUI.Button("Enregistrer la tenue actuel.", nil, {}, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Enregistrer la tenue actuel.", nil, {}, true, function(_,_,s)
                     if s then
                         local name = CustomString()
                         TriggerEvent("rF:SaveCloth", name)
                     end
                 end)
                 for k,v in pairs(clothing) do
-                    RageUI.Button(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
                         if s then
                             SwitchCam(false, v.item)
                         end
@@ -108,7 +109,7 @@ function OpenClothShopThread()
 
             for k,v in pairs(clothing) do
                 RageUI.IsVisible(RMenu:Get('core', v.item.."1"), true, true, true, function()
-                    RageUI.Button("Faire tourner son personnage.", nil, {}, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Faire tourner son personnage.", nil, {}, true, function(_,_,s)
                         if s then
                             ClearPedTasks(GetPlayerPed(-1))
                             local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
@@ -119,7 +120,7 @@ function OpenClothShopThread()
                         local value = exports.rFramework:GetKeyValue(v.o)
                         for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
-                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                            RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin", v.item, i)
@@ -136,7 +137,7 @@ function OpenClothShopThread()
                     else
                         for i = v.min, v.max do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
-                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                            RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin", v.item, i)
@@ -159,7 +160,7 @@ function OpenClothShopThread()
             RageUI.IsVisible(RMenu:Get('core', 'tenues'), true, true, true, function()
                 open = true
                 for k,v in pairs(pClothing) do
-                    RageUI.Button(v.name, nil, { RightLabel = "Appliquer la tenue →" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle(v.name, nil, { RightLabel = "Appliquer la tenue →" }, true, function(_,_,s)
                         if s then
                             TriggerEvent("skinchanger:loadClothesOnly", v.data)
                         end
