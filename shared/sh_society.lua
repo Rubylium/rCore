@@ -41,6 +41,13 @@ societyList = {
             [10] = {label = "Patron"},
         },
     },
+    {
+        name = "concessionnaire",
+        grade = {
+            [0] = {label = "Vendeur"},
+            [1] = {label = "Patron"},
+        },
+    },
 }
 
 
