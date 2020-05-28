@@ -82,7 +82,7 @@ function OpenAccessoireShopThread()
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'accesShop'), true, true, true, function()
                 for k,v in pairs(acce) do
-                    RageUI.Button(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
+                    RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
                         if s then
                             SwitchCam(false, v.item)
                             ClearPedTasks(GetPlayerPed(-1))
@@ -95,7 +95,7 @@ function OpenAccessoireShopThread()
 
             for k,v in pairs(acce) do
                 RageUI.IsVisible(RMenu:Get('core', v.item.."1"), true, true, true, function()
-                    RageUI.Button("Faire tourner son personnage.", nil, {}, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Faire tourner son personnage.", nil, {}, true, function(_,_,s)
                         if s then
                             ClearPedTasks(GetPlayerPed(-1))
                             local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
@@ -106,7 +106,7 @@ function OpenAccessoireShopThread()
                         for i = v.min, v.max do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
 
-                            RageUI.Button("["..i.."] "..masks[tostring(i)][tostring(0)].label, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                            RageUI.ButtonWithStyle("["..i.."] "..masks[tostring(i)][tostring(0)].label, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin", v.item, i)
@@ -126,7 +126,7 @@ function OpenAccessoireShopThread()
                         local value = exports.rFramework:GetKeyValue(v.o)
                         for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
-                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                            RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin", v.item, i)
@@ -144,7 +144,7 @@ function OpenAccessoireShopThread()
                     else
                         for i = v.min, v.max do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
-                            RageUI.Button(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                            RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
                                    TriggerEvent("skinchanger:change", v.item, i)
                                    TriggerEvent("rF:SaveSkin", v.item, i)
