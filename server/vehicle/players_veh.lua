@@ -102,7 +102,6 @@ end)
 
 RegisterNetEvent("core:SaveVehToGarage")
 AddEventHandler("core:SaveVehToGarage", function(token, _id, name, plate, props)
-    print(token, _id, name, plate, props)
     if exports.rFramework:GetPlayerJob(source) ~= "concessionnaire" then exports.rFramework:AddPlayerLog(source, "Give de vehicule", 5) end
     if not exports.rFramework:CheckToken(token, source, "SaveVehToGarage") then return end
     local id = GetPlayerIdentifier(_id, 1)
