@@ -1,6 +1,7 @@
 
 
 function LoadData()
+    Wait(5000)
     if pJob == "mecano" then
         LoadMecanoData()
     elseif pJob == "medecin" then
