@@ -342,6 +342,7 @@ function RageUI.Visible(Menu, Value)
             if type(Value) == "boolean" then
                 if Value then
                     if RageUI.CurrentMenu ~= nil then
+                        RageUI.CurrentMenu.Closed()
                         RageUI.CurrentMenu.Open = not Value
                     end
                     Menu:UpdateInstructionalButtons(Value);
@@ -361,10 +362,11 @@ function RageUI.Visible(Menu, Value)
             end
         end
     end
-end
+end 
 
 function RageUI.CloseAll()
     menuOpen = false
+
     if RageUI.CurrentMenu ~= nil then
         local parent = RageUI.CurrentMenu.Parent
         while parent ~= nil do
