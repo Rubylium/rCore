@@ -24,25 +24,25 @@ function InitMecanoActionMenu()
                 RageUI.IsVisible(RMenu:Get('core', 'mecano_main'), true, true, true, function()
 
 
-                    RageUI.Button("Action sur véhicule", nil, { RightLabel = "→→→" }, true, function()
+                    RageUI.ButtonWithStyle("Action sur véhicule", nil, { RightLabel = "→→→" }, true, function()
                     end, RMenu:Get('core', 'vehAction'))
 
-                    RageUI.Button("Animation", nil, { RightLabel = "→→→" }, true, function()
+                    RageUI.ButtonWithStyle("Animation", nil, { RightLabel = "→→→" }, true, function()
                     end, RMenu:Get('core', 'animation'))
 
-                    RageUI.Button("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                         if Selected then
                             OpenBillCreation()
                         end
                     end)
 
-                    RageUI.Button("Annoncé mécano ouvert", nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Annoncé mécano ouvert", nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(Hovered, Active, Selected)
                         if Selected then
                             TriggerServerEvent('AnnounceMecanoOuvert')
                         end
                     end)
 
-                    RageUI.Button("Annoncé mécano fermer", nil, { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Annoncé mécano fermer", nil, { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
                         if Selected then
                             TriggerServerEvent('AnnounceMecanoFerme')
                         end
@@ -55,7 +55,7 @@ function InitMecanoActionMenu()
 
                 RageUI.IsVisible(RMenu:Get('core', 'vehAction'), true, true, true, function()
 
-                    RageUI.Button("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
@@ -66,7 +66,7 @@ function InitMecanoActionMenu()
                         end
                     end)
 
-                    RageUI.Button("Nettoyer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Nettoyer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
@@ -75,7 +75,7 @@ function InitMecanoActionMenu()
                         end
                     end)
 
-                    RageUI.Button("Mettre le véhicule en fourrière", "Permet de Mettre le véhicule le plus proche en fourrière.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Mettre le véhicule en fourrière", "Permet de Mettre le véhicule le plus proche en fourrière.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
@@ -85,7 +85,7 @@ function InitMecanoActionMenu()
                         end
                     end)
 
-                    RageUI.Button("Ouvrir le véhicule", "Permet d'ouvrir le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Ouvrir le véhicule", "Permet d'ouvrir le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
@@ -94,7 +94,7 @@ function InitMecanoActionMenu()
                         end
                     end)
 
-                    RageUI.Button("Ouvrir/Fermer le capot", "Action sur le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Ouvrir/Fermer le capot", "Action sur le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
@@ -106,7 +106,7 @@ function InitMecanoActionMenu()
                         end
                     end)
 
-                    RageUI.Button("Ouvrir/Fermer le coffre", "Action sur le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("Ouvrir/Fermer le coffre", "Action sur le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
@@ -126,7 +126,7 @@ function InitMecanoActionMenu()
 
                 RageUI.IsVisible(RMenu:Get('core', 'animation'), true, true, true, function()
                     for k,v in pairs(animations) do
-                        RageUI.Button(v.nom, "Effectue l'animation ~g~"..v.command, {}, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle(v.nom, "Effectue l'animation ~g~"..v.command, {}, true, function(Hovered, Active, Selected)
                             if Selected then
                                 ExecuteCommand(v.command)
                             end
