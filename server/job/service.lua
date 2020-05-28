@@ -20,7 +20,8 @@ end)
 
 
 RegisterNetEvent("core:SetServiceStatus")
-AddEventHandler("core:SetServiceStatus", function(job)
+AddEventHandler("core:SetServiceStatus", function(token, job)
+    if not exports.rFramework:CheckToken(token, source) then return end
     if JobServices[job][source] == nil then
         JobServices[job][source] = {id = source}
         TriggerClientEvent("rF:notification", source, "~g~Prise de service.\n~w~Tu à pris ton service "..job.."!")
