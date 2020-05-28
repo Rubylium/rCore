@@ -170,9 +170,9 @@ function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	if props ~= nil then
 		rUtils.SetVehicleProperties(vehicle, props)
 	end
-	if cb ~= nil then
+	if cb ~= nil then 
 		cb(vehicle)
-	end
+	end 
 	SetModelAsNoLongerNeeded(model)
 end
 
