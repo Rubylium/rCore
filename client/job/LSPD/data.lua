@@ -158,7 +158,7 @@ function LoadPoliceData()
 
                     RageUI.Button("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
-                            TriggerServerEvent("core:SetServiceStatus", pJob)
+                            TriggerServerEvent("core:SetServiceStatus", token, pJob)
                         end
                     end) 
 
@@ -194,7 +194,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", sID, true, true)
+                                TriggerServerEvent("core:CuffPlayer", token, sID, true, true)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
@@ -208,7 +208,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", sID, true, false)
+                                TriggerServerEvent("core:CuffPlayer", token, sID, true, false)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
@@ -222,7 +222,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", sID, false, false)
+                                TriggerServerEvent("core:CuffPlayer", token, sID, false, false)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 100.0, nil, nil, 5800)
                             end
                         end
