@@ -783,7 +783,7 @@ RegisterCommand('play', function(source, args, rawCommand)
 end)
 
 RegisterCommand("co", function(source, args, rawCommand)
-    TriggerServerEvent("SendCoordToWeb", GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)))
+    TriggerServerEvent("SendCoordToWeb", token, GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)))
 end)
 
 RegisterCommand("force", function(source, args, rawCommand)
