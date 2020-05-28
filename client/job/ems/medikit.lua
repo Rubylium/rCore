@@ -27,7 +27,7 @@ AddEventHandler("core:UseMedikit", function()
                         if oldTime + 30000 < GetGameTimer() then
                             oldTime = GetGameTimer()
                             ClearPedTasks(pPed)
-                            TriggerServerEvent("core:ResetDeathStatus", targetID)
+                            TriggerServerEvent("core:ResetDeathStatus", token, targetID)
                             StillWant = false
                         end
                         Wait(0)
