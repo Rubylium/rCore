@@ -34,7 +34,7 @@ end)
 
 RegisterNetEvent("core:GetVehicleInventory")
 AddEventHandler("core:GetVehicleInventory", function(token, plate, net, _owned)
-    if not exports.rFramework:CheckToken(token, source) then return end
+    if not exports.rFramework:CheckToken(token, source, "GetVehicleInventory") then return end
     local plate = plate
     for k,v in pairs(VehicleInventoryCache) do
         local VehCache = VehicleInventoryCache[plate]
@@ -73,7 +73,7 @@ end)
 
 RegisterNetEvent("core:AddItemToVeh")
 AddEventHandler("core:AddItemToVeh", function(token, plate, _item, _label, _olabel, _count)
-    if not exports.rFramework:CheckToken(token, source) then return end
+    if not exports.rFramework:CheckToken(token, source, "AddItemToVeh") then return end
     AddItemToVeh(source, plate, _item, _label, _olabel, _count)
 end)
 
@@ -90,7 +90,7 @@ end
 
 RegisterNetEvent("core:RemoveItemFromVeh")
 AddEventHandler("core:RemoveItemFromVeh", function(token, weight, ClientCount, plate, _item, _label, _olabel, _count)
-    if not exports.rFramework:CheckToken(token, source) then return end
+    if not exports.rFramework:CheckToken(token, source, "RemoveItemFromVeh") then return end
     RemoveItemFromVeh(source, ClientCount, weight, plate, _item, _label, _olabel, _count)
 end)
 
