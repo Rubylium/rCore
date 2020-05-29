@@ -148,7 +148,7 @@ function LoadPoliceData()
                                     end
                                 end
                             end
-                        end)
+                        end) 
                     end
 
                 end, function()
