@@ -38,11 +38,6 @@ Citizen.CreateThread(function()
             open = true
 
             RageUI.Checkbox("Facture de société ?", nil, IsSocietyBill, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
-                if (Selected) then
-                    RageUI.Text({
-                        message = string.format("~r~Ketchup status: ~b~%s", tostring(index.ketchup))
-                    })
-                end
                 IsSocietyBill = Checked;
             end, function()
                 -- check
