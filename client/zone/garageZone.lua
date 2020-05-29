@@ -21,7 +21,7 @@ Citizen.CreateThread(function()
                 if dst < 2.0 then
                     RageUI.Text({message="Appuyer sur E pour ouvrir le garage."})
                     if IsControlJustReleased(1, 38) then
-                        OpenGarage(v.spawns, v.vehs)
+                        OpenGarage(v.spawns, v.vehs, v.check)
                     end
                     break
                 end
@@ -38,7 +38,7 @@ Citizen.CreateThread(function()
 end)
 
 
-function OpenGarage(zones, vehs)
+function OpenGarage(zones, vehs, dstCheck)
     RageUI.Visible(RMenu:Get('core', 'garage_metier'), not RageUI.Visible(RMenu:Get('core', 'garage_metier')))
     open = true
     Citizen.CreateThread(function()
@@ -71,15 +71,22 @@ function OpenGarage(zones, vehs)
 
             RageUI.IsVisible(RMenu:Get('core', 'garage_ranger'), true, true, true, function()
                 for k,v in pairs(zones) do
-                    local clear = rUtils.IsSpawnPointClear(v.pos, 2.0)
+                    local clear = rUtils.IsSpawnPointClear(v.pos, dstCheck or 2.0)
                     if clear then
-                        RageUI.ButtonWithStyle("Place #"..k, nil, {RightLabel = "~g~Disponble"}, true, function(Hovered, Active, Selected)end)
+                        RageUI.ButtonWithStyle("Place #"..k, nil, {RightLabel = "~g~Disponble"}, true, function(Hovered, Active, Selected)
+                            if Active then
+                                DrawMarker(43, v.pos.x, v.pos.y, v.pos.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 255, 255, 255, 150, 0, 0, 2, 0, nil, nil, 0)
+                            end
+                        end)
                     else
                         local veh = rUtils.GetClosestVehicle(v.pos)
                         local plate = GetVehicleNumberPlateText(veh)
                         RageUI.ButtonWithStyle("Place #"..k.." - ~b~["..plate.."]", nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
                             if Selected then
                                 TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
+                            end
+                            if Active then
+                                DrawMarker(43, v.pos.x, v.pos.y, v.pos.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 255, 255, 255, 150, 0, 0, 2, 0, nil, nil, 0)
                             end
                         end)
                     end
