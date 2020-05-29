@@ -1,5 +1,6 @@
 local ShopZone = {
     vector3(-158.731, -297.06, 39.7),
+    vector3(10.78, 6514.1, 31.8),
 }
 
 for k,v in pairs(ShopZone) do
