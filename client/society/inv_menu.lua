@@ -71,7 +71,7 @@ Citizen.CreateThread(function()
                     if (Selected) then
                         local amount = CustomAmount()
                         if amount <= v.count then
-                            TriggerServerEvent("rF:TransferItemFromSocietyToInv", token, pJob, v.name, v.label, v.olabel, amount)
+                            TriggerServerEvent("rF:TransferItemFromSocietyToInv", token, pJob, v.name, v.label, v.olabel, amount, v.count)
                             TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
                             RageUI.Visible(RMenu:Get('core', 'society_inv_inv'), true)
                         end
