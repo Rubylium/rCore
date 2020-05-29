@@ -22,14 +22,15 @@ end)
 
 
 local weapons = {
-    [GetHashKey("weapon_pistol")] = {item = "pistolet"},
-    [GetHashKey("weapon_stungun")] = {item = "tazer"},
-    [GetHashKey("weapon_pistol_mk2")] = {item = "pistoletmk2"},
-    [GetHashKey("weapon_combatpistol")] = {item = "pistoletlspd"},
+    [GetHashKey("weapon_pistol")] = {item = "pistolet", pvp = true},
+    [GetHashKey("weapon_stungun")] = {item = "tazer", pvp = true},
+    [GetHashKey("weapon_pistol_mk2")] = {item = "pistoletmk2", pvp = true},
+    [GetHashKey("weapon_combatpistol")] = {item = "pistoletlspd", pvp = true},
 
-    [GetHashKey("weapon_pumpshotgun")] = {item = "pompe"},
-    [GetHashKey("weapon_carbinerifle")] = {item = "m4"},
-    [GetHashKey("weapon_assaultrifle")] = {item = "AK-47"},
+    [GetHashKey("weapon_pumpshotgun")] = {item = "pompe", pvp = true},
+    [GetHashKey("weapon_carbinerifle")] = {item = "m4", pvp = true},
+    [GetHashKey("weapon_assaultrifle")] = {item = "AK-47", pvp = true},
+    [GetHashKey("weapon_musket")] = {item = "musket", pvp = false},
 }
 
 function IsItemAWeapon(item)
@@ -44,18 +45,27 @@ function IsWeaponAllowed(hash)
     Citizen.CreateThread(function()
         local item = weapons[hash].item
         if item == nil then
-            print("Detection arme give 1")
             RemoveWeaponFromPed(GetPlayerPed(-1), hash)
             RemoveAllPedWeapons(GetPlayerPed(-1), 1)
+            NetworkSetFriendlyFireOption(true)
+            SetCanAttackFriendly(PlayerPedId(), true, true)
         else
             for k,v in pairs(pInventory) do
                 if v.name == item then
+                    if not v.pvp then
+                        NetworkSetFriendlyFireOption(false)
+                        SetCanAttackFriendly(PlayerPedId(), false, false)
+                    else
+                        NetworkSetFriendlyFireOption(true)
+                        SetCanAttackFriendly(PlayerPedId(), true, true)
+                    end
                     return
                 end
             end
-            print("Detection arme give 2")
             RemoveWeaponFromPed(GetPlayerPed(-1), hash)
             RemoveAllPedWeapons(GetPlayerPed(-1), 1)
+            NetworkSetFriendlyFireOption(true)
+            SetCanAttackFriendly(PlayerPedId(), true, true)
         end
     end)
 end
