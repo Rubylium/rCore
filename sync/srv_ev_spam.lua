@@ -103,7 +103,7 @@ Citizen.CreateThread(function()
                 print("^1AC: ^7Logging event ^2"..v.."^7 with count "..AntiSpamEvents[source].v.count)
             end
 
-            if AntiSpamEvents[source].v.count > 10 then
+            if AntiSpamEvents[source].v.count > 20 then
                 exports.rFramework:AddPlayerLog(source, "Spamming "..v.." too much ("..AntiSpamEvents[source].v.count..")", 5)
             end
         end)
