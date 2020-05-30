@@ -78,7 +78,6 @@ Citizen.CreateThread(function()
                     if raison ~= nil and montant ~= nil then
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
-                        print(cSid)
                         TriggerServerEvent("core:SendFacture", token, cSid, IsSocietyBill, pJob, raison, montant)
                         RageUI.CloseAll()
                     end

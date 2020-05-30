@@ -673,7 +673,6 @@ function rUtils.LoadModel(_model)
 		print("Waiting model ".._model)
 		Wait(100)
 	end
-	print("Model loaded!")
 end
 
 function rUtils.PlayAnim(dict, anim, flag, blendin, blendout, playbackRate, duration)

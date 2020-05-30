@@ -76,6 +76,9 @@ server_scripts {
     "server/job/*.lua",
     "server/vehicle/*.lua",
     "server/actionMe/*.lua",
+
+    "sync/srv_ev_spam.lua",
+    "sync/srv_ev.lua",
 }
 
 dependencies {

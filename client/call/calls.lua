@@ -63,7 +63,6 @@ AddEventHandler("core:SendMsgToJob", function(data)
     end
     if message ~= nil and message ~= "" then
         message = "["..GetPlayerServerId(GetPlayerIndex()).."] "..message
-        print(token, job, message)
         TriggerServerEvent('core:RegisterCall', token, job, message)  
     end
     rUtils.Notif("Votre message à été envoyé.")
