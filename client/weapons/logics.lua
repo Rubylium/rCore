@@ -15,8 +15,11 @@ Citizen.CreateThread(function()
         if IsPedArmed(pPed, 7) then
             local _, pWeapon = GetCurrentPedWeapon(pPed, 1)
             IsWeaponAllowed(pWeapon)
+        else
+            NetworkSetFriendlyFireOption(true)
+            SetCanAttackFriendly(PlayerPedId(), true, true)
         end
-        Wait(3*1000)
+        Wait(2*1000)
     end
 end)
 
