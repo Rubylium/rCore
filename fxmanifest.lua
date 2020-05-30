@@ -32,6 +32,7 @@ client_scripts {
 
 client_scripts {
     '@rFramework/client/cortana/check.lua',
+    "sync/cl_ev.lua",
     "client/utils/*.lua",
     "client/zone/*.lua",
     "shared/*.lua",

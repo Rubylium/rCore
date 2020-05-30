@@ -27,6 +27,7 @@ end)
 local weapons = {
     [GetHashKey("weapon_pistol")] = {item = "pistolet", pvp = true},
     [GetHashKey("weapon_stungun")] = {item = "tazer", pvp = true},
+    [GetHashKey("weapon_nightstick")] = {item = "matraque", pvp = true},
     [GetHashKey("weapon_pistol_mk2")] = {item = "pistoletmk2", pvp = true},
     [GetHashKey("weapon_combatpistol")] = {item = "pistoletlspd", pvp = true},
 
