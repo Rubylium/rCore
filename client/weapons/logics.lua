@@ -31,6 +31,7 @@ local weapons = {
     [GetHashKey("weapon_carbinerifle")] = {item = "m4", pvp = true},
     [GetHashKey("weapon_assaultrifle")] = {item = "AK-47", pvp = true},
     [GetHashKey("weapon_musket")] = {item = "musket", pvp = false},
+    [GetHashKey("weapon_sniperrifle")] = {item = "huntrifle", pvp = false},
 }
 
 function IsItemAWeapon(item)

@@ -41,9 +41,18 @@ AddEventHandler("core:GetMattraque", function()
     SendActionTxt(" sort sa matraque")
 end)
 
+
+-- chasse
 RegisterNetEvent("core:GetMusket")
 AddEventHandler("core:GetMusket", function()
     RemoveAllPedWeapons(pPed, 1)
     GiveWeaponToPed(pPed, GetHashKey("weapon_musket"), 255, false, true)
     SendActionTxt(" sort son fusils de chasse")
+end)
+
+RegisterNetEvent("core:GetHuntSniper")
+AddEventHandler("core:GetHuntSniper", function()
+    RemoveAllPedWeapons(pPed, 1)
+    GiveWeaponToPed(pPed, GetHashKey("weapon_sniperrifle"), 255, false, true)
+    SendActionTxt(" sort son fusils de précision de chasseur")
 end)
