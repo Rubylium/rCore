@@ -183,7 +183,7 @@ function OpenVehInventory()
                         RageUI.ButtonWithStyle(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 local amount = CustomAmount()
-                                if amount > 0 and amount <= v.count then
+                                if amount ~= nil and amount > 0 and amount <= v.count then
                                     rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
                                     TriggerServerEvent("core:RemoveItemFromVeh", token, pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
                                     if amount == v.count then
@@ -199,7 +199,7 @@ function OpenVehInventory()
                         RageUI.ButtonWithStyle("["..v.label.."] "..v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 local amount = CustomAmount()
-                                if amount > 0 and amount <= v.count then
+                                if amount ~= nil and amount > 0 and amount <= v.count then
                                     rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
                                     TriggerServerEvent("core:RemoveItemFromVeh", token, pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
                                     if amount == v.count then
