@@ -729,6 +729,36 @@ function rUtils.EntityOwner(entity)
 	return ownerId
 end
 
+
+rUtils.ShowFreemodeMessage = function(title, msg, sec)
+	Citizen.CreateThread(function()
+		local scaleform = rUtils.RequestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')
+
+		BeginScaleformMovieMethod(scaleform, 'SHOW_SHARD_WASTED_MP_MESSAGE')
+		PushScaleformMovieMethodParameterString(title)
+		PushScaleformMovieMethodParameterString(msg)
+		EndScaleformMovieMethod()
+
+		while sec > 0 do
+			Citizen.Wait(0)
+			sec = sec - 0.01
+			DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
+		end
+
+		SetScaleformMovieAsNoLongerNeeded(scaleform)
+	end)
+end
+
+rUtils.RequestScaleformMovie = function(movie)
+	local scaleform = RequestScaleformMovie(movie)
+
+	while not HasScaleformMovieLoaded(scaleform) do
+		Citizen.Wait(0)
+	end
+
+	return scaleform
+end
+
 local entityEnumerator = {
 	__gc = function(enum)
 		if enum.destructor and enum.handle then
