@@ -71,7 +71,7 @@ local npcs = {
         camCoords = {0.0, 0.0, 0.7}, -- visé
         spawned = false,
         entity = nil,
-        LoadDst = 25,
+        LoadDst = 100,
     },
 }
 
