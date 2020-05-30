@@ -295,11 +295,11 @@ function TakeHuntLoot()
         PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
         TriggerServerEvent("rF:GiveItem", token, "viande2", 1)
         rUtils.Notif("Tu as trouvé une ~g~Viande de qualité normal")
-    elseif i > 700 and i < 900 then
+    elseif i > 700 and i < 980 then
         PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
         TriggerServerEvent("rF:GiveItem", token, "viande3", 1)
         rUtils.Notif("Tu as trouvé une ~g~Viande de bonne qualité")
-    elseif i > 900 and i < 1000 then
+    elseif i > 980 and i < 1000 then
         PlaySoundFrontend(-1, "Bus_Schedule_Pickup", "DLC_PRISON_BREAK_HEIST_SOUNDS", 1)
         TriggerServerEvent("rF:GiveItem", token, "viande4", 1)
         rUtils.Notif("Tu as trouvé une ~g~Viande de qualité incroyable")
