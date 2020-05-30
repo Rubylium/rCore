@@ -25,7 +25,15 @@ RMenu:Get('core', 'hunter').Closed = function()
     open = false
     KillNpcCam()
 end
+RMenu.Add('core', 'hunter_sell', RageUI.CreateSubMenu(RMenu:Get('core', 'hunter'), "Vente chasse", ""))
+RMenu:Get('core', 'hunter_sell').Closed = function()end
 
+local itemsToSell = {
+    {item = "viande1", label="Viande de basse qualité",  price = math.random(5,13)},
+    {item = "viande2", label="Viande de qualité normal",  price = math.random(9,15)},
+    {item = "viande3", label="Viande de bonne qualité",  price = math.random(15,30)},
+    {item = "viande4", label="Viande de qualité incroyable", price = math.random(50,100)},
+}
 
 function OpenHunterDialog(npc, offset, camOffset)
     local oCoords = GetOffsetFromEntityInWorldCoords(npc, offset[1], offset[2], offset[3])
@@ -36,6 +44,7 @@ function OpenHunterDialog(npc, offset, camOffset)
     SetCamFov(NPC_CAM, 55.0)
     PointCamAtCoord(NPC_CAM, CoordToPoint)
     RenderScriptCams(1, 1, 1000, 0, 0)
+    TriggerServerEvent("rF:GetPlayerInventory", token)
     Wait(1000)
     RageUI.Visible(RMenu:Get('core', 'hunter'), not RageUI.Visible(RMenu:Get('core', 'hunter')))
     open = true
@@ -49,15 +58,45 @@ function OpenHunterDialog(npc, offset, camOffset)
                         TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, "musket", 1)
                     end
                 end)
-                RageUI.ButtonWithStyle("Déposer son arme de chasse.", nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Récupèrer une arme de chasse pro", "Arme réservée au pro de la chasse, ~r~"..Huntkills.."~w~/100", {RightLabel = Huntkills.."/100"}, Huntkills >= 100, function(_,_,s)
+                    if s then 
+                        TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, "huntrifle", 1)
+                    end
+                end)
+                RageUI.ButtonWithStyle("Déposer son arme de chasse", nil, { RightLabel = "→" }, true, function(_,_,s)
                     if s then 
                         for k,v in pairs(pInventory) do
-                            if v.name == "musket" then
+                            if v.name == "musket" or v.name == "huntrifle" then
                                 TriggerServerEvent("rF:RemoveItem", token, v.label, v.count)
                             end
                         end
                     end
                 end)
+
+                RageUI.ButtonWithStyle("Vendre ses gains", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                end, RMenu:Get('core', 'hunter_sell'))
+    
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'hunter_sell'), true, true, true, function()
+                RageUI.Separator("~g~Vente des gains/loots")
+                for k,v in pairs(itemsToSell) do
+                    if pInventory[v.label] ~= nil then
+                        RageUI.ButtonWithStyle("Vendre de la "..v.label, nil, {RightLabel = "~g~("..pInventory[v.label].count..")"}, true, function(_,_,s)
+                            if s then 
+                                if pInventory[v.label].count - 1 > 0 then 
+                                    pInventory[v.label].count = pInventory[v.label].count - 1
+                                else
+                                    pInventory[v.label] = nil
+                                end
+                                TriggerServerEvent("rF:SellItem", token, v.item, v.price)
+                            end
+                        end)
+                    else
+
+                    end
+                end
     
             end, function()
             end)
@@ -76,9 +115,12 @@ local Entity = {}
 local Animals = {
     {
         model = "a_c_deer",
-        drops = {
-            "viande1",
-        },
+    },
+    {
+        model = "a_c_boar",
+    },
+    {
+        model = "a_c_coyote",
     },
 
 }
@@ -100,24 +142,24 @@ Citizen.CreateThread(function()
                 local spawnPointy = PointCentralDeChasse.y+math.random(-100,100)
                 local spawnPointz = PointCentralDeChasse.z+math.random(-100,100)
                 local _,z = GetGroundZFor_3dCoord(spawnPointx, spawnPointy, spawnPointz)
-                local _entity = CreatePed(28, GetHashKey(animal.model), spawnPointx, spawnPointy, z+3.0, 100.0, true, true)
+                local _entity = CreatePed(28, GetHashKey(animal.model), spawnPointx, spawnPointy, z+3.0, 100.0, false, true)
                 if DoesEntityExist(_entity) then
                     TaskWanderStandard(_entity, 99999999.0, 10)
                     local _blip = AddBlipForEntity(_entity)
                     SetBlipSprite(_blip, 141)
-                    SetBlipScale(_blip, 0.50)
+                    SetBlipScale(_blip, 0.20)
                     SetPlayerNoiseMultiplier(GetPlayerIndex(), 100.0)
                     table.insert(Entity, {entity = _entity, blip = _blip, coords = GetBlipCoords(_blip)})
                 end
-                print(#Entity)
             end
 
             for k,v in pairs(Entity) do
                 if GetEntityHealth(v.entity) < 50.0 then
                     local source = GetPedSourceOfDeath(v.entity)
                     if source == pPed then
-                        rUtils.Notif("Tu à tué un animal! Récupère son loot.")
+                        rUtils.Notif("Tu as tué un animal! Récupère son loot.")
                         local neer = false
+                        local deleted = false
                         CheckSucces()
                         while not neer do
                             Wait(1)
@@ -126,15 +168,21 @@ Citizen.CreateThread(function()
                             if dst <= 1.5 then
                                 neer = true
                             end
+                            if not DoesEntityExist(v.entity) then
+                                neer = true
+                                deleted = true  
+                            end
                         end
-                        rUtils.PlayAnim("anim@mp_snowball", "pickup_snowball", 1)
-                        Wait(2000)
-                        ClearPedTasks(pPed)
-                        rUtils.Notif("Loot récupèré, tu peu continuer ta chasse.")
-                        RemoveBlip(v.blip)
-                        TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
-                        DeleteEntity(v.entity)
-                        DeletePed(v.entity)
+                        if not deleted then
+                            rUtils.PlayAnim("anim@mp_snowball", "pickup_snowball", 1)
+                            Wait(2000)
+                            ClearPedTasks(pPed)
+                            TakeHuntLoot()
+                            RemoveBlip(v.blip)
+                            --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
+                            DeleteEntity(v.entity)
+                            DeletePed(v.entity)
+                        end
                     end
                 end
 
@@ -145,7 +193,7 @@ Citizen.CreateThread(function()
             if #Entity > 0 then
                 for k,v in pairs(Entity) do
                     RemoveBlip(v.blip)
-                    TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
+                    --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
                     DeleteEntity(v.entity)
                     DeletePed(v.entity)
                     table.remove(Entity, k)
@@ -188,13 +236,13 @@ Citizen.CreateThread(function()
                     local source = GetPedSourceOfDeath(v.entity)
                     if source ~= pPed then
                         --rUtils.Notif("Une de vos cible à été tué par un autre chasseur.")
-                        TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
+                        --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
                         DeleteEntity(v.entity)
                         DeletePed(v.entity)
                         RemoveBlip(v.blip)
                     end
                 else
-                    TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
+                    --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
                     DeleteEntity(v.entity)
                     DeletePed(v.entity)
                     RemoveBlip(v.blip)   
@@ -204,7 +252,7 @@ Citizen.CreateThread(function()
             
             local dst = GetDistanceBetweenCoords(GetEntityCoords(v.entity), GetEntityCoords(pPed), true)
             if dst >= 150 then
-                TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
+                --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
                 DeleteEntity(v.entity)
                 DeletePed(v.entity)
                 RemoveBlip(v.blip)
@@ -218,8 +266,11 @@ Citizen.CreateThread(function()
             end
 
             if dst < 40.0 then
-                
-                TaskSmartFleeCoord(v.entity, GetEntityCoords(pPed), 100.0, 5000, 0, 0)
+                Citizen.CreateThread(function()
+                    TaskSmartFleeCoord(v.entity, GetEntityCoords(pPed), 100.0, 5000, 0, 0)
+                    Wait(4000)
+                    TaskWanderStandard(_entity, 99999999.0, 10)
+                end)
             end
 
 
@@ -230,3 +281,27 @@ Citizen.CreateThread(function()
         end
     end
 end)
+
+
+
+function TakeHuntLoot()
+    SetAudioFlag("LoadMPData", true)
+    local i = math.random(1,1000)
+    if i > 1 and i < 500 then
+        PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+        TriggerServerEvent("rF:GiveItem", token, "viande1", 1)
+        rUtils.Notif("Tu as trouvé une ~g~Viande de basse qualité")
+    elseif i > 500 and i < 700 then
+        PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+        TriggerServerEvent("rF:GiveItem", token, "viande2", 1)
+        rUtils.Notif("Tu as trouvé une ~g~Viande de qualité normal")
+    elseif i > 700 and i < 900 then
+        PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+        TriggerServerEvent("rF:GiveItem", token, "viande3", 1)
+        rUtils.Notif("Tu as trouvé une ~g~Viande de bonne qualité")
+    elseif i > 900 and i < 1000 then
+        PlaySoundFrontend(-1, "Bus_Schedule_Pickup", "DLC_PRISON_BREAK_HEIST_SOUNDS", 1)
+        TriggerServerEvent("rF:GiveItem", token, "viande4", 1)
+        rUtils.Notif("Tu as trouvé une ~g~Viande de qualité incroyable")
+    end
+end

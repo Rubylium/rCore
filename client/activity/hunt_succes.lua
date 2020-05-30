@@ -1,11 +1,11 @@
-local kills = 0
+Huntkills = 0
 
 Citizen.CreateThread(function()
-    SetResourceKvpInt("hunting", 0)
-    local kills = GetResourceKvpInt("hunting")
-    if kills == nil then
-        kills = 0
+    Huntkills = GetResourceKvpInt("hunting")
+    if Huntkills == nil then
+        Huntkills = 0
     end
+    print("Hunter kills "..Huntkills)
 end)
 
 local succes = {
@@ -16,7 +16,14 @@ local succes = {
         texte = "Amateur de chasse!"
     },
     [10] = {
-        texte = "La chasse n'a plus aucun secret!"
+        texte = "Néophyte de la chasse!"
+    },
+    [50] = {
+        texte = "Chasseur aguerri!"
+    },
+    [100] = {
+        texte = "Pro de la chasse!",
+        suplementaire = "Tu as maintenant accès au fusil de précision de chasseur!",
     },
 }
 
@@ -24,11 +31,14 @@ local succes = {
 
 
 function CheckSucces()
-    kills = kills + 1
-    if succes[kills] ~= nil then
+    Huntkills = Huntkills + 1
+    if succes[Huntkills] ~= nil then
         PlayUrl("SUCCES", "https://www.youtube.com/watch?v=VpwqsYA44JI", 1.0, false)
         Wait(1000)
-        rUtils.Notif("~y~SUCCES!\n~w~"..succes[kills].texte)
+        rUtils.ShowFreemodeMessage("~y~SUCCES!", succes[Huntkills].texte, 3.5)
+        if succes[Huntkills].suplementaire ~= nil then
+            rUtils.Notif("~y~SUCCES!\n~w~"..succes[Huntkills].suplementaire)
+        end
     end
-    SetResourceKvpInt("hunting", kills)
+    SetResourceKvpInt("hunting", Huntkills)
 end
