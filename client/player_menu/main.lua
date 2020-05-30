@@ -20,6 +20,15 @@ RMenu:Get('core', 'accessoire').Closed = function()end
 RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'divers').Closed = function()end
 
+RMenu.Add('core', 'admin', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Admin Menu", nil))
+RMenu:Get('core', 'admin').Closed = function()end
+
+RMenu.Add('core', 'admin_pList', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_pList').Closed = function()end
+
+RMenu.Add('core', 'admin_jAction', RageUI.CreateSubMenu(RMenu:Get('core', 'admin_pList'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_jAction').Closed = function()end
+
 local selected = {
     event = nil,
     name = nil,
@@ -45,6 +54,15 @@ Citizen.CreateThread(function()
     ReloadColor()
 end)
 
+local players = {}
+RegisterNetEvent("core:pList")
+AddEventHandler("core:pList", function(list)
+    players = list
+    print("Players list loaded")
+end)
+
+
+local SelectedPlayer = {}
 function OpenPlayerMenu()
     if open then return end
     open = true
@@ -60,6 +78,8 @@ function OpenPlayerMenu()
                 end, RMenu:Get('core', 'accessoire'))
                 RageUI.ButtonWithStyle("Divers", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'divers'))
+                RageUI.ButtonWithStyle("Staff menu", nil, { RightLabel = "→→" }, pGroup ~= "user", function()
+                end, RMenu:Get('core', 'admin'))
 
             end, function()
             end)
@@ -106,7 +126,7 @@ function OpenPlayerMenu()
                         local cSid = GetPlayerServerId(ClosetPlayer)
                         if ClosetPlayer ~= -1 then
                             local amount = CustomAmount() 
-                            if amount <= selected.count then
+                            if amount ~= nil and amount <= selected.count then
                                 TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, cSid, selected.name, amount, selected.label, selected.count)
                                 TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'inventory'), true)
@@ -293,8 +313,127 @@ function OpenPlayerMenu()
             end, function()
             end)
 
+            RageUI.IsVisible(RMenu:Get('core', 'admin'), true, true, true, function()
+                RageUI.Separator("~b~Menu staff")
+                RageUI.ButtonWithStyle("Liste des joueurs", "Permet de faire des actions sur les joueurs en lignes.", { RightLabel = "→" }, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent("core:pList", token)
+                    end
+                end, RMenu:Get('core', 'admin_pList'))
+
+                RageUI.Button("TP Sur marker", nil, true, function(_,_,s)
+                    if s then
+                        GoToBlip()
+                    end
+                end)
+
+                RageUI.Button("Nettoyer la zone", nil, true, function(_,_,s)
+                    if s then
+                        ClearAreaOfEverything(GetEntityCoords(pPed), 100.0, 0, 0, 0, 0)
+                    end
+                end)
+
+                RageUI.Button("Nettoyer la rue", nil, true, function(_,_,s)
+                    if s then
+                        ClearAreaOfObjects(GetEntityCoords(pPed), 200.0, 0)
+                    end
+                end)
+
+
+                RageUI.ButtonWithStyle("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    if Active then 
+                        ClosetVehWithDisplay() 
+                    end
+                    if Selected then
+                        local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
+                        local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
+                        TriggerServerEvent("core:Repair", token, VehToNet(veh), ServerID)
+                    end
+                end)
+
+                RageUI.ButtonWithStyle("Mettre le véhicule en fourrière", "Permet de Mettre le véhicule le plus proche en fourrière.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    if Active then 
+                        ClosetVehWithDisplay() 
+                    end
+                    if Selected then
+                        local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
+                        TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
+                    end
+                end)
+
+                RageUI.Button("Activer les nom", nil, true, function(_,_,s)
+                    if s then
+                        ShowNames()
+                    end
+                end)
+
+                RageUI.Button("NoClip", nil, true, function(_,_,s)
+                    if s then
+                        NoClip()
+                    end
+                end)
+
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_pList'), true, true, true, function()
+                for k,v in pairs(players) do
+                    RageUI.Button("["..v.id.."] - "..v.name, nil, true, function(_,_,s)
+                        if s then
+                            SelectedPlayer = v
+                        end
+                    end, RMenu:Get('core', 'admin_jAction'))
+                end
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_jAction'), true, true, true, function()
+                RageUI.Separator("Joueur ["..SelectedPlayer.id.."] - "..SelectedPlayer.name)
+                RageUI.Button("Envoyer un message", nil, true, function(_,_,s)
+                    if s then
+                        local msg = CustomStringStaff()
+                        if msg ~= nil then
+                            TriggerServerEvent("core:SendMsgToPlayer", token, SelectedPlayer.id, msg)
+                        end
+                    end
+                end)
+
+                RageUI.Button("Goto", nil, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent("core:GotoPlayer", token, SelectedPlayer.id)
+                    end
+                end)
+
+                RageUI.Button("Bring", nil, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent("core:BringPlayer", token, SelectedPlayer.id)
+                    end
+                end)
+
+            end, function()
+            end)
+
         end
     end)
+end
+
+
+function CustomStringStaff()
+    local txt = nil
+    AddTextEntry("CREATOR_TXT", "Entrez votre texte.")
+    DisplayOnscreenKeyboard(1, "CREATOR_TXT", '', "", '', '', '', 255)
+
+    while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+        Citizen.Wait(0)
+    end
+
+    if UpdateOnscreenKeyboard() ~= 2 then
+        txt = GetOnscreenKeyboardResult()
+        Citizen.Wait(1)
+    else
+        Citizen.Wait(1)
+    end
+    return txt
 end
 
 function MettreOuEnleverDisplay(status)

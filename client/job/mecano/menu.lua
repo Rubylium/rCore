@@ -143,12 +143,6 @@ function InitMecanoActionMenu()
     end
     
     
-    function ClosetVehWithDisplay()
-        local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
-        local vCoords = GetEntityCoords(veh)
-        DrawMarker(2, vCoords.x, vCoords.y, vCoords.z+1.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 255, 255, 255, 170, 0, 1, 2, 0, nil, nil, 0)
-    end
-    
     function OpenVehicle()
         TaskStartScenarioInPlace(GetPlayerPed(-1), 'WORLD_HUMAN_WELDING', 0, true)
         Wait(10*1000)
@@ -171,4 +165,10 @@ function InitMecanoActionMenu()
     
 
 
+end
+
+function ClosetVehWithDisplay()
+    local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
+    local vCoords = GetEntityCoords(veh)
+    DrawMarker(2, vCoords.x, vCoords.y, vCoords.z+1.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 255, 255, 255, 170, 0, 1, 2, 0, nil, nil, 0)
 end

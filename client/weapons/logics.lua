@@ -49,28 +49,35 @@ end
 function IsWeaponAllowed(hash)
     Citizen.CreateThread(function()
         local item = weapons[hash].item
+        print(hash, item)
         if item == nil then
             RemoveWeaponFromPed(GetPlayerPed(-1), hash)
             RemoveAllPedWeapons(GetPlayerPed(-1), 1)
             NetworkSetFriendlyFireOption(true)
             SetCanAttackFriendly(PlayerPedId(), true, true)
         else
+            local allowed = false
             for k,v in pairs(pInventory) do
                 if v.name == item then
-                    if not v.pvp then
+                    allowed = true
+                    if weapons[hash].pvp == false then
+                        print("PVP Disabled")
                         NetworkSetFriendlyFireOption(false)
                         SetCanAttackFriendly(PlayerPedId(), false, false)
                     else
+                        print("PVP Allowed")
                         NetworkSetFriendlyFireOption(true)
                         SetCanAttackFriendly(PlayerPedId(), true, true)
                     end
-                    return
+                    break
                 end
             end
-            RemoveWeaponFromPed(GetPlayerPed(-1), hash)
-            RemoveAllPedWeapons(GetPlayerPed(-1), 1)
-            NetworkSetFriendlyFireOption(true)
-            SetCanAttackFriendly(PlayerPedId(), true, true)
+            if not allowed then
+                RemoveWeaponFromPed(GetPlayerPed(-1), hash)
+                RemoveAllPedWeapons(GetPlayerPed(-1), 1)
+                NetworkSetFriendlyFireOption(true)
+                SetCanAttackFriendly(PlayerPedId(), true, true)
+            end
         end
     end)
 end

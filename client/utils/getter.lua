@@ -13,6 +13,7 @@ pDeath = false
 pSocietyTable = {}
 pSocietyTable.money = 0
 pSocietyTable.inventory = {}
+pGroup = ""
 
 pPed = 0
 pVeh = 0
@@ -67,12 +68,13 @@ end)
 
 
 RegisterNetEvent("rF:initializeinfo")
-AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths)
+AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths, group)
     pJob = job
     pJob_Grade = grade
     pMoney = money
     pBank = bankBalance
     pDirty = dirtyMoney
+    pGroup = group
     if identity ~= nil then
         pPrenom = identity.prenom
         pNom = identity.nom

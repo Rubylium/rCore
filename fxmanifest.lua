@@ -80,6 +80,8 @@ server_scripts {
 
     "sync/srv_ev_spam.lua",
     "sync/srv_ev.lua",
+
+    "server/staff/*.lua",
 }
 
 dependencies {

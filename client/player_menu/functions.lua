@@ -150,3 +150,127 @@ function RequestModels(modelHash)
 		end
 	end
 end
+
+
+
+function GoToBlip()
+    local waypointHandle = GetFirstBlipInfoId(8)
+
+    if DoesBlipExist(waypointHandle) then
+        Citizen.CreateThread(function()
+            local waypointCoords = GetBlipInfoIdCoord(waypointHandle)
+            local foundGround, zCoords, zPos = false, -500.0, 0.0
+
+            while not foundGround do
+                zCoords = zCoords + 10.0
+                RequestCollisionAtCoord(waypointCoords.x, waypointCoords.y, zCoords)
+                Citizen.Wait(0)
+                foundGround, zPos = GetGroundZFor_3dCoord(waypointCoords.x, waypointCoords.y, zCoords)
+
+                if not foundGround and zCoords >= 2000.0 then
+                    foundGround = true
+                end
+            end
+
+            SetPedCoordsKeepVehicle(pPed, waypointCoords.x, waypointCoords.y, zPos)
+        end)
+    else
+        rUtils.Notif("Aucun point GPS.")
+    end
+end
+
+local gamerTags = {}
+local showNames = false
+function ShowNames()
+    showNames = not showNames
+    if showNames then
+        Citizen.CreateThread(function()
+            while showNames do
+                local pCoords = GetEntityCoords(pPed, false)
+                for _, v in pairs(GetActivePlayers()) do
+                    local otherPed = GetPlayerPed(v)
+                
+                    if otherPed ~= pPed then
+                        if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
+                            gamerTags[v] = CreateFakeMpGamerTag(otherPed, ('[%s] %s'):format(GetPlayerServerId(v), GetPlayerName(v)), false, false, '', 0)
+                            if NetworkIsPlayerTalking(v) then
+                                SetMpGamerTagVisibility(gamerTags[v], 16, 1)
+                            else
+                                SetMpGamerTagVisibility(gamerTags[v], 16, 0)
+                            end
+                        else
+                            RemoveMpGamerTag(gamerTags[v])
+                            gamerTags[v] = nil
+                        end
+                    end
+                end
+                Wait(500)
+            end
+
+            for _, v in pairs(gamerTags) do
+                RemoveMpGamerTag(v)
+                gamerTags[v] = nil
+            end
+        end)
+    end
+end
+
+local noClip = false
+local NoClipSpeed = 2.0
+function NoClip()
+    noClip = not noClip
+    if noClip then    
+        Citizen.CreateThread(function()
+            while noClip do 
+                Wait(1)
+                local pCoords = GetEntityCoords(pPed, false)
+                local camCoords = getCamDirection()
+                SetEntityVelocity(pPed, 0.01, 0.01, 0.01)
+                SetEntityCollision(pPed, 0, 1)
+
+                if IsControlPressed(0, 32) then
+                    pCoords = pCoords + (NoClipSpeed * camCoords)
+                end
+            
+                if IsControlPressed(0, 269) then
+                    pCoords = pCoords - (NoClipSpeed * camCoords)
+                end
+            
+                if IsControlPressed(1, 15) then
+                    NoClipSpeed = NoClipSpeed + 0.5
+                end
+                if IsControlPressed(1, 14) then
+                    NoClipSpeed = NoClipSpeed - 0.5
+                    if NoClipSpeed < 0 then
+                        NoClipSpeed = 0
+                    end
+                end
+                SetEntityCoordsNoOffset(pPed, pCoords, true, true, true)
+                SetEntityVisible(pPed, 0, 0)
+            end
+            SetEntityVisible(pPed, 1, 0)
+            SetEntityCollision(pPed, 1, 1)
+        end)
+        
+    end
+end
+
+function getCamDirection()
+	local heading = GetGameplayCamRelativeHeading() + GetEntityHeading(pPed)
+	local pitch = GetGameplayCamRelativePitch()
+	local coords = vector3(-math.sin(heading * math.pi / 180.0), math.cos(heading * math.pi / 180.0), math.sin(pitch * math.pi / 180.0))
+	local len = math.sqrt((coords.x * coords.x) + (coords.y * coords.y) + (coords.z * coords.z))
+
+	if len ~= 0 then
+		coords = coords / len
+	end
+
+	return coords
+end
+
+
+
+RegisterNetEvent("core:ChangepCoords")
+AddEventHandler("core:ChangepCoords", function(coords)
+    SetEntityCoordsNoOffset(pPed, coords, 0.0, 0.0, 0.0)
+end)

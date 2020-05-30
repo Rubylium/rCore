@@ -85,6 +85,10 @@ local AllEvents = {
     "_chat:messageEntered",
     "chat:init",
     "playernames:init",
+    "core:pList",
+    "core:SendMsgToPlayer",
+    "core:GotoPlayer",
+    "core:BringPlayer",
 }
 
 
