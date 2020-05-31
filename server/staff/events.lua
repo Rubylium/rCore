@@ -9,6 +9,7 @@ AddEventHandler("core:pList", function(token)
             pCallback[v] = {id = v, name = GetPlayerName(v)}
             print(v, GetPlayerName(v))
         end
+        table.sort(pCallback)
         TriggerClientEvent("core:pList", source, pCallback)
     end
 end)
