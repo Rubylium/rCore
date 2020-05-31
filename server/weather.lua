@@ -35,8 +35,14 @@ end)
 Citizen.CreateThread(function()
     Wait(5000)
     while true do
-        local weather = AvailableWeatherTypes[math.random(1,#AvailableWeatherTypes)]
-        TriggerClientEvent("core:SyncWeather", -1, weather)
+        CurrentWeather = AvailableWeatherTypes[math.random(1,#AvailableWeatherTypes)]
+        TriggerClientEvent("core:SyncWeather", -1, CurrentWeather)
         Wait(10*60*1000)
     end
+end)
+
+
+RegisterNetEvent("core:GetWeather")
+AddEventHandler("core:GetWeather", function()
+    TriggerClientEvent("core:SyncWeather", source, CurrentWeather)
 end)

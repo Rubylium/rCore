@@ -26,12 +26,7 @@ local names = {
 }
 
 Citizen.CreateThread(function()
-
-    ClearOverrideWeather()
-    ClearWeatherTypePersist()
-    SetWeatherTypePersist(CurrentWeather)
-    SetWeatherTypeNow(CurrentWeather)
-    SetWeatherTypeNowPersist(CurrentWeather)
+    TriggerServerEvent("core:GetWeather")
 end)
 
 RegisterNetEvent("core:SyncTime")
@@ -42,7 +37,7 @@ end)
 
 RegisterNetEvent("core:SyncWeather")
 AddEventHandler("core:SyncWeather", function(lastWeather)
-    rUtils.Notif("La méteo change\n"..names[lastWeather])
+    rUtils.ShowAdvancedNotification("Méteo", "~g~Changement de météo", "La méteo change\n"..names[lastWeather], "CHAR_LS_TOURIST_BOARD", 1)
     if CurrentWeather ~= lastWeather then
         CurrentWeather = lastWeather
         SetWeatherTypeOverTime(CurrentWeather, 30.0)
