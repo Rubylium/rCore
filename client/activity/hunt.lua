@@ -53,7 +53,14 @@ function OpenHunterDialog(npc, offset, camOffset)
             RageUI.IsVisible(RMenu:Get('core', 'hunter'), true, true, true, function()
 
                 RageUI.Separator("~g~Activité civil")
-                RageUI.ButtonWithStyle("Récupèrer une arme de chasse", "Attention, l'arme de chasse doit etre déposé après votre partie de chasse. De lourde amendes sont prévue en cas de non respect.", {}, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Acheté un permis de chasse", nil, {RightLabel = "~g~500$"}, true, function(_,_,s)
+                    if s then 
+                        if pMoney >= 500 then
+                            TriggerServerEvent("rF:BuyItemIfCan", token, "permisChasse", 1, 500)
+                        end
+                    end
+                end)
+                RageUI.ButtonWithStyle("Récupèrer une arme de chasse", "Attention, l'arme de chasse doit etre déposé après votre partie de chasse. De lourde amendes sont prévue en cas de non respect.", {}, pInventory["Permis de chasse"] ~= nil, function(_,_,s)
                     if s then 
                         TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, "musket", 1)
                     end
@@ -63,7 +70,7 @@ function OpenHunterDialog(npc, offset, camOffset)
                         TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, "huntrifle", 1)
                     end
                 end)
-                RageUI.ButtonWithStyle("Déposer son arme de chasse", nil, { RightLabel = "→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Déposer son arme de chasse", nil, { RightLabel = "→" }, pInventory["Permis de chasse"] ~= nil, function(_,_,s)
                     if s then 
                         for k,v in pairs(pInventory) do
                             if v.name == "musket" or v.name == "huntrifle" then
@@ -73,7 +80,7 @@ function OpenHunterDialog(npc, offset, camOffset)
                     end
                 end)
 
-                RageUI.ButtonWithStyle("Vendre ses gains", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                RageUI.ButtonWithStyle("Vendre ses gains", nil, { RightLabel = "→→" }, pInventory["Permis de chasse"] ~= nil, function(_,_,s)
                 end, RMenu:Get('core', 'hunter_sell'))
     
             end, function()
@@ -121,6 +128,7 @@ local Animals = {
 
 }
 
+local loots = {}
 local Spawning = false
 Citizen.CreateThread(function()
     while true do
@@ -154,31 +162,10 @@ Citizen.CreateThread(function()
                     local source = GetPedSourceOfDeath(v.entity)
                     if source == pPed then
                         rUtils.Notif("Tu as tué un animal! Récupère son loot.")
-                        local neer = false
-                        local deleted = false
                         CheckSucces()
-                        while not neer do
-                            Wait(1)
-                            local dst = GetDistanceBetweenCoords(GetEntityCoords(v.entity), GetEntityCoords(pPed), true)
-                            DrawMarker(0, GetEntityCoords(v.entity), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.2, 500.0, 0, 255, 0, 100, 0, 1, 2, 0, nil, nil, 0)
-                            if dst <= 1.5 then
-                                neer = true
-                            end
-                            if not DoesEntityExist(v.entity) then
-                                neer = true
-                                deleted = true  
-                            end
-                        end
-                        if not deleted then
-                            rUtils.PlayAnim("anim@mp_snowball", "pickup_snowball", 1)
-                            Wait(2000)
-                            ClearPedTasks(pPed)
-                            TakeHuntLoot()
-                            RemoveBlip(v.blip)
-                            --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
-                            DeleteEntity(v.entity)
-                            DeletePed(v.entity)
-                        end
+                        RemoveBlip(v.blip)
+                        table.insert(loots, v.entity)
+                        LoopLoot()
                     end
                 end
 
@@ -197,7 +184,7 @@ Citizen.CreateThread(function()
             end
 
             for k,v in pairs(pInventory) do
-                if v.name == "musket" then
+                if v.name == "musket" or v.name == "huntrifle" then
                     TriggerServerEvent("rF:RemoveItem", token, v.label, v.count)
                 end
             end
@@ -210,6 +197,35 @@ Citizen.CreateThread(function()
         end
     end
 end)
+
+
+local looping = false
+function LoopLoot()
+    if looping then return end
+    Citizen.CreateThread(function()
+        looping = true
+        while #loots > 0 do
+            for k,v in pairs(loots) do
+                local dst = #(GetEntityCoords(v) - GetEntityCoords(pPed))
+                DrawMarker(0, GetEntityCoords(v), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.2, 500.0, 0, 255, 0, 100, 0, 1, 2, 0, nil, nil, 0)
+
+                if not DoesEntityExist(v) then
+                    table.remove(loots, k) 
+                end
+                if dst <= 1.5 then
+                    rUtils.PlayAnim("anim@mp_snowball", "pickup_snowball", 1)
+                    Wait(2000)
+                    ClearPedTasks(pPed)
+                    TakeHuntLoot()
+                    DeleteEntity(v)
+                    DeletePed(v)
+                end
+            end
+            Wait(1)
+        end
+        looping = false
+    end)
+end
 
 
 Citizen.CreateThread(function()
@@ -301,3 +317,9 @@ function TakeHuntLoot()
         rUtils.Notif("Tu as trouvé une ~g~Viande de qualité incroyable")
     end
 end
+
+
+RegisterNetEvent("core:ShowPermisChasse")
+AddEventHandler("core:ShowPermisChasse", function()
+    SendActionTxt(" montre son permis de chasse")
+end)
