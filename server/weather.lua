@@ -21,10 +21,28 @@ local timeOffset = 0
 local CurrentWeather = "EXTRASUNNY"
 
 
+local h = 12
+local m = 0
+
+
+Citizen.CreateThread(function()
+    while true do
+        m = m + 1
+        if m > 60 then
+            m = 0
+            h = h + 1
+            if h > 23 then
+                h = 0
+            end
+        end
+        Wait(2*1000)
+    end
+end)
+
 Citizen.CreateThread(function()
     Wait(5000)
     while true do
-        local h, m = tonumber(os.date("%H")), tonumber(os.date("%M"))
+        print(h, m)
         TriggerClientEvent("core:SyncTime", -1, h, m)
         Wait(20*1000)
     end
