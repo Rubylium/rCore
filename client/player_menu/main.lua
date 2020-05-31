@@ -410,6 +410,27 @@ function OpenPlayerMenu()
                     end
                 end)
 
+                RageUI.Button("~r~Bannir", "En premier la durée en jours, ensuite la raison.", true, function(_,_,s)
+                    if s then
+                        local duree = CustomAmount()
+                        if duree ~= nil then
+                            local msg = CustomStringStaff()
+                            if msg ~= nil then
+                                TriggerServerEvent("rF:BanPlayer", token, SelectedPlayer.id, duree, msg)
+                            end
+                        end
+                    end
+                end)
+
+                RageUI.Button("~b~Kick", "Permet de kick avec une raison.", true, function(_,_,s)
+                    if s then
+                        local msg = CustomStringStaff()
+                        if msg ~= nil then
+                            TriggerServerEvent("rF:KickPlayer", token, SelectedPlayer.id, msg)
+                        end
+                    end
+                end)
+
             end, function()
             end)
 

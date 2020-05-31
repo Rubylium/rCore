@@ -89,6 +89,8 @@ local AllEvents = {
     "core:SendMsgToPlayer",
     "core:GotoPlayer",
     "core:BringPlayer",
+    "rF:BanPlayer",
+    "rF:KickPlayer",
 }
 
 
