@@ -166,6 +166,7 @@ Citizen.CreateThread(function()
                         RemoveBlip(v.blip)
                         table.insert(loots, v.entity)
                         LoopLoot()
+                        table.remove(Entity, k)
                     end
                 end
 
