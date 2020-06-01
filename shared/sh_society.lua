@@ -48,6 +48,17 @@ societyList = {
             [1] = {label = "Patron"},
         },
     },
+    {
+        name = "sheriff",
+        grade = {
+            [0] = {label = "Junior"},
+            [1] = {label = "Junior Confirmé"},
+            [2] = {label = "Caporal"},
+            [3] = {label = "Major"},
+            [4] = {label = "Sous-Sheriff"},
+            [5] = {label = "Patron"},
+        },
+    },
 }
 
 
