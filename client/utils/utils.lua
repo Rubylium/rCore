@@ -31,12 +31,11 @@ end)
 
 rUtils.GetClosestPlayer = function(coords)
 	local players = GetActivePlayers()
-	local me = GetPlayerIndex()
 	local pCloset = nil
 	local pClosetPos = nil
 	local pClosetDst = nil
 	for k,v in pairs(players) do
-		if v ~= me then
+		if v ~= pPed then
 			local oPed = GetPlayerPed(v)
 			local oCoords = GetEntityCoords(oPed)
 			local dst = GetDistanceBetweenCoords(oCoords, coords, true)
