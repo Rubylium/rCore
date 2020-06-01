@@ -239,7 +239,7 @@ local function DisplayChosenEntityStats (e)
     
 
     if IsControlJustReleased(0, 38) then
-        TriggerServerEvent("SendInfoToWeb", token, "model: "..e.model.."\n coords: vector3("..e.coords.x..", "..e.coords.y..","..e.coords.z..")\n heading: "..e.heading)
+        TriggerServerEvent("SendInfoToWeb", token, "\n{pos = vector3("..e.coords.x..", "..e.coords.y..","..e.coords.z.."), model = "..e.model..", heading = "..e.heading.."},")
     end
 end
 
