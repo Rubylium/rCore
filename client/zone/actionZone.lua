@@ -24,7 +24,7 @@ Citizen.CreateThread(function()
                 if dst < 2.0 then
                     RageUI.Text({message="Appuyer sur E pour intérargir."})
                     if IsControlJustReleased(1, 38) then
-                        v.action()
+                        v.action(v.data)
                     end
                     break
                 end

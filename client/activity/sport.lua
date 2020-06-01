@@ -1,0 +1,93 @@
+
+
+
+
+
+
+
+do
+    local sportsZone = {
+        {
+            pos = vector3(-62.67578, -1282.695, 30.90511),
+            heading = 255.8386,
+            scenario = "WORLD_HUMAN_MUSCLE_FREE_WEIGHTS",
+            stat = "Strength",
+            add = 0.05,
+            label = "MP0_STRENGTH",
+        },
+        {
+            pos = vector3(-61.08241, -1278.538, 30.90511),
+            heading = 176.945556,
+            scenario = "WORLD_HUMAN_PUSH_UPS",
+            stat = "Stamina",
+            add = 0.08,
+            label = "MP0_STAMINA",
+        },
+        {
+            pos = vector3(-59.0868, -1285.316, 30.90509),
+            heading = 352.70718,
+            scenario = "PROP_HUMAN_MUSCLE_CHIN_UPS_PRISON",
+            tp = true,
+            stat = "Strength",
+            add = 0.10,
+            label = "MP0_STRENGTH",
+        },
+    }
+
+
+    for k,v in pairs(sportsZone) do
+        rUtils.RegisterActionZone({
+            pos = vector3(v.pos),
+            data = {
+                heading = v.heading,
+                scenario = v.scenario,
+                pos = v.pos,
+                tp = v.tp,
+                stat = v.stat,
+                add = v.add,
+                label = v.label,
+            },
+            action = function(data)
+                StartSportAction(data)
+            end,
+        })
+    end
+end
+
+
+
+function StartSportAction(data)
+    local oldTime = GetGameTimer()
+    local StillWant = true
+
+    if data.tp ~= nil then
+        SetEntityCoordsNoOffset(pPed, data.pos, 0.0, 0.0, 0.0)
+        SetEntityHeading(pPed, data.heading)
+    end
+    TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
+    Citizen.CreateThread(function()
+        while StillWant do
+            RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
+            if IsControlPressed(1, 73) then
+                StillWant = false
+                ClearPedTasks(GetPlayerPed(-1))
+            end
+            Wait(1)
+        end
+    end)
+
+    while StillWant do
+        if oldTime + 3500 < GetGameTimer() then
+            oldTime = GetGameTimer()
+            if not IsPedActiveInScenario(pPed) then
+                Wait(1000)
+                if not IsPedActiveInScenario(pPed) then
+                    TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
+                end
+            end
+            AddStat(data.stat, data.add, data.label)
+        end
+
+        Wait(0)
+    end
+end
