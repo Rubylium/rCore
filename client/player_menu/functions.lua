@@ -274,3 +274,36 @@ RegisterNetEvent("core:ChangepCoords")
 AddEventHandler("core:ChangepCoords", function(coords)
     SetEntityCoordsNoOffset(pPed, coords, 0.0, 0.0, 0.0)
 end)
+
+
+Citizen.CreateThread(function()
+    while true do
+        local TooMuch = false
+        if pWeight > 40.0 then
+            rUtils.Notif("~r~ATTENTION\n~w~Tu porte trop de chose.")
+        end
+
+        if pWeight > 45 then
+            DisableControlAction(1, 21, true)
+            TooMuch = true
+        end
+
+
+        if not IsPedInAnyVehicle(pPed, 0) then
+            if pWeight > 48 then
+                local i = math.random(1,1400)
+                if i == 1400 then
+                    print("Fall")
+                    SetPedToRagdoll(pPed, 1000, 1000, 3, 1, 1, 1)
+                    RageUI.Text({message = "Tu as trébuché à cause de tout ce que tu portes", time_display = 3000})
+                end
+            end
+        end
+
+        if not TooMuch then
+            Wait(3000)
+        else
+            Wait(1)
+        end
+    end
+end)
