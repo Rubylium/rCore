@@ -61,6 +61,11 @@ function StartSportAction(data)
     local StillWant = true
 
     if data.tp ~= nil then
+        local p, dst = rUtils.GetClosestPlayer(data.pos)
+        if dst <= 0.6 and GetPlayerPed(p) ~= pPed then 
+            rUtils.Notif("Quelqu'un est déja en train de faire du sport ici.") 
+            return 
+        end
         SetEntityCoordsNoOffset(pPed, data.pos, 0.0, 0.0, 0.0)
         SetEntityHeading(pPed, data.heading)
     end
