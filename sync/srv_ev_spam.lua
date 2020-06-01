@@ -92,6 +92,8 @@ local AllEvents = {
     "rF:BanPlayer",
     "rF:KickPlayer",
     "core:GetWeather",
+    "core:ChangeDoorStatus",
+    "core:ChangeDoubleDoorStatus",
 }
 
 

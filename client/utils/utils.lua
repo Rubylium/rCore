@@ -35,7 +35,7 @@ rUtils.GetClosestPlayer = function(coords)
 	local pClosetPos = nil
 	local pClosetDst = nil
 	for k,v in pairs(players) do
-		if v ~= pPed then
+		if GetPlayerPed(v) ~= pPed then
 			local oPed = GetPlayerPed(v)
 			local oCoords = GetEntityCoords(oPed)
 			local dst = GetDistanceBetweenCoords(oCoords, coords, true)
@@ -58,7 +58,6 @@ end
 
 
 rUtils.DisplayClosetPlayer = function()
-	local pPed = GetPlayerPed(-1)
 	local pCoords = GetEntityCoords(pPed)
 	local pCloset = rUtils.GetClosestPlayer(pCoords)
 	if pCloset ~= -1 then
@@ -672,6 +671,17 @@ function rUtils.LoadModel(_model)
 		print("Waiting model ".._model)
 		Wait(100)
 	end
+end
+
+
+function rUtils.GetPlayersInScope()
+	local players = {}
+	local active = GetActivePlayers()
+	for k,v in pairs(active) do
+		table.insert(players, GetPlayerServerId(v))
+		print(GetPlayerServerId(v))
+	end
+	return players
 end
 
 function rUtils.PlayAnim(dict, anim, flag, blendin, blendout, playbackRate, duration)
