@@ -24,18 +24,47 @@ Citizen.CreateThread(function()
 end)
 
 
-local weapons = {
-    [GetHashKey("weapon_pistol")] = {item = "pistolet", pvp = true},
-    [GetHashKey("weapon_stungun")] = {item = "tazer", pvp = true},
-    [GetHashKey("weapon_nightstick")] = {item = "matraque", pvp = true},
-    [GetHashKey("weapon_pistol_mk2")] = {item = "pistoletmk2", pvp = true},
-    [GetHashKey("weapon_combatpistol")] = {item = "pistoletlspd", pvp = true},
+local m4Settings = {
+    back_bone = 24816,
+    x = 0.10,
+    y = 0.21,
+    z = -0.05,
+    xR = 0.0,
+    yR = 165.0,
+    zR = 0.0,
+}
 
-    [GetHashKey("weapon_pumpshotgun")] = {item = "pompe", pvp = true},
-    [GetHashKey("weapon_carbinerifle")] = {item = "m4", pvp = true},
-    [GetHashKey("weapon_assaultrifle")] = {item = "AK-47", pvp = true},
-    [GetHashKey("weapon_musket")] = {item = "musket", pvp = false},
-    [GetHashKey("weapon_sniperrifle")] = {item = "huntrifle", pvp = false},
+local musketSetting = {
+    back_bone = 24816,
+    x = 0.31,
+    y = -0.14,
+    z = -0.20,  
+    xR = 0.0,
+    yR = 180.0,
+    zR = 0.0,
+}
+
+local huntrifleSetting = {
+    back_bone = 24816,
+    x = 0.31,
+    y = -0.14,
+    z = 0.20,  
+    xR = 0.0,
+    yR = 180.0,
+    zR = 0.0,
+}
+
+weapons = {
+    [GetHashKey("weapon_pistol")] = {item = "pistolet",          pvp = true,  itemName = "weapon_pistol"      , prop = "",},
+    [GetHashKey("weapon_stungun")] = {item = "tazer",            pvp = true,  itemName = "weapon_stungun"     , prop = "",},
+    [GetHashKey("weapon_nightstick")] = {item = "matraque",      pvp = true,  itemName = "weapon_nightstick"  , prop = "",},
+    [GetHashKey("weapon_pistol_mk2")] = {item = "pistoletmk2",   pvp = true,  itemName = "weapon_pistol_mk2"  , prop = "",},
+    [GetHashKey("weapon_combatpistol")] = {item = "pistoletlspd",pvp = true,  itemName = "weapon_combatpistol", prop = "",},
+    [GetHashKey("weapon_pumpshotgun")] = {item = "pompe",        pvp = true,  itemName = "weapon_pumpshotgun" , prop = "w_sg_pumpshotgun",},
+    [GetHashKey("weapon_carbinerifle")] = {item = "m4",          pvp = true,  itemName = "weapon_carbinerifle", prop = "w_ar_carbinerifle", settings = m4Settings},
+    [GetHashKey("weapon_assaultrifle")] = {item = "AK-47",       pvp = true,  itemName = "weapon_assaultrifle", prop = "w_ar_assaultrifle",},
+    [GetHashKey("weapon_musket")] = {item = "musket",            pvp = false, itemName = "weapon_musket"      , prop = "w_ar_musket", settings = musketSetting},
+    [GetHashKey("weapon_sniperrifle")] = {item = "huntrifle",    pvp = false, itemName = "weapon_sniperrifle" , prop = "w_sr_sniperrifle", settings = huntrifleSetting},
 }
 
 function IsItemAWeapon(item)
@@ -49,7 +78,6 @@ end
 function IsWeaponAllowed(hash)
     Citizen.CreateThread(function()
         local item = weapons[hash].item
-        print(hash, item)
         if item == nil then
             RemoveWeaponFromPed(GetPlayerPed(-1), hash)
             RemoveAllPedWeapons(GetPlayerPed(-1), 1)
@@ -61,11 +89,9 @@ function IsWeaponAllowed(hash)
                 if v.name == item then
                     allowed = true
                     if weapons[hash].pvp == false then
-                        print("PVP Disabled")
                         NetworkSetFriendlyFireOption(false)
                         SetCanAttackFriendly(PlayerPedId(), false, false)
                     else
-                        print("PVP Allowed")
                         NetworkSetFriendlyFireOption(true)
                         SetCanAttackFriendly(PlayerPedId(), true, true)
                     end
