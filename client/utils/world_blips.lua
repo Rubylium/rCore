@@ -105,6 +105,30 @@ local blips = {
         pos = vector3(-55.5468, 67.99, 71.94),
         sub = nil,
     },
+    {
+        name = "BC Hunting",
+        icon = 141,
+        size = 0.55,
+        color = 1,
+        pos = vector3(-1492.906, 4981.843, 62.7697),
+        sub = {
+            title = "BC Hunting",
+            text = "BC Hunting, envie de chasser du gibier ? C'est ici!",
+            infuence = "~o~Moyenne",
+        },
+    },
+    {
+        name = "LS Boxing",
+        icon = 311,
+        size = 0.55,
+        color = 26,
+        pos = vector3(-45.2563, -1288.039, 29.20022),
+        sub = {
+            title = "LS Boxing",
+            text = "LS Boxing, envie de faire du sport ? C'est ici!",
+            infuence = "~o~Faible",
+        },
+    },
 }
 
 
