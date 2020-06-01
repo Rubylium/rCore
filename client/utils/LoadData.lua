@@ -10,6 +10,8 @@ function LoadData()
         LoadPoliceData()
     elseif pJob == "concessionnaire" then
         LoadConcessData()
+    elseif pJob == "sheriff" then
+        LoadSheriffData()
     end 
 
     print("^2Loading "..pJob.." data.")
