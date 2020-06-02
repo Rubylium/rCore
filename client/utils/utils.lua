@@ -1,6 +1,27 @@
 rUtils = {}
 
 
+function SetWeaponDrops()
+	local handle, ped = FindFirstPed()
+	local finished = false
+
+	repeat
+		if not IsEntityDead(ped) then
+			SetPedDropsWeaponsWhenDead(ped, false)
+		end
+		finished, ped = FindNextPed(handle)
+	until not finished
+
+	EndFindPed(handle)
+end
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+		SetWeaponDrops()
+	end
+end)
+
 Citizen.CreateThread(function()
 	NetworkSetFriendlyFireOption(true)
 	SetCanAttackFriendly(PlayerPedId(), true, true)
@@ -8,15 +29,6 @@ Citizen.CreateThread(function()
 	DecorRegister("OWNED_VEH", 2)
 	while true do
 		ClearPlayerWantedLevel(GetPlayerIndex())
-		for v in EnumeratePeds() do
-			if not IsPedAPlayer(v) then
-				SetPedAccuracy(v, 100.0)
-				SetPedCombatAbility(v, 2)
-				SetPedCombatAttributes(v, 1424, true)
-				SetPedCombatRange(v, 2)
-			end
-		end
-		SetWantedLevelDifficulty(PlayerId(), 1.0)
 		RestorePlayerStamina(PlayerId(), 1.0)
 		Wait(5000)
 	end
@@ -24,7 +36,16 @@ end)
 
 Citizen.CreateThread(function()
 	while true do
-		SetRadarZoomToDistance(100.0)
+		if pVeh == 0 then
+			if GetInteriorAtCoords(GetEntityCoords(pPed)) == 0 then
+				SetRadarZoomToDistance(50.0)
+			else
+				SetRadarZoomToDistance(25.0)
+			end
+		else
+			SetRadarZoomToDistance(145.0)
+		end
+
 		Wait(1)
 	end
 end)
