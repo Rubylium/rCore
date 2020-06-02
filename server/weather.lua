@@ -9,11 +9,11 @@ local AvailableWeatherTypes = {
     'CLEARING', 
     'RAIN', 
     'THUNDER', 
-    'SNOW', 
-    'BLIZZARD', 
-    'SNOWLIGHT', 
-    'XMAS', 
-    'HALLOWEEN',
+    --'SNOW', 
+    --'BLIZZARD', 
+    --'SNOWLIGHT', 
+    --'XMAS', 
+    --'HALLOWEEN',
 }
 
 local baseTime = 0
