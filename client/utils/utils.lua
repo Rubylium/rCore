@@ -7,7 +7,7 @@ Citizen.CreateThread(function()
 	DecorRegister("veh_allowed", 2)
 	DecorRegister("OWNED_VEH", 2)
 	while true do
-		--ClearPlayerWantedLevel(GetPlayerIndex())
+		ClearPlayerWantedLevel(GetPlayerIndex())
 		for v in EnumeratePeds() do
 			if not IsPedAPlayer(v) then
 				SetPedAccuracy(v, 100.0)
