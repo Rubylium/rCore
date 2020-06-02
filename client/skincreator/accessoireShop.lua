@@ -53,7 +53,7 @@ function GetAccessoireValues()
     end
     acce = accessorie
 end
-
+ 
 Citizen.CreateThread(function()
     GetAccessoireValues()
     for k,v in pairs(acce) do
