@@ -80,6 +80,13 @@ function CreatorMenuThread()
     Citizen.CreateThread(function()
         while DisplayMenu do
             local open = false
+
+            if IsControlJustReleased(1, 22) then
+                ClearPedTasks(GetPlayerPed(-1))
+                local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
+                TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
+            end
+
             RageUI.IsVisible(RMenu:Get('core', 'skincreator'), true, true, true, function()
                 open = true
                 RageUI.ButtonWithStyle("Faire son identité", nil, { RightLabel = "→→" }, true, function()
