@@ -47,8 +47,10 @@ function OpenVehMenu()
                     local name = GetDisplayNameFromVehicleModel(props.model)
                     RageUI.ButtonWithStyle(name, nil, { RightLabel = "~g~500$" }, true, function(_,_,s)
                         if s then
+                            rUtils.PlayAnim("cellphone@", "cellphone_call_listen_base", 50)
                             rUtils.ShowAdvancedNotification("MECANO", "~b~Mécano personnel", "Yo! Tu veux que je te livre ton/ta "..name.." ? Ouais je te fais ça. Attends un peu là où tu es !", "CHAR_LS_CUSTOMS", 1, 0, 0)
                             Wait(10*1000)
+                            rUtils.PlayAnim("cellphone@", "cellphone_text_in", 50)
                             local pCoords = GetEntityCoords(pPed)
                             local found, pos, heading = GetClosestVehicleNodeWithHeading(pCoords.x+math.random(10,30), pCoords.y-math.random(10,30), pCoords.z, 0, 3.0, 0)
                             while not rUtils.IsSpawnPointClear(pos, 6.0) do
