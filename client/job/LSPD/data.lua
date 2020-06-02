@@ -279,10 +279,24 @@ function LoadPoliceData()
         },
     }
 
+    local gilet = {
+        {label = "gilet pare-balle 1", item = "bproof_1", max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
+        {label = "Variante gilet", o="bproof_1",c=9, item = "bproof_2", max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
+    }
+
+
     RMenu.Add('core', 'lspd_armorie', RageUI.CreateMenu("POLICE", "~b~Menu action LSPD"))
     RMenu:Get('core', 'lspd_armorie').Closed = function()
         open = false
     end
+
+    for k,v in pairs(gilet) do
+        RMenu.Add('core', v.item.."1", RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_armorie'), "Gilet", "~b~Géstion des gilets de votre personnage."))
+        RMenu:Get('core', v.item.."1").Closed = function()
+        end
+    end
+
+    local NotSpamming = {}
 
     function OpenPoliceArmorie()
         open = true
@@ -310,11 +324,59 @@ function LoadPoliceData()
                         end)
                     end
 
+                    for k,v in pairs(gilet) do
+                        RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
+                        end, RMenu:Get('core', v.item.."1"))
+                    end
+
 
                 end, function()
                     ---Panels
                 end)
 
+                for k,v in pairs(gilet) do
+                    RageUI.IsVisible(RMenu:Get('core', v.item.."1"), true, true, true, function()
+
+                        if v.item == "bproof_1" then
+                            for i = v.min, v.max do
+                                if NotSpamming[k] == nil then NotSpamming[k] = i end
+    
+                                RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ équiper " }, not usingVipPed, function(_,h,s)
+                                   if s then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                   end
+                                   if h then
+                                       if NotSpamming[k] ~= i then
+                                           TriggerEvent("skinchanger:change", v.item, i)
+                                           TriggerEvent("skinchanger:change", v.o, 0)
+                                           NotSpamming[k] = i
+                                       end
+                                   end
+                                end) 
+                            end
+                        elseif v.item == "bproof_2" then
+    
+                            local value = exports.rFramework:GetKeyValue(v.o)
+                            for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
+                                if NotSpamming[k] == nil then NotSpamming[k] = i end
+                                RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ équiper " }, not usingVipPed, function(_,h,s)
+                                   if s then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                   end
+                                   if h then
+                                        if NotSpamming[k] ~= i then
+                                           TriggerEvent("skinchanger:change", v.item, i)
+                                           NotSpamming[k] = i
+                                        end
+                                   end
+                                end) 
+                            end
+                        end
+    
+                    end, function()
+                        ---Panels
+                    end)
+                end
 
             end
         end)
