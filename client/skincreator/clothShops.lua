@@ -79,6 +79,13 @@ function OpenClothShopThread()
     Citizen.CreateThread(function()
         open = true
         while open do
+
+            if IsControlJustReleased(1, 22) then
+                ClearPedTasks(GetPlayerPed(-1))
+                local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
+                TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
+            end
+
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'clothshop'), true, true, true, function()
                 RageUI.ButtonWithStyle("Faire une nouvelle tenue", nil, { RightLabel = "→→" }, true, function()
