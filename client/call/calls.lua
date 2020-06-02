@@ -3,7 +3,6 @@ local takeCall = 246
 local DontWantCall = 73
 RegisterNetEvent("core:SendCall")
 AddEventHandler("core:SendCall", function(id, msg, job)
-    print(id, msg, job)
     rUtils.Notif("~b~Appel "..job.." reçu !\n~o~Message: ~g~"..msg)
     rUtils.ImportantNotif("Prendre: ~g~Y\n~w~Refuser: ~r~X")
     local oldTime = GetGameTimer()
@@ -34,9 +33,21 @@ end)
 
 
 RegisterNetEvent("core:CallTaken")
-AddEventHandler("core:CallTaken", function(dst)
+AddEventHandler("core:CallTaken", function(dst, pos)
     rUtils.Notif("L'appel à été pris !\nDistance: ~g~"..rUtils.Math.Round(dst, 0).."m")
-
+    local blip = AddBlipForCoord(pos)
+    SetBlipScale(blip, 0.65)
+    SetBlipColour(blip, 32)
+    SetBlipSprite(blip, 365)
+    SetBlipRoute(blip, true)
+    Wait(2000)
+    local dst = GetDistanceBetweenCoords(GetEntityCoords(pPed), pos, true)
+    while dst > 10.0 do
+        dst = GetDistanceBetweenCoords(GetEntityCoords(pPed), pos, true)
+        Wait(1000)
+    end
+    RemoveBlip(blip)
+    rUtils.Notif("Vous êtes arrivé sur place.")
 end)
 
 

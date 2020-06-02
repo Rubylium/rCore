@@ -1,7 +1,6 @@
 Huntkills = 0
 
 Citizen.CreateThread(function()
-    SetResourceKvpInt("hunting", 0)
     Huntkills = GetResourceKvpInt("hunting")
     if Huntkills == nil then
         Huntkills = 0

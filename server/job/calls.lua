@@ -23,8 +23,8 @@ AddEventHandler("core:TakeCall", function(token, callid)
             if  Calls[callid].taken == false then
                 Calls[callid].taken = true
                 local dst = #(GetEntityCoords(GetPlayerPed(Calls[callid].target)) - GetEntityCoords(GetPlayerPed(source))) -- Use Z
-                TriggerClientEvent("core:CallTaken", source, dst)
-                TriggerClientEvent("core:CallTakenTarget", Calls[callid].target,  dst, Calls[callid].job)
+                TriggerClientEvent("core:CallTaken", source, dst, GetEntityCoords(GetPlayerPed(Calls[callid].target)))
+                TriggerClientEvent("core:CallTakenTarget", Calls[callid].target, dst, Calls[callid].job)
             else
                 TriggerClientEvent("rF:notification", source, "~r~L'appel à déja été pris!")
             end

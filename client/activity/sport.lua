@@ -62,9 +62,11 @@ function StartSportAction(data)
 
     if data.tp ~= nil then
         local p, dst = rUtils.GetClosestPlayer(data.pos)
-        if dst <= 0.6 and GetPlayerPed(p) ~= pPed then 
-            rUtils.Notif("Quelqu'un est déja en train de faire du sport ici.") 
-            return 
+        if p ~= nil then 
+            if dst <= 0.6 and GetPlayerPed(p) ~= pPed then 
+                rUtils.Notif("Quelqu'un est déja en train de faire du sport ici.") 
+                return 
+            end
         end
         SetEntityCoordsNoOffset(pPed, data.pos, 0.0, 0.0, 0.0)
         SetEntityHeading(pPed, data.heading)
@@ -76,6 +78,7 @@ function StartSportAction(data)
             if IsControlPressed(1, 73) then
                 StillWant = false
                 ClearPedTasks(GetPlayerPed(-1))
+                UpdatePresence("default")
             end
             Wait(1)
         end
@@ -90,6 +93,7 @@ function StartSportAction(data)
                     TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
                 end
             end
+            UpdatePresence("sport")
             AddStat(data.stat, data.add, data.label)
         end
 

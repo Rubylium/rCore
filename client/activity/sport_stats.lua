@@ -9,17 +9,18 @@ local stats = {
 
 Citizen.CreateThread(function()
 
-
     stats["Stamina"].value = GetResourceKvpInt("Stamina")
     if stats["Stamina"].value == nil then
         stats["Stamina"].value = 0
     end
+    StatSetInt("MP0_STAMINA", stats["Stamina"].value, true)
 
     stats["Strength"].value = GetResourceKvpInt("Strength")
     if stats["Strength"].value == nil then
         stats["Strength"].value = 0
     end
 
+    StatSetInt("MP0_STRENGTH", stats["Strength"].value, true)
 end)
 
 

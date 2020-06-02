@@ -137,7 +137,6 @@ Citizen.CreateThread(function()
         if dst <= 600.0 then
             Spawning = true
 
-
             if #Entity < 4 then
                 Wait(1)
                 local animal = Animals[math.random(1,#Animals)]
@@ -167,6 +166,7 @@ Citizen.CreateThread(function()
                         table.insert(loots, v.entity)
                         LoopLoot()
                         table.remove(Entity, k)
+                        UpdatePresence("chasse")
                     end
                 end
 
@@ -174,6 +174,7 @@ Citizen.CreateThread(function()
 
         else
             Spawning = false
+            
             if #Entity > 0 then
                 for k,v in pairs(Entity) do
                     RemoveBlip(v.blip)
@@ -186,7 +187,9 @@ Citizen.CreateThread(function()
 
             for k,v in pairs(pInventory) do
                 if v.name == "musket" or v.name == "huntrifle" then
+                    UpdatePresence("default")
                     TriggerServerEvent("rF:RemoveItem", token, v.label, v.count)
+                    RemoveAllPedWeapons(pPed, 1)
                 end
             end
         end
