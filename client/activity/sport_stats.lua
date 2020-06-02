@@ -1,26 +1,30 @@
 
 local stats = {
-    ["Stamina"] = {value = 0, stats = "MP0_STAMINA", baisse = 0.03},
-    ["Strength"] = {value = 0, stats = "MP0_STRENGTH", baisse = 0.05},
+    ["Stamina"] = {value = 0, stats = "MP0_STAMINA", baisse = 0.01, label = "Endurance"},
+    ["Strength"] = {value = 0, stats = "MP0_STRENGTH", baisse = 0.01, label = "Force"},
 }
 
 
 
 
 Citizen.CreateThread(function()
+    --SetResourceKvpInt("Stamina", 0)
+    --SetResourceKvpInt("Strength", 0)
 
+
+    print(GetResourceKvpInt("Stamina"), GetResourceKvpInt("Strength"))
     stats["Stamina"].value = GetResourceKvpInt("Stamina")
     if stats["Stamina"].value == nil then
         stats["Stamina"].value = 0
     end
-    StatSetInt("MP0_STAMINA", round(stats["Stamina"].value), true)
+    StatSetInt("MP0_STAMINA", GetResourceKvpInt("Stamina"), true)
 
     stats["Strength"].value = GetResourceKvpInt("Strength")
     if stats["Strength"].value == nil then
         stats["Strength"].value = 0
     end
 
-    StatSetInt("MP0_STRENGTH", round(stats["Strength"].value), true)
+    StatSetInt("MP0_STRENGTH", GetResourceKvpInt("Strength"), true)
 end)
 
 
@@ -53,8 +57,8 @@ end
 
 function AddStat(stat, num, label)
     stats[stat].value = stats[stat].value + num
-    SetResourceKvpInt(stat, stats[stat].value)
+    SetResourceKvpInt(stat, round(stats[stat].value))
     StatSetInt(label, round(stats[stat].value), true)
-    rUtils.Notif("~g~+"..num.." "..stat)
+    rUtils.Notif("~g~+~w~"..num.." "..stats[stat].label.."\n~w~"..stats[stat].value.."/100")
     print(stats[stat].value, round(stats[stat].value), label)
 end
