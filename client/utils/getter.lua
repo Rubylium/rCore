@@ -56,6 +56,10 @@ end)
 
 RegisterNetEvent("core:GetPlayersVehicle")
 AddEventHandler("core:GetPlayersVehicle", function(vehs)
+    for k,v in pairs(vehs) do
+        local props = json.decode(v.props)
+        vehs[k].props = props
+    end
     pVehs = vehs 
 end)
 
