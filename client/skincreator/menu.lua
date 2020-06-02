@@ -8,6 +8,7 @@ values, peds, corps, accessorie, FaceCustom = GetMaxVals()
 RMenu.Add('core', 'skincreator', RageUI.CreateMenu("Création personnage", "~b~Menu de création de votre personnage."))
 RMenu:Get('core', 'skincreator').Closable = false
 RMenu:Get('core', 'skincreator').Closed = function()
+    exports.rFramework:ReloadPlayerCloth()
     KillCreatorCam()
 end;
 
@@ -15,6 +16,7 @@ RMenu.Add('core', 'skincreator_skin', RageUI.CreateSubMenu(RMenu:Get('core', 'sk
 
 RMenu.Add('core', 'skincreator_face', RageUI.CreateSubMenu(RMenu:Get('core', 'skincreator'), "Création personnage", "~b~Menu de création de votre personnage."))
 RMenu:Get('core', 'skincreator_face').Closed = function()
+    exports.rFramework:ReloadPlayerCloth()
     SwitchCam(true, "default")
     values, peds, corps, accessorie, FaceCustom = GetMaxVals()
 end;
@@ -24,6 +26,7 @@ RMenu.Add('core', 'skincreator_identity', RageUI.CreateSubMenu(RMenu:Get('core',
 for k,v in pairs(GetMaxVals()) do
     RMenu.Add('core', v.item, RageUI.CreateSubMenu(RMenu:Get('core', 'skincreator_skin'), "Création personnage", "~b~Menu de création de votre personnage."))
     RMenu:Get('core', v.item).Closed = function()
+        exports.rFramework:ReloadPlayerCloth()
         SwitchCam(true, "default")
         PlayRandomClothAnim()
         values, peds, corps, accessorie, FaceCustom = GetMaxVals()
@@ -33,6 +36,7 @@ end
 for k,v in pairs(FaceCustom) do
     RMenu.Add('core', v.item, RageUI.CreateSubMenu(RMenu:Get('core', 'skincreator_face'), "Création personnage", "~b~Menu de création de votre personnage."))
     RMenu:Get('core', v.item).Closed = function()
+        exports.rFramework:ReloadPlayerCloth()
         SwitchCam(true, "default_face")
         PlayRandomClothAnim()
         values, peds, corps, accessorie, FaceCustom = GetMaxVals()
