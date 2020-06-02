@@ -77,7 +77,7 @@ function StartSportAction(data)
             RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
             if IsControlPressed(1, 73) then
                 StillWant = false
-                ClearPedTasks(GetPlayerPed(-1))
+                ClearPedTasksImmediately(pPed)
                 UpdatePresence("default")
             end
             Wait(1)
