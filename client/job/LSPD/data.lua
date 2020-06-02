@@ -344,6 +344,7 @@ function LoadPoliceData()
                                 RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ équiper " }, not usingVipPed, function(_,h,s)
                                    if s then
                                        TriggerEvent("skinchanger:change", v.item, i)
+                                       SetPedArmour(pPed, 100.0)
                                    end
                                    if h then
                                        if NotSpamming[k] ~= i then
