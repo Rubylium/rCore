@@ -81,6 +81,13 @@ function OpenAccessoireShopThread()
         open = true
         while open do
             Wait(1)
+
+            if IsControlJustReleased(1, 22) then
+                ClearPedTasks(GetPlayerPed(-1))
+                local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
+                TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
+            end
+
             RageUI.IsVisible(RMenu:Get('core', 'accesShop'), true, true, true, function()
                 for k,v in pairs(acce) do
                     RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
@@ -96,13 +103,6 @@ function OpenAccessoireShopThread()
 
             for k,v in pairs(acce) do
                 RageUI.IsVisible(RMenu:Get('core', v.item.."1"), true, true, true, function()
-                    RageUI.ButtonWithStyle("Faire tourner son personnage.", nil, {}, true, function(_,_,s)
-                        if s then
-                            ClearPedTasks(GetPlayerPed(-1))
-                            local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
-                            TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
-                        end
-                    end)
                     if v.item == "mask_1" then
                         for i = v.min, v.max do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
