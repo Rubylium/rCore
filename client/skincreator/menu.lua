@@ -55,6 +55,7 @@ local Identity = {
 }
 function OpenCreatorMenu()
     TriggerEvent("skinchanger:change", "sex", "mp_m_freemode_01")
+    exports.rFramework:ReloadPlayerCloth()
     values, peds, corps, accessorie, FaceCustom = GetMaxVals()
     CreateCreatorCam()
     CreatorMenuThread()
