@@ -95,6 +95,7 @@ local AllEvents = {
     "core:ChangeDoorStatus",
     "core:ChangeDoubleDoorStatus",
     "core:SetVehStatus",
+    "core:SetVehStatusLSPD",
 }
 
 

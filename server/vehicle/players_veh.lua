@@ -52,6 +52,21 @@ AddEventHandler("core:SetVehStatus", function(token, _plate, id)
     TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
 end)
 
+RegisterNetEvent("core:SetVehStatusLSPD")
+AddEventHandler("core:SetVehStatusLSPD", function(token, _plate, id)
+    if not exports.rFramework:CheckToken(token, source, "SetVehStatus") then return end
+    local id = GetPlayerIdentifier(source, 1)
+    if PlayersVehCache[id] == nil then GetPVehsToCache() end
+    for k,v in pairs(PlayersVehCache[id]) do
+        if v.plate == _plate then
+            PlayersVehCache[id][k].ranger = false
+            PlayersVehCache[id][k].NetID = id
+            PlayersVehCache[id][k].lspd = true
+        end
+    end
+
+    TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
+end)
 
 local NumberCharset = {}
 local Charset = {}
