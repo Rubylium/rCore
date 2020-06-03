@@ -49,6 +49,7 @@ end
 
 function OpenVehicleChest()
     if open then return end
+    if pVeh ~= 0 then RageUI.Popup({message = "~r~Action impossible\n~w~Tu ne peux pas regarder le coffre dans le véhicule."}) return end
     local pCoords = GetEntityCoords(pPed)
     local vehicle, dstV = rUtils.GetClosestVehicle(pCoords)
     local locked = GetVehicleDoorLockStatus(vehicle)
