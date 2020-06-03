@@ -29,18 +29,35 @@ Citizen.CreateThread(function()
     pPed = GetPlayerPed(-1)
     pVeh = GetVehiclePedIsIn(pPed, 0)
     pVehLast = GetVehiclePedIsIn(pPed, 1)
-    
+
+
+    local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 0.0, 10.0)
+
+    local spawnCam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 0)
+        
+    SetCamActive(spawnCam, 1)
+    SetCamCoord(spawnCam, pos.x, pos.y, pos.z)
+    SetCamFov(spawnCam, 150.0)
+    PointCamAtCoord(spawnCam, GetEntityCoords(GetPlayerPed(-1)))
+
+    RenderScriptCams(1, 0, 1000, 0, 0)
 
     while not pLoaded do
         Wait(1)
         RageUI.Text({message = "Chargement de ton personnange ..."})
         DisableAllControlActions(1)
+
+        local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 0.0, 10.0)
+        SetCamCoord(spawnCam, pos.x, pos.y, pos.z)
+        PointCamAtCoord(spawnCam, GetEntityCoords(GetPlayerPed(-1)))
     end
+
+    RenderScriptCams(0, 1, 3500, 0, 0)
+    SetCamActive(spawnCam, 0)
 
     SendNUIMessage({ 
 		logo = true
     })
-    print("Sended NUI message")
 
     while true do
         pPed = GetPlayerPed(-1)
