@@ -68,8 +68,16 @@ function StartSportAction(data)
                 return 
             end
         end
-        SetEntityCoordsNoOffset(pPed, data.pos, 0.0, 0.0, 0.0)
-        SetEntityHeading(pPed, data.heading)
+       --SetEntityCoordsNoOffset(pPed, data.pos, 0.0, 0.0, 0.0)
+       --SetEntityHeading(pPed, data.heading)
+
+        if not IsEntityAtCoord(pPed, data.pos, 0.1, 0.1, 0.1, false, true, 0) then
+            TaskGoStraightToCoord(pPed, data.pos, 1.0, 20000, data.heading, 0.1)
+            while not IsEntityAtCoord(pPed, data.pos, 0.1, 0.1, 0.1, false, true, 0) do
+                Citizen.Wait(2000)
+            end
+        end
+        Wait(1000)
     end
     TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
     Citizen.CreateThread(function()
@@ -78,25 +86,30 @@ function StartSportAction(data)
             if IsControlPressed(1, 73) then
                 StillWant = false
                 ClearPedTasksImmediately(pPed)
+                --ClearPedTasks(pPed)
                 UpdatePresence("default")
             end
             Wait(1)
         end
     end)
 
-    while StillWant do
-        if oldTime + 3500 < GetGameTimer() then
-            oldTime = GetGameTimer()
-            if not IsPedActiveInScenario(pPed) then
-                Wait(1000)
+    Citizen.CreateThread(function()
+        while StillWant do
+            Wait(500)
+            if oldTime + 3500 < GetGameTimer() then
+                oldTime = GetGameTimer()
                 if not IsPedActiveInScenario(pPed) then
-                    TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
+                    Wait(5000)
+                    if not IsPedActiveInScenario(pPed) then
+                        print("Restarted")
+                        TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
+                    end
                 end
+                UpdatePresence("sport")
+                AddStat(data.stat, data.add, data.label)
             end
-            UpdatePresence("sport")
-            AddStat(data.stat, data.add, data.label)
+            Wait(0)
         end
-
-        Wait(0)
-    end
+        ClearPedTasks(pPed)
+    end)
 end
