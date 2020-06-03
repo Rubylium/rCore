@@ -5,11 +5,9 @@ local phoneModel = "prop_phone_proto"
 
 
 function newPhoneProp()
-    print("Creating phone")
     deletePhone()
     rUtils.LoadModel(phoneModel)
     phoneProp = CreateObject(GetHashKey(phoneModel), 1.0, 1.0, 1.0, 1, 1, 0)
-    print("Creating phone prop")
 	local bone = GetPedBoneIndex(pPed, 28422)
 	AttachEntityToEntity(phoneProp, pPed, bone, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 0, 0, 2, 1)
 end
@@ -30,7 +28,8 @@ RMenu:Get('core', 'veh_list').Closed = function()
     open = false
 end
 
-function OpenVehMenu()
+function OpenVehMenu(out)
+    print(out)
     if open then return end
     TriggerServerEvent("core:GetPlayersVehicle", token)
     open = true
@@ -42,39 +41,76 @@ function OpenVehMenu()
         while open do
             Wait(1)
             RageUI.IsVisible(RMenu:Get('core', 'veh_list'), false, false, false, function()
-                for k,v in pairs(pVehs) do
-                    local props = v.props
-                    local name = GetDisplayNameFromVehicleModel(props.model)
-                    RageUI.ButtonWithStyle(name, nil, { RightLabel = "~g~500$" }, true, function(_,_,s)
-                        if s then
-                            rUtils.PlayAnim("cellphone@", "cellphone_call_listen_base", 50)
-                            rUtils.ShowAdvancedNotification("MECANO", "~b~Mécano personnel", "Yo! Tu veux que je te livre ton/ta "..name.." ? Ouais je te fais ça. Attends un peu là où tu es !", "CHAR_LS_CUSTOMS", 1, 0, 0)
-                            Wait(10*1000)
-                            rUtils.PlayAnim("cellphone@", "cellphone_text_in", 50)
-                            local pCoords = GetEntityCoords(pPed)
-                            local found, pos, heading = GetClosestVehicleNodeWithHeading(pCoords.x+math.random(10,30), pCoords.y-math.random(10,30), pCoords.z, 0, 3.0, 0)
-                            while not rUtils.IsSpawnPointClear(pos, 6.0) do
-                                found, pos, heading = GetClosestVehicleNodeWithHeading(pCoords.x+math.random(10,30), pCoords.y-math.random(10,30), pCoords.z, 0, 3.0, 0)
-                            end
-                            rUtils.SpawnVehicle(name, pos, heading, props, function(veh)
-                                local veh = AddBlipForEntity(veh)
-                                SetBlipScale(veh, 0.50)
-                                SetBlipSprite(veh, 225)
-                                DecorSetBool(veh, "OWNED_VEH", true)
-                            end)
-                            exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
-                                if status then
-                                    RageUI.Popup({message = "Vous avez sortie les clé de votre véhicule."})
-                                    exports.rFramework:TriggerServerCallback('core:GetKeysBack', function(keys)
-                                        pKeys = keys
-                                    end, token)
-                                else
-                                    RageUI.Popup({message = "Vous avez déja les clé de se véhicule."})
+                if out == nil then
+                    for k,v in pairs(pVehs) do
+                        local props = v.props
+                        local name = GetDisplayNameFromVehicleModel(props.model)
+                        RageUI.ButtonWithStyle(name, nil, { RightLabel = "~g~500$" }, true, function(_,_,s)
+                            if s then
+                                TriggerServerEvent("rF:RemoveMoney", token, 500)
+                                rUtils.PlayAnim("cellphone@", "cellphone_call_listen_base", 50)
+                                rUtils.ShowAdvancedNotification("MECANO", "~b~Mécano personnel", "Yo! Tu veux que je te livre ton/ta "..name.." ? Ouais je te fais ça. Attends un peu là où tu es !", "CHAR_LS_CUSTOMS", 1, 0, 0)
+                                Wait(10*1000)
+                                rUtils.PlayAnim("cellphone@", "cellphone_text_in", 50)
+                                local pCoords = GetEntityCoords(pPed)
+                                local found, pos, heading = GetClosestVehicleNodeWithHeading(pCoords.x+math.random(10,30), pCoords.y-math.random(10,30), pCoords.z, 0, 3.0, 0)
+                                while not rUtils.IsSpawnPointClear(pos, 6.0) do
+                                    found, pos, heading = GetClosestVehicleNodeWithHeading(pCoords.x+math.random(10,30), pCoords.y-math.random(10,30), pCoords.z, 0, 3.0, 0)
                                 end
-                            end, props.plate)
-                            
+                                rUtils.SpawnVehicle(name, pos, heading, props, function(veh)
+                                    local veh = AddBlipForEntity(veh)
+                                    SetBlipScale(veh, 0.50)
+                                    SetBlipSprite(veh, 225)
+                                    DecorSetBool(veh, "OWNED_VEH", true)
+                                end)
+                                exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
+                                    if status then
+                                        RageUI.Popup({message = "Vous avez sortie les clé de votre véhicule."})
+                                        exports.rFramework:TriggerServerCallback('core:GetKeysBack', function(keys)
+                                            pKeys = keys
+                                        end, token)
+                                    else
+                                        RageUI.Popup({message = "Vous avez déja les clé de se véhicule."})
+                                    end
+                                end, props.plate)
+
+                            end
+                        end)
+                    end
+                else
+                    for k,v in pairs(pVehs) do
+                        local props = v.props
+                        local name = GetDisplayNameFromVehicleModel(props.model)
+                        if v.lspd then
+                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~r~SAISIE LSPD" }, true, function(_,_,s)
+                            end)
+                        elseif not v.ranger then
+                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~r~Véhicule sortie / en fourrière" }, true, function(_,_,s)
+                            end)
+                        else
+                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~g~Ranger" }, true, function(_,_,s)
+                                if s then
+                                    local pos, heading = rUtils.GetZoneFromTable(out)
+
+                                    rUtils.SpawnVehicle(name, pos, heading, props, function(veh)
+                                        exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
+                                            if status then
+                                                RageUI.Popup({message = "Vous avez sortie les clé de votre véhicule."})
+                                                exports.rFramework:TriggerServerCallback('core:GetKeysBack', function(keys)
+                                                    pKeys = keys
+                                                end, token)
+                                            else
+                                                RageUI.Popup({message = "Vous avez déja les clé de se véhicule."})
+                                            end
+                                            TriggerServerEvent("core:SetVehStatus", token, props.plate, VehToNet(veh))
+                                        end, props.plate)
+                                    end)
+
+                                
+                                end
+                            end)
                         end
-                    end)
+                    end
                 end
                 
             end, function()
