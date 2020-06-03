@@ -5,7 +5,7 @@ RegisterNetEvent("core:GetPlayersVehicle")
 AddEventHandler("core:GetPlayersVehicle", function(token)
     if not exports.rFramework:CheckToken(token, source, "GetPlayersVehicle") then return end
     local source = source
-    local id = GetPlayerIdentifier(source, 1)
+    local id = GetLicense(source)
     if PlayersVehCache[id] ~= nil then
         TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
         return
@@ -40,7 +40,7 @@ end)
 RegisterNetEvent("core:SetVehStatus")
 AddEventHandler("core:SetVehStatus", function(token, _plate, id)
     if not exports.rFramework:CheckToken(token, source, "SetVehStatus") then return end
-    local id = GetPlayerIdentifier(source, 1)
+    local id = GetLicense(source)
     if PlayersVehCache[id] == nil then GetPVehsToCache() end
     for k,v in pairs(PlayersVehCache[id]) do
         if v.plate == _plate then
@@ -55,7 +55,7 @@ end)
 RegisterNetEvent("core:SetVehStatusLSPD")
 AddEventHandler("core:SetVehStatusLSPD", function(token, _plate, id)
     if not exports.rFramework:CheckToken(token, source, "SetVehStatus") then return end
-    local id = GetPlayerIdentifier(source, 1)
+    local id = GetLicense(source)
     if PlayersVehCache[id] == nil then GetPVehsToCache() end
     for k,v in pairs(PlayersVehCache[id]) do
         if v.plate == _plate then
@@ -135,7 +135,7 @@ RegisterNetEvent("core:SaveVehToGarage")
 AddEventHandler("core:SaveVehToGarage", function(token, _id, name, plate, props)
     if exports.rFramework:GetPlayerJob(source) ~= "concessionnaire" then exports.rFramework:AddPlayerLog(source, "Give de vehicule", 5) end
     if not exports.rFramework:CheckToken(token, source, "SaveVehToGarage") then return end
-    local id = GetPlayerIdentifier(_id, 1)
+    local id = GetLicense(_id)
     local vprops = json.encode(props)
     MySQL.Async.execute('INSERT INTO `player_vehs` VALUES (@owner, @plate, @model, @props)', {
         ["@owner"] = id,
@@ -154,10 +154,10 @@ AddEventHandler("core:SaveVehToGarage", function(token, _id, name, plate, props)
 end)
 
 
-RegisterNetEvent("core:DEV-SaveVehToGarage")
-AddEventHandler("core:DEV-SaveVehToGarage", function(token, name, plate, props)
-    if not exports.rFramework:CheckToken(token, source, "DEV-SaveVehToGarage") then return end
-    local id = GetPlayerIdentifier(source, 1)
+RegisterNetEvent("core:GetBackToGarage")
+AddEventHandler("core:GetBackToGarage", function(token, name, plate, props, net)
+    if not exports.rFramework:CheckToken(token, source, "GetBackToGarage") then return end
+    local id = GetLicense(source)
     local vprops = json.encode(props)
 
     for k,v in pairs(PlayersVehCache[id]) do
@@ -170,16 +170,16 @@ AddEventHandler("core:DEV-SaveVehToGarage", function(token, name, plate, props)
                         ["@plate"] = plate,
                     }, function(rowsChanged) end)  
                     print("^2UPDATING ^7Vehs props for veh "..plate..".")
-                    table.insert(PlayersVehCache[id], {
-                        plate = plate,
-                        props = vprops, 
-                        ranger = v.ranger, 
-                        NetID = v.NetID
-                    })
-                    table.remove(PlayersVehCache[id], k)
-                    
+                    for k,v in pairs(PlayersVehCache[id]) do
+                        if v.plate == _plate then
+                            PlayersVehCache[id][k].props = vprops
+                        end
+                    end
+                    DeleteEntityYes(net)
+                    TriggerClientEvent("rF:notification", source, "~w~Véhicule ranger\n~o~Utilisé le garage pour réparer vos véhicule est passible d'un ban.")
+                    TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
                 else
-                    -- Anti cheat detection
+                    exports.rFramework:AddPlayerLog(source, "Garage: Modèle différent de l'original (Cheat Engine)", 5)
                 end
             else
                 print("^2UPDATING NOT NEEDED ^7Vehs props for veh "..plate..".")
@@ -187,19 +187,5 @@ AddEventHandler("core:DEV-SaveVehToGarage", function(token, name, plate, props)
             return
         end
     end
-
-
-    MySQL.Async.execute('INSERT INTO `player_vehs` VALUES (@owner, @plate, @model, @props)', {
-        ["@owner"] = id,
-        ["@plate"] = plate,
-        ["@model"] = name,
-        ["@props"] = vprops,
-    }, function(rowsChanged) end)
-    table.insert(PlayersVehCache[id], {
-        plate = plate,
-        props = vprops, 
-        ranger = true, 
-        NetID = nil
-    })
-    print("^1RESETING ^7Vehs cache for player "..source.." for refresh.")
+    TriggerClientEvent("rF:notification", source, "~r~Action impossible.\n~w~Ce véhicule n'est pas le tien.")
 end)
