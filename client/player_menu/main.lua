@@ -361,6 +361,16 @@ function OpenPlayerMenu()
                     end
                 end)
 
+                RageUI.ButtonWithStyle("[DEBUG] Fix coffre", "Si un coffre de véhicule est bug, cette option permet de le fix.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                    if Active then 
+                        ClosetVehWithDisplay() 
+                    end
+                    if Selected then
+                        local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
+                        DecorRemove(veh, "TRUCK_OPEN")
+                    end
+                end)
+
                 RageUI.Button("Activer les nom", nil, true, function(_,_,s)
                     if s then
                         ShowNames()
