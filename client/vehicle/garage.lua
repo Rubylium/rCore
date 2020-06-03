@@ -26,6 +26,24 @@ Citizen.CreateThread(function()
                 OpenVehMenu(data)  
             end,
         },
+
+        {
+            pos = vector3(-1511.829, 4961.771, 61.8139),
+            data = {
+                {pos = vector3(-1521.875, 4955.539, 61.44278),heading = 236.18853759766,},
+                {pos = vector3(-1524.705, 4952.645, 61.37847),heading = 234.06101989746,},
+                {pos = vector3(-1527.953, 4950.425, 61.26377),heading = 232.99052429199,},
+                {pos = vector3(-1531.526, 4947.739, 61.10568),heading = 233.94631958008,},
+                {pos = vector3(-1533.839, 4944.537, 60.97757),heading = 231.0809173584,},
+                {pos = vector3(-1537.275, 4941.808, 61.00565),heading = 230.04730224609,},
+                {pos = vector3(-1539.895, 4939.232, 60.99895),heading = 231.5407409668,},
+                {pos = vector3(-1542.105, 4936.488, 60.95233),heading = 230.22734069824,},
+                {pos = vector3(-1544.707, 4933.545, 60.90494),heading = 230.71360778809,},
+            },
+            action = function(data)
+                OpenVehMenu(data)  
+            end,
+        },
     }
 
     for k,v in pairs(garages) do
