@@ -81,6 +81,13 @@ function CreatorMenuThread()
         while DisplayMenu do
             local open = false
 
+            for v in EnumeratePeds() do
+                if v ~= GetPlayerPed(-1) then
+                    SetEntityAlpha(v, 0, 0)
+                    SetEntityNoCollisionEntity(pPed, v, false)
+                end
+            end
+
             RageUI.Text({message = "Utilisé la touche ESPACE pour tourner votre personnange."})
 
             if IsControlJustReleased(1, 22) then
@@ -318,12 +325,7 @@ function CreatorMenuThread()
 
             end)
 
-
-            if open then
-                Wait(1)
-            else
-                Wait(500)
-            end
+            Wait(1)
         end
     end)
 end
