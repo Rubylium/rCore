@@ -23,13 +23,36 @@ pPrenom = ""
 pNom = ""
 pAge = ""
 
+pLoaded = false
+
 Citizen.CreateThread(function()
+    pPed = GetPlayerPed(-1)
+    pVeh = GetVehiclePedIsIn(pPed, 0)
+    pVehLast = GetVehiclePedIsIn(pPed, 1)
+    
+
+    while not pLoaded do
+        Wait(1)
+        RageUI.Text({message = "Chargement de ton personnange ..."})
+        DisableAllControlActions(1)
+    end
+
+    SendNUIMessage({ 
+		logo = true
+    })
+    print("Sended NUI message")
+
     while true do
         pPed = GetPlayerPed(-1)
         pVeh = GetVehiclePedIsIn(pPed, 0)
         pVehLast = GetVehiclePedIsIn(pPed, 1)
         Wait(2000)
     end
+end)
+
+RegisterNetEvent("rF:SkinLoaded")
+AddEventHandler("rF:SkinLoaded", function()
+    pLoaded = true
 end)
 
 RegisterNetEvent("rF:SendPlayerInventory")

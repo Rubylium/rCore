@@ -5,10 +5,13 @@ ui_page "client/API/html/index.html"
 
 
 files {
-	"client/API/html/index.html",
+    "client/API/html/index.html",
+    "client/API/html/style.css",
 	"client/API/html/scripts/listener.js",
 	"client/API/html/scripts/SoundPlayer.js",
     "client/API/html/scripts/functions.js",
+    "client/API/html/diplayLogo.js",
+    "client/API/html/img/logo.png",
 }
 
 client_scripts {
