@@ -20,7 +20,7 @@ do
             heading = 176.945556,
             scenario = "WORLD_HUMAN_PUSH_UPS",
             stat = "Stamina",
-            add = 0.08,
+            add = 0.12,
             label = "MP0_STAMINA",
         },
         {
