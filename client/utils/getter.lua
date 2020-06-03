@@ -30,14 +30,14 @@ Citizen.CreateThread(function()
     pVeh = GetVehiclePedIsIn(pPed, 0)
     pVehLast = GetVehiclePedIsIn(pPed, 1)
 
-
-    local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 0.0, 10.0)
+    StartAudioScene("MP_LEADERBOARD_SCENE")
+    local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -0.5, 10.0)
 
     local spawnCam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 0)
         
     SetCamActive(spawnCam, 1)
     SetCamCoord(spawnCam, pos.x, pos.y, pos.z)
-    SetCamFov(spawnCam, 150.0)
+    SetCamFov(spawnCam, 60.0)
     PointCamAtCoord(spawnCam, GetEntityCoords(GetPlayerPed(-1)))
 
     RenderScriptCams(1, 0, 1000, 0, 0)
@@ -47,7 +47,7 @@ Citizen.CreateThread(function()
         RageUI.Text({message = "Chargement de ton personnange ..."})
         DisableAllControlActions(1)
 
-        local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 0.0, 10.0)
+        local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -0.5, 10.0)
         SetCamCoord(spawnCam, pos.x, pos.y, pos.z)
         PointCamAtCoord(spawnCam, GetEntityCoords(GetPlayerPed(-1)))
     end
@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
     SendNUIMessage({ 
 		logo = true
     })
-
+    StopAudioScenes()
     while true do
         pPed = GetPlayerPed(-1)
         pVeh = GetVehiclePedIsIn(pPed, 0)
