@@ -94,6 +94,7 @@ local AllEvents = {
     "core:GetWeather",
     "core:ChangeDoorStatus",
     "core:ChangeDoubleDoorStatus",
+    "core:SetVehStatus",
 }
 
 
