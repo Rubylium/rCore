@@ -709,7 +709,6 @@ function rUtils.GetPlayersInScope()
 	local active = GetActivePlayers()
 	for k,v in pairs(active) do
 		table.insert(players, GetPlayerServerId(v))
-		print(GetPlayerServerId(v))
 	end
 	return players
 end
