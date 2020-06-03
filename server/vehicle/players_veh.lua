@@ -171,8 +171,10 @@ AddEventHandler("core:GetBackToGarage", function(token, name, plate, props, net)
                     }, function(rowsChanged) end)  
                     print("^2UPDATING ^7Vehs props for veh "..plate..".")
                     for k,v in pairs(PlayersVehCache[id]) do
-                        if v.plate == _plate then
+                        if v.plate == plate then
                             PlayersVehCache[id][k].props = vprops
+                            PlayersVehCache[id][k].ranger = true
+                            print(PlayersVehCache[id][k].ranger)
                         end
                     end
                     DeleteEntityYes(net)
@@ -182,6 +184,11 @@ AddEventHandler("core:GetBackToGarage", function(token, name, plate, props, net)
                     exports.rFramework:AddPlayerLog(source, "Garage: Modèle différent de l'original (Cheat Engine)", 5)
                 end
             else
+                for k,v in pairs(PlayersVehCache[id]) do
+                    if v.plate == plate then
+                        PlayersVehCache[id][k].ranger = true
+                    end
+                end
                 print("^2UPDATING NOT NEEDED ^7Vehs props for veh "..plate..".")
             end
             return
