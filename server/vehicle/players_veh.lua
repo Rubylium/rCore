@@ -22,7 +22,8 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
                 plate = info[i].plate,
                 props = info[i].props, 
                 ranger = true, 
-                NetID = nil
+                NetID = nil,
+                lspd = false,
             })
             print("^2Added ^7["..info[i].plate.."] to ["..source.."] vehicles cache.")
         end
@@ -34,6 +35,21 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
         
     end
     return {}
+end)
+
+RegisterNetEvent("core:SetVehStatus")
+AddEventHandler("core:SetVehStatus", function(token, _plate, id)
+    if not exports.rFramework:CheckToken(token, source, "SetVehStatus") then return end
+    local id = GetPlayerIdentifier(source, 1)
+    if PlayersVehCache[id] == nil then GetPVehsToCache() end
+    for k,v in pairs(PlayersVehCache[id]) do
+        if v.plate == _plate then
+            PlayersVehCache[id][k].ranger = false
+            PlayersVehCache[id][k].NetID = id
+        end
+    end
+
+    TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
 end)
 
 
