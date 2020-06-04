@@ -33,7 +33,6 @@ local dict = "random@dealgonewrong"
 local anim = "idle_a"
 function SyncDeathWithPlayers()
     StartAudioScene("DEATH_SCENE")
-    Wait(5000)
     FatalInjured = false
     DidCall = false
     RageUI.CloseAll()
