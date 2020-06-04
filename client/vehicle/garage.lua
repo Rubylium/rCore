@@ -3,7 +3,6 @@
 
 
 Citizen.CreateThread(function()
-    while not pCallBack do Wait(100) end
     local garages = {
         {
             pos = vector3(120.6806, 6622.774, 31.96991),
