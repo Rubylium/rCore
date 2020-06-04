@@ -154,6 +154,23 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+
+    { -- Fédéral
+        model = "s_m_y_sheriff_01",
+        pos = vector3(1852.38, 2582.48, 45.67201),
+        heading = 283.0083,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenTigeSheriffMenu()
+        end,
+        scenario = "WORLD_HUMAN_GUARD_STAND",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 
