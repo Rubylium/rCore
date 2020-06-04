@@ -43,7 +43,7 @@ for k,v in pairs(FaceCustom) do
     end;
 end
 
-RMenu.Add('core', 'skincreator_model', RageUI.CreateSubMenu(RMenu:Get('core', 'skincreator_skin'), "Création personnage", "~b~Menu de création de votre personnage."))
+RMenu.Add('core', 'skincreator_model', RageUI.CreateSubMenu(RMenu:Get('core', 'skincreator_identity'), "Création personnage", "~b~Menu de création de votre personnage."))
 
 
 
@@ -166,8 +166,7 @@ function CreatorMenuThread()
 
             RageUI.IsVisible(RMenu:Get('core', 'skincreator_skin'), true, true, true, function()
                 open = true
-                RageUI.ButtonWithStyle("Model", nil, { RightLabel = "→→" }, true, function()
-                end, RMenu:Get('core', "skincreator_model"))
+                
                 for k,v in pairs(values) do
                     RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→" }, not usingVipPed, function(_,_,s)
                         if s then
@@ -320,6 +319,9 @@ function CreatorMenuThread()
                         end
                     end) 
                 end
+
+                RageUI.ButtonWithStyle("Model", nil, { RightLabel = "→→" }, true, function()
+                end, RMenu:Get('core', "skincreator_model"))
 
             end, function()
 
