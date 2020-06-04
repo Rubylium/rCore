@@ -87,6 +87,11 @@ function LoadEmsData()
         cloths = EmsCloths
     })
 
+    rUtils.RegisterClothZone({
+        pos = vector3(1839.425, 3689.417, 34.26999),
+        cloths = EmsCloths
+    })
+
     rUtils.RegisterGarageZone({
         pos = vector3(388.43, -1437.7, 29.43),
         spawns = {
@@ -96,7 +101,25 @@ function LoadEmsData()
         },
         vehs = {
             {spawn = "ambulance", nom = "Ambulance"},
-            {spawn = "lguard", nom = "Vehicule de surveillance de plage."},
+            {spawn = "amr_tahoe", nom = "Tahoe"},
+            {spawn = "amr_explorer", nom = "Ford explorer"},
+        },
+    })
+
+    rUtils.RegisterGarageZone({
+        pos = vector3(1836.345, 3668.639, 33.67728),
+        spawns = {
+            {pos = vector3(1835.307, 3664.604, 33.39608),heading = 207.92176818848,},
+            {pos = vector3(1832.136, 3662.375, 33.48361),heading = 209.99505615234,},
+            {pos = vector3(1828.572, 3660.38, 33.55021),heading = 211.38792419434,},
+            {pos = vector3(1826.096, 3658.378, 33.64085),heading = 208.03826904297,},
+            {pos = vector3(1822.809, 3656.311, 33.73044),heading = 210.90557861328,},
+            {pos = vector3(1819.472, 3654.985, 33.78831),heading = 210.78768920898,},
+        },
+        vehs = {
+            {spawn = "ambulance", nom = "Ambulance"},
+            {spawn = "amr_tahoe", nom = "Tahoe"},
+            {spawn = "amr_explorer", nom = "Ford explorer"},
         },
     })
 
@@ -104,6 +127,13 @@ function LoadEmsData()
 
     rUtils.RegisterActionZone({
         pos = vector3(360.5, -1425.9, 32.5),
+        action = function()
+            OpenSocietyInvMenu()
+        end,
+    })
+
+    rUtils.RegisterActionZone({
+        pos = vector3(1822.56, 3676.507, 34.27003),
         action = function()
             OpenSocietyInvMenu()
         end,
