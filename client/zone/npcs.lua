@@ -73,6 +73,22 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+    { -- tige
+        model = "csb_prolsec",
+        pos = vector3(217.7209, -875.269, 30.49209),
+        heading = 297.4478759,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            OpenTigeLspdMenu()
+        end,
+        scenario = "WORLD_HUMAN_SECURITY_SHINE_TORCH",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 
@@ -91,6 +107,9 @@ Citizen.CreateThread(function()
                     FreezeEntityPosition(v.entity, true)
                     if v.haveAction then
                         table.insert(ActiveNpcs, {pos=v.pos, action=v.action, offset=v.camOffset, ped=v.entity, cam=v.camCoords})
+                    end
+                    if v.scenario ~= nil then
+                        TaskStartScenarioInPlace(v.entity, v.scenario, -1, true)
                     end
                 end
             else
