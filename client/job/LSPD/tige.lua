@@ -1,3 +1,4 @@
+local DoingTig = false
 local CountToDo = 10
 local actions = {}
 local men = GetHashKey("mp_m_freemode_01")
@@ -5,6 +6,7 @@ local women = GetHashKey("mp_f_freemode_01")
 
 RegisterNetEvent("core:DoTig")
 AddEventHandler("core:DoTig", function(count, _actions)
+    if DoingTig then return end
     CountToDo = count
     actions = _actions
     DoTig()
@@ -13,6 +15,7 @@ end)
 
 
 function DoTig()
+    DoingTig = true
     RageUI.Popup({message = "Tu as été placé en travaux forcé!"})
 
     if GetEntityModel(pPed) == men then
@@ -67,6 +70,7 @@ function DoTig()
         Wait(100)
     end
 
+    DoingTig = false
     exports.rFramework:ReloadPlayerCloth()
     PlaySoundFrontend(-1, "Object_Collect_Player", "GTAO_FM_Events_Soundset", 0)
     RageUI.Popup({message = "Tu as terminé tes travaux forcés, tu es libre. Ne fait plus de bêtise gamin!"})
