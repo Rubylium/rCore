@@ -230,6 +230,34 @@ function LoadSheriffData()
     })
 
 
+    rUtils.RegisterGarageZone({
+        pos = vector3(1852.38, 2582.48, 45.67201),
+        spawns = {
+            {pos = vector3(1869.895, 2588.065, 45.32121),heading = 270.01541137695,},
+            {pos = vector3(1869.453, 2595.197, 45.32204),heading = 269.41647338867,},
+            {pos = vector3(1869.804, 2591.907, 45.32176),heading = 271.71368408203,},
+            {pos = vector3(1869.652, 2585.029, 45.3231),heading = 270.74780273438,},
+            {pos = vector3(1869.438, 2581.495, 45.32159),heading = 270.42358398438,},
+            {pos = vector3(1869.596, 2577.959, 45.32259),heading = 270.42044067383,},
+            {pos = vector3(1869.176, 2574.319, 45.32188),heading = 269.66204833984,},
+            {pos = vector3(1869.753, 2570.843, 45.3217),heading = 270.40325927734,},
+            {pos = vector3(1855.029, 2570.768, 45.32201),heading = 270.34411621094,},
+            {pos = vector3(1855.214, 2575.116, 45.32134),heading = 270.45751953125,},
+            {pos = vector3(1855.356, 2578.79, 45.32262),heading = 271.75296020508,},
+        },
+        vehs = {
+            {spawn = "leo5", nom = "SUV #1"},
+            {spawn = "leo2", nom = "SUV #2"},
+            {spawn = "leo3", nom = "SUV #3"},
+            {spawn = "leo7", nom = "SUV #4"},
+            {spawn = "leo8", nom = "SUV #5"},
+            {spawn = "leo1", nom = "SEDAN #1"},
+            {spawn = "leo4", nom = "SEDAN #2"},
+            {spawn = "leo6", nom = "SEDAN #3"},
+        },
+    })
+
+
     rUtils.RegisterActionZone({
         pos = vector3(-438.7426, 6010.567, 27.98562),
         action = function()
