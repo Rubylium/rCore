@@ -91,7 +91,7 @@ local npcs = {
     },
 
     { -- tige
-        model = "s_f_y_sheriff_01",
+        model = "s_m_y_sheriff_01",
         pos = vector3(2037.124, 3179.599, 45.2277),
         heading = 183.38591,
         haveAction = true,
