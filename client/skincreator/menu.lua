@@ -186,6 +186,7 @@ function CreatorMenuThread()
                         if s then
                             TriggerEvent("skinchanger:change", "sex", v.model)
                             TriggerEvent("rF:SaveSkin", v.item, i)
+                            TriggerEvent("skinchanger:change", "glasses_1", 0)
                             values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                             if v.vip == true then
                                 usingVipPed = true
