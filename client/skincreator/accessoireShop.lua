@@ -25,13 +25,14 @@ function GetAccessoireValues()
     local accessorie = {
 		{price = 6,label = "Chaine", 				item = "chain_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 7) - 1,								min = 0,},
 		{price = 35,label = "Sac", 					item = "bags_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 5) - 1,								min = 0,},
-		{price = 13,label = "Casque", 				item = "helmet_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 0) - 1,							min = -1,},
+        {price = 13,label = "Chapeau",o="helmet_2", item = "helmet_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 0) - 1,							min = -1,},
+        {price = 0,label = "Variante chapeau",      o="helmet_1",           item = "helmet_2", c=0, min = 0, color = true},
 		{price = 20,label = "Lunettes", 			item = "glasses_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = 0,},
 		{price = 15,label = "Montre", 				item = "watches_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 6) - 1,							min = -1,},
 		{price = 9,label = "Bracelet", 				item = "bracelets_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 7) - 1,							min = -1,},
 		{price = 13,label = "Accessoire oreilles", 	item = "ears_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = -1,},
-		{price = 24,label = "Masque",o="mask_2",item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
-        {price = 3,label = "Variante masque",o="mask_1",item = "mask_2",c=1,max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 1, GetPedTextureVariation(GetPlayerPed(-1), 1)) - 1,			min = 0,},
+		{price = 24,label = "Masque",o="mask_2",    item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
+        {price = 3,label = "Variante masque",       o="mask_1",             item = "mask_2", c=1, min = 0, color = true},
         --{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
 		--{label = "gilet pare-balle 2", 		item = "bproof_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
     }
@@ -83,9 +84,9 @@ function OpenAccessoireShopThread()
             Wait(1)
 
             if IsControlJustReleased(1, 22) then
-                ClearPedTasks(GetPlayerPed(-1))
-                local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
-                TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
+                ClearPedTasks(pPed)
+                local coords = GetOffsetFromEntityInWorldCoords(pPed, 0.0, -5.0, 0.0)
+                TaskTurnPedToFaceCoord(pPed, coords, 3000)
             end
 
             RageUI.IsVisible(RMenu:Get('core', 'accesShop'), true, true, true, function()
@@ -93,7 +94,7 @@ function OpenAccessoireShopThread()
                     RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→→" }, true, function(_,_,s)
                         if s then
                             SwitchCam(false, v.item)
-                            ClearPedTasks(GetPlayerPed(-1))
+                            ClearPedTasks(pPed)
                         end
                     end, RMenu:Get('core', v.item.."1"))
                 end
@@ -122,10 +123,9 @@ function OpenAccessoireShopThread()
                                end
                             end) 
                         end
-                    elseif v.item == "mask_2" then
-
+                    elseif v.item == "helmet_2" then
                         local value = exports.rFramework:GetKeyValue(v.o)
-                        for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
+                        for i = v.min, 5 do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
                             RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
                                if s then
@@ -134,6 +134,27 @@ function OpenAccessoireShopThread()
                                    TriggerServerEvent("rF:RemoveMoney", token, v.price)
                                end
                                if h then
+                                    print(v.item, value, GetNumberOfPedTextureVariations(pPed, v.c, value), v.o, v.c, v.min)
+                                    if NotSpamming[k] ~= i then
+                                       TriggerEvent("skinchanger:change", v.item, i)
+                                       NotSpamming[k] = i
+                                    end
+                               end
+                            end) 
+                        end
+                    elseif v.color ~= nil then
+
+                        local value = exports.rFramework:GetKeyValue(v.o)
+                        for i = v.min, GetNumberOfPedTextureVariations(pPed, v.c, value) - 1 do
+                            if NotSpamming[k] == nil then NotSpamming[k] = i end
+                            RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
+                               if s then
+                                   TriggerEvent("skinchanger:change", v.item, i)
+                                   TriggerEvent("rF:SaveSkin", v.item, i)
+                                   TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                               end
+                               if h then
+                                    print(v.item, value, GetNumberOfPedTextureVariations(pPed, v.c, value), v.o, v.c, v.min)
                                     if NotSpamming[k] ~= i then
                                        TriggerEvent("skinchanger:change", v.item, i)
                                        NotSpamming[k] = i
