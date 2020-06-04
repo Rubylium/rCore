@@ -496,3 +496,136 @@ function LoadSheriffData()
     end
 
 end
+
+
+RMenu.Add('core', 'sheriff_tige', RageUI.CreateMenu("SHERIFF", "~b~Traveaux forcé SHERIFF"))
+local tige = {
+    {
+        titre = "Petits travaux forcés",
+        count = 10,
+    },
+    {
+        titre = "travaux forcés",
+        count = 25,
+    },
+    {
+        titre = "Long travaux forcés",
+        count = 50,
+    },
+}
+
+local tigeAction = {
+    zone = {
+        {pos = vector3(2044.531, 3196.209, 45.18649),heading = 44.096755981445,},
+        {pos = vector3(2061.594, 3191.172, 45.18649),heading = 267.79046630859,},
+        {pos = vector3(2062.081, 3178.18, 45.16893),heading = 219.8528137207,},
+        {pos = vector3(2058.373, 3170.067, 45.36525),heading = 235.52456665039,},
+        {pos = vector3(2050.669, 3172.832, 45.16896),heading = 126.92813110352,},
+        {pos = vector3(2041.207, 3189.751, 45.16899),heading = 81.374366760254,},
+        {pos = vector3(2052.152, 3190.305, 45.18661),heading = 283.36517333984,},
+        {pos = vector3(2057.809, 3196.577, 45.18649),heading = 331.67346191406,},
+    },
+    action = {
+        men = {
+            "WORLD_HUMAN_JANITOR",
+            "WORLD_HUMAN_BUM_WASH",
+        },
+        women = {
+            "WORLD_HUMAN_JANITOR",
+            "WORLD_HUMAN_BUM_WASH",
+        }
+    },
+    pos = vector3(2050.911, 3184.834, 45.16852),
+    cloths = {
+        men = {
+            ["tshirt_1"] = 15,
+            ["tshirt_2"] = 0,
+            ["torso_1"] = 153,
+            ["torso_2"] = 0,
+            ["pants_1"] = 36,
+            ["pants_2"] = 0,
+            ["shoes_1"] = 27,
+            ["shoes_2"] = 0,
+            ["arms"] = 72,
+            ["arms_2"] = 0,
+            ["helmet_1"] = 25,
+            ["helmet_2"] = 0,
+            ["chain_1"] = 0,
+            ["chain_2"] = 0,
+            ["bracelets_1"] = -1,
+            ["bracelets_2"] = 0,
+            ["ears_1"] = -1,
+            ["ears_2"] = 0,
+            ["mask_1"] = 0,
+            ["mask_2"] = 0,
+            ["watches_1"] = -1,
+            ["watches_2"] = 0,
+            ["decals_1"] = 0,
+            ["bags_1"] = 0,
+            ["bproof_1"] = 3,
+            ["bproof_2"] = 0,
+        },
+        women = {
+            ["tshirt_1"] = 16,
+            ["tshirt_2"] = 0,
+            ["torso_1"] = 150,
+            ["torso_2"] = 0,
+            ["pants_1"] = 35,
+            ["pants_2"] = 0,
+            ["shoes_1"] = 26,
+            ["shoes_2"] = 0,
+            ["arms"] = 73,
+            ["arms_2"] = 0,
+            ["helmet_1"] = 53,
+            ["helmet_2"] = 0,
+            ["chain_1"] = 0,
+            ["chain_2"] = 0,
+            ["bracelets_1"] = -1,
+            ["bracelets_2"] = 0,
+            ["ears_1"] = -1,
+            ["ears_2"] = 0,
+            ["mask_1"] = 0,
+            ["mask_2"] = 0,
+            ["watches_1"] = -1,
+            ["watches_2"] = 0,
+            ["decals_1"] = 0,
+            ["bags_1"] = 0,
+            ["bproof_1"] = 5,
+            ["bproof_2"] = 0,
+        }
+    }
+}
+
+function OpenTigeSheriffMenu()
+    if pJob ~= "sheriff" then RageUI.Popup({message = "Désolé, je ne parle qu'avec des agents du BCSO."}) return end
+    open = true
+    RageUI.Visible(RMenu:Get('core', 'sheriff_tige'), not RageUI.Visible(RMenu:Get('core', 'sheriff_tige')))
+    Citizen.CreateThread(function()
+        while open do
+            Wait(1)
+            RageUI.IsVisible(RMenu:Get('core', 'sheriff_tige'), true, true, true, function()
+                for k,v in pairs(tige) do
+                    RageUI.Button(v.titre, "Met la personne la plus proche en "..v.titre, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            --local closet, dst = rUtils.GetClosestPlayer()
+                            --if dst ~= nil and dst < 2.0 then
+                            --    local sID = GetPlayerServerId(closet)
+                            --    --TriggerServerEvent("core:DoTig", token, sID, v.count, tigeAction)
+                                TriggerServerEvent("core:DoTig", token, GetPlayerServerId(GetPlayerIndex()), v.count, tigeAction)
+                            --end
+                        end
+                        if Hovered then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+                end
+
+            end, function()
+                ---Panels
+            end)
+
+            
+
+        end
+    end)
+end
