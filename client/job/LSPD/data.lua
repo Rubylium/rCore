@@ -420,7 +420,6 @@ local tigeAction = {
         },
         women = {
             "WORLD_HUMAN_JANITOR",
-            "WORLD_HUMAN_BUM_WASH",
         }
     },
     pos = vector3(229.4736, -882.8559, 30.4921),
@@ -502,7 +501,7 @@ function OpenTigeLspdMenu()
                                 --TriggerServerEvent("core:DoTig", token, GetPlayerServerId(GetPlayerIndex()), v.count, tigeAction)
                             end
                         end
-                        if Hovered then
+                        if Active then
                             rUtils.DisplayClosetPlayer()
                         end
                     end)

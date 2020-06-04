@@ -48,7 +48,7 @@ function DoTig()
                 RageUI.Popup({message = "Qu'es que tu fait ? Tu à crue que tu pouvais partir comme ça ? Je t'en rajoute 5 !"})
             end
 
-            DrawMarker(1, r.pos.x, r.pos.y, r.pos.z-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.2, 15.0, 255, 255, 255, 170, 0, 1, 2, 0, nil, nil, 0)
+            DrawMarker(1, r.pos.x, r.pos.y, r.pos.z-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.2, 15.0, 255, 0, 0, 170, 0, 1, 2, 0, nil, nil, 0)
             dst = #(pCoords - r.pos)
 
             Wait(1)
@@ -62,7 +62,7 @@ function DoTig()
         else
             r = actions.action.men[math.random(1,#actions.action.men)]
         end
-        TaskStartScenarioInPlace(pPed, r, -1, true)
+        TaskStartScenarioInPlace(pPed, r, -1, false)
         Wait(10*1000)
         ClearPedTasks(pPed)
         count = count + 1
@@ -73,5 +73,5 @@ function DoTig()
     DoingTig = false
     exports.rFramework:ReloadPlayerCloth()
     PlaySoundFrontend(-1, "Object_Collect_Player", "GTAO_FM_Events_Soundset", 0)
-    RageUI.Popup({message = "Tu as terminé tes travaux forcés, tu es libre. Ne fait plus de bêtise gamin!"})
+    RageUI.Popup({message = "Tu as terminé tes travaux forcés, tu es libre. Ne fait plus de bêtises gamin!"})
 end

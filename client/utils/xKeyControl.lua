@@ -8,6 +8,7 @@ end)
 
 
 rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function()
+    print(pJob)
     if IsCuffed then return end
     if pJob == "mecano" then
         OpenMecanoActionMenu()
