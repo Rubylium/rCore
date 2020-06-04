@@ -89,6 +89,22 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+    { -- tige
+        model = "s_f_y_sheriff_01",
+        pos = vector3(2037.124, 3179.599, 45.2277),
+        heading = 183.38591,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            OpenTigeSheriffMenu()
+        end,
+        scenario = "WORLD_HUMAN_GUARD_STAND",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 
