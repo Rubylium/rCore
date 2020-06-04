@@ -123,13 +123,15 @@ function OpenPlayerMenu()
                 RageUI.ButtonWithStyle("Donner", nil, {RightLabel = "📦"}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
-                        local cSid = GetPlayerServerId(ClosetPlayer)
+                        local idJoueur = GetPlayerServerId(ClosetPlayer)
                         if ClosetPlayer ~= -1 then
                             local amount = CustomAmount() 
-                            if amount ~= nil and amount <= selected.count then
-                                TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, cSid, selected.name, amount, selected.label, selected.count)
+                            if amount ~= nil and amount <= selected.count and dst <= 2.0 then
+                                TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, idJoueur, selected.name, amount, selected.label, selected.count)
                                 TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'inventory'), true)
+                            else
+                                RageUI.Popup({message = "Aucune personne proche."})
                             end
                         else
                             RageUI.Popup({message = "Aucune personne proche."})
