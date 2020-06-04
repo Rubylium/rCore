@@ -59,8 +59,9 @@ Citizen.CreateThread(function()
 	end
 end)
 
-rUtils.GetClosestPlayer = function(coords)
+rUtils.GetClosestPlayer = function()
 	local players = GetActivePlayers()
+	local coords = GetEntityCoords(pPed)
 	local pCloset = nil
 	local pClosetPos = nil
 	local pClosetDst = nil
