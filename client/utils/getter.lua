@@ -24,6 +24,12 @@ pNom = ""
 pAge = ""
 
 pLoaded = false
+skip = false
+
+function SkipLogo()
+    skip = true
+
+end
 
 Citizen.CreateThread(function()
     pPed = GetPlayerPed(-1)
@@ -42,6 +48,7 @@ Citizen.CreateThread(function()
 
     RenderScriptCams(1, 0, 1000, 0, 0)
 
+
     while not pLoaded do
         Wait(1)
         RageUI.Text({message = "Chargement de ton personnange ..."})
@@ -50,14 +57,18 @@ Citizen.CreateThread(function()
         local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -0.5, 10.0)
         SetCamCoord(spawnCam, pos.x, pos.y, pos.z)
         PointCamAtCoord(spawnCam, GetEntityCoords(GetPlayerPed(-1)))
+        if skip then break end
     end
 
-    RenderScriptCams(0, 1, 3500, 0, 0)
-    SetCamActive(spawnCam, 0)
+    if not skip then
+        RenderScriptCams(0, 1, 3500, 0, 0)
+        SetCamActive(spawnCam, 0)
 
-    SendNUIMessage({ 
-		logo = true
-    })
+        SendNUIMessage({ 
+	    	logo = true
+        })
+        StopAudioScenes()
+    end
     StopAudioScenes()
     while true do
         pPed = GetPlayerPed(-1)

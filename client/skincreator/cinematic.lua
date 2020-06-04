@@ -4,6 +4,7 @@ end)
 
 
 function StartCreatorEndCinematic()
+    SkipLogo()
     DoScreenFadeOut(1000)
     local blockControls = true
     TriggerEvent("rF:HudToogle")
