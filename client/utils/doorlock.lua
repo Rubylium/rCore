@@ -389,6 +389,7 @@ Citizen.CreateThread(function()
                 if dst <= 1.5 then
                     nearDoor = true
                     local obj = GetClosestObjectOfType(v.pos.pos, 2.0, v.pos.model, false, false, false)
+                    if DoorCache[obj] == nil then break end
                     if DoorCache[obj].status ~= true then
                         DrawTxt(GetEntityCoords(obj), "Appuyer sur E pour ouvrir la porte.")
                     else
