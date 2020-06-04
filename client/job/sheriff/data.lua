@@ -607,12 +607,12 @@ function OpenTigeSheriffMenu()
                 for k,v in pairs(tige) do
                     RageUI.Button(v.titre, "Met la personne la plus proche en "..v.titre, true, function(Hovered, Active, Selected)
                         if Selected then
-                            --local closet, dst = rUtils.GetClosestPlayer()
-                            --if dst ~= nil and dst < 2.0 then
-                            --    local sID = GetPlayerServerId(closet)
-                            --    --TriggerServerEvent("core:DoTig", token, sID, v.count, tigeAction)
-                                TriggerServerEvent("core:DoTig", token, GetPlayerServerId(GetPlayerIndex()), v.count, tigeAction)
-                            --end
+                            local closet, dst = rUtils.GetClosestPlayer()
+                            if dst ~= nil and dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent("core:DoTig", token, sID, v.count, tigeAction)
+                                --TriggerServerEvent("core:DoTig", token, GetPlayerServerId(GetPlayerIndex()), v.count, tigeAction)
+                            end
                         end
                         if Hovered then
                             rUtils.DisplayClosetPlayer()
