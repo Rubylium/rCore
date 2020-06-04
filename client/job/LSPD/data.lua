@@ -384,3 +384,136 @@ function LoadPoliceData()
     end
 
 end
+
+
+RMenu.Add('core', 'lspd_tige', RageUI.CreateMenu("POLICE", "~b~Traveaux forcé LSPD"))
+local tige = {
+    {
+        titre = "Petits travaux forcés",
+        count = 10,
+    },
+    {
+        titre = "travaux forcés",
+        count = 25,
+    },
+    {
+        titre = "Long travaux forcés",
+        count = 50,
+    },
+}
+
+local tigeAction = {
+    zone = {
+        {pos = vector3(233.4071, -883.4329, 30.49208),heading = 229.6169128418,},
+        {pos = vector3(242.4984, -876.6624, 30.49209),heading = 307.85906982422,},
+        {pos = vector3(228.459, -866.3788, 30.29225),heading = 43.696475982666,},
+        {pos = vector3(218.4143, -893.0405, 30.692),heading = 144.77279663086,},
+        {pos = vector3(229.272, -899.5583, 30.69216),heading = 254.54541015625,},
+        {pos = vector3(216.3795, -903.4084, 30.69236),heading = 87.864738464355,},
+        {pos = vector3(217.33, -913.0722, 30.69217),heading = 180.90344238281,},
+    },
+    action = {
+        men = {
+            "WORLD_HUMAN_JANITOR",
+            "WORLD_HUMAN_GARDENER_LEAF_BLOWER",
+            "WORLD_HUMAN_BUM_WASH",
+        },
+        women = {
+            "WORLD_HUMAN_JANITOR",
+            "WORLD_HUMAN_BUM_WASH",
+        }
+    },
+    pos = vector3(229.4736, -882.8559, 30.4921),
+    cloths = {
+        men = {
+            ["tshirt_1"] = 15,
+            ["tshirt_2"] = 0,
+            ["torso_1"] = 153,
+            ["torso_2"] = 0,
+            ["pants_1"] = 36,
+            ["pants_2"] = 0,
+            ["shoes_1"] = 27,
+            ["shoes_2"] = 0,
+            ["arms"] = 72,
+            ["arms_2"] = 0,
+            ["helmet_1"] = 25,
+            ["helmet_2"] = 0,
+            ["chain_1"] = 0,
+            ["chain_2"] = 0,
+            ["bracelets_1"] = -1,
+            ["bracelets_2"] = 0,
+            ["ears_1"] = -1,
+            ["ears_2"] = 0,
+            ["mask_1"] = 0,
+            ["mask_2"] = 0,
+            ["watches_1"] = -1,
+            ["watches_2"] = 0,
+            ["decals_1"] = 0,
+            ["bags_1"] = 0,
+            ["bproof_1"] = 3,
+            ["bproof_2"] = 0,
+        },
+        women = {
+            ["tshirt_1"] = 16,
+            ["tshirt_2"] = 0,
+            ["torso_1"] = 150,
+            ["torso_2"] = 0,
+            ["pants_1"] = 35,
+            ["pants_2"] = 0,
+            ["shoes_1"] = 26,
+            ["shoes_2"] = 0,
+            ["arms"] = 73,
+            ["arms_2"] = 0,
+            ["helmet_1"] = 53,
+            ["helmet_2"] = 0,
+            ["chain_1"] = 0,
+            ["chain_2"] = 0,
+            ["bracelets_1"] = -1,
+            ["bracelets_2"] = 0,
+            ["ears_1"] = -1,
+            ["ears_2"] = 0,
+            ["mask_1"] = 0,
+            ["mask_2"] = 0,
+            ["watches_1"] = -1,
+            ["watches_2"] = 0,
+            ["decals_1"] = 0,
+            ["bags_1"] = 0,
+            ["bproof_1"] = 5,
+            ["bproof_2"] = 0,
+        }
+    }
+}
+
+function OpenTigeLspdMenu()
+    if pJob ~= "police" then RageUI.Popup({message = "Désolé, je ne parle qu'avec des agents de police."}) return end
+    open = true
+    RageUI.Visible(RMenu:Get('core', 'lspd_tige'), not RageUI.Visible(RMenu:Get('core', 'lspd_tige')))
+    Citizen.CreateThread(function()
+        while open do
+            Wait(1)
+            RageUI.IsVisible(RMenu:Get('core', 'lspd_tige'), true, true, true, function()
+                for k,v in pairs(tige) do
+                    RageUI.Button(v.titre, "Met la personne la plus proche en "..v.titre, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            --local closet, dst = rUtils.GetClosestPlayer()
+                            --if dst ~= nil and dst < 2.0 then
+                            --    local sID = GetPlayerServerId(closet)
+                            --    --TriggerServerEvent("core:DoTig", token, sID, v.count, tigeAction)
+                                TriggerServerEvent("core:DoTig", token, GetPlayerServerId(GetPlayerIndex()), v.count, tigeAction)
+                            --end
+                        end
+                        if Hovered then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+                end
+
+            end, function()
+                ---Panels
+            end)
+
+            
+
+        end
+    end)
+end
