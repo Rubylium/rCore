@@ -183,6 +183,11 @@ function LoadSheriffData()
         cloths = sheriffCloths
     })
 
+    rUtils.RegisterClothZone({
+        pos = vector3(1848.662, 3696.068, 34.26705),
+        cloths = sheriffCloths
+    })
+
 
     rUtils.RegisterGarageZone({
         pos = vector3(-460.6692, 6014.975, 31.4901),
@@ -205,6 +210,25 @@ function LoadSheriffData()
         },
     })
 
+    rUtils.RegisterGarageZone({
+        pos = vector3(1859.304, 3681.284, 33.78733),
+        spawns = {
+            {pos = vector3(1847.481, 3671.974, 33.08047),heading = 212.05154418945,},
+            {pos = vector3(1850.661, 3673.854, 33.13189),heading = 211.3638458252,},
+            {pos = vector3(1854.187, 3675.393, 33.10226),heading = 212.30514526367,},
+        },
+        vehs = {
+            {spawn = "leo5", nom = "SUV #1"},
+            {spawn = "leo2", nom = "SUV #2"},
+            {spawn = "leo3", nom = "SUV #3"},
+            {spawn = "leo7", nom = "SUV #4"},
+            {spawn = "leo8", nom = "SUV #5"},
+            {spawn = "leo1", nom = "SEDAN #1"},
+            {spawn = "leo4", nom = "SEDAN #2"},
+            {spawn = "leo6", nom = "SEDAN #3"},
+        },
+    })
+
 
     rUtils.RegisterActionZone({
         pos = vector3(-438.7426, 6010.567, 27.98562),
@@ -214,7 +238,21 @@ function LoadSheriffData()
     })
 
     rUtils.RegisterActionZone({
+        pos = vector3(1855.394, 3699.198, 34.26704),
+        action = function()
+            OpenSocietyInvMenu()
+        end,
+    })
+
+    rUtils.RegisterActionZone({
         pos = vector3(-437.4343, 6000.777, 31.71609),
+        action = function()
+            OpenSheriffArmorie()
+        end,
+    })
+
+    rUtils.RegisterActionZone({
+        pos = vector3(1845.679, 3692.62, 34.26705),
         action = function()
             OpenSheriffArmorie()
         end,

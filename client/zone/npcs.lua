@@ -105,6 +105,55 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+
+    { -- Sandy shore BCSO
+        model = "s_m_y_sheriff_01",
+        pos = vector3(1859.034, 3681.899, 33.8258),
+        heading = 203.18428,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenTigeSheriffMenu()
+        end,
+        scenario = "WORLD_HUMAN_GUARD_STAND",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
+
+    { -- Sandy shore BCSO
+        model = "s_m_y_sheriff_01",
+        pos = vector3(1852.94, 3688.935, 34.26709),
+        heading = 202.934,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenTigeSheriffMenu()
+        end,
+        scenario = "WORLD_HUMAN_GUARD_STAND",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
+
+    { -- Sandy shore BCSO
+        model = "s_m_y_sheriff_01",
+        pos = vector3(1857.662, 3691.072, 30.25923),
+        heading = 302.731,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenTigeSheriffMenu()
+        end,
+        scenario = "WORLD_HUMAN_GUARD_PATROL",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 
@@ -120,6 +169,7 @@ Citizen.CreateThread(function()
                     rUtils.LoadModel(v.model)
                     v.entity = CreatePed(1, v.model, v.pos.x, v.pos.y, v.pos.z-1.0, v.heading, 0, 0)
                     TaskSetBlockingOfNonTemporaryEvents(v.entity, true)
+                    SetBlockingOfNonTemporaryEvents(v.entity, true)
                     FreezeEntityPosition(v.entity, true)
                     if v.haveAction then
                         table.insert(ActiveNpcs, {pos=v.pos, action=v.action, offset=v.camOffset, ped=v.entity, cam=v.camCoords})
@@ -127,6 +177,9 @@ Citizen.CreateThread(function()
                     if v.scenario ~= nil then
                         TaskStartScenarioInPlace(v.entity, v.scenario, -1, true)
                     end
+                    SetEntityInvincible(v.entity, true)
+                    SetEveryoneIgnorePlayer(GetPlayerIndex(), true)
+                    SetPoliceIgnorePlayer(GetPlayerIndex(), true)
                 end
             else
                 if dst > v.LoadDst then
