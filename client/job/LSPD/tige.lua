@@ -4,6 +4,12 @@ local actions = {}
 local men = GetHashKey("mp_m_freemode_01")
 local women = GetHashKey("mp_f_freemode_01")
 
+
+Citizen.CreateThread(function()
+    Wait(5000)
+    TriggerServerEvent("core:CheckTig", token)
+end)
+
 RegisterNetEvent("core:DoTig")
 AddEventHandler("core:DoTig", function(count, _actions)
     if DoingTig then return end
@@ -12,12 +18,7 @@ AddEventHandler("core:DoTig", function(count, _actions)
     DoTig()
 end)
 
-
-
-function DoTig()
-    DoingTig = true
-    RageUI.Popup({message = "Tu as été placé en travaux forcé!"})
-
+function RefreshTenues()
     if GetEntityModel(pPed) == men then
         for k,v in pairs(actions.cloths.men) do
             TriggerEvent("skinchanger:change", k, v)
@@ -29,6 +30,13 @@ function DoTig()
         end
         PlaySoundFrontend(-1, "Object_Collect_Player", "GTAO_FM_Events_Soundset", 0)
     end
+end
+
+function DoTig()
+    DoingTig = true
+    RageUI.Popup({message = "Tu as été placé en travaux forcé!"})
+
+    RefreshTenues()
 
     local count = 0
     while count <= CountToDo do
@@ -62,14 +70,16 @@ function DoTig()
         else
             r = actions.action.men[math.random(1,#actions.action.men)]
         end
-        TaskStartScenarioInPlace(pPed, r, -1, false)
+        TaskStartScenarioInPlace(pPed, r, 0, false)
         Wait(10*1000)
+        RefreshTenues()
         ClearPedTasks(pPed)
         count = count + 1
 
         Wait(100)
     end
 
+    TriggerServerEvent("core:EndTig", token)
     DoingTig = false
     exports.rFramework:ReloadPlayerCloth()
     PlaySoundFrontend(-1, "Object_Collect_Player", "GTAO_FM_Events_Soundset", 0)

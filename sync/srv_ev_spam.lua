@@ -97,6 +97,8 @@ local AllEvents = {
     "core:SetVehStatus",
     "core:SetVehStatusLSPD",
     "core:GetBackToGarage",
+    "core:EndTig",
+    "core:CheckTig",
 }
 
 
