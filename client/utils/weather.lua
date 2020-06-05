@@ -25,10 +25,6 @@ local names = {
     ["HALLOWEEN"] = "Une ambiance sinistre s'installe sur la ville ....",
 }
 
-Citizen.CreateThread(function()
-    TriggerServerEvent("core:GetWeather")
-end)
-
 RegisterNetEvent("core:SyncTime")
 AddEventHandler("core:SyncTime", function(h, m)
     NetworkOverrideClockTime(h, m, 0)

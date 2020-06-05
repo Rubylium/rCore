@@ -4,12 +4,6 @@ local actions = {}
 local men = GetHashKey("mp_m_freemode_01")
 local women = GetHashKey("mp_f_freemode_01")
 
-
-Citizen.CreateThread(function()
-    Wait(5000)
-    TriggerServerEvent("core:CheckTig", token)
-end)
-
 RegisterNetEvent("core:DoTig")
 AddEventHandler("core:DoTig", function(count, _actions)
     if DoingTig then return end

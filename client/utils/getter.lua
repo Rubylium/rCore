@@ -85,6 +85,10 @@ Citizen.CreateThread(function()
         })
         StopAudioScenes()
     end
+    TriggerServerEvent("core:RequestGameData", token)
+    TriggerServerEvent("core:CheckTig", token)
+    TriggerServerEvent("core:GetWeather")
+
     StopAudioScenes()
     while true do
         pPed = GetPlayerPed(-1)
