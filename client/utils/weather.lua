@@ -33,6 +33,7 @@ end)
 
 RegisterNetEvent("core:SyncWeather")
 AddEventHandler("core:SyncWeather", function(lastWeather)
+    print("\n\n\n\n\n\n "..lastWeather.." \n\n\n\n\n\n")
     rUtils.ShowAdvancedNotification("Méteo", "~g~Changement de météo", "La méteo change\n"..names[lastWeather], "CHAR_LS_TOURIST_BOARD", 1)
     if CurrentWeather ~= lastWeather then
         CurrentWeather = lastWeather
