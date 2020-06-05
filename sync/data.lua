@@ -35,7 +35,50 @@ hunt = {
         buy = "rF:BuyItemIfCan",
         addItem = "rF:AddItemIfNotAlreadyHave",
         rmvitem = "rF:RemoveItem",
-    }
+        sell = "rF:SellItem",
+        give = "rF:GiveItem",
+    },
+
+    animals =  {
+        {
+            model = "a_c_deer",
+        },
+        {
+            model = "a_c_boar",
+        },
+        {
+            model = "a_c_coyote",
+        },
+
+    },
+
+    dstMax = 600.0,
+
+    entityMax = 4,
+
+    random = 100,
+
+    CreatePed = {
+        z = 3.0,
+        type = 28,
+        heading = 100.0,
+        network = false,
+        NetEntity = true,
+    },
+
+    wander = 99999999.0,
+    wander2 = 10.0,
+
+    spriteID = 141,
+    scale = 0.20,
+    noise = 100.0,
+
+    healthCheck = 50.0,
+
+    dict = "anim@mp_snowball",
+    anim = "pickup_snowball",
+
+    central = vector3(-1567.7, 4484.3, 21.4)
 }
 
 

@@ -93,7 +93,7 @@ function HuntData:LoadHuntData()
                         if pInventory[v.label] ~= nil then
                             RageUI.ButtonWithStyle("Vendre de la "..v.label, nil, {RightLabel = "~g~("..pInventory[v.label].count..")"}, true, function(_,_,s)
                                 if s then 
-                                    TriggerServerEvent("rF:SellItem", token, v.item, v.price * pInventory[v.label].count, pInventory[v.label].count)
+                                    TriggerServerEvent(self.h.events.sell, token, v.item, v.price * pInventory[v.label].count, pInventory[v.label].count)
                                     pInventory[v.label] = nil
                                 end
                             end)
@@ -114,20 +114,9 @@ function HuntData:LoadHuntData()
 
 
 
-    local PointCentralDeChasse = vector3(-1567.7, 4484.3, 21.4)
+    local PointCentralDeChasse = self.h.central
     local Entity = {}
-    local Animals = {
-        {
-            model = "a_c_deer",
-        },
-        {
-            model = "a_c_boar",
-        },
-        {
-            model = "a_c_coyote",
-        },
-
-    }
+    local Animals = self.h.animals
 
     local loots = {}
     local Spawning = false
@@ -135,30 +124,30 @@ function HuntData:LoadHuntData()
         while true do
 
             local dst = GetDistanceBetweenCoords(PointCentralDeChasse, GetEntityCoords(pPed), false)
-            if dst <= 600.0 then
+            if dst <= self.h.dstMax then
                 Spawning = true
 
-                if #Entity < 4 then
+                if #Entity < self.h.entityMax then
                     Wait(1)
                     local animal = Animals[math.random(1,#Animals)]
                     rUtils.LoadModel(animal.model)
-                    local spawnPointx = PointCentralDeChasse.x+math.random(-100,100)
-                    local spawnPointy = PointCentralDeChasse.y+math.random(-100,100)
-                    local spawnPointz = PointCentralDeChasse.z+math.random(-100,100)
+                    local spawnPointx = PointCentralDeChasse.x+math.random(-self.h.random,self.h.random)
+                    local spawnPointy = PointCentralDeChasse.y+math.random(-self.h.random,self.h.random)
+                    local spawnPointz = PointCentralDeChasse.z+math.random(-self.h.random,self.h.random)
                     local _,z = GetGroundZFor_3dCoord(spawnPointx, spawnPointy, spawnPointz)
-                    local _entity = CreatePed(28, GetHashKey(animal.model), spawnPointx, spawnPointy, z+3.0, 100.0, false, true)
+                    local _entity = CreatePed(self.h.CreatePed.type, GetHashKey(animal.model), spawnPointx, spawnPointy, z+self.h.CreatePed.z, self.h.CreatePed.heading, self.h.CreatePed.network, self.h.CreatePed.NetEntity)
                     if DoesEntityExist(_entity) then
-                        TaskWanderStandard(_entity, 99999999.0, 10)
+                        TaskWanderStandard(_entity, self.h.wander, self.h.wander2)
                         local _blip = AddBlipForEntity(_entity)
-                        SetBlipSprite(_blip, 141)
-                        SetBlipScale(_blip, 0.20)
-                        SetPlayerNoiseMultiplier(GetPlayerIndex(), 100.0)
+                        SetBlipSprite(_blip, self.h.spriteID)
+                        SetBlipScale(_blip, self.h.scale)
+                        SetPlayerNoiseMultiplier(GetPlayerIndex(), self.h.noise)
                         table.insert(Entity, {entity = _entity, blip = _blip, coords = GetBlipCoords(_blip)})
                     end
                 end
 
                 for k,v in pairs(Entity) do
-                    if GetEntityHealth(v.entity) < 50.0 then
+                    if GetEntityHealth(v.entity) < self.h.healthCheck then
                         local source = GetPedSourceOfDeath(v.entity)
                         if source == pPed then
                             rUtils.Notif("Tu as tué un animal! Récupère son loot.")
@@ -189,7 +178,7 @@ function HuntData:LoadHuntData()
                 for k,v in pairs(pInventory) do
                     if v.name == "musket" or v.name == "huntrifle" then
                         UpdatePresence("default")
-                        TriggerServerEvent("rF:RemoveItem", token, v.label, v.count)
+                        TriggerServerEvent(self.h.events.rmvitem, token, v.label, v.count)
                         RemoveAllPedWeapons(pPed, 1)
                     end
                 end
@@ -218,7 +207,7 @@ function HuntData:LoadHuntData()
                         table.remove(loots, k) 
                     end
                     if dst <= 1.5 then
-                        rUtils.PlayAnim("anim@mp_snowball", "pickup_snowball", 1)
+                        rUtils.PlayAnim(self.h.dict, self.h.anim, 1)
                         Wait(2000)
                         ClearPedTasks(pPed)
                         TakeHuntLoot()
@@ -306,19 +295,19 @@ function HuntData:LoadHuntData()
         local i = math.random(1,1000)
         if i > 1 and i < 500 then
             PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
-            TriggerServerEvent("rF:GiveItem", token, "viande1", 1)
+            TriggerServerEvent(self.h.events.give, token, "viande1", 1)
             rUtils.Notif("Tu as trouvé une ~g~Viande de basse qualité")
         elseif i > 500 and i < 700 then
             PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
-            TriggerServerEvent("rF:GiveItem", token, "viande2", 1)
+            TriggerServerEvent(self.h.events.give, token, "viande2", 1)
             rUtils.Notif("Tu as trouvé une ~g~Viande de qualité normal")
-        elseif i > 700 and i < 980 then
+        elseif i > 700 and i < 990 then
             PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
-            TriggerServerEvent("rF:GiveItem", token, "viande3", 1)
+            TriggerServerEvent(self.h.events.give, token, "viande3", 1)
             rUtils.Notif("Tu as trouvé une ~g~Viande de bonne qualité")
-        elseif i > 980 and i < 1000 then
+        elseif i > 990 and i < 1000 then
             PlaySoundFrontend(-1, "Bus_Schedule_Pickup", "DLC_PRISON_BREAK_HEIST_SOUNDS", 1)
-            TriggerServerEvent("rF:GiveItem", token, "viande4", 1)
+            TriggerServerEvent(self.h.events.give, token, "viande4", 1)
             rUtils.Notif("Tu as trouvé une ~g~Viande de qualité incroyable")
         end
     end
