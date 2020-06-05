@@ -140,7 +140,7 @@ function LoadPoliceData()
                             if Selected then
                                 local amount = CustomAmount()
                                 if amount ~= nil and amount ~= 0 and amount <= v.count then
-                                    TriggerServerEvent("rF:TransferItemIfTargetCanHoldItReverse", token, TargetID, v.name, amount, v.label, v.count)
+                                    TriggerServerEvent(events.TransferReverse, token, TargetID, v.name, amount, v.label, v.count)
                                     if v.count - amount <= 0 then
                                         TargetInv[k] = nil
                                     else
@@ -159,7 +159,7 @@ function LoadPoliceData()
 
                     RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
-                            TriggerServerEvent("core:SetServiceStatus", token, pJob)
+                            TriggerServerEvent(events.Service, token, pJob)
                         end
                     end) 
 
@@ -174,7 +174,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:EscortPlayer", token, sID)
+                                TriggerServerEvent(events.escort, token, sID)
                             end
                         end
                         if Active then
@@ -187,7 +187,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local target = GetPlayerServerId(closet)
-                                exports.rFramework:TriggerServerCallback('rF:GetOtherPlayerData', function(inv, weight, money, black)
+                                exports.rFramework:TriggerServerCallback(events.OtherPdata, function(inv, weight, money, black)
                                     TargetInv = inv
                                     TargetWeight = weight
                                     TargetMoney = money
@@ -208,7 +208,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", token, sID, true, true)
+                                TriggerServerEvent(events.cuff, token, sID, true, true)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
@@ -223,7 +223,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", token, sID, true, false)
+                                TriggerServerEvent(events.cuff, token, sID, true, false)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
@@ -237,7 +237,7 @@ function LoadPoliceData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", token, sID, false, false)
+                                TriggerServerEvent(events.cuff, token, sID, false, false)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 100.0, nil, nil, 5800)
                             end
                         end
@@ -310,7 +310,7 @@ function LoadPoliceData()
                         if Selected then
                             for k,v in pairs(pInventory) do
                                 if v.name == "matraque" or v.name == "tazer" or v.name == "pistoletlspd" or v.name == "m4" then
-                                    TriggerServerEvent("rF:RemoveItem", token, v.label, v.count)
+                                    TriggerServerEvent(events.remove, token, v.label, v.count)
                                 end
                             end
                         end
@@ -319,7 +319,7 @@ function LoadPoliceData()
                     for k,v in pairs(weapons) do
                         RageUI.ButtonWithStyle(v.name, nil, { }, v.grade <= pJob_Grade, function(Hovered, Active, Selected)
                             if Selected then
-                                TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, v.item, 1)
+                                TriggerServerEvent(events.AddIf, token, v.item, 1)
                             end
                         end)
                     end
@@ -497,8 +497,7 @@ function OpenTigeLspdMenu()
                             local closet, dst = rUtils.GetClosestPlayer()
                             if dst ~= nil and dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:DoTig", token, sID, v.count, tigeAction)
-                                --TriggerServerEvent("core:DoTig", token, GetPlayerServerId(GetPlayerIndex()), v.count, tigeAction)
+                                TriggerServerEvent(events.tig, token, sID, v.count, tigeAction)
                             end
                         end
                         if Active then
