@@ -117,7 +117,7 @@ function StartSell(item, price)
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
             end
-            TriggerServerEvent(events.sell, token, item, price)
+            TriggerServerEvent(events.sell, token, item, price + rUtils.GetVipBonus(price))
         end
 
         Wait(0)
