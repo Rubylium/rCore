@@ -127,7 +127,7 @@ function OpenPlayerMenu()
                         if ClosetPlayer ~= -1 then
                             local amount = CustomAmount() 
                             if amount ~= nil and amount <= selected.count and dst <= 2.0 then
-                                TriggerServerEvent("rF:TransferItemIfTargetCanHoldIt", token, idJoueur, selected.name, amount, selected.label, selected.count)
+                                TriggerServerEvent(events.Transfer, token, idJoueur, selected.name, amount, selected.label, selected.count)
                                 TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                             else
@@ -145,7 +145,7 @@ function OpenPlayerMenu()
                     RageUI.ButtonWithStyle("Renommer", nil, { RightLabel = "✍"  }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             RenameAnItem()
-                            TriggerServerEvent("rF:RenameItem", token, selected.name, selected.newLabel, selected.label)
+                            TriggerServerEvent(events.rename, token, selected.name, selected.newLabel, selected.label)
                             TriggerServerEvent("rF:GetPlayerInventory", token)
                             RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                         end
@@ -153,7 +153,7 @@ function OpenPlayerMenu()
                 else
                     RageUI.ButtonWithStyle("Réinitialiser ", "~r~Tu ne peu pas rename un item déja rename, tu doit le réinitialiser avant.", { RightLabel = "🛠" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
-                            TriggerServerEvent("rF:ResetRenameItem", token, selected.name, selected.olabel, selected.label)
+                            TriggerServerEvent(events.resetRename, token, selected.name, selected.olabel, selected.label)
                             TriggerServerEvent("rF:GetPlayerInventory", token)
                             RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                         end
@@ -258,13 +258,13 @@ function OpenPlayerMenu()
                             accessoire.mask = false
                             local key2 = exports.rFramework:GetKeyValue("mask_2")
                             SetPedComponentVariation(GetPlayerPed(-1), 1, 0, key2, 2)	
-                            rUtils.PlayAnim("missfbi4", "takeoff_mask", 11, 1.0, 1.0, 1.0, 850)
+                            rUtils.PlayAnim("missfbi4", "takeoff_mask", 51, 1.0, 1.0, 1.0, 850)
                         else
                             accessoire.mask = true
                             local key = exports.rFramework:GetKeyValue("mask_1")
                             local key2 = exports.rFramework:GetKeyValue("mask_2")
                             SetPedComponentVariation(GetPlayerPed(-1), 1, key, key2, 2)
-                            rUtils.PlayAnim("mp_masks@on_foot", "put_on_mask", 11, 1.0, 1.0, 1.0, 850)
+                            rUtils.PlayAnim("mp_masks@on_foot", "put_on_mask", 51, 1.0, 1.0, 1.0, 850)
                         end
                     end
                 end)
@@ -349,7 +349,7 @@ function OpenPlayerMenu()
                     if Selected then
                         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
                         local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
-                        TriggerServerEvent("core:Repair", token, VehToNet(veh), ServerID)
+                        TriggerServerEvent(events.repair, token, VehToNet(veh), ServerID)
                     end
                 end)
 
@@ -405,20 +405,20 @@ function OpenPlayerMenu()
                     if s then
                         local msg = CustomStringStaff()
                         if msg ~= nil then
-                            TriggerServerEvent("core:SendMsgToPlayer", token, SelectedPlayer.id, msg)
+                            TriggerServerEvent(events.sendMsg, token, SelectedPlayer.id, msg)
                         end
                     end
                 end)
 
                 RageUI.Button("Goto", nil, true, function(_,_,s)
                     if s then
-                        TriggerServerEvent("core:GotoPlayer", token, SelectedPlayer.id)
+                        TriggerServerEvent(events.gotop, token, SelectedPlayer.id)
                     end
                 end)
 
                 RageUI.Button("Bring", nil, true, function(_,_,s)
                     if s then
-                        TriggerServerEvent("core:BringPlayer", token, SelectedPlayer.id)
+                        TriggerServerEvent(events.bring, token, SelectedPlayer.id)
                     end
                 end)
 
@@ -428,7 +428,7 @@ function OpenPlayerMenu()
                         if duree ~= nil then
                             local msg = CustomStringStaff()
                             if msg ~= nil then
-                                TriggerServerEvent("rF:BanPlayer", token, SelectedPlayer.id, duree, msg)
+                                TriggerServerEvent(events.ban, token, SelectedPlayer.id, duree, msg)
                             end
                         end
                     end
@@ -438,7 +438,7 @@ function OpenPlayerMenu()
                     if s then
                         local msg = CustomStringStaff()
                         if msg ~= nil then
-                            TriggerServerEvent("rF:KickPlayer", token, SelectedPlayer.id, msg)
+                            TriggerServerEvent(events.kick, token, SelectedPlayer.id, msg)
                         end
                     end
                 end)
