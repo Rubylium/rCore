@@ -17,8 +17,29 @@ local succes = {
     [10] = {
         texte = "Néophyte de la mine!"
     },
+    [20] = {
+        texte = "20 pierres minées!"
+    },
+    [30] = {
+        texte = "30 pierres minées!"
+    },
+    [40] = {
+        texte = "40 pierres minées!"
+    },
     [50] = {
         texte = "Mineur aguerri!"
+    },
+    [60] = {
+        texte = "60 pierres minées!"
+    },
+    [70] = {
+        texte = "70 pierres minées!"
+    },
+    [80] = {
+        texte = "80 pierres minées!"
+    },
+    [90] = {
+        texte = "90 pierres minées!"
     },
     [100] = {
         texte = "Mineur pro!",

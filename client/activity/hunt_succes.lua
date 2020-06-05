@@ -18,8 +18,29 @@ local succes = {
     [10] = {
         texte = "Néophyte de la chasse!"
     },
+    [20] = {
+        texte = "20 bêtes tuées"
+    },
+    [30] = {
+        texte = "30 bêtes tuées"
+    },
+    [40] = {
+        texte = "40 bêtes tuées"
+    },
     [50] = {
         texte = "Chasseur aguerri!"
+    },
+    [60] = {
+        texte = "60 bêtes tuées"
+    },
+    [70] = {
+        texte = "70 bêtes tuées"
+    },
+    [80] = {
+        texte = "80 bêtes tuées"
+    },
+    [90] = {
+        texte = "90 bêtes tuées"
     },
     [100] = {
         texte = "Pro de la chasse!",
