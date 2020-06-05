@@ -16,3 +16,12 @@ function LoadData()
 
     print("^2Loading "..pJob.." data.")
 end
+
+RegisterNetEvent("core:RequestGameData")
+AddEventHandler("core:RequestGameData", function(mine)
+    print("^1Loading up Game Data, please wait ...")
+    MineData.m = mine
+
+
+    MineData:LoadMineData()
+end)

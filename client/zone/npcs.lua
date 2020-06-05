@@ -171,6 +171,23 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+
+    { -- mine 
+        model = "s_m_y_construct_01",
+        pos = vector3(2956.019, 2746.155, 43.51757),
+        heading = 314.601684,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            OpenMineMenu(ped, _offset, camOffset)
+        end,
+        scenario = "WORLD_HUMAN_CLIPBOARD",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 

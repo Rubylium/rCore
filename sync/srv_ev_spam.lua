@@ -99,6 +99,7 @@ local AllEvents = {
     "core:GetBackToGarage",
     "core:EndTig",
     "core:CheckTig",
+    "core:RequestGameData",
 }
 
 

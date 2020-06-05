@@ -84,6 +84,7 @@ server_scripts {
 
     "sync/srv_ev_spam.lua",
     "sync/srv_ev.lua",
+    "sync/data.lua",
 
     "server/staff/*.lua",
 }
