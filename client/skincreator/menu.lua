@@ -201,7 +201,7 @@ function CreatorMenuThread()
                             end
                         end)  
                     else
-                        RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→ Changer" }, pVip ~= 0, function(_,h,s)
+                        RageUI.ButtonWithStyle("[VIP] - "..v.label, nil, { RightLabel = "→ Changer" }, pVip ~= 0, function(_,h,s)
                             if s then
                                 TriggerEvent("skinchanger:change", "sex", v.model)
                                 TriggerEvent("rF:SaveSkin", v.item, i)
