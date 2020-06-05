@@ -33,7 +33,7 @@ local succes = {
 function CheckSucces()
     Huntkills = Huntkills + 1
     if succes[Huntkills] ~= nil then
-        PlayUrl("SUCCES", "https://www.youtube.com/watch?v=VpwqsYA44JI", 1.0, false)
+        PlayUrl("SUCCES", "https://www.youtube.com/watch?v=VpwqsYA44JI", 0.4, false)
         Wait(1000)
         rUtils.ShowFreemodeMessage("~y~SUCCES!", succes[Huntkills].texte, 3.5)
         if succes[Huntkills].suplementaire ~= nil then
