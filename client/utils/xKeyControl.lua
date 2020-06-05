@@ -29,9 +29,9 @@ rUtils.RegisterControlKey("slow", "[DEV] - Activer slowmotion", "6", function()
     SetTimeScale(0.25)
 end)
 
-rUtils.RegisterControlKey("creator", "[DEV] - Ouvrir le menu de création", "f1", function()
-    OpenCreatorMenu()
-end)
+--rUtils.RegisterControlKey("creator", "[DEV] - Ouvrir le menu de création", "f1", function()
+--    OpenCreatorMenu()
+--end)
 
 rUtils.RegisterControlKey("chest", "Ouvrir le coffre du véhicule", "k", function()
     OpenVehicleChest()
