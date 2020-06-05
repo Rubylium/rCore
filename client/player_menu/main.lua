@@ -369,7 +369,8 @@ function OpenPlayerMenu()
                     end
                     if Selected then
                         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
-                        DecorRemove(veh, "TRUCK_OPEN")
+                        local plate = GetVehicleNumberPlateText(veh)
+                        TriggerServerEvent("core:RemoveChestStatus", token, plate)
                     end
                 end)
 
