@@ -182,25 +182,40 @@ function CreatorMenuThread()
             RageUI.IsVisible(RMenu:Get('core', 'skincreator_model'), true, true, true, function()
                 open = true
                 for k,v in pairs(peds) do
-                    RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→ Changer" }, true, function(_,h,s)
-                        if s then
-                            TriggerEvent("skinchanger:change", "sex", v.model)
-                            TriggerEvent("rF:SaveSkin", v.item, i)
-                            TriggerEvent("skinchanger:change", "glasses_1", 0)
-                            values, peds, corps, accessorie, FaceCustom = GetMaxVals()
-                            if v.vip == true then
-                                usingVipPed = true
-                            else
+                    if not v.vip then
+                        RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→ Changer" }, true, function(_,h,s)
+                            if s then
+                                TriggerEvent("skinchanger:change", "sex", v.model)
+                                TriggerEvent("rF:SaveSkin", v.item, i)
+                                if v.label == "Femme" then
+                                    TriggerEvent("skinchanger:change", "glasses_1", 0)
+                                end
+                                values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                                 usingVipPed = false
                             end
-                        end
-                        if h then
-                            if NotSpamming[k] ~= k + 1000 then
-                                TriggerEvent("skinchanger:change", "sex", v.model)
-                                NotSpamming[k] = k + 1000
+                            if h then
+                                if NotSpamming[k] ~= k + 1000 then
+                                    TriggerEvent("skinchanger:change", "sex", v.model)
+                                    NotSpamming[k] = k + 1000
+                                end
                             end
-                        end
-                    end)  
+                        end)  
+                    else
+                        RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→ Changer" }, pVip ~= 0, function(_,h,s)
+                            if s then
+                                TriggerEvent("skinchanger:change", "sex", v.model)
+                                TriggerEvent("rF:SaveSkin", v.item, i)
+                                values, peds, corps, accessorie, FaceCustom = GetMaxVals()
+                                usingVipPed = true
+                            end
+                            if h then
+                                if NotSpamming[k] ~= k + 1000 then
+                                    TriggerEvent("skinchanger:change", "sex", v.model)
+                                    NotSpamming[k] = k + 1000
+                                end
+                            end
+                        end) 
+                    end
                 end
             end, function()
             end)
