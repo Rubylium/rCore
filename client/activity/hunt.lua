@@ -53,28 +53,28 @@ function HuntData:LoadHuntData()
                 RageUI.IsVisible(RMenu:Get('core', 'hunter'), true, true, true, function()
 
                     RageUI.Separator("~g~Activité civil")
-                    RageUI.ButtonWithStyle("Acheté un permis de chasse", nil, {RightLabel = "~g~500$"}, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Acheté un permis de chasse", nil, {RightLabel = "~g~500$"}, pInventory["Permis de chasse"] == nil, function(_,_,s)
                         if s then 
                             if pMoney >= 500 then
-                                TriggerServerEvent(self.events.buy, token, "permisChasse", 1, 500)
+                                TriggerServerEvent(self.h.events.buy, token, "permisChasse", 1, 500)
                             end
                         end
                     end)
                     RageUI.ButtonWithStyle("Récupèrer une arme de chasse", "Attention, l'arme de chasse doit etre déposé après votre partie de chasse. De lourde amendes sont prévue en cas de non respect.", {}, pInventory["Permis de chasse"] ~= nil, function(_,_,s)
                         if s then 
-                            TriggerServerEvent(self.events.addItem, token, "musket", 1)
+                            TriggerServerEvent(self.h.events.addItem, token, "musket", 1)
                         end
                     end)
                     RageUI.ButtonWithStyle("Récupèrer une arme de chasse pro", "Arme réservée au pro de la chasse, ~r~"..Huntkills.."~w~/100", {RightLabel = Huntkills.."/100"}, Huntkills >= 100, function(_,_,s)
                         if s then 
-                            TriggerServerEvent(self.events.addItem, token, "huntrifle", 1)
+                            TriggerServerEvent(self.h.events.addItem, token, "huntrifle", 1)
                         end
                     end)
                     RageUI.ButtonWithStyle("Déposer son arme de chasse", nil, { RightLabel = "→" }, pInventory["Permis de chasse"] ~= nil, function(_,_,s)
                         if s then 
                             for k,v in pairs(pInventory) do
                                 if v.name == "musket" or v.name == "huntrifle" then
-                                    TriggerServerEvent(self.events.rmvitem, token, v.label, v.count)
+                                    TriggerServerEvent(self.h.events.rmvitem, token, v.label, v.count)
                                 end
                             end
                         end
