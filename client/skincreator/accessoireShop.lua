@@ -84,7 +84,7 @@ function OpenAccessoireShopThread()
             Wait(1)
 
             if IsControlJustReleased(1, 22) then
-                ClearPedTasks(pPed)
+                ClearPedTasksImmediately(pPed)
                 local coords = GetOffsetFromEntityInWorldCoords(pPed, 0.0, -5.0, 0.0)
                 TaskTurnPedToFaceCoord(pPed, coords, 3000)
             end

@@ -91,7 +91,7 @@ function CreatorMenuThread()
             RageUI.Text({message = "Utilisé la touche ESPACE pour tourner votre personnange."})
 
             if IsControlJustReleased(1, 22) then
-                ClearPedTasks(GetPlayerPed(-1))
+                ClearPedTasksImmediately(pPed)
                 local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
                 TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
             end
