@@ -129,6 +129,79 @@ local blips = {
             infuence = "~o~Faible",
         },
     },
+
+    {
+        name = "Hopital - Sandy Shores",
+        icon = 105,
+        size = 0.55,
+        color = 22,
+        pos = vector3(1838.333, 3673.234, 34.27672),
+        sub = nil
+    },
+
+    {
+        name = "BCSO - Sandy Shores",
+        icon = 60,
+        size = 0.55,
+        color = 16,
+        pos = vector3(1855.319, 3683.259, 34.2677),
+        sub = nil
+    },
+
+    {
+        name = "BCSO - Paleto Bae",
+        icon = 60,
+        size = 0.55,
+        color = 16,
+        pos = vector3(-437.698, 6018.625, 31.49011),
+        sub = nil
+    },
+
+
+    {
+        name = "Pioneers - Radio / Studio",
+        icon = 136,
+        size = 0.55,
+        color = 22,
+        pos = vector3(733.1663, 2523.786, 73.22391),
+        sub = nil
+    },
+
+    {
+        name = "Mine",
+        icon = 318,
+        size = 0.55,
+        color = 81,
+        pos = vector3(2964.189, 2754.525, 43.26157),
+        sub = nil
+    },
+
+    {
+        name = "BestBuds - WeedShop",
+        icon = 140,
+        size = 0.55,
+        color = 2,
+        pos = vector3(378.6788, -833.3737, 29.29167),
+        sub = nil
+    },
+
+    {
+        name = "LSPD - Central Vespucci",
+        icon = 60,
+        size = 0.55,
+        color = 26,
+        pos = vector3(-1089.879, -832.0179, 10.66909),
+        sub = nil
+    },
+
+    {
+        name = "Fédéral",
+        icon = 189,
+        size = 0.55,
+        color = 13,
+        pos = vector3(1846.169, 2586.78, 45.67201),
+        sub = nil
+    },
 }
 
 
