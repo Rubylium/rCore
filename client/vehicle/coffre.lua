@@ -13,9 +13,7 @@ RMenu.Add('core', 'veh_main', RageUI.CreateMenu("Coffre véhicule", "~b~Menu cof
 RMenu:Get('core', 'veh_main').Closed = function()
     open = false
     TriggerServerEvent("core:OpenVehHood", token, entity, false)
-    DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 0)
-    DecorRemove(NetToEnt(entity), "TRUCK_OPEN")
-    StopGameplayHint(true)
+    TriggerServerEvent("core:RemoveChestStatus", token, vPlate)
 end
 
 RMenu.Add('core', 'veh_inv', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~Coffre du véhicule"))
@@ -54,44 +52,31 @@ function OpenVehicleChest()
     local vehicle, dstV = rUtils.GetClosestVehicle(pCoords)
     local locked = GetVehicleDoorLockStatus(vehicle)
     if locked ~= 2 then
-        local dst = dstV
-        local trunkpos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "neon_b"))
-        if trunkpos == vector3(0,0,0) then 
-            dst = GetDistanceBetweenCoords(GetEntityCoords(vehicle), pCoords, 1)
-        else
-            
-            dst = GetDistanceBetweenCoords(trunkpos, pCoords, 1)
-        end
-        
-        if dst < 2.5 then
-            if trunkpos == vector3(0,0,0) then 
-                SetGameplayCoordHint(GetEntityCoords(vehicle), 1500, 1500, 1500, 0)
-            else
-                SetGameplayCoordHint(trunkpos.x, trunkpos.y, trunkpos.z+1.0, 1500, 1500, 1500, 0)
-            end
+        if dstV < 2.5 then
             
             entity = VehToNet(vehicle)
             vClasse = GetVehicleClass(vehicle)
             vPlate = GetVehicleNumberPlateText(vehicle)
-            if not DecorExistOn(NetToEnt(entity), "TRUCK_OPEN") then
-                DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 0)
-            end
-            if DecorGetInt(NetToEnt(entity), "TRUCK_OPEN") == 0 then
-                DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 1)
-                VehInventory = {}
-                TempAdd = 0
-                TriggerServerEvent("core:GetVehicleInventory", token, vPlate, entity, DecorExistOn(NetToEnt(entity), "OWNED_VEH"))
-                GetVehLimit(vClasse)
-                RageUI.Visible(RMenu:Get('core', 'veh_main'), true)
-                OpenVehInventory()
-                TriggerServerEvent("core:OpenVehHood", token, entity, true)
-                SendActionTxt(" ouvre le coffre du véhicule.")
-            else
-                RageUI.Popup({message = "~r~Action impossible\n~w~Quelqu'un regarde déja dans le coffre."})
-            end
+            exports.rFramework:TriggerServerCallback('core:OpenChestIfCan', function(open)
+                if open then 
+                    DecorSetInt(NetToEnt(entity), "TRUCK_OPEN", 1)
+                    VehInventory = {}
+                    TempAdd = 0
+                    TriggerServerEvent("core:GetVehicleInventory", token, vPlate, entity, DecorExistOn(NetToEnt(entity), "OWNED_VEH"))
+                    GetVehLimit(vClasse)
+                    RageUI.Visible(RMenu:Get('core', 'veh_main'), true)
+                    OpenVehInventory()
+                    TriggerServerEvent("core:OpenVehHood", token, entity, true)
+                    SendActionTxt(" ouvre le coffre du véhicule.")
+                else
+                    RageUI.Popup({message = "~r~Action impossible\n~w~Quelqu'un regarde déja dans le coffre."})
+                end
+            end, vPlate)
         else
             RageUI.Popup({message = "~r~Action impossible\n~w~Aucun véhicule proche / tu n'est pas proche du coffre."})
         end
+    else
+        RageUI.Popup({message = "~r~Action impossible\n~w~Le coffre est fermé."})
     end
 end
 

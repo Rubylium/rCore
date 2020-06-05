@@ -8,8 +8,8 @@ AddEventHandler("core:RefreshKeys", function(keys)
     RageUI.Popup({message = "Vos clés de véhicules ont été mis à jours."})
 end)
 
-RegisterNetEvent("core:CallBackReady")
-AddEventHandler("core:CallBackReady", function()
+Citizen.CreateThread(function()
+    Wait(5000)
     exports.rFramework:TriggerServerCallback('core:GetKeysBack', function(keys)
         pKeys = keys
     end, token)

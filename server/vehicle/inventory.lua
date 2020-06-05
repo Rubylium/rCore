@@ -126,3 +126,34 @@ function GetVehItemCount(cache, label)
     end
     return 0
 end
+
+
+
+-- Status 
+
+
+local VehsChestStatus = {}
+
+function DeployCbVehicle()
+    exports.rFramework:RegisterServerCallback('core:OpenChestIfCan', function(source, cb, plate)
+        if VehsChestStatus[plate] == nil then 
+            VehsChestStatus[plate] = true
+            cb(true) 
+        end
+
+        if VehsChestStatus[plate] == false then
+            cb(false)
+        end
+
+        if VehsChestStatus[plate] == true then
+            cb(false)
+        end
+    end)
+end
+
+
+RegisterNetEvent("core:RemoveChestStatus")
+AddEventHandler("core:RemoveChestStatus", function(token, plate)
+    if not exports.rFramework:CheckToken(token, source, "RemoveChestStatus") then return end
+    VehsChestStatus[plate] = nil
+end)

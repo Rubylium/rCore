@@ -4,6 +4,7 @@ local VehKeys = {}
 RegisterNetEvent("core:CallBackReady")
 AddEventHandler("core:CallBackReady", function()
     DeployCb()
+    DeployCbVehicle()
 end)
 
 function DeployCb()
