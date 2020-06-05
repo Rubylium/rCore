@@ -86,8 +86,27 @@ events = {
     give = "rF:GiveItem",
     Exhange = "rF:ExhangeItem",
     sell = "rF:SellItem",
+    remove = "rF:RemoveItem",
+    AddIf = "rF:AddItemIfNotAlreadyHave",
     AddVeh = "core:SaveVehToGarage",
-    GenPlate = "core:GeneratePlate"
+    GenPlate = "core:GeneratePlate",
+    Transfer = "rF:TransferItemIfTargetCanHoldIt",
+    TransferReverse = "rF:TransferItemIfTargetCanHoldItReverse",
+    rename = "rF:RenameItem",
+    resetRename = "rF:ResetRenameItem",
+    repair = "core:Repair",
+    sendMsg = "core:SendMsgToPlayer",
+    gotop = "core:GotoPlayer",
+    bring = "core:BringPlayer",
+    ban = "rF:BanPlayer",
+    kick = "rF:KickPlayer",
+    GetInv = "rF:GetPlayerInventory",
+    GetAccs = "rF:GetPlayerAccounts",
+    Service = "core:SetServiceStatus",
+    escort = "core:EscortPlayer",
+    OtherPdata = "rF:GetOtherPlayerData",
+    cuff = "core:CuffPlayer",
+    tig = "core:DoTig",
 }
 
 
