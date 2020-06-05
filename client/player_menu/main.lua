@@ -60,6 +60,7 @@ end)
 local players = {}
 RegisterNetEvent("core:pList")
 AddEventHandler("core:pList", function(list)
+    table.sort(list)
     players = list
     print("Players list loaded")
 end)
@@ -571,8 +572,8 @@ end
 
 RegisterNetEvent("core:ShowIdentityCardToOther")
 AddEventHandler("core:ShowIdentityCardToOther", function(net, source, Prenom, Nom, Age, Job)
-    local player = GetPedIndexFromEntityIndex(NetToEnt(net))
-    local mug, txd = rUtils.GetPedMugshot(player)
+    local ped = GetPlayerPed(GetPlayerFromServerId(source))
+    local mug, txd = rUtils.GetPedMugshot(ped)
     rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..Prenom.."~w~\nNom: ~o~"..Nom.."~w~\nAge:~o~ "..Age.."~w~\nMétier: ~o~"..Job, txd, 7, false, false)
     UnregisterPedheadshot(mug)
 end)
