@@ -57,6 +57,7 @@ function HuntData:LoadHuntData()
                         if s then 
                             if pMoney >= 500 then
                                 TriggerServerEvent(self.h.events.buy, token, "permisChasse", 1, 500)
+                                TriggerServerEvent("rF:GetPlayerInventory", token)
                             end
                         end
                     end)
