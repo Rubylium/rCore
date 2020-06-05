@@ -89,8 +89,11 @@ AddEventHandler("rF:SendPlayerInventory", function(inv, weight)
     pWeight = weight
 end)
 
-
-RegisterNetEvent("rF:SendToken")AddEventHandler("rF:SendToken", function(NewToken)token = NewToken end) 
+ 
+RegisterNetEvent("rF:SendToken")
+AddEventHandler("rF:SendToken", function(NewToken)
+    token = NewToken 
+end) 
 
 
 RegisterNetEvent("rF:JobRefresh")
