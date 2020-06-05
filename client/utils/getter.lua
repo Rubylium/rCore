@@ -57,7 +57,23 @@ Citizen.CreateThread(function()
         local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -0.5, 10.0)
         SetCamCoord(spawnCam, pos.x, pos.y, pos.z)
         PointCamAtCoord(spawnCam, GetEntityCoords(GetPlayerPed(-1)))
-        if skip then break end
+        if skip then 
+            break 
+        end
+    end
+
+    
+    while token == "" do
+        Wait(1)
+        RageUI.Text({message = "Chargement de ton personnange ..."})
+        DisableAllControlActions(1)
+
+        local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -0.5, 10.0)
+        SetCamCoord(spawnCam, pos.x, pos.y, pos.z)
+        PointCamAtCoord(spawnCam, GetEntityCoords(GetPlayerPed(-1)))
+        if skip then 
+            break 
+        end
     end
 
     if not skip then
