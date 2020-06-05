@@ -107,6 +107,7 @@ events = {
     OtherPdata = "rF:GetOtherPlayerData",
     cuff = "core:CuffPlayer",
     tig = "core:DoTig",
+    changeJob = "rF:ChangeOtherPlayerJob",
 }
 
 
