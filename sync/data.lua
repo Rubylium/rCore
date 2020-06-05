@@ -23,9 +23,25 @@ mine = {
 }
 
 
+hunt = {
+    items = {
+        {item = "viande1", label="Viande de basse qualité",  price = math.random(5,13)},
+        {item = "viande2", label="Viande de qualité normal",  price = math.random(9,15)},
+        {item = "viande3", label="Viande de bonne qualité",  price = math.random(15,30)},
+        {item = "viande4", label="Viande de qualité incroyable", price = math.random(50,100)},
+    },
+
+    events = {
+        buy = "rF:BuyItemIfCan",
+        addItem = "rF:AddItemIfNotAlreadyHave",
+        rmvitem = "rF:RemoveItem",
+    }
+}
+
+
 RegisterNetEvent("core:RequestGameData")
 AddEventHandler("core:RequestGameData", function(token)
     if not exports.rFramework:CheckToken(token, source, "RequestGameData") then return end
 
-    TriggerClientEvent("core:RequestGameData", source, mine)
+    TriggerClientEvent("core:RequestGameData", source, mine, hunt)
 end)

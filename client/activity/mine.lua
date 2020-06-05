@@ -1,5 +1,5 @@
 MineData = {}
-
+ 
 function MineData:LoadMineData()
     local working = false
     local open = false
