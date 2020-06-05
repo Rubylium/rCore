@@ -59,7 +59,7 @@ function StartRecolte(item)
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
             end
-            TriggerServerEvent("rF:GiveItem", token, item, 1)
+            TriggerServerEvent(events.give, token, item, 1)
         end
 
         Wait(0)
@@ -88,7 +88,7 @@ function StartTrait(oItem, iItem)
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
             end
-            TriggerServerEvent("rF:ExhangeItem", token, oItem, iItem)
+            TriggerServerEvent(events.Exhange, token, oItem, iItem)
         end
 
         Wait(0)
@@ -117,7 +117,7 @@ function StartSell(item, price)
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
             end
-            TriggerServerEvent("rF:SellItem", token, item, price)
+            TriggerServerEvent(events.sell, token, item, price)
         end
 
         Wait(0)

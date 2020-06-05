@@ -534,7 +534,7 @@ function LoadConcessData()
                                 local id = GetPlayerServerId(v)
                                 local props = local_veh.props
                                 local props_final, plate = CreateVeh(props)
-                                TriggerServerEvent("core:SaveVehToGarage", token, id, displaytext, plate, props_final)
+                                TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final)
                                 for n,i in pairs(vehs_avalaible) do
                                     if local_veh.props.plate == i.plate then
                                         table.remove(vehs_avalaible, n)
@@ -619,7 +619,7 @@ function LoadConcessData()
         end
         rUtils.Notif("Création de la plaque en cours ...")
         local plate = ""
-        exports.rFramework:TriggerServerCallback('core:GeneratePlate', function(_plate)
+        exports.rFramework:TriggerServerCallback(events.GenPlate, function(_plate)
             plate = _plate
             rUtils.Notif("Plaque ["..plate.."] crée!")
             SetVehicleNumberPlateText(veh, plate)

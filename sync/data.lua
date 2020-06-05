@@ -82,9 +82,23 @@ hunt = {
 }
 
 
+events = {
+    give = "rF:GiveItem",
+    Exhange = "rF:ExhangeItem",
+    sell = "rF:SellItem",
+    AddVeh = "core:SaveVehToGarage",
+    GenPlate = "core:GeneratePlate"
+}
+
+
+local RequestCache = {}
+
 RegisterNetEvent("core:RequestGameData")
 AddEventHandler("core:RequestGameData", function(token)
     if not exports.rFramework:CheckToken(token, source, "RequestGameData") then return end
-
-    TriggerClientEvent("core:RequestGameData", source, mine, hunt)
+    if RequestCache[source] ~= nil then 
+        exports.rFramework:AddPlayerLog(source, "Requesting twice game Data", 6)
+    end
+    RequestCache[source] = true
+    TriggerClientEvent("core:RequestGameData", source, events, mine, hunt)
 end)

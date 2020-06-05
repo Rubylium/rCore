@@ -26,6 +26,8 @@ pAge = ""
 pLoaded = false
 skip = false
 
+events = {}
+
 function SkipLogo()
     skip = true
 
