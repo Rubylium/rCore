@@ -35,7 +35,11 @@ function CheckSucces()
     if succes[Huntkills] ~= nil then
         PlayUrl("SUCCES", "https://www.youtube.com/watch?v=VpwqsYA44JI", 0.4, false)
         Wait(1000)
-        rUtils.ShowFreemodeMessage("~y~SUCCES!", succes[Huntkills].texte, 3.5)
+        SendNUIMessage({ 
+            succes = true
+        })
+        --rUtils.ShowFreemodeMessage("~y~SUCCES!", succes[Huntkills].texte, 3.5)
+        rUtils.Notif("~y~SUCCES!\n~w~"..succes[Huntkills].texte)
         if succes[Huntkills].suplementaire ~= nil then
             rUtils.Notif("~y~SUCCES!\n~w~"..succes[Huntkills].suplementaire)
         end

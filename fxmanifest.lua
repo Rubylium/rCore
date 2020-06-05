@@ -11,7 +11,7 @@ files {
 	"client/API/html/scripts/SoundPlayer.js",
     "client/API/html/scripts/functions.js",
     "client/API/html/diplayLogo.js",
-    "client/API/html/img/logo.png",
+    "client/API/html/img/*.png",
 }
 
 client_scripts {

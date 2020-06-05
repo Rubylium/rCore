@@ -9,6 +9,14 @@ $(function() {
             });
         }
 
+        if (typeof mess.succes !== 'undefined') {
+            $("#succes").fadeIn(200, function() {
+                setTimeout(function() {
+                    $("#succes").fadeOut("slow", function() {});
+                }, 10000);
+            });
+        }
+
     });
 
 });
