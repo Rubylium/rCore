@@ -769,7 +769,7 @@ end
 
 
 function rUtils.GetVipBonus(price)
-	if pVip == 1 then
+	if pVip == 1 then 
 		rUtils.ImportantNotif("Bonus VIP "..pVip.." de 10% appliqué.")
         return price * 10 / 100
 	elseif pVip == 2 then
