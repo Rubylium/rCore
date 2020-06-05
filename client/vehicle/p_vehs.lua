@@ -115,6 +115,7 @@ function OpenVehMenu(out)
                                 if s then
                                     local pos, heading = rUtils.GetZoneFromTable(out)
                                     rUtils.SpawnVehicle(name, pos, heading, props, function(veh)
+                                        DecorSetBool(veh, "OWNED_VEH", true)
                                         exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
                                             if status then
                                                 RageUI.Popup({message = "Vous avez sortie les clé de votre véhicule."})
