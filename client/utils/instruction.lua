@@ -79,7 +79,9 @@ Citizen.CreateThread(function()
     while true do
         if form then
             DrawScaleformMovieFullscreen(form, 255, 255, 255, 255, 0)
+            Wait(0)
+        else
+            Wait(500)
         end
-        Wait(0)
     end
 end)
