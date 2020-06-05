@@ -55,3 +55,20 @@ rUtils.RegisterControlKey("lock", "Clé du véhicule", "u", function()
     if IsCuffed then return end
     OpenOrCloseVeh()
 end)
+
+local falling = false
+rUtils.RegisterControlKey("fall", "Faire tomber son personnage", "y", function()
+    if IsPedInAnyVehicle(pPed, false) then return end
+    if not falling then
+        falling = true
+        Citizen.CreateThread(function()
+            while falling do
+                Wait(10)
+                SetPedToRagdoll(pPed, 300, 300, 0, 0, 0, 0)
+            end
+            ClearPedTasks(pPed)
+        end)
+    else
+        falling = false
+    end
+end)
