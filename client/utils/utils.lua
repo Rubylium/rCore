@@ -768,6 +768,18 @@ function rUtils.EntityOwner(entity)
 end
 
 
+function rUtils.GetVipBonus(price)
+	if pVip == 1 then
+		rUtils.Notif("Bonus VIP "..pVip.." de 10% appliqué.")
+        return price * 10 / 100
+	elseif pVip == 2 then
+		rUtils.Notif("Bonus VIP "..pVip.." de 20% appliqué.")
+		return price * 20 / 100
+	else
+		return 0
+    end
+end
+
 rUtils.ShowFreemodeMessage = function(title, msg, sec)
 	Citizen.CreateThread(function()
 		local scaleform = rUtils.RequestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')

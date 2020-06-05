@@ -85,7 +85,7 @@ function MineData:LoadMineData()
                 CheckMinerSucces()
                 ClearPedTasks(pPed)
                 TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj), ObjToNet(pickaxe)})
-                TriggerServerEvent("rF:AddMoney", token, self.m.earning)
+                TriggerServerEvent("rF:AddMoney", token, self.m.earning + rUtils.GetVipBonus(self.m.earning))
 
                 if not working then TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj), ObjToNet(pickaxe)}) return end
 
