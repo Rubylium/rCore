@@ -387,6 +387,11 @@ end
 
 
 RMenu.Add('core', 'lspd_tige', RageUI.CreateMenu("POLICE", "~b~Traveaux forcé LSPD"))
+RMenu:Get('core', 'lspd_tige').Closed = function()
+    open = false
+end
+
+
 local tige = {
     {
         titre = "Petits travaux forcés",
@@ -485,6 +490,7 @@ local tigeAction = {
 
 function OpenTigeLspdMenu()
     if pJob ~= "police" then RageUI.Popup({message = "Désolé, je ne parle qu'avec des agents de police."}) return end
+    if open then return end
     open = true
     RageUI.Visible(RMenu:Get('core', 'lspd_tige'), not RageUI.Visible(RMenu:Get('core', 'lspd_tige')))
     Citizen.CreateThread(function()
