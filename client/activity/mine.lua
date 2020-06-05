@@ -53,7 +53,7 @@ function MineData:LoadMineData()
     function MineData:StartMineWork()
         Citizen.CreateThread(function()
             while working do
-                local r = math.random(-25,25)
+                local r = math.random(-15,15)
                 local obj = props[math.random(1,#props)]
                 local pos = vector3(self.m.pos.x+r, self.m.pos.y-r, self.m.pos.z)
                 rUtils.LoadModel(obj)
