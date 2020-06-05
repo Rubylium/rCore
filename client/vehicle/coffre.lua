@@ -54,7 +54,7 @@ function OpenVehicleChest()
     local vehicle, dstV = rUtils.GetClosestVehicle(pCoords)
     local locked = GetVehicleDoorLockStatus(vehicle)
     if locked ~= 2 then
-        local dst
+        local dst = dstV
         local trunkpos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "neon_b"))
         if trunkpos == vector3(0,0,0) then 
             dst = GetDistanceBetweenCoords(GetEntityCoords(vehicle), pCoords, 1)
