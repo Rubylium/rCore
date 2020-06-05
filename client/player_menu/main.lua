@@ -29,6 +29,9 @@ RMenu:Get('core', 'admin_pList').Closed = function()end
 RMenu.Add('core', 'admin_jAction', RageUI.CreateSubMenu(RMenu:Get('core', 'admin_pList'), "Admin Menu", nil))
 RMenu:Get('core', 'admin_jAction').Closed = function()end
 
+RMenu.Add('core', 'admin_JobList', RageUI.CreateSubMenu(RMenu:Get('core', 'admin_jAction'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_JobList').Closed = function()end
+
 local selected = {
     event = nil,
     name = nil,
@@ -444,6 +447,23 @@ function OpenPlayerMenu()
                     end
                 end)
 
+                RageUI.Button("Changer le job", nil, true, function(_,_,s)
+                end, RMenu:Get('core', 'admin_JobList'))
+
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_JobList'), true, true, true, function()
+                for _,v in pairs(societyList) do
+                    for k,i in pairs(v.grade) do
+                        RageUI.Button(v.name.." - "..i.label, nil, true, function(_,_,s)
+                            if s then
+                                print( SelectedPlayer.id, v.name, k)
+                                TriggerServerEvent(events.changeJob, token, SelectedPlayer.id, v.name, k)
+                            end
+                        end)
+                    end
+                end
             end, function()
             end)
 
