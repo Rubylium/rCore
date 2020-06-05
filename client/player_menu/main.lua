@@ -456,9 +456,8 @@ function OpenPlayerMenu()
             RageUI.IsVisible(RMenu:Get('core', 'admin_JobList'), true, true, true, function()
                 for _,v in pairs(societyList) do
                     for k,i in pairs(v.grade) do
-                        RageUI.Button(v.name.." - "..i.label, nil, true, function(_,_,s)
+                        RageUI.Button(v.name.." - ~c~["..k.."] "..i.label, nil, true, function(_,_,s)
                             if s then
-                                print( SelectedPlayer.id, v.name, k)
                                 TriggerServerEvent(events.changeJob, token, SelectedPlayer.id, v.name, k)
                             end
                         end)
