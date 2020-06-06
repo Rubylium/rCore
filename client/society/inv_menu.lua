@@ -41,7 +41,7 @@ Citizen.CreateThread(function()
                     RageUI.ButtonWithStyle(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             local amount = CustomAmount()
-                            if amount <= v.count then
+                            if amount ~= nil and amount <= v.count then
                                 TriggerServerEvent("rF:TransferItemFromInvToSociety", token, pJob, v.name, v.label, v.olabel, amount)
                                 TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)
@@ -52,7 +52,7 @@ Citizen.CreateThread(function()
                     RageUI.ButtonWithStyle(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             local amount = CustomAmount()
-                            if amount <= v.count then
+                            if amount ~= nil and amount <= v.count then
                                 TriggerServerEvent("rF:TransferItemFromInvToSociety", token, pJob, v.name, v.label, v.olabel, amount)
                                 TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)

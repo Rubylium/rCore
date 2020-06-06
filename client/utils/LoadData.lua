@@ -12,6 +12,8 @@ function LoadData()
         LoadConcessData()
     elseif pJob == "sheriff" then
         LoadSheriffData()
+    elseif pJob == "bestbuds" then
+        LoadBestbudsData()
     end 
 
     print("^2Loading "..pJob.." data.")

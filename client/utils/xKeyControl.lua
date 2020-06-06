@@ -18,6 +18,8 @@ rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function(
         OpenPoliceActionMenu()
     elseif pJob == "sheriff" then
         OpenSheriffActionMenu()
+    elseif pJob == "bestbuds" then
+        OpenBestBudsMenu()
     end
 end)
 
