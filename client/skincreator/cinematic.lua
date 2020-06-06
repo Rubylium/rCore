@@ -33,6 +33,7 @@ function StartCreatorEndCinematic()
                 if v ~= pPed then
                     SetEntityAlpha(v, 0, 0)
                     SetEntityNoCollisionEntity(pPed, v, false)
+                    NetworkConcealPlayer(NetworkGetPlayerIndexFromPed(v), true, 1)
                 end
             end
         end
@@ -40,6 +41,7 @@ function StartCreatorEndCinematic()
             if v ~= pPed then
                 ResetEntityAlpha(v)
                 SetEntityNoCollisionEntity(v, pPed, true)
+                NetworkConcealPlayer(NetworkGetPlayerIndexFromPed(v), false, 1)
             end
         end
     end)
