@@ -93,11 +93,24 @@ armory = {
     zone = {
         {pos = vector3(21.40687, -1106.694, 29.79703),heading = 341.06161499023,},
         {pos = vector3(810.8315, -2157.479, 29.61902),heading = 185.2163848877,},
+        {pos = vector3(1693.104, 3759.528, 34.70536),heading = 48.778507232666,},
     },
 
     fov = 65.0,
     oCoords = {0.0, 1.0, 0.0},
     CoordToPoint = {0.8, 0.0, 0.3},
+}
+
+weed = {
+    props = {
+        [30] = "bkr_prop_weed_01_small_01c",
+        [40] = "bkr_prop_weed_01_small_01b",
+        [50] = "bkr_prop_weed_01_small_01a",
+        [60] = "bkr_prop_weed_med_01a",
+        [70] = "bkr_prop_weed_med_01b",
+        [80] = "bkr_prop_weed_lrg_01a",
+        [90] = "bkr_prop_weed_lrg_01b",
+    }
 }
 
 events = {
@@ -127,6 +140,8 @@ events = {
     tig = "core:DoTig",
     changeJob = "rF:ChangeOtherPlayerJob",
     BuyIf = "rF:BuyItemIfCan",
+    ResetDeath = "core:ResetDeathStatus",
+    SetDeath = "core:SetPlayerDeathStatus",
 }
  
 
@@ -139,5 +154,5 @@ AddEventHandler("core:RequestGameData", function(token)
         exports.rFramework:AddPlayerLog(source, "Requesting twice game Data", 6)
     end
     RequestCache[source] = true
-    TriggerClientEvent("core:RequestGameData", source, events, mine, hunt, armory)
+    TriggerClientEvent("core:RequestGameData", source, events, mine, hunt, armory, weed)
 end)
