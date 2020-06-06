@@ -80,7 +80,25 @@ hunt = {
 
     central = vector3(-1567.7, 4484.3, 21.4)
 }
+ 
 
+armory = {
+    weapons = {
+        {label = "Batte De Baseball", item = "batte", prop = "w_me_bat", price = 3500},
+        {label = "Couteau de poche", item = "knife", prop = "w_me_knife_01", price = 1500},
+        {label = "Tazer", item = "tazer", prop = "w_pi_stungun", price = 1000},
+    },
+    camType = "DEFAULT_SCRIPTED_CAMERA",
+
+    zone = {
+        {pos = vector3(21.40687, -1106.694, 29.79703),heading = 341.06161499023,},
+        {pos = vector3(810.8315, -2157.479, 29.61902),heading = 185.2163848877,},
+    },
+
+    fov = 65.0,
+    oCoords = {0.0, 1.0, 0.0},
+    CoordToPoint = {0.8, 0.0, 0.3},
+}
 
 events = {
     give = "rF:GiveItem",
@@ -108,8 +126,9 @@ events = {
     cuff = "core:CuffPlayer",
     tig = "core:DoTig",
     changeJob = "rF:ChangeOtherPlayerJob",
+    BuyIf = "rF:BuyItemIfCan",
 }
-
+ 
 
 local RequestCache = {}
 
@@ -120,5 +139,5 @@ AddEventHandler("core:RequestGameData", function(token)
         exports.rFramework:AddPlayerLog(source, "Requesting twice game Data", 6)
     end
     RequestCache[source] = true
-    TriggerClientEvent("core:RequestGameData", source, events, mine, hunt)
+    TriggerClientEvent("core:RequestGameData", source, events, mine, hunt, armory)
 end)
