@@ -43,7 +43,7 @@ function SyncDeathWithPlayers()
     NetworkResurrectLocalPlayer(pCoords, heading, 0, 0)
     ClearPlayerWantedLevel(GetPlayerIndex())
     SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
-    TriggerServerEvent("core:SetPlayerDeathStatus", token, FatalInjured)
+    TriggerServerEvent(events.SetDeath, token, FatalInjured)
     Citizen.CreateThread(function()
         local LastMove = "front"
         while pDeath do
@@ -62,7 +62,7 @@ function SyncDeathWithPlayers()
                             StartAudioScene("SWITCH_TO_MP_SCENE")
                             NetworkSetVoiceActive(false)
                             StartScreenEffect("DeathFailOut", -1, true)
-                            TriggerServerEvent("core:SetPlayerDeathStatus", token, FatalInjured)
+                            TriggerServerEvent(events.SetDeath, token, FatalInjured)
                             break
                         end
                     end 
