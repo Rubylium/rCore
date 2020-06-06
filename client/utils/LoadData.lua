@@ -18,12 +18,14 @@ function LoadData()
 end
 
 RegisterNetEvent("core:RequestGameData")
-AddEventHandler("core:RequestGameData", function(event, mine, hunt)
+AddEventHandler("core:RequestGameData", function(event, mine, hunt, arm)
     print("^1Loading up Game Data, please wait ...")
     MineData.m = mine
     HuntData.h = hunt
+    ArmoryData.a = arm
     events = event
 
+    ArmoryData:LoadArmoryData()
     MineData:LoadMineData()
     HuntData:LoadHuntData()
 end)
