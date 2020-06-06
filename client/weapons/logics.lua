@@ -54,6 +54,16 @@ local huntrifleSetting = {
     zR = 0.0,
 }
 
+local batteSetting = {
+    back_bone = 24816,
+    x = 0.41,
+    y = -0.14,
+    z = -0.15,  
+    xR = 0.0,
+    yR = 270.0,
+    zR = 0.0,
+}
+
 weapons = {
     [GetHashKey("weapon_pistol")] = {item = "pistolet",          pvp = true,  itemName = "weapon_pistol"      , prop = "",},
     [GetHashKey("weapon_stungun")] = {item = "tazer",            pvp = true,  itemName = "weapon_stungun"     , prop = "",},
@@ -65,6 +75,8 @@ weapons = {
     [GetHashKey("weapon_assaultrifle")] = {item = "AK-47",       pvp = true,  itemName = "weapon_assaultrifle", prop = "w_ar_assaultrifle",},
     [GetHashKey("weapon_musket")] = {item = "musket",            pvp = false, itemName = "weapon_musket"      , prop = "w_ar_musket", settings = musketSetting},
     [GetHashKey("weapon_sniperrifle")] = {item = "huntrifle",    pvp = false, itemName = "weapon_sniperrifle" , prop = "w_sr_sniperrifle", settings = huntrifleSetting},
+    [GetHashKey("weapon_bat")] = {item = "batte",                pvp = true, itemName = "weapon_bat" ,          prop = "w_me_bat", settings = batteSetting},
+    [GetHashKey("weapon_switchblade")] = {item = "knife",        pvp = true, itemName = "weapon_switchblade" ,          prop = ""},
 }
 
 function IsItemAWeapon(item)
