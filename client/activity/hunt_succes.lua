@@ -48,7 +48,15 @@ local succes = {
     },
 }
 
-
+Citizen.CreateThread(function()
+    local Last10 = 100
+    for i = 100, 1000 do
+        if i == Last10 + 10 then
+            succes[Last10] = {texte = Last10.." bêtes tuées"}
+            Last10 = Last10 + 10
+        end
+    end
+end)
 
 
 function CheckSucces()
