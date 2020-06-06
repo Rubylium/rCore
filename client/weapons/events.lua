@@ -56,3 +56,18 @@ AddEventHandler("core:GetHuntSniper", function()
     GiveWeaponToPed(pPed, GetHashKey("weapon_sniperrifle"), 255, false, true)
     SendActionTxt(" sort son fusils de précision de chasseur")
 end)
+
+
+RegisterNetEvent("core:GetBat")
+AddEventHandler("core:GetBat", function()
+    RemoveAllPedWeapons(pPed, 1)
+    GiveWeaponToPed(pPed, GetHashKey("weapon_bat"), 255, false, true)
+    SendActionTxt(" sort sa Batte De Baseball")
+end)
+
+RegisterNetEvent("core:GetKnife")
+AddEventHandler("core:GetKnife", function()
+    RemoveAllPedWeapons(pPed, 1)
+    GiveWeaponToPed(pPed, GetHashKey("weapon_switchblade"), 255, false, true)
+    SendActionTxt(" sort un couteau")
+end)
