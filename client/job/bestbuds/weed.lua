@@ -133,7 +133,7 @@ function WeedData:LoadWeedData()
             while open do
                 Wait(1000)
                 CheckProp()
-                plante = plante - math.random(0,3)
+                plante = plante - math.random(1,8)
                 count = count + 0.05
                 if count > 1 then
                     open = false
@@ -153,23 +153,35 @@ function WeedData:LoadWeedData()
             else
                 rUtils.Notif("Tu as raté ta plante, tu n'as rien eu.")
             end
-            TriggerServerEvent("DeleteEntity", token, WeedProps)
             ClearPedTasks(pPed)
+            Wait(500)
+            TriggerServerEvent("DeleteEntity", token, WeedProps)
         end)
 
         Citizen.CreateThread(function()
             while open do
                 Wait(1)
-                if plante > 80 then
+                if plante > 100 then
                     RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 54, G = 230, B = 34, A = 255} }, true, function(_,_, sel, prog)
-                            if prog then
-                                if IsControlPressed(1, 22) then
-                                    plante = plante + self.w.add
-                                end
+                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 255, G = 0, B = 0, A = 255} }, true, function(active,_, sel, prog)
+                            if IsControlPressed(1, 22) then
+                                plante = plante + self.w.add
                             end
                         end)
-                        RageUI.Separator("État: "..plante.."/100")
+                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
+
+                        RageUI.StatisticPanel(count, "Temps", 1)
+
+                    end, function()
+                    end)
+                elseif plante > 80 then
+                    RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
+                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 54, G = 230, B = 34, A = 255} }, true, function(active,_, sel, prog)
+                            if IsControlPressed(1, 22) then
+                                plante = plante + self.w.add
+                            end
+                        end)
+                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
                         RageUI.StatisticPanel(count, "Temps", 1)
 
@@ -177,14 +189,12 @@ function WeedData:LoadWeedData()
                     end)
                 elseif plante > 70 then
                     RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 245, G = 185, B = 66, A = 255} }, true, function(_,_, sel, prog)
-                            if prog then
-                                if IsControlPressed(1, 22) then
-                                    plante = plante + self.w.add
-                                end
+                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 245, G = 185, B = 66, A = 255} }, true, function(active,_, sel, prog)
+                            if IsControlPressed(1, 22) then
+                                plante = plante + self.w.add
                             end
                         end)
-                        RageUI.Separator("État: "..plante.."/100")
+                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
                         RageUI.StatisticPanel(count, "Temps", 1)
 
@@ -192,14 +202,12 @@ function WeedData:LoadWeedData()
                     end)
                 elseif plante > 60 then
                     RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 245, G = 105, B = 66, A = 255} }, true, function(_,_, sel, prog)
-                            if prog then
-                                if IsControlJustReleased(1, 22) then
-                                    plante = plante + self.w.add
-                                end
+                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 245, G = 105, B = 66, A = 255} }, true, function(active,_, sel, prog)
+                            if IsControlPressed(1, 22) then
+                                plante = plante + self.w.add
                             end
                         end)
-                        RageUI.Separator("État: "..plante.."/100")
+                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
                         RageUI.StatisticPanel(count, "Temps", 1)
 
@@ -207,14 +215,12 @@ function WeedData:LoadWeedData()
                     end)
                 else
                     RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 255, G = 0, B = 0, A = 255} }, true, function(_,_, sel, prog)
-                            if prog then
-                                if IsControlJustReleased(1, 22) then
-                                    plante = plante + 0.5
-                                end
+                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 255, G = 0, B = 0, A = 255} }, true, function(active,_, sel, prog)
+                            if IsControlPressed(1, 22) then
+                                plante = plante + self.w.add
                             end
                         end)
-                        RageUI.Separator("État: "..plante.."/100")
+                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
                         RageUI.StatisticPanel(count, "Temps", 1)
 
@@ -237,10 +243,16 @@ function WeedData:LoadWeedData()
     local Traitment = {}
 
     function OpenTraitWeed()
+        if open then 
+            RageUI.CloseAll() 
+            open = false 
+            RageUI.Visible(RMenu:Get('core', 'weed_trait'), false) 
+            Wait(100)
+        end
         local Trating = false
         open = true
         Traitment = {}
-        RageUI.Visible(RMenu:Get('core', 'weed_trait'), not RageUI.Visible(RMenu:Get('core', 'weed_trait')))
+        RageUI.Visible(RMenu:Get('core', 'weed_trait'), true)
         Citizen.CreateThread(function()
             while open do
                 Wait(1)
@@ -309,7 +321,6 @@ function WeedData:LoadWeedData()
 
                 if supposed >= 20 then
                     open = false
-                    break
                 end
                 Wait(self.w.TraitWait)
             end

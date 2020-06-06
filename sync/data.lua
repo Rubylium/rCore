@@ -118,7 +118,7 @@ weed = {
     item2 = "weed",
     item2Label = "Canabis non traitée",
     itemFinal = "weed2",
-    add = 0.5, 
+    add = 0.05, 
     TraitWait = 1500,
 } 
 
