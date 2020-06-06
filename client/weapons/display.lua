@@ -26,9 +26,9 @@ Citizen.CreateThread(function()
                         if i.prop ~= "" then
                             if SelectedWeapon ~= k then
                                 if i.settings == nil then
-                                    AttachWeapon(i.prop, k, SETTINGS.back_bone, SETTINGS.x, SETTINGS.y, SETTINGS.z, SETTINGS.x_rotation, SETTINGS.y_rotation, SETTINGS.z_rotation, isMeleeWeapon(i.prop), i.item)
+                                    AttachWeapon(i.prop, k, SETTINGS.back_bone, SETTINGS.x, SETTINGS.y, SETTINGS.z, SETTINGS.x_rotation, SETTINGS.y_rotation, SETTINGS.z_rotation, i.item)
                                 else
-                                    AttachWeapon(i.prop, k, i.settings.back_bone, i.settings.x, i.settings.y, i.settings.z, i.settings.xR, i.settings.yR, i.settings.zR, isMeleeWeapon(i.prop), i.item)
+                                    AttachWeapon(i.prop, k, i.settings.back_bone, i.settings.x, i.settings.y, i.settings.z, i.settings.xR, i.settings.yR, i.settings.zR, i.item)
                                 end
                             end
                         end
@@ -60,7 +60,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-function AttachWeapon(attachModel, modelHash, boneNumber ,x ,y ,z ,xR ,yR ,zR, isMelee, itemName)
+function AttachWeapon(attachModel, modelHash, boneNumber ,x ,y ,z ,xR ,yR ,zR, itemName)
     local bone = GetPedBoneIndex(GetPlayerPed(-1), boneNumber)
     rUtils.LoadModel(attachModel)
 
@@ -72,19 +72,6 @@ function AttachWeapon(attachModel, modelHash, boneNumber ,x ,y ,z ,xR ,yR ,zR, i
 
     SetEntityCollision(attached_weapons[attachModel].handle, false, true)
 
-    if isMelee then x = 0.11 y = -0.14 z = 0.0 xR = -75.0 yR = 185.0 zR = 92.0 end -- reposition for melee items
     if attachModel == "prop_ld_jerrycan_01" then x = x + 0.3 end
 	AttachEntityToEntity(attached_weapons[attachModel].handle, GetPlayerPed(-1), bone, x, y, z, xR, yR, zR, 1, 1, 0, 0, 2, 1)
-end
-
-function isMeleeWeapon(wep_name)
-    if wep_name == "prop_golf_iron_01" then
-        return true
-    elseif wep_name == "w_me_bat" then
-        return true
-    elseif wep_name == "prop_ld_jerrycan_01" then
-      return true
-    else
-        return false
-    end
 end
