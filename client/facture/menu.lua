@@ -43,7 +43,7 @@ Citizen.CreateThread(function()
                 -- check
             end, function()
                 -- uncheck
-            end)
+            end) 
 
             --RageUI.Checkbox("Facture de société ?", nil, IsSocietyBill, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
             --    IsSocietyBill = Checked;
