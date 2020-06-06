@@ -49,7 +49,7 @@ function ArmoryData:LoadArmoryData()
                                 Selected.label = v.label
                                 Selected.item = v.item
                                 local oCoords = GetOffsetFromEntityInWorldCoords(pPed, self.a.oCoords[1], self.a.oCoords[2], self.a.oCoords[3])
-                                local CoordToPoint = GetOffsetFromEntityInWorldCoords(pPed, self.a.CoordToPoint[1, self.a.CoordToPoint[2], self.a.CoordToPoint[3])
+                                local CoordToPoint = GetOffsetFromEntityInWorldCoords(pPed, self.a.CoordToPoint[1], self.a.CoordToPoint[2], self.a.CoordToPoint[3])
                                 ArmoryCam = CreateCam(self.a.camType, 0)
                                 SetCamActive(ArmoryCam, 1)
                                 SetCamCoord(ArmoryCam, CoordToPoint)
