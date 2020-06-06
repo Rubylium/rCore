@@ -102,6 +102,7 @@ armory = {
 }
 
 weed = {
+    plante = 50,
     props = {
         [30] = "bkr_prop_weed_01_small_01c",
         [40] = "bkr_prop_weed_01_small_01b",
@@ -110,8 +111,16 @@ weed = {
         [70] = "bkr_prop_weed_med_01b",
         [80] = "bkr_prop_weed_lrg_01a",
         [90] = "bkr_prop_weed_lrg_01b",
-    }
-}
+    },
+    spawnOffset = {0.0, 1.0, 0.0},
+    scenario = "WORLD_HUMAN_GARDENER_PLANT",
+    item = "Graine de chanvre",
+    item2 = "weed",
+    item2Label = "Canabis non traitée",
+    itemFinal = "weed2",
+    add = 0.5, 
+    TraitWait = 1500,
+} 
 
 events = {
     give = "rF:GiveItem",

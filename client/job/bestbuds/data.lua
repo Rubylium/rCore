@@ -52,4 +52,41 @@ function LoadBestbudsData()
         end,
     })
 
-end
+    local clothsWeed = {
+        {
+            name = "Tenue weed Homme",
+            cloth = {
+                ["tshirt_1"] = 15,
+                ["tshirt_2"] = 0,
+                ["torso_1"] = 67,
+                ["torso_2"] = 0,
+                ["pants_1"] = 40,
+                ["pants_2"] = 0,
+                ["shoes_1"] = 25,
+                ["shoes_2"] = 0,
+                ["arms"] = 93,
+                ["chain_1"] = 45,
+                ["chain_2"] = 0,
+                ["bracelets_1"] = -1,
+                ["bracelets_2"] = 0,
+                ["bags_1"] = 0,
+                ["arms_2"] = 1,
+                ["decals_1"] = 0,
+                ["ears_1"] = -1,
+                ["ears_2"] = 0,
+                ["mask_1"] = 46,
+                ["mask_2"] = 0,
+                ["watches_1"] = -1,
+                ["helmet_1"] = 57,
+                ["helmet_2"] = 0,
+                ["watches_2"] = 0,
+            },
+        },
+    }
+
+    rUtils.RegisterClothZone({
+        pos = vector3(374.354, -816.814, 29.30338),
+        cloths = clothsWeed
+    })
+
+end 
