@@ -23,14 +23,14 @@ function LoadMecanoData()
     RMenu.Add('core', 'Choixcouleur', RageUI.CreateSubMenu(RMenu:Get('core', 'peinture'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
     RMenu.Add('core', 'couleur', RageUI.CreateSubMenu(RMenu:Get('core', 'Choixcouleur'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
     RMenu.Add('core', 'neon', RageUI.CreateSubMenu(RMenu:Get('core', 'peinture'), "", "~b~Custom visuel du véhicule", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
-    
+     
     InitMenu()
     InitMecanoZones()
     InitMecanoActionMenu()
     InitMecanoGarage()
 
     rUtils.RegisterActionZone({
-        pos = vector3(-204.2, -1328.3, 34.8),
+        pos = vector3(-108.0746, -1799.85, 21.77481),
         action = function()
             OpenSocietyInvMenu()
         end,
@@ -294,7 +294,11 @@ function InitMenu()
                                 end
                             end
                         end
-                    end)
+                    end, function()
+                        -- check
+                    end, function()
+                        -- uncheck
+                    end) 
                     for k,v in ipairs(neons) do
                         RageUI.ButtonWithStyle(v.label, nil, { }, true, function(_,a,s)
                             if a then
