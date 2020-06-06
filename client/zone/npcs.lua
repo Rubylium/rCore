@@ -188,6 +188,23 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+
+    { -- weed seed 
+        model = "mp_m_weed_01",
+        pos = vector3(2218.82, 5604.767, 54.60904),
+        heading = 109.7403030,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            OpenWeedSeedShop(ped, _offset, camOffset)
+        end,
+        scenario = "WORLD_HUMAN_GUARD_PATROL",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 
