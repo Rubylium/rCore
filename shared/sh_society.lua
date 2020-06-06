@@ -59,6 +59,15 @@ societyList = {
             [5] = {label = "Patron"},
         },
     },
+    {
+        name = "bestbuds",
+        grade = {
+            [0] = {label = "Vendeur"},
+            [1] = {label = "Fabriquant"},
+            [2] = {label = "Gérant de production"},
+            [3] = {label = "Patron"},
+        },
+    },
 }
 
 
