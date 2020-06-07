@@ -415,6 +415,7 @@ function LoadConcessData()
         props = nil,
         entity = nil,
         model = nil,
+        price = nil,
     }
     
     local global_veh = {
@@ -430,7 +431,6 @@ function LoadConcessData()
     RMenu:Get('core', "concess").Closed = function()
         DeleteVehicle(local_veh.entity)
         local_veh.model = nil
-        SetEntityCoords(GetPlayerPed(-1), -53.04, 73.4, 71.9, 0.0, 0.0, 0.0, 0)
         open = false
     end
     
@@ -495,14 +495,14 @@ function LoadConcessData()
             
                 RageUI.IsVisible(RMenu:Get('core', "avalaible"), true, true, false, function()
                     for _,v in pairs(vehs_avalaible) do
-                        local displaytext = GetDisplayNameFromVehicleModel(v.model)
+                        local displaytext = GetDisplayNameFromVehicleModel(v.prop.model)
                         local veh_name = GetLabelText(displaytext)
                     
                         RageUI.ButtonWithStyle(veh_name, "", {}, true, function(Hovered, Active, Selected)
                             if Active then
-                                if local_veh.model ~= v.model then
+                                if local_veh.model ~= v.prop.model then
                                     DeleteVehicle(local_veh.entity)
-                                    CreateLocalVeh(v.model, v)
+                                    CreateLocalVeh(v.prop.model, v.prop)
                                 end
                             end
                             if Selected then
@@ -510,6 +510,8 @@ function LoadConcessData()
                                 DeleteVehicle(local_veh.entity)
                                 SetEntityCoords(GetPlayerPed(-1), -53.04, 73.4, 71.9, 0.0, 0.0, 0.0, 0)
                                 GetNearPlayers()
+                                local_veh.price = v.price
+                                TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
                             end
                         end, RMenu:Get('core', "infoVeh"))
                     end
@@ -531,16 +533,22 @@ function LoadConcessData()
                                 DrawMarker(20, pCoords.x, pCoords.y, pCoords.z+1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.3, 0.3, 255, 255, 255, 170, 0, 1, 2, 0, nil, nil, 0)
                             end
                             if Selected then
-                                local id = GetPlayerServerId(v)
-                                local props = local_veh.props
-                                local props_final, plate = CreateVeh(props)
-                                TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final)
-                                for n,i in pairs(vehs_avalaible) do
-                                    if local_veh.props.plate == i.plate then
-                                        table.remove(vehs_avalaible, n)
+                                if local_veh.price <= pSocietyTable.money then
+                                    local id = GetPlayerServerId(v)
+                                    local props = local_veh.props
+                                    local props_final, plate = CreateVeh(props)
+                                    TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final)
+                                    for n,i in pairs(vehs_avalaible) do
+                                        if local_veh.props.plate == i.prop.plate then
+                                            table.remove(vehs_avalaible, n)
+                                        end
                                     end
+                                    DeleteVehicle(local_veh.entity)
+                                    pSocietyTable.money = pSocietyTable.money - local_veh.price
+                                    TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, local_veh.price)
+                                else
+                                    rUtils.ImportantNotif("La société n'a pas assez d'argent.")
                                 end
-                                DeleteVehicle(local_veh.entity)
                             end
                         end)
                     end
@@ -562,8 +570,8 @@ function LoadConcessData()
                                 end
                                 if (Selected) then
                                     local props = rUtils.GetVehicleProperties(local_veh.entity)
-                                    table.insert(vehs_avalaible, props)
-                                    rUtils.Notif("Véhicule '"..veh_name.."' ajouté à la liste.")
+                                    table.insert(vehs_avalaible, {prop = props, price = i.prix})
+                                    rUtils.Notif("Véhicule '"..veh_name.."' ajouté à la liste.\nPrix d'achats: ~g~"..i.prix)
                                 end
                             end)
                         end
