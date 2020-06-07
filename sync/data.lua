@@ -151,6 +151,9 @@ events = {
     BuyIf = "rF:BuyItemIfCan",
     ResetDeath = "core:ResetDeathStatus",
     SetDeath = "core:SetPlayerDeathStatus",
+    statusLSPD = "core:SetVehStatusLSPD",
+    rmvStatusLSPD = "core:RemoveVehStatusLSPD",
+    fourriereLspdVehCb = "core:GetAllLspdVeh",
 }
  
 

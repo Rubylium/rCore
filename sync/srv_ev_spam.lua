@@ -100,6 +100,8 @@ local AllEvents = {
     "core:EndTig",
     "core:CheckTig",
     "core:RequestGameData",
+    "core:SetVehStatusLSPD",
+    "core:RemoveVehStatusLSPD",
 }
 
 

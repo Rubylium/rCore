@@ -1,10 +1,10 @@
 local AvailableWeatherTypes = {
     'EXTRASUNNY', 
     'CLEAR', 
-    'NEUTRAL', 
+    --'NEUTRAL', 
     'SMOG', 
     'FOGGY', 
-    --'OVERCAST', 
+    'OVERCAST', 
     'CLOUDS', 
     'CLEARING', 
     'RAIN', 

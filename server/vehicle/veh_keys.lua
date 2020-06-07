@@ -5,6 +5,7 @@ RegisterNetEvent("core:CallBackReady")
 AddEventHandler("core:CallBackReady", function()
     DeployCb()
     DeployCbVehicle()
+    RegisterLspdCallback()
 end)
 
 function DeployCb()

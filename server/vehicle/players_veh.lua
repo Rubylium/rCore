@@ -1,6 +1,8 @@
 
 
 PlayersVehCache = {}
+local LspdVehsCache = {}
+
 RegisterNetEvent("core:GetPlayersVehicle")
 AddEventHandler("core:GetPlayersVehicle", function(token)
     if not exports.rFramework:CheckToken(token, source, "GetPlayersVehicle") then return end
@@ -11,20 +13,37 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
         return
     end
 
-    local info = MySQL.Sync.fetchAll("SELECT player_vehs.props, player_vehs.plate FROM `player_vehs` WHERE owner = @ids", {
+    local info = MySQL.Sync.fetchAll("SELECT player_vehs.props, player_vehs.plate, player_vehs.lspd FROM `player_vehs` WHERE owner = @ids", {
         ['@ids'] = id
     })
 
     if #info > 0 then
         PlayersVehCache[id] = {}
         for i = 1, #info do
-            table.insert(PlayersVehCache[id], {
-                plate = info[i].plate,
-                props = info[i].props, 
-                ranger = true, 
-                NetID = nil,
-                lspd = false,
-            })
+            if info[i].lspd == 1 then
+                table.insert(PlayersVehCache[id], {
+                    plate = info[i].plate,
+                    props = info[i].props, 
+                    ranger = true, 
+                    NetID = nil,
+                    lspd = true,
+                })
+                table.insert(LspdVehsCache, {
+                    plate = info[i].plate,
+                    props = info[i].props, 
+                    ranger = true, 
+                    NetID = nil,
+                    lspd = true,
+                })
+            else
+                table.insert(PlayersVehCache[id], {
+                    plate = info[i].plate,
+                    props = info[i].props, 
+                    ranger = true, 
+                    NetID = nil,
+                    lspd = false,
+                })
+            end
             print("^2Added ^7["..info[i].plate.."] to ["..source.."] vehicles cache.")
         end
         TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
@@ -38,14 +57,14 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
 end)
 
 RegisterNetEvent("core:SetVehStatus")
-AddEventHandler("core:SetVehStatus", function(token, _plate, id)
+AddEventHandler("core:SetVehStatus", function(token, _plate, net)
     if not exports.rFramework:CheckToken(token, source, "SetVehStatus") then return end
     local id = GetLicense(source)
     if PlayersVehCache[id] == nil then GetPVehsToCache() end
     for k,v in pairs(PlayersVehCache[id]) do
         if v.plate == _plate then
             PlayersVehCache[id][k].ranger = false
-            PlayersVehCache[id][k].NetID = id
+            PlayersVehCache[id][k].NetID = net
         end
     end
 
@@ -53,20 +72,73 @@ AddEventHandler("core:SetVehStatus", function(token, _plate, id)
 end)
 
 RegisterNetEvent("core:SetVehStatusLSPD")
-AddEventHandler("core:SetVehStatusLSPD", function(token, _plate, id)
+AddEventHandler("core:SetVehStatusLSPD", function(token, _plate, net)
     if not exports.rFramework:CheckToken(token, source, "SetVehStatus") then return end
-    local id = GetLicense(source)
-    if PlayersVehCache[id] == nil then GetPVehsToCache() end
-    for k,v in pairs(PlayersVehCache[id]) do
-        if v.plate == _plate then
-            PlayersVehCache[id][k].ranger = false
-            PlayersVehCache[id][k].NetID = id
-            PlayersVehCache[id][k].lspd = true
+    for k,v in pairs(PlayersVehCache) do
+        for j,i in pairs(PlayersVehCache[k]) do
+            if i.plate == _plate then
+                if PlayersVehCache[k][j].lspd ~= true then
+                    PlayersVehCache[k][j].ranger = false
+                    PlayersVehCache[k][j].NetID = net
+                    PlayersVehCache[k][j].lspd = true
+                    MySQL.Async.execute('UPDATE `player_vehs` SET player_vehs.lspd = @lspd WHERE player_vehs.plate = @plate', {
+                        ["@lspd"] = true,
+                        ["@plate"] = _plate,
+                    }, function(rowsChanged) end)
+                end
+            end
+        end
+    end
+    DeleteEntityYes(net)
+
+    TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
+end)
+
+RegisterNetEvent("core:RemoveVehStatusLSPD")
+AddEventHandler("core:RemoveVehStatusLSPD", function(token, _plate, net)
+    if not exports.rFramework:CheckToken(token, source, "SetVehStatus") then return end
+    for k,v in pairs(PlayersVehCache) do
+        for j,i in pairs(PlayersVehCache[k]) do
+            print(i.plate, _plate)
+            if i.plate == _plate then
+                if PlayersVehCache[k][j].lspd == true then
+                    PlayersVehCache[k][j].ranger = false
+                    PlayersVehCache[k][j].NetID = net
+                    PlayersVehCache[k][j].lspd = false
+                    MySQL.Async.execute('UPDATE `player_vehs` SET player_vehs.lspd = @lspd WHERE player_vehs.plate = @plate', {
+                        ["@lspd"] = 0,
+                        ["@plate"] = _plate,
+                    }, function(rowsChanged) end)
+                end
+                break
+            end
         end
     end
 
     TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
 end)
+
+
+
+function RegisterLspdCallback()
+    exports.rFramework:RegisterServerCallback('core:GetAllLspdVeh', function(source, cb)
+        local VehToSend = {}
+        for k,v in pairs(PlayersVehCache) do
+            for j,i in pairs(PlayersVehCache[k]) do
+                if i.lspd == true then
+                    table.insert(VehToSend, i)
+                end
+            end
+        end
+        for k,v in pairs(VehToSend) do
+            if type(v.props) ~= "table" then
+                VehToSend[k].props = json.decode(v.props)
+            end
+        end
+        cb(VehToSend)
+    end)
+end
+
 
 local NumberCharset = {}
 local Charset = {}
@@ -163,7 +235,12 @@ AddEventHandler("core:GetBackToGarage", function(token, name, plate, props, net)
     for k,v in pairs(PlayersVehCache[id]) do
         if v.plate == plate then
             if v.props ~= vprops then
-                local _props = json.decode(v.props)
+                local _props
+                if type(v.props) ~= "table" then
+                    _props = json.decode(v.props)
+                else
+                    _props = v.props
+                end
                 if _props.model == props.model then
                     MySQL.Async.execute('UPDATE `player_vehs` SET player_vehs.props = @props WHERE player_vehs.plate = @plate', {
                         ["@props"] = vprops,

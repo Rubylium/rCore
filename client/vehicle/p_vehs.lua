@@ -49,7 +49,7 @@ function OpenVehMenu(out)
                     for k,v in pairs(pVehs) do
                         local props = v.props
                         local name = GetDisplayNameFromVehicleModel(props.model)
-                        if v.lspd then
+                        if v.lspd == true then
                             RageUI.ButtonWithStyle(name, nil, { RightLabel = "~r~SAISIE LSPD" }, true, function(_,_,s)
                             end)
                         elseif not v.ranger then
@@ -104,7 +104,7 @@ function OpenVehMenu(out)
                     for k,v in pairs(pVehs) do
                         local props = v.props
                         local name = GetDisplayNameFromVehicleModel(props.model)
-                        if v.lspd then
+                        if v.lspd == true then
                             RageUI.ButtonWithStyle(name, nil, { RightLabel = "~r~SAISIE LSPD" }, true, function(_,_,s)
                             end)
                         elseif not v.ranger then
