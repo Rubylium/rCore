@@ -174,7 +174,6 @@ AddEventHandler("core:GetBackToGarage", function(token, name, plate, props, net)
                         if v.plate == plate then
                             PlayersVehCache[id][k].props = vprops
                             PlayersVehCache[id][k].ranger = true
-                            print(PlayersVehCache[id][k].ranger)
                         end
                     end
                     DeleteEntityYes(net)
@@ -189,6 +188,7 @@ AddEventHandler("core:GetBackToGarage", function(token, name, plate, props, net)
                         PlayersVehCache[id][k].ranger = true
                     end
                 end
+                DeleteEntityYes(net)
                 print("^2UPDATING NOT NEEDED ^7Vehs props for veh "..plate..".")
             end
             return
