@@ -220,6 +220,9 @@ function LoadPoliceData()
                             local plate = GetVehicleNumberPlateText(veh)
                             TriggerServerEvent(events.statusLSPD, token, plate, VehToNet(veh))
                         end
+                        if Active then 
+                            ClosetVehWithDisplay() 
+                        end
                     end)
 
                     RageUI.ButtonWithStyle("Retirer de la fourrière LSPD.", "Retire le véhicule le plus proche de la fourrière LSPD", { }, true, function(Hovered, Active, Selected)
@@ -227,6 +230,9 @@ function LoadPoliceData()
                             local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
                             local plate = GetVehicleNumberPlateText(veh)
                             TriggerServerEvent(events.rmvStatusLSPD, token, plate, VehToNet(veh))
+                        end
+                        if Active then 
+                            ClosetVehWithDisplay() 
                         end
                     end)
 
@@ -242,7 +248,7 @@ function LoadPoliceData()
                         end
                     end) 
 
-                    RageUI.ButtonWithStyle("Action sur véhicule", nil, {}, true, function(_,h,s)
+                    RageUI.ButtonWithStyle("Action sur véhicule", nil, {RightLabel = "→"}, true, function(_,h,s)
                     end, RMenu:Get('core', 'lspd_veh'))
 
                     RageUI.ButtonWithStyle("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
