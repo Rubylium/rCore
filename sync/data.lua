@@ -102,7 +102,7 @@ armory = {
 }
 
 weed = {
-    plante = 50,
+    plante = 30,
     props = {
         [30] = "bkr_prop_weed_01_small_01c",
         [40] = "bkr_prop_weed_01_small_01b",
@@ -118,7 +118,7 @@ weed = {
     item2 = "weed",
     item2Label = "Canabis non traitée",
     itemFinal = "weed2",
-    add = 0.05, 
+    add = 0.1, 
     TraitWait = 1500,
 } 
 

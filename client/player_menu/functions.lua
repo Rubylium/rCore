@@ -216,7 +216,7 @@ function ShowNames()
 end
 
 local noClip = false
-local NoClipSpeed = 2.0
+local NoClipSpeed = 1.0
 function NoClip()
     noClip = not noClip
     if noClip then    
