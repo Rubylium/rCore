@@ -111,11 +111,43 @@ function InitMenu()
         VehProps = rUtils.GetVehicleProperties(pVeh)
     end
 
+    priceByClass = {
+        [0] = {multi = 1.5}, -- 0 Compacts
+        [1] = {multi = 1.3}, -- 1 Sedans
+        [2] = {multi = 2.3}, -- 2 SUVs
+        [3] = {multi = 2.4}, -- 3 Coupes
+        [4] = {multi = 1.7}, -- 4 Muscle
+        [5] = {multi = 2.8}, -- 5 Sports Classics
+        [6] = {multi = 3.5}, -- 6 Sports
+        [7] = {multi = 4.5}, -- 7 Super
+        [8] = {multi = 1}, -- 8 Motorcycles
+        [9] = {multi = 1.6}, -- 9 Off-Road
+        [10] = {multi = 1.8}, -- 10 Industrial
+        [11] = {multi = 1.2}, -- 11 Utility
+        [12] = {multi = 2.3}, -- 12 Vans
+        [13] = {multi = 0}, -- 13 Cycles
+        [14] = {multi = 500}, -- 14 Boats
+        [15] = {multi = 30}, -- 15 Helicopters
+        [16] = {multi = 1500}, -- 16 Planes
+        [17] = {multi = 1.6}, -- 17 Service
+        [18] = {multi = 1.9}, -- 18 Emergency
+        [19] = {multi = 1.9}, -- 19 Military
+        [20] = {multi = 1.9}, -- 20 Commercial
+    
+    }
+
+    function GetPrice(price)
+        local pVeh = GetVehiclePedIsIn(pPed, 0)
+        local pClass = GetVehicleClass(pVeh)
+        local multi = priceByClass[pClass].multi
+        return price * multi
+    end
 
     function OpenCustomMenu()
         UpdateVehProps()
         if not MenuOuvert then
             MenuOuvert = true
+            TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
             RageUI.Visible(RMenu:Get('core', 'lscustom'), true)
             local pPed = GetPlayerPed(-1)
             local pVeh = GetVehiclePedIsIn(pPed, 0)
@@ -402,24 +434,36 @@ function InitMenu()
                             local modName = GetModTextLabel(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i)
 
                             if v.modType == 14 then
-                                RageUI.ButtonWithStyle(GetHornName(i), nil, {}, true, function(_,Active,Selected)
+                                RageUI.ButtonWithStyle(GetHornName(i), nil, { RightLabel = "~g~"..GetPrice(v.basePrice).."$" }, true, function(_,Active,Selected)
                                     if Selected then
-                                        SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
-                                        RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
-                                        UpdateVehProps()
+                                        if GetPrice(v.basePrice) <= pSocietyTable.money then
+                                            SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
+                                            RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
+                                            UpdateVehProps()
+                                            pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
+                                            TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                        else
+                                            rUtils.ImportantNotif("La société n'a pas assez d'argent.")
+                                        end
                                     end
                                     if Active then
                                         SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
                                     end
                                 end)
                             elseif v.modType == 48 then
-                                RageUI.ButtonWithStyle(GetLabelText(modName), nil, {}, true, function(_,Active,Selected)
+                                RageUI.ButtonWithStyle(GetLabelText(modName), nil, { RightLabel = "~g~"..GetPrice(v.basePrice).."$" }, true, function(_,Active,Selected)
                                     if Selected then
-                                        SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 48, i, 0)
-                                        SetVehicleLivery(vehicle, i)
-                                        RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
-                                        rUtils.SetVehicleProperties(GetVehiclePedIsIn(GetPlayerPed(-1), 0), {modLivery = i})
-                                        UpdateVehProps()
+                                        if GetPrice(v.basePrice) <= pSocietyTable.money then
+                                            SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 48, i, 0)
+                                            SetVehicleLivery(vehicle, i)
+                                            RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
+                                            rUtils.SetVehicleProperties(GetVehiclePedIsIn(GetPlayerPed(-1), 0), {modLivery = i})
+                                            UpdateVehProps()
+                                            pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
+                                            TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                        else
+                                            rUtils.ImportantNotif("La société n'a pas assez d'argent.")
+                                        end
                                     end
                                     if Active then
                                         SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 48, i, 0)
@@ -430,22 +474,34 @@ function InitMenu()
                                 break
                             else
                                 if installed == i then
-                                    RageUI.ButtonWithStyle(GetLabelText(modName), nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(_,Active,Selected)
+                                    RageUI.ButtonWithStyle(GetLabelText(modName), nil, { RightLabel = "~g~"..GetPrice(v.basePrice).."$" }, true, function(_,Active,Selected)
                                         if Selected then
-                                            SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
-                                            RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
-                                            UpdateVehProps()
+                                            if GetPrice(v.basePrice) <= pSocietyTable.money then
+                                                SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
+                                                RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
+                                                UpdateVehProps()
+                                                pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
+                                                TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                            else
+                                                rUtils.ImportantNotif("La société n'a pas assez d'argent.")
+                                            end
                                         end
                                         if Active then
                                             SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
                                         end
                                     end)
                                 else
-                                    RageUI.ButtonWithStyle(GetLabelText(modName), nil, {}, true, function(_,Active,Selected)
+                                    RageUI.ButtonWithStyle(GetLabelText(modName), nil, { RightLabel = "~g~"..GetPrice(v.basePrice).."$" }, true, function(_,Active,Selected)
                                         if Selected then
-                                            SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
-                                            RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
-                                            UpdateVehProps()
+                                            if GetPrice(v.basePrice) <= pSocietyTable.money then
+                                                SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
+                                                RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
+                                                UpdateVehProps()
+                                                pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
+                                                TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                            else
+                                                rUtils.ImportantNotif("La société n'a pas assez d'argent.")
+                                            end
                                         end
                                         if Active then
                                             SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
@@ -495,12 +551,18 @@ function InitMenu()
                         local pVeh = GetVehiclePedIsIn(pPed, 0)
 
                         if v.modType == 17 then
-                            RageUI.ButtonWithStyle("Turbo", nil, {}, true, function(_,Active,Selected)
+                            RageUI.ButtonWithStyle("Turbo", nil, { RightLabel = "~g~"..GetPrice(v.basePrice).."$" }, true, function(_,Active,Selected)
                                 if Selected then
-                                    ToggleVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 17, 1)
-                                    rUtils.SetVehicleProperties(pVeh, {modTurbo = true})
-                                    RageUI.Popup({message = "Turbo installé"})
-                                    UpdateVehProps()
+                                    if GetPrice(v.basePrice) <= pSocietyTable.money then
+                                        ToggleVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), 17, 1)
+                                        rUtils.SetVehicleProperties(pVeh, {modTurbo = true})
+                                        RageUI.Popup({message = "Turbo installé"})
+                                        UpdateVehProps()
+                                        pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
+                                        TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                    else
+                                        rUtils.ImportantNotif("La société n'a pas assez d'argent.")
+                                    end
                                 end
                             end)
                         end
@@ -515,11 +577,17 @@ function InitMenu()
                                     end
                                 end)
                             else
-                                RageUI.ButtonWithStyle(v.name.." - "..i+1, nil, {}, true, function(_,Active,Selected)
+                                RageUI.ButtonWithStyle(v.name.." - "..i+1, nil, { RightLabel = "~g~"..GetPrice(v.basePrice).."$" }, true, function(_,Active,Selected)
                                     if Selected then
-                                        SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
-                                        RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
-                                        UpdateVehProps()
+                                        if GetPrice(v.basePrice) <= pSocietyTable.money then
+                                            SetVehicleMod(GetVehiclePedIsIn(GetPlayerPed(-1), 0), v.modType, i, 0)
+                                            RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
+                                            UpdateVehProps()
+                                            pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
+                                            TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                        else
+                                            rUtils.ImportantNotif("La société n'a pas assez d'argent.")
+                                        end
                                     end
                                 end)
                             end

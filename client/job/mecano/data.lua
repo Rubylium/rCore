@@ -1,17 +1,17 @@
 Colors = {
-	{ label = "noir", value = 'black'},
-	{ label = "blanc", value = 'white'},
-	{ label = "gris", value = 'grey'},
-	{ label = "rouge", value = 'red'},
-	{ label = "rose", value = 'pink'},
-	{ label = "bleu", value = 'blue'},
-	{ label = "jaune", value = 'yellow'},
-	{ label = "vert", value = 'green'},
-	{ label = "orange", value = 'orange'},
-	{ label = "marron", value = 'brown'},
-	{ label = "violet", value = 'purple'},
-	{ label = "chrome", value = 'chrome'},
-	{ label = "or", value = 'gold'}
+	{ label = "noir", value = 'black', basePrice = 1200},
+	{ label = "blanc", value = 'white', basePrice = 1200},
+	{ label = "gris", value = 'grey', basePrice = 1200},
+	{ label = "rouge", value = 'red', basePrice = 1200},
+	{ label = "rose", value = 'pink', basePrice = 1200},
+	{ label = "bleu", value = 'blue', basePrice = 1200},
+	{ label = "jaune", value = 'yellow', basePrice = 1200},
+	{ label = "vert", value = 'green', basePrice = 1200},
+	{ label = "orange", value = 'orange', basePrice = 1200},
+	{ label = "marron", value = 'brown', basePrice = 1200},
+	{ label = "violet", value = 'purple', basePrice = 1200},
+	{ label = "chrome", value = 'chrome', basePrice = 1200},
+	{ label = "or", value = 'gold', basePrice = 1200}
 }
 
 animations = {
@@ -34,22 +34,27 @@ Interne = {
 	{
 		name = "Moteur",
 		modType = 11,
+		basePrice = 12000,
 	},
 	{
 		name = "Frein",
 		modType = 12,
+		basePrice = 11500,
 	},
 	{
 		name = "Transmission",
 		modType = 13,
+		basePrice = 8500,
 	},
 	{
 		name = "Suspension",
 		modType = 15,
+		basePrice = 8500,
 	},
 	{
 		name = "Turbo",
 		modType = 17,
+		basePrice = 25000,
 	},
 }
 
@@ -57,150 +62,187 @@ Externe = {
 	{
 		name = "Aileron",
 		modType = 0,
+		basePrice = 600,
 	},
 	{
 		name = "Pare-choc avant",
 		modType = 1,
+		basePrice = 750,
 	},
 	{
 		name = "Pare-choc arrière",
 		modType = 2,
+		basePrice = 750,
 	},
 	{
 		name = "Bas de caisse",
 		modType = 3,
+		basePrice = 300,
 	},
 	{
 		name = "Pot d'échappement",
 		modType = 4,
+		basePrice = 800,
 	},
 	{
 		name = "Cage",
 		modType = 5,
+		basePrice = 1000,
 	},
 	{
 		name = "Grille",
 		modType = 6,
+		basePrice = 500,
 	},
 	{
 		name = "Capot",
 		modType = 7,
+		basePrice = 350,
 	},
 	{
 		name = "Aile gauche",
 		modType = 8,
+		basePrice = 400,
 	},
 	{
 		name = "Aile droite",
 		modType = 9,
+		basePrice = 400,
 	},
 	{
 		name = "Toit",
 		modType = 10,
+		basePrice = 650,
 	},
 	{
 		name = "Claxon",
 		modType = 14,
+		basePrice = 5500,
 	},
 	{
 		name = "Roue", -- a retaper
 		modType = 23,
+		basePrice = 1200,
 	},
 	{
 		name = "Plaque",
 		modType = 25,
+		basePrice = 3200,
 	},
 	{
 		name = "porte plaque avant",
 		modType = 26,
+		basePrice = 1200,
 	},
 	{
 		name = "Trim",
 		modType = 27,
+		basePrice = 1200,
 	},
 	{
 		name = "Ornement",
 		modType = 28,
+		basePrice = 1200,
 	},
 	{
 		name = "Interieur",
 		modType = 29,
+		basePrice = 1200,
 	},
 	{
 		name = "Tableau de bord +",
 		modType = 30,
+		basePrice = 1200,
 	},
 	{
 		name = "Speaker de porte",
 		modType = 31,
+		basePrice = 1200,
 	},
 	{
 		name = "Sièges",
 		modType = 32,
+		basePrice = 1200,
 	},
 	{
 		name = "Volant",
 		modType = 33,
+		basePrice = 1200,
 	},
 	{
 		name = "Levier de vitesse",
 		modType = 34,
+		basePrice = 1200,
 	},
 	{
 		name = "plaque",
 		modType = 35,
+		basePrice = 1200,
 	},
 	{
 		name = "Speakers",
 		modType = 36,
+		basePrice = 1200,
 	},
 	{
 		name = "Coffre",
 		modType = 37,
+		basePrice = 1200,
 	},
 	{
 		name = "Suspension hydraulique",
 		modType = 38,
+		basePrice = 1200,
 	},
 	{
 		name = "Bloc moteur",
 		modType = 39,
+		basePrice = 1200,
 	},
 	{
 		name = "Flitre à air",
 		modType = 40,
+		basePrice = 1200,
 	},
 	{
 		name = "Jambe de suspension",
 		modType = 41,
+		basePrice = 1200,
 	},
 	{
 		name = "Contour phare",
 		modType = 42,
+		basePrice = 1200,
 	},
 	{
 		name = "Antenne",
 		modType = 43,
+		basePrice = 1200,
 	},
 	{
 		name = "Prise d'air",
 		modType = 44,
+		basePrice = 1200,
 	},
 	{
 		name = "Réservoir",
 		modType = 45,
+		basePrice = 1200,
 	},
 	{
 		name = "Déflécteur",
 		modType = 46,
+		basePrice = 1200,
 	},
 	{
 		name = "UNK47",
 		modType = 47,
+		basePrice = 1200,
 	},
 	{
 		name = "Liverys",
 		modType = 48,
+		basePrice = 7500,
 	},
 }
 

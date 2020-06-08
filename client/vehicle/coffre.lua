@@ -36,13 +36,22 @@ AddEventHandler("core:OpenVehHood", function(net, status)
     end
 end)
 
-function GetVehLimit(class)
-    VehLimit = invByClass[class].place
-    VehInvTotal = 0
-    for k,v in pairs(VehInventory) do
-        VehInvTotal = VehInvTotal + v.count
+function GetVehLimit(class, veh)
+    if invByModel[veh] == nil then
+        VehLimit = invByClass[class].place
+        VehInvTotal = 0
+        for k,v in pairs(VehInventory) do
+            VehInvTotal = VehInvTotal + v.count
+        end
+        VehInvTotal = VehInvTotal + TempAdd
+    else
+        VehLimit = invByModel[veh].place
+        VehInvTotal = 0
+        for k,v in pairs(VehInventory) do
+            VehInvTotal = VehInvTotal + v.count
+        end
+        VehInvTotal = VehInvTotal + TempAdd
     end
-    VehInvTotal = VehInvTotal + TempAdd
 end
 
 function OpenVehicleChest()
@@ -63,7 +72,7 @@ function OpenVehicleChest()
                     VehInventory = {}
                     TempAdd = 0
                     TriggerServerEvent("core:GetVehicleInventory", token, vPlate, entity, DecorExistOn(NetToEnt(entity), "OWNED_VEH"))
-                    GetVehLimit(vClasse)
+                    GetVehLimit(vClasse, string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))))
                     RageUI.Visible(RMenu:Get('core', 'veh_main'), true)
                     OpenVehInventory()
                     TriggerServerEvent("core:OpenVehHood", token, entity, true)
@@ -87,7 +96,7 @@ function OpenVehInventory()
     Citizen.CreateThread(function()
         while open do
             Wait(150)
-            GetVehLimit(vClasse)
+            GetVehLimit(vClasse, string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(NetToVeh(entity)))))
         end
     end)
     Citizen.CreateThread(function()
@@ -177,7 +186,7 @@ function OpenVehInventory()
                                     else
                                         VehInventory[k].count = VehInventory[k].count - amount
                                     end
-                                    GetVehLimit(vClasse)
+                                    GetVehLimit(vClasse, string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(NetToVeh(entity)))))
                                 end
                             end
                         end)
@@ -193,7 +202,7 @@ function OpenVehInventory()
                                     else
                                         VehInventory[k].count = VehInventory[k].count - amount
                                     end
-                                    GetVehLimit(vClasse)
+                                    GetVehLimit(vClasse, string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(NetToVeh(entity)))))
                                 end
                             end
                         end)

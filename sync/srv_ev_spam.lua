@@ -102,6 +102,7 @@ local AllEvents = {
     "core:RequestGameData",
     "core:SetVehStatusLSPD",
     "core:RemoveVehStatusLSPD",
+    "rF:RemoveSocietyMoney"
 }
 
 
