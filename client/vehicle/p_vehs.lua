@@ -7,7 +7,7 @@ local phoneModel = "prop_phone_proto"
 function newPhoneProp()
     deletePhone()
     rUtils.LoadModel(phoneModel)
-    phoneProp = CreateObject(GetHashKey(phoneModel), 1.0, 1.0, 1.0, 1, 1, 0)
+    phoneProp = CreateObject_(GetHashKey(phoneModel), 1.0, 1.0, 1.0, 1, 1, 0)
 	local bone = GetPedBoneIndex(pPed, 28422)
 	AttachEntityToEntity(phoneProp, pPed, bone, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 0, 0, 2, 1)
 end

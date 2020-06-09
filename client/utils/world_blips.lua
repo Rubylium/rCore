@@ -202,6 +202,24 @@ local blips = {
         pos = vector3(1846.169, 2586.78, 45.67201),
         sub = nil
     },
+
+    {
+        name = "LS - Livraison",
+        icon = 616,
+        size = 0.55,
+        color = 13,
+        pos = vector3(-290.038, -2661.688, 6.15907),
+        sub = nil
+    },
+
+    {
+        name = "BC - Stocks",
+        icon = 616,
+        size = 0.55,
+        color = 13,
+        pos = vector3(2689.816, 3461.326, 56.2292),
+        sub = nil
+    },
 }
 
 

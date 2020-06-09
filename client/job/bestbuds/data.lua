@@ -16,6 +16,11 @@ function LoadBestbudsData()
             while open do
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'bestbuds'), true, true, false, function()
+                    RageUI.ButtonWithStyle("lancer une mission de livraison", "Au moins 1 Canabis de bonne qualité est requis.", {}, pInventory["Canabis de bonne qualité"] ~= nil, function(Hovered, Active, Selected)
+                        if Selected then
+                            NpcJobMissions:StartJobMission(WeedData.w.mission)
+                        end
+                    end) 
                 
                     RageUI.ButtonWithStyle("Donner une facture", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                         if Selected then

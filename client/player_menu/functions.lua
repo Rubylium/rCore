@@ -133,7 +133,7 @@ function SpawnObject(model, coords, cb)
 	Citizen.CreateThread(function()
 		RequestModels(model)
         Wait(1)
-		local obj = CreateObject(model, coords.x, coords.y, coords.z, true, false, true)
+		local obj = CreateObject_(model, coords.x, coords.y, coords.z, true, false, true)
 
 		if cb then
 			cb(obj)

@@ -40,6 +40,8 @@ Citizen.CreateThread(function()
     pVehLast = GetVehiclePedIsIn(pPed, 1)
 
     StartAudioScene("MP_LEADERBOARD_SCENE")
+    ActivateFrontendMenu('FE_MENU_VERSION_PRE_LOBBY', true, -1)
+
     local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -0.5, 10.0)
 
     local spawnCam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 0)
@@ -87,7 +89,12 @@ Citizen.CreateThread(function()
 	    	logo = true
         })
         StopAudioScenes()
+        ActivateFrontendMenu('FE_MENU_VERSION_PRE_LOBBY', false, -1)
     end
+
+    
+
+    TriggerEvent("rF:HudToogle")
     TriggerServerEvent("core:RequestGameData", token)
     TriggerServerEvent("core:CheckTig", token)
     TriggerServerEvent("core:GetWeather")

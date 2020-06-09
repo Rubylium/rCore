@@ -57,7 +57,7 @@ function MineData:LoadMineData()
                 local obj = props[math.random(1,#props)]
                 local pos = vector3(self.m.pos.x+r, self.m.pos.y-r, self.m.pos.z)
                 rUtils.LoadModel(obj)
-                local obj = CreateObject(GetHashKey(obj), pos, 1, 1, false)
+                local obj = CreateObject_(GetHashKey(obj), pos, 1, 1, false)
                 PlaceObjectOnGroundProperly(obj)
                 FreezeEntityPosition(obj, true)
                 local oCoords = GetEntityCoords(obj)
@@ -73,7 +73,7 @@ function MineData:LoadMineData()
                 end
 
                 if not working then TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj)}) return end
-                local pickaxe = CreateObject(GetHashKey(self.m.pickaxe), 0, 0, 0, true, true, true) 
+                local pickaxe = CreateObject_(GetHashKey(self.m.pickaxe), 0, 0, 0, true, true, true) 
                 AttachEntityToEntity(pickaxe, pPed, GetPedBoneIndex(pPed, 57005), 0.18, -0.02, -0.02, 350.0, 100.00, 140.0, true, true, false, true, 1, true)
                 rUtils.PlayAnim(self.m.dict, self.m.anim, 1, 8.0, 8.0)
                 if Mine < 100 then

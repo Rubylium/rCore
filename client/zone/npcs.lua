@@ -205,6 +205,38 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+    { -- Livraison 
+        model = "s_m_m_gentransport",
+        pos = vector3(-288.7522, -2661.436, 6.159536),
+        heading = 45.722217559,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            OpenConvoiMenu(ped, _offset, camOffset)
+        end,
+        scenario = "WORLD_HUMAN_CLIPBOARD",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
+
+    { -- stocks 
+        model = "s_m_m_gentransport",
+        pos = vector3(2689.816, 3461.326, 56.2292),
+        heading = 162.1072845459,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            ConvoiData:OpenStocksShop(ped, _offset, camOffset)
+        end,
+        scenario = "WORLD_HUMAN_CLIPBOARD",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 
@@ -218,7 +250,7 @@ Citizen.CreateThread(function()
                 if dst <= v.LoadDst then
                     v.spawned = true
                     rUtils.LoadModel(v.model)
-                    v.entity = CreatePed(1, v.model, v.pos.x, v.pos.y, v.pos.z-1.0, v.heading, 0, 0)
+                    v.entity = CreatePed_(1, v.model, v.pos.x, v.pos.y, v.pos.z-1.0, v.heading, 0, 0)
                     TaskSetBlockingOfNonTemporaryEvents(v.entity, true)
                     SetBlockingOfNonTemporaryEvents(v.entity, true)
                     FreezeEntityPosition(v.entity, true)

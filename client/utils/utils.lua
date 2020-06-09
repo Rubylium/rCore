@@ -190,7 +190,7 @@ end
 
 function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	rUtils.LoadModel(model)
-	local vehicle = CreateVehicle(GetHashKey(model), coords, heading, 1, 1)
+	local vehicle = CreateVehicle_(GetHashKey(model), coords, heading, 1, 1)
 	SetVehicleDirtLevel(vehicle, 0.0)
 	SetEntityCoordsNoOffset(vehicle, coords.x, coords.y, coords.z+0.5, 0.0, 0.0, 0.0)
 	SetVehicleOnGroundProperly(vehicle)
@@ -702,6 +702,7 @@ function rUtils.LoadModel(_model)
 		print("Waiting model ".._model)
 		Wait(100)
 	end
+	SetModelAsNoLongerNeeded(model)
 end
 
 
@@ -730,7 +731,7 @@ end
 RegisterCommand('spawnprop', function(source, args, rawCommand)
 	local coords = GetOffsetFromEntityInWorldCoords(pPed, 0.0, 2.0, 0.0)
 	rUtils.LoadModel(args[1])
-	local prop = CreateObject(GetHashKey(args[1]), coords, 0, 1, 0)
+	local prop = CreateObject_(GetHashKey(args[1]), coords, 0, 1, 0)
 	FreezeEntityPosition(prop, true)
 	table.insert(props, prop)
 end)

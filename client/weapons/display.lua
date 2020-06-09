@@ -66,7 +66,7 @@ function AttachWeapon(attachModel, modelHash, boneNumber ,x ,y ,z ,xR ,yR ,zR, i
 
     attached_weapons[attachModel] = {
         hash = modelHash,
-        handle = CreateObject(GetHashKey(attachModel), 1.0, 1.0, 1.0, true, true, false),
+        handle = CreateObject_(GetHashKey(attachModel), 1.0, 1.0, 1.0, true, true, false),
         item = itemName
     }
 

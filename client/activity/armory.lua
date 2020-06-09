@@ -56,7 +56,7 @@ function ArmoryData:LoadArmoryData()
                                 SetCamFov(ArmoryCam, self.a.fov)
                                 
                                 rUtils.LoadModel(v.prop)
-                                prop = CreateObject(GetHashKey(v.prop), oCoords, false, true, false)
+                                prop = CreateObject_(GetHashKey(v.prop), oCoords, false, true, false)
                                 FreezeEntityPosition(prop, true)
 
                                 PointCamAtEntity(ArmoryCam, prop, 0, 0, 0, 1)

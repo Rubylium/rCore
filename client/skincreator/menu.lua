@@ -75,6 +75,8 @@ end)
 NotSpamming = {}
 local usingVipPed = false
 function CreatorMenuThread()
+    DisplayRadar(false)
+    ActivateFrontendMenu('FE_MENU_VERSION_PRE_LOBBY', false, -1)
     if DisplayMenu then return end
     local DisplayMenu = true
     Citizen.CreateThread(function()
@@ -90,7 +92,7 @@ function CreatorMenuThread()
 
             RageUI.Text({message = "Utilisé la touche ESPACE pour tourner votre personnange."})
 
-            if IsControlJustReleased(1, 22) then
+            if IsControlJustReleased(1, 22) or IsDisabledControlJustPressed(1, 22) then
                 ClearPedTasksImmediately(pPed)
                 local coords = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -5.0, 0.0)
                 TaskTurnPedToFaceCoord(GetPlayerPed(-1), coords, 3000)
