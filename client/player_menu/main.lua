@@ -9,6 +9,12 @@ RMenu:Get('core', 'inventory').Closed = function()end
 RMenu.Add('core', 'inventory_use', RageUI.CreateSubMenu(RMenu:Get('core', 'inventory'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'inventory_use').Closed = function()end
 
+RMenu.Add('core', 'vip_main', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'vip_main').Closed = function()end
+
+RMenu.Add('core', 'vip_weapon_tint', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'vip_weapon_tint').Closed = function()end
+
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'portefeuille').Closed = function()end
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
@@ -82,6 +88,8 @@ function OpenPlayerMenu()
                 end, RMenu:Get('core', 'accessoire'))
                 RageUI.ButtonWithStyle("Divers", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'divers'))
+                RageUI.ButtonWithStyle("VIP menu", nil, { RightLabel = "→→" }, pVip ~= 0, function()
+                end, RMenu:Get('core', 'vip_main'))
                 RageUI.ButtonWithStyle("Staff menu", nil, { RightLabel = "→→" }, pGroup ~= "user", function()
                 end, RMenu:Get('core', 'admin'))
 
@@ -479,10 +487,53 @@ function OpenPlayerMenu()
             end, function()
             end)
 
+            RageUI.IsVisible(RMenu:Get('core', 'vip_main'), true, true, true, function()
+                RageUI.ButtonWithStyle("Teinture d'arme", nil, { RightLabel = "→" }, pVip ~= 0, function()
+                end, RMenu:Get('core', 'vip_weapon_tint'))
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'vip_weapon_tint'), true, true, true, function()
+                if IsPedArmed(pPed, 7) then
+                    local _,pWeapon = GetCurrentPedWeapon(pPed, 0)
+                    local count = GetWeaponTintCount(pWeapon)
+                   
+                    for i = 0, count - 1 do
+                        RageUI.Button("Teinture d'arme: "..GetTintName(i), nil, true, function(_,h,s)
+                            if s then
+                                SetPedWeaponTintIndex(pPed, pWeapon, i)
+                            end
+                            if h then
+                                if GetPedWeaponTintIndex(pPed, pWeapon) ~= i then
+                                    SetPedWeaponTintIndex(pPed, pWeapon, i)
+                                end
+                            end
+                        end)
+                    end
+                else
+                    RageUI.Button("~r~Tu a besoin d'une arme.", nil, pVip ~= 0, function()
+                    end)
+                end
+            end, function()
+            end)
+
         end
     end)
 end
 
+function GetTintName(num)
+    local tint = {
+        [0] = {name = "Normal"},
+        [1] = {name = "Vert"},
+        [2] = {name = "Or"},
+        [3] = {name = "Rose"},
+        [4] = {name = "Armée"},
+        [5] = {name = "LSPD"},
+        [6] = {name = "Orange"},
+        [7] = {name = "Platine"},
+    }
+    return tint[num].name
+end
 
 function CustomStringStaff()
     local txt = nil
