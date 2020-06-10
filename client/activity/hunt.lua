@@ -136,7 +136,7 @@ function HuntData:LoadHuntData()
                     local spawnPointy = PointCentralDeChasse.y+math.random(-self.h.random,self.h.random)
                     local spawnPointz = PointCentralDeChasse.z+math.random(-self.h.random,self.h.random)
                     local _,z = GetGroundZFor_3dCoord(spawnPointx, spawnPointy, spawnPointz)
-                    local _entity = CreatePed(self.h.CreatePed.type, GetHashKey(animal.model), spawnPointx, spawnPointy, z+self.h.CreatePed.z, self.h.CreatePed.heading, self.h.CreatePed.network, self.h.CreatePed.NetEntity)
+                    local _entity = CreatePed_(self.h.CreatePed.type, GetHashKey(animal.model), spawnPointx, spawnPointy, z+self.h.CreatePed.z, self.h.CreatePed.heading, self.h.CreatePed.network, self.h.CreatePed.NetEntity)
                     if DoesEntityExist(_entity) then
                         TaskWanderStandard(_entity, self.h.wander, self.h.wander2)
                         local _blip = AddBlipForEntity(_entity)

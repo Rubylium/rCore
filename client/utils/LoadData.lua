@@ -1,4 +1,4 @@
-
+JobsData = {}
 
 function LoadData()
     Wait(5000)
@@ -14,13 +14,15 @@ function LoadData()
         LoadSheriffData()
     elseif pJob == "bestbuds" then
         LoadBestbudsData()
+    elseif pJob == "drusilla" then
+        LoadDrusillaData()
     end 
 
     print("^2Loading "..pJob.." data.")
 end
 
 RegisterNetEvent("core:RequestGameData")
-AddEventHandler("core:RequestGameData", function(event, mine, hunt, arm, weed, missionJob, convoi)
+AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, arm, weed, missionJob, convoi)
     print("^1Loading up Game Data, please wait ...")
     MineData.m = mine
     HuntData.h = hunt
@@ -29,6 +31,7 @@ AddEventHandler("core:RequestGameData", function(event, mine, hunt, arm, weed, m
     events = event
     NpcJobMissions.m = missionJob
     ConvoiData.c = convoi
+    JobsData = _JobsData
 
     ArmoryData:LoadArmoryData()
     MineData:LoadMineData()
