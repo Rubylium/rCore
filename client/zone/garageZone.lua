@@ -56,6 +56,16 @@ function OpenGarage(zones, vehs, dstCheck)
                                         SetVehicleExtra(veh, i, false)
                                     end
                                     SetVehicleLivery(veh, 0)
+                                    exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
+                                        if status then
+                                            RageUI.Popup({message = "Vous avez sortie les clé de votre véhicule."})
+                                            exports.rFramework:TriggerServerCallback('core:GetKeysBack', function(keys)
+                                                pKeys = keys
+                                            end, token)
+                                        else
+                                            RageUI.Popup({message = "Vous avez déja les clé de se véhicule."})
+                                        end
+                                    end, GetVehicleNumberPlateText(veh))
                                 end)
 
                             else
@@ -81,7 +91,7 @@ function OpenGarage(zones, vehs, dstCheck)
                     else
                         local veh = rUtils.GetClosestVehicle(v.pos)
                         local plate = GetVehicleNumberPlateText(veh)
-                        RageUI.ButtonWithStyle("Place #"..k.." - ~b~["..plate.."]", nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
+                        RageUI.ButtonWithStyle("Place #"..k.." - ~b~["..plate.."] "..GetDisplayNameFromVehicleModel(GetEntityModel(veh)), nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
                             if Selected then
                                 TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
                             end
