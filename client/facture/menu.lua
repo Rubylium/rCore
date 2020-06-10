@@ -45,10 +45,6 @@ Citizen.CreateThread(function()
                 -- uncheck
             end) 
 
-            --RageUI.Checkbox("Facture de société ?", nil, IsSocietyBill, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
-            --    IsSocietyBill = Checked;
-            --end)
-
             if IsSocietyBill then
                 RageUI.Separator("Facture: ~b~"..pJob.."")
             end
@@ -78,7 +74,7 @@ Citizen.CreateThread(function()
                     if raison ~= nil and montant ~= nil then
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
-                        TriggerServerEvent("core:SendFacture", token, cSid, IsSocietyBill, pJob, raison, montant)
+                        TriggerServerEvent(events.giveFactue, token, cSid, IsSocietyBill, pJob, raison, montant)
                         RageUI.CloseAll()
                     end
                 end
@@ -104,17 +100,17 @@ Citizen.CreateThread(function()
                 if s then 
                     if pMoney > montant then
                         if not IsSocietyBill then
-                            TriggerServerEvent("rF:GiveMoneyToPlayer", token, sourceID, montant)
-                            TriggerServerEvent("core:PayFacture", token, sourceID, montant)
+                            TriggerServerEvent(events.GiveMtoPlayer, token, sourceID, montant)
+                            TriggerServerEvent(events.facturePay, token, sourceID, montant)
                             RageUI.CloseAll()
                         else
-                            print(society, montant)
-                            TriggerServerEvent("rF:PaySociety", token, society, montant)
-                            TriggerServerEvent("core:PayFactureSociety", token, sourceID, montant)
+                            TriggerServerEvent(events.facturePaySociety, token, society, montant)
+                            TriggerServerEvent(events.facturePaySociety2, token, sourceID, montant)
+                            TriggerServerEvent(events.giveMtoPlayerId, token, montant / 2, sourceID)
                             RageUI.CloseAll()
                         end
                     else
-                        TriggerServerEvent("core:CantPayFacture", token, sourceID, montant)
+                        TriggerServerEvent(events.cantPayFacture, token, sourceID, montant)
                         RageUI.CloseAll()
                     end
                 end
@@ -122,7 +118,7 @@ Citizen.CreateThread(function()
             RageUI.ButtonWithStyle("~r~Refuser la facture", nil, {}, true, function(_,h,s)
                 if s then 
                     if raison ~= nil and montant ~= nil then
-                        TriggerServerEvent("core:CancelFacture", token, sourceID, montant)
+                        TriggerServerEvent(events.cancelFacture, token, sourceID, montant)
                         RageUI.CloseAll()
                     end
                 end
