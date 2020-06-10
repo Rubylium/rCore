@@ -98,3 +98,29 @@ invByModel = {
     [""] = {place = 40},
     [""] = {place = 40},
 }
+
+
+priceByClass = {
+    [0] = {place = 1.0}, -- 0 Compacts
+    [1] = {place = 1.2}, -- 1 Sedans
+    [2] = {place = 1.6}, -- 2 SUVs
+    [3] = {place = 2.3}, -- 3 Coupes
+    [4] = {place = 2.4}, -- 4 Muscle
+    [5] = {place = 3.5}, -- 5 Sports Classics
+    [6] = {place = 4.0}, -- 6 Sports
+    [7] = {place = 5.0}, -- 7 Super
+    [8] = {place = 1.8}, -- 8 Motorcycles
+    [9] = {place = 2.2}, -- 9 Off-Road
+    [10] = {place = 3.5}, -- 10 Industrial
+    [11] = {place = 4.5}, -- 11 Utility
+    [12] = {place = 3.5}, -- 12 Vans
+    [13] = {place = 0}, -- 13 Cycles
+    [14] = {place = 0}, -- 14 Boats
+    [15] = {place = 30.5}, -- 15 Helicopters
+    [16] = {place = 30.0}, -- 16 Planes
+    [17] = {place = 4.5}, -- 17 Service
+    [18] = {place = 4.5}, -- 18 Emergency
+    [19] = {place = 15.0}, -- 19 Military
+    [20] = {place = 4.8}, -- 20 Commercial
+
+}
