@@ -1135,6 +1135,196 @@ function LoadPoliceData()
         end)
     end
 
+    local color = {
+        {nom = "Black", index = 0},
+        {nom = "Carbon Black", index  = 147},
+        {nom = "Graphite", index  = 1},
+        {nom = "Anhracite Black", index  = 11},
+        {nom = "Black Steel", index  = 2},
+        {nom = "Dark Steel", index  = 3},
+        {nom = "Silver", index  = 4},
+        {nom = "Bluish Silver", index  = 5},
+        {nom = "Rolled Steel", index  = 6},
+        {nom = "Shadow Silver", index  = 7},
+        {nom = "Stone Silver", index  = 8},
+        {nom = "Midnight Silver", index  = 9},
+        {nom = "Cast Iron Silver", index  = 10},
+        {nom = "Red", index  = 27},
+        {nom = "Torino Red", index  = 28},
+        {nom = "Formula Red", index  = 29},
+        {nom = "Lava Red", index  = 150},
+        {nom = "Blaze Red", index  = 30},
+        {nom = "Grace Red", index  = 31},
+        {nom = "Garnet Red", index  = 32},
+        {nom = "Sunset Red", index  = 33},
+        {nom = "Cabernet Red", index  = 34},
+        {nom = "Wine Red", index  = 143},
+        {nom = "Candy Red", index  = 35},
+        {nom = "Hot Pink", index  = 135},
+        {nom = "Pfsiter Pink", index  = 137},
+        {nom = "Salmon Pink", index  = 136},
+        {nom = "Sunrise Orange", index  = 36},
+        {nom = "Orange", index  = 38},
+        {nom = "Bright Orange", index  = 138},
+        {nom = "Gold", index  = 99},
+        {nom = "Bronze", index  = 90},
+        {nom = "Yellow", index  = 88},
+        {nom = "Race Yellow", index  = 89},
+        {nom = "Dew Yellow", index  = 91},
+        {nom = "Dark Green", index  = 49},
+        {nom = "Racing Green", index  = 50},
+        {nom = "Sea Green", index  = 51},
+        {nom = "Olive Green", index  = 52},
+        {nom = "Bright Green", index  = 53},
+        {nom = "Gasoline Green", index  = 54},
+        {nom = "Lime Green", index  = 92},
+        {nom = "Midnight Blue", index  = 141},
+        {nom = "Galaxy Blue", index  = 61},
+        {nom = "Dark Blue", index  = 62},
+        {nom = "Saxon Blue", index  = 63},
+        {nom = "Blue", index  = 64},
+        {nom = "Mariner Blue", index  = 65},
+        {nom = "Harbor Blue", index  = 66},
+        {nom = "Diamond Blue", index  = 67},
+        {nom = "Surf Blue", index  = 68},
+        {nom = "Nautical Blue", index  = 69},
+        {nom = "Racing Blue", index  = 73},
+        {nom = "Ultra Blue", index  = 70},
+        {nom = "Light Blue", index  = 74},
+        {nom = "Chocolate Brown", index  = 96},
+        {nom = "Bison Brown", index  = 101},
+        {nom = "Creeen Brown", index  = 95},
+        {nom = "Feltzer Brown", index  = 94},
+        {nom = "Maple Brown", index  = 97},
+        {nom = "Beechwood Brown", index  = 103},
+        {nom = "Sienna Brown", index  = 104},
+        {nom = "Saddle Brown", index  = 98},
+        {nom = "Moss Brown", index  = 100},
+        {nom = "Woodbeech Brown", index  = 102},
+        {nom = "Straw Brown", index  = 99},
+        {nom = "Sandy Brown", index  = 105},
+        {nom = "Bleached Brown", index  = 106},
+        {nom = "Schafter Purple", index  = 71},
+        {nom = "Spinnaker Purple", index  = 72},
+        {nom = "Midnight Purple", index  = 142},
+        {nom = "Bright Purple", index  = 145},
+        {nom = "Cream", index  = 107},
+        {nom = "Ice White", index  = 111},
+        {nom = "Frost White", index  = 112},
+        
+        --Matte:
+        {nom = "Black", index  = 12},
+        {nom = "Gray", index  = 13},
+        {nom = "Light Gray", index  = 14},
+        {nom = "Ice White", index  = 131},
+        {nom = "Blue" , index = 83},
+        {nom = "Dark Blue", index  = 82},
+        {nom = "Midnight Blue" , index = 84},
+        {nom = "Midnight Purple", index  = 149},
+        {nom = "Schafter Purple", index = 148},
+        {nom = "Red" , index = 39},
+        {nom = "Dark Red", index  = 40},
+        {nom = "Orange", index  = 41},
+        {nom = "Yellow", index  = 42},
+        {nom = "Lime Green" , index = 55},
+        {nom = "Green" , index = 128},
+        {nom = "Forest Green", index  = 151},
+        {nom = "Foliage Green" , index = 155},
+        {nom = "Olive Darb", index  = 152},
+        {nom = "Dark Earth" , index = 153},
+        {nom = "Desert Tan", index  = 154},
+        
+        --Metals:
+        {nom = "Brushed Steel", index  = 117},
+        {nom = "Brushed Black Steel" , index = 118},
+        {nom = "Brushed Aluminum", index  = 119},
+        {nom = "Pure Gold" , index = 158},
+        {nom = "Brushed Gold" , index = 159},
+    }
+
+    rUtils.RegisterActionZone({
+        pos = vector3(-1077.752, -845.9848, 4.884186),
+        action = function()
+            OpenPoliceGarage()
+        end,
+    })
+
+    RMenu.Add('core', 'lspd_garage', RageUI.CreateMenu("POLICE", "~b~Garage LSPD"))
+    RMenu:Get('core', 'lspd_garage').Closed = function()
+        open = false
+        SetVehicleEngineOn(pVeh, true, true, true)
+    end
+
+    RMenu.Add('core', 'lspd_garage_color', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_garage'), "POLICE", "~b~Garage LSPD"))
+    RMenu:Get('core', 'lspd_garage_color').Closed = function()end
+    RMenu.Add('core', 'lspd_garage_extra', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_garage'), "POLICE", "~b~Garage LSPD"))
+    RMenu:Get('core', 'lspd_garage_extra').Closed = function()end
+
+    function OpenPoliceGarage()
+        open = true
+        if not IsPedInAnyVehicle(pPed, false) then rUtils.ImportantNotif("Tu n'est pas en véhicule") return end
+        SetVehicleEngineOn(pVeh, false, true, true)
+        RageUI.Visible(RMenu:Get('core', 'lspd_garage'), not RageUI.Visible(RMenu:Get('core', 'lspd_garage')))
+        Citizen.CreateThread(function()
+            while open do
+                Wait(1)
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_garage'), true, true, true, function()
+
+                    RageUI.ButtonWithStyle("Changer la couleur du véhicule", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                    end, RMenu:Get('core', 'lspd_garage_color'))
+                    RageUI.ButtonWithStyle("Changer les extra", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                    end, RMenu:Get('core', 'lspd_garage_extra'))
+
+                    local liverie = GetVehicleLiveryCount(pVeh)
+
+                    if liverie ~= -1 then
+                        for i = 1, liverie do
+                            RageUI.Button("~o~Liverie: "..i.." - ", nil, true, function(Hovered, Active, Selected)
+                                if (Selected) then
+                                    SetVehicleLivery(pVeh, i)
+                                end
+                            end)
+                        end
+                    end
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_garage_color'), true, true, true, function()
+
+                    for k,v in ipairs(color) do
+                        RageUI.Button(v.nom, nil, true, function(Hovered, Active, Selected)
+                            if (Selected) then
+                                SetVehicleColours(pVeh, v.index, v.index)
+                            end
+                        end)
+                    end
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_garage_extra'), true, true, true, function()
+                    
+                    for i = 1,9 do
+                        RageUI.Checkbox("Extra "..i, "Do you wish to add ketchup ?", IsVehicleExtraTurnedOn(pVeh, i), { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
+                        end, function()
+                            SetVehicleExtra(pVeh, i, false)
+                        end, function()
+                            SetVehicleExtra(pVeh, i, true)
+                        end)
+                    end
+
+                end, function()
+                    ---Panels
+                end)
+
+
+            end
+        end)
+    end
+
 end
 
 
