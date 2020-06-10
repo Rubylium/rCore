@@ -80,6 +80,7 @@ local voiceData = {
     [2] = {voice = 15.0, label = "Normal"},
     [3] = {voice = 25.0, label = "Crier"},
 }
+NetworkSetTalkerProximity(voiceData[1].voice)
 
 rUtils.RegisterControlKey("voix", "Portez de la voix", "f1", function()
     voice = voice + 1
