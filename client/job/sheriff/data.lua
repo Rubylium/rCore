@@ -572,15 +572,15 @@ RMenu.Add('core', 'sheriff_tige', RageUI.CreateMenu("SHERIFF", "~b~Traveaux forc
 local tige = {
     {
         titre = "Petits travaux forcés",
-        count = 10,
+        count = 50,
     },
     {
         titre = "travaux forcés",
-        count = 25,
+        count = 100,
     },
     {
         titre = "Long travaux forcés",
-        count = 50,
+        count = 200,
     },
 }
 
