@@ -43,21 +43,21 @@ Citizen.CreateThread(function()
 	end
 end)
 
-Citizen.CreateThread(function()
-	while true do
-		if pVeh == 0 then
-			if GetInteriorAtCoords(GetEntityCoords(pPed)) == 0 then
-				SetRadarZoomToDistance(50.0)
-			else
-				SetRadarZoomToDistance(25.0)
-			end
-		else
-			SetRadarZoomToDistance(145.0)
-		end
-
-		Wait(1)
-	end
-end)
+--Citizen.CreateThread(function()
+--	while true do
+--		if pVeh == 0 then
+--			if GetInteriorAtCoords(GetEntityCoords(pPed)) == 0 then
+--				SetRadarZoomToDistance(50.0)
+--			else
+--				SetRadarZoomToDistance(25.0)
+--			end
+--		else
+--			SetRadarZoomToDistance(145.0)
+--		end
+--
+--		Wait(1)
+--	end
+--end)
 
 rUtils.GetClosestPlayer = function()
 	local players = GetActivePlayers()
