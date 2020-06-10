@@ -189,8 +189,11 @@ function CreatorMenuThread()
                             if s then
                                 TriggerEvent("skinchanger:change", "sex", v.model)
                                 TriggerEvent("rF:SaveSkin", v.item, i)
-                                if v.label == "Femme" then
-                                    TriggerEvent("skinchanger:change", "glasses_1", 0)
+                                if v.model == "mp_f_freemode_01" then
+                                    TriggerEvent("skinchanger:change", "glasses_1", -1)
+                                    TriggerEvent("rF:SaveSkin", "glasses_1", -1)
+                                    TriggerEvent("skinchanger:change", "glasses_2", 0)
+                                    TriggerEvent("rF:SaveSkin", "glasses_2", 0)
                                 end
                                 values, peds, corps, accessorie, FaceCustom = GetMaxVals()
                                 usingVipPed = false
