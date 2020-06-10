@@ -1,7 +1,10 @@
 local items = {
-    {item = "pain", label = "Pain de cuisine", prix = 3, stock = 10},
-    {item = "patte", label = "Patte de cuisine", prix = 1, stock = 10},
-    {item = "viande", label = "Viande de cuisine", prix = 5, stock = 10},
+    {item = "pain", label = "Pain de cuisine", prix = 3, stock = 0},
+    {item = "patte", label = "Patte de cuisine", prix = 1, stock = 0},
+    {item = "viande", label = "Viande de cuisine", prix = 5, stock = 0},
+    {item = "patepizza", label = "Pâte à pizza", prix = 1, stock = 0},
+    {item = "coulisTomate", label = "Coulis de tomate", prix = 1, stock = 0},
+    {item = "fromage", label = "Fromage", prix = 1, stock = 0},
 }
 
 

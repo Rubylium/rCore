@@ -68,6 +68,15 @@ societyList = {
             [3] = {label = "Patron"},
         },
     },
+    {
+        name = "drusilla",
+        grade = {
+            [0] = {label = "Transporteur"},
+            [1] = {label = "Cuisinier"},
+            [2] = {label = "Gérant de production"},
+            [3] = {label = "Patron"},
+        },
+    },
 }
 
 

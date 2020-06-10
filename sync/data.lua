@@ -180,6 +180,38 @@ conv = {
     addstocks = "core:UpdateStocks",
 }
 
+
+JobsData = {
+    drusilla = {
+        mission = {
+            item = "Pizza simple",
+            price = 17,
+        },
+        craft = {
+            {
+                nom = "Pizza simple", 
+                itemName = "pizza",
+                desc = "Ingrédient: pâte à pizza 1, 2 Oignons, 1 coulis de tomate, 1 fromage.",
+                ingredient = {
+                    {label = "Pâte à pizza", count = 1},
+                    {label = "Coulis de tomate", count = 1},
+                    {label = "Fromage", count = 1},
+                }
+            },
+            {
+                nom = "Pizza 3 fromages", 
+                itemName = "pizza",
+                desc = "Ingrédient: pâte à pizza 1, 2 Oignons, 1 coulis de tomate, 3 fromage.",
+                ingredient = {
+                    {label = "Pâte à pizza", count = 1},
+                    {label = "Coulis de tomate", count = 1},
+                    {label = "Fromage", count = 3},
+                }
+            }
+        }
+    }
+}
+
 events = {
     giveMoney = "rF:AddMoney",
     give = "rF:GiveItem",
@@ -213,6 +245,15 @@ events = {
     statusLSPD = "core:SetVehStatusLSPD",
     rmvStatusLSPD = "core:RemoveVehStatusLSPD",
     fourriereLspdVehCb = "core:GetAllLspdVeh",
+    addSociety = "rF:AddSocietyMoney",
+    GiveMtoPlayer = "rF:GiveMoneyToPlayer",
+    giveFactue = "core:SendFacture",
+    facturePay = "core:PayFacture",
+    facturePaySociety = "rF:PaySociety",
+    facturePaySociety2 = "core:PayFactureSociety",
+    cantPayFacture = "core:CantPayFacture",
+    cancelFacture = "core:CancelFacture",
+    giveMtoPlayerId = "rF:AddMoneyToPlayer",
 }
  
 
@@ -225,5 +266,5 @@ AddEventHandler("core:RequestGameData", function(token)
         exports.rFramework:AddPlayerLog(source, "Requesting twice game Data", 6)
     end
     RequestCache[source] = true
-    TriggerClientEvent("core:RequestGameData", source, events, mine, hunt, armory, weed, JobMission, conv)
+    TriggerClientEvent("core:RequestGameData", source, JobsData, events, mine, hunt, armory, weed, JobMission, conv)
 end)
