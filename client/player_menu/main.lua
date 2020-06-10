@@ -295,18 +295,6 @@ function OpenPlayerMenu()
                     if s then RageUI.Visible(RMenu:Get('core', 'props'), true) OpenPropsMenu() end
                 end)
 
-                RageUI.Button("Mettre la minimap ronde", nil, true, function(Hovered, Active, Selected)
-                    if (Selected) then
-                        SetMinimapClipType(1)
-                    end
-                end)
-
-                RageUI.Button("Mettre la minimap normal", nil, true, function(Hovered, Active, Selected)
-                    if (Selected) then
-                        SetMinimapClipType(0)
-                    end
-                end)
-
                 local self = RMenu:Get('core', 'divers')
                 self.EnableMouse = true
             

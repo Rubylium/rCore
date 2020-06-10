@@ -285,6 +285,7 @@ Citizen.CreateThread(function()
 
         if pWeight > 45 then
             DisableControlAction(1, 21, true)
+            DisableControlAction(1, 22, true)
             TooMuch = true
         end
 

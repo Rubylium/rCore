@@ -12,7 +12,7 @@ RegisterNetEvent("core:AddStocks")
 AddEventHandler("core:AddStocks", function(token)
     if not exports.rFramework:CheckToken(token, source, "core:AddStocks") then return end
     for k,v in pairs(items) do
-        items[k].stock = items[k].stock + 5
+        items[k].stock = items[k].stock + math.random(1,10)
     end
 end)
 
