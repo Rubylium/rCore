@@ -363,17 +363,17 @@ function LoadConcessData()
 
             },
         },
-        {
-            nom = "Helico",
-            vehs = {
-                {vehs= "supervolito", prix=1},
-                {vehs= "supervolito2", prix=1},
-                {vehs= "swift", prix=1},
-                {vehs= "swift2", prix=1},
-                {vehs= "volatus", prix=1},
-                {vehs= "havok", prix=1},
-            },
-        },
+        --{
+        --    nom = "Helico",
+        --    vehs = {
+        --        {vehs= "supervolito", prix=1},
+        --        {vehs= "supervolito2", prix=1},
+        --        {vehs= "swift", prix=1},
+        --        {vehs= "swift2", prix=1},
+        --        {vehs= "volatus", prix=1},
+        --        {vehs= "havok", prix=1},
+        --    },
+        --},
     }
 
 
@@ -402,7 +402,7 @@ function LoadConcessData()
     local cam = nil
     
     local open = false
-    RMenu.Add('core', 'concess', RageUI.CreateMenu("", "~b~achat de véhicule"), nil, nil, "root_cause", "shopui_title_legendarymotorsport")
+    RMenu.Add('core', 'concess', RageUI.CreateMenu("", "~b~achat de véhicule", nil, nil, "root_cause", "shopui_title_legendarymotorsport"))
     RMenu:Get('core', "concess").Closed = function()
         DeleteVehicle(local_veh.entity)
         local_veh.model = nil
@@ -521,7 +521,7 @@ function LoadConcessData()
                                     local id = GetPlayerServerId(v)
                                     local props = local_veh.props
                                     local props_final, plate = CreateVeh(props)
-                                    TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final)
+                                    TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final, 0)
                                     for n,i in pairs(vehs_avalaible) do
                                         if local_veh.props.plate == i.prop.plate then
                                             table.remove(vehs_avalaible, n)

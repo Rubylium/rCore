@@ -13,7 +13,7 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
         return
     end
 
-    local info = MySQL.Sync.fetchAll("SELECT player_vehs.props, player_vehs.plate, player_vehs.lspd FROM `player_vehs` WHERE owner = @ids", {
+    local info = MySQL.Sync.fetchAll("SELECT player_vehs.props, player_vehs.plate, player_vehs.lspd, player_vehs.vip FROM `player_vehs` WHERE owner = @ids", {
         ['@ids'] = id
     })
 
@@ -25,6 +25,7 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
                     plate = info[i].plate,
                     props = info[i].props, 
                     ranger = true, 
+                    vip = info[i].vip,
                     NetID = nil,
                     lspd = true,
                 })
@@ -32,6 +33,7 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
                     plate = info[i].plate,
                     props = info[i].props, 
                     ranger = true, 
+                    vip = info[i].vip,
                     NetID = nil,
                     lspd = true,
                 })
@@ -40,6 +42,7 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
                     plate = info[i].plate,
                     props = info[i].props, 
                     ranger = true, 
+                    vip = info[i].vip,
                     NetID = nil,
                     lspd = false,
                 })
@@ -204,13 +207,15 @@ Citizen.CreateThread(function()
 end)
 
 RegisterNetEvent("core:SaveVehToGarage")
-AddEventHandler("core:SaveVehToGarage", function(token, _id, name, plate, props)
+AddEventHandler("core:SaveVehToGarage", function(token, _id, name, plate, props, _vip)
     if exports.rFramework:GetPlayerJob(source) ~= "concessionnaire" then exports.rFramework:AddPlayerLog(source, "Give de vehicule", 5) end
     if not exports.rFramework:CheckToken(token, source, "SaveVehToGarage") then return end
     local id = GetLicense(_id)
     local vprops = json.encode(props)
-    MySQL.Async.execute('INSERT INTO `player_vehs` VALUES (@owner, @plate, @model, @props)', {
+    MySQL.Async.execute('INSERT INTO `player_vehs` VALUES (@owner, @vip, @lspd, @plate, @model, @props)', {
         ["@owner"] = id,
+        ["@vip"] = _vip,
+        ["@lspd"] = false,
         ["@plate"] = plate,
         ["@model"] = name,
         ["@props"] = vprops,
@@ -220,6 +225,7 @@ AddEventHandler("core:SaveVehToGarage", function(token, _id, name, plate, props)
             plate = plate,
             props = vprops, 
             ranger = true, 
+            vip = _vip,
             NetID = nil
         })
     end
