@@ -131,7 +131,7 @@ function OpenPlayerMenu()
                     if (Selected) then
                         TriggerEvent("rF:UseItem", selected.name)
                     end
-                end)
+                end, RMenu:Get('core', 'inventory'))
                 RageUI.ButtonWithStyle("Donner", nil, {RightLabel = "📦"}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
