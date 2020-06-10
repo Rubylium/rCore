@@ -6,8 +6,9 @@ AddEventHandler("core:pList", function(token)
         local players = GetPlayers()
         local pCallback = {}
         for k,v in pairs(players) do
-            pCallback[v] = {id = v, name = GetPlayerName(v)}
-            print(v, GetPlayerName(v))
+           -- pCallback[v] = {id = v, name = GetPlayerName(v)}
+            --print(v, GetPlayerName(v))
+            table.insert(pCallback, {id = v, name = GetPlayerName(v)})
         end
         table.sort(pCallback)
         TriggerClientEvent("core:pList", source, pCallback)

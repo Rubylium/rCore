@@ -402,7 +402,7 @@ function OpenPlayerMenu()
             end)
 
             RageUI.IsVisible(RMenu:Get('core', 'admin_pList'), true, true, true, function()
-                for k,v in pairs(players) do
+                for k,v in ipairs(players) do
                     RageUI.Button("["..v.id.."] - "..v.name, nil, true, function(_,_,s)
                         if s then
                             SelectedPlayer = v
