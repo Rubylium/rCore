@@ -63,7 +63,7 @@ function OpenVehMenu(out)
                         else
                             RageUI.ButtonWithStyle(name, nil, { RightLabel = "~g~".. 150 * priceByClass[GetVehicleClassFromName(props.model)].place .."$" }, true, function(_,_,s)
                                 if s then
-                                    if pMoney >= 150 * priceByClass[GetVehicleClassFromName(props.model).place] then
+                                    if pMoney >= 150 * priceByClass[GetVehicleClassFromName(props.model)].place then
                                         PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Default", 1)
                                         TriggerServerEvent("rF:RemoveMoney", token, 150 * priceByClass[GetVehicleClassFromName(props.model)].place)
                                         rUtils.PlayAnim("cellphone@", "cellphone_call_listen_base", 50)
