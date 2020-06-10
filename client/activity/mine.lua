@@ -76,12 +76,14 @@ function MineData:LoadMineData()
                 local pickaxe = CreateObject_(GetHashKey(self.m.pickaxe), 0, 0, 0, true, true, true) 
                 AttachEntityToEntity(pickaxe, pPed, GetPedBoneIndex(pPed, 57005), 0.18, -0.02, -0.02, 350.0, 100.00, 140.0, true, true, false, true, 1, true)
                 rUtils.PlayAnim(self.m.dict, self.m.anim, 1, 8.0, 8.0)
+                InAction = true
                 if Mine < 100 then
                     Wait(10*1000)
                 else
                     Wait(5*1000)
                 end
 
+                InAction = false
                 CheckMinerSucces()
                 ClearPedTasks(pPed)
                 TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj), ObjToNet(pickaxe)})

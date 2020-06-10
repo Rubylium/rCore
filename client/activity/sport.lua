@@ -79,12 +79,14 @@ function StartSportAction(data)
         end
         Wait(1000)
     end
+    InAction = true
     TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
     Citizen.CreateThread(function()
         while StillWant do
             RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
             if IsControlPressed(1, 73) then
                 StillWant = false
+                InAction = false
                 ClearPedTasksImmediately(pPed)
                 --ClearPedTasks(pPed)
                 UpdatePresence("default")
@@ -110,6 +112,7 @@ function StartSportAction(data)
             end
             Wait(0)
         end
+        InAction = false
         ClearPedTasks(pPed)
     end)
 end
