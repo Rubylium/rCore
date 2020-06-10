@@ -68,7 +68,6 @@ end)
 local players = {}
 RegisterNetEvent("core:pList")
 AddEventHandler("core:pList", function(list)
-    table.sort(list)
     players = list
     print("Players list loaded")
 end)
