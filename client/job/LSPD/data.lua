@@ -1,6 +1,10 @@
 
 
 function LoadPoliceData()
+
+    SetWeaponDamageModifier(GetHashKey("weapon_carbinerifle"), 2.0)
+    SetWeaponDamageModifier(GetHashKey("weapon_combatpistol"), 1.9)
+
     local LspdCloths = {
         homme = {
             {
@@ -740,12 +744,18 @@ function LoadPoliceData()
             {pos = vector3(-1079.562, -884.1489, 4.165996),heading = 31.136232376099,},
         },
         vehs = {
-            {spawn = "cvpi", nom = "2011 CVPI"},
-            {spawn = "16exp", nom = "2016 Explorer"},
-            {spawn = "tau", nom = "2016 Taurus"},
-            {spawn = "18charger", nom = "2018 Charger"},
-            {spawn = "camaro", nom = "2019 Camaro"},
-            {spawn = "19hoe", nom = "2019 Tahoe"},
+            {spawn = "chargleg2", nom = "Dodge charger SRT"},
+            {spawn = "chargleg3", nom = "Dodge charger"},
+            {spawn = "chargleg4", nom = "Dodge charger k9"},
+            {spawn = "f250leg", nom = "Ford 250 Raptor"},
+            {spawn = "fpiuleg3", nom = "Ford SUV interceptor"},
+            {spawn = "sierraleg", nom = "GMC Sierra"},
+            {spawn = "taholeg", nom = "Tahoe"},
+            {spawn = "taholeg3", nom = "Tahoe K9"},
+            {spawn = "tarleg", nom = "Ford sedan interceptor"},
+            {spawn = "tarleg", nom = "Ford sedan interceptor"},
+            {spawn = "bikeleg", nom = "Moto police"},
+            {spawn = "bikeleg2", nom = "Moto police 2"},
         },
     })
 
@@ -1139,15 +1149,15 @@ end
 local tige = {
     {
         titre = "Petits travaux forcés",
-        count = 10,
+        count = 50,
     },
     {
         titre = "travaux forcés",
-        count = 25,
+        count = 100,
     },
     {
         titre = "Long travaux forcés",
-        count = 50,
+        count = 200,
     },
 }
 
