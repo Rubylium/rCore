@@ -618,7 +618,7 @@ end
 
 function ShowIdentityCard()
     local mug, txd = rUtils.GetPedMugshot(GetPlayerPed(-1))
-    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..pPrenom.."~w~\nNom: ~o~"..pNom.."~w~\nAge:~o~ "..pAge.."~w~\nMétier: ~o~"..pJob, txd, 7, false, false)
+    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..pPrenom.."~w~\nNom: ~o~"..pNom.."~w~\nAge:~o~ "..pAge.."~w~\nVIP: ~o~"..pVip, txd, 7, false, false)
     UnregisterPedheadshot(mug)
 end
 
@@ -626,7 +626,7 @@ function ShowIdentityCardToOther()
     local player, dst = rUtils.GetClosestPlayer(GetEntityCoords(GetPlayerPed(-1)))
     if dst <= 2.0 then
         local sID = GetPlayerServerId(player)
-        TriggerServerEvent("core:ShowIdentityCardToOther", token, sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pJob)
+        TriggerServerEvent("core:ShowIdentityCardToOther", token, sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pVip)
     else
         RageUI.Popup({message = "~r~Action impossible\n~w~Aucun joueur proche."})
     end
@@ -634,9 +634,9 @@ end
 
 
 RegisterNetEvent("core:ShowIdentityCardToOther")
-AddEventHandler("core:ShowIdentityCardToOther", function(net, source, Prenom, Nom, Age, Job)
+AddEventHandler("core:ShowIdentityCardToOther", function(net, source, Prenom, Nom, Age, Vip)
     local ped = GetPlayerPed(GetPlayerFromServerId(source))
     local mug, txd = rUtils.GetPedMugshot(ped)
-    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..Prenom.."~w~\nNom: ~o~"..Nom.."~w~\nAge:~o~ "..Age.."~w~\nMétier: ~o~"..Job, txd, 7, false, false)
+    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..Prenom.."~w~\nNom: ~o~"..Nom.."~w~\nAge:~o~ "..Age.."~w~\nVIP: ~o~"..Vip, txd, 7, false, false)
     UnregisterPedheadshot(mug)
 end)
