@@ -9,10 +9,10 @@ RMenu:Get('core', 'inventory').Closed = function()end
 RMenu.Add('core', 'inventory_use', RageUI.CreateSubMenu(RMenu:Get('core', 'inventory'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'inventory_use').Closed = function()end
 
-RMenu.Add('core', 'vip_main', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu.Add('core', 'vip_main', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "VIP", "~b~Option VIP"))
 RMenu:Get('core', 'vip_main').Closed = function()end
 
-RMenu.Add('core', 'vip_weapon_tint', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu.Add('core', 'vip_weapon_tint', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_main'), "VIP TINT", "~b~Couleur d'arme de VIP"))
 RMenu:Get('core', 'vip_weapon_tint').Closed = function()end
 
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
