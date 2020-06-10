@@ -216,8 +216,9 @@ function ShowNames()
 end
 
 local noClip = false
-local NoClipSpeed = 1.0
+local NoClipSpeed = 0.5
 function NoClip()
+    NoClipSpeed = 0.5
     noClip = not noClip
     if noClip then    
         Citizen.CreateThread(function()
@@ -236,11 +237,11 @@ function NoClip()
                     pCoords = pCoords - (NoClipSpeed * camCoords)
                 end
             
-                if IsControlPressed(1, 15) then
-                    NoClipSpeed = NoClipSpeed + 0.5
+                if IsDisabledControlJustPressed(1, 15) then
+                    NoClipSpeed = NoClipSpeed + 0.1
                 end
-                if IsControlPressed(1, 14) then
-                    NoClipSpeed = NoClipSpeed - 0.5
+                if IsDisabledControlJustPressed(1, 14) then
+                    NoClipSpeed = NoClipSpeed - 0.1
                     if NoClipSpeed < 0 then
                         NoClipSpeed = 0
                     end
