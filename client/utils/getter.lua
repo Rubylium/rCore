@@ -100,6 +100,7 @@ Citizen.CreateThread(function()
     TriggerServerEvent("core:GetWeather")
 
     StopAudioScenes()
+    InitVoiceChat()
     while true do
         pPed = GetPlayerPed(-1)
         pVeh = GetVehiclePedIsIn(pPed, 0)

@@ -34,9 +34,9 @@ rUtils.RegisterControlKey("slow", "[DEV] - Activer slowmotion", "6", function()
     SetTimeScale(0.25)
 end)
 
-rUtils.RegisterControlKey("creator", "[DEV] - Ouvrir le menu de création", "f1", function()
-    OpenCreatorMenu()
-end)
+--rUtils.RegisterControlKey("creator", "[DEV] - Ouvrir le menu de création", "f1", function()
+--    OpenCreatorMenu()
+--end)
 
 rUtils.RegisterControlKey("chest", "Ouvrir le coffre du véhicule", "k", function()
     OpenVehicleChest()
@@ -72,6 +72,22 @@ rUtils.RegisterControlKey("hands", "Lever les mains", "x", function()
         ClearPedTasks(pPed)
         handsUp = false
     end
+end)
+
+local voice = 2
+local voiceData = {
+    [1] = {voice = 10.0, label = "Chuchoter"},
+    [2] = {voice = 15.0, label = "Normal"},
+    [3] = {voice = 25.0, label = "Crier"},
+}
+
+rUtils.RegisterControlKey("voix", "Portez de la voix", "f1", function()
+    voice = voice + 1
+    if voice > 3 then
+        voice = 1
+    end
+    NetworkSetTalkerProximity(voiceData[voice].voice)
+    rUtils.ImportantNotif("Voix changé en: "..voiceData[voice].label)
 end)
 
 local pointing = false
