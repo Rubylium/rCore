@@ -15,16 +15,18 @@ RMenu:Get('core', 'vip_main').Closed = function()end
 RMenu.Add('core', 'vip_weapon_tint', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_main'), "VIP TINT", "~b~Couleur d'arme de VIP"))
 RMenu:Get('core', 'vip_weapon_tint').Closed = function()end
 
-RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "portefeuille", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'portefeuille').Closed = function()end
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'portefeuille_usage').Closed = function()end
 
-RMenu.Add('core', 'accessoire', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu.Add('core', 'accessoire', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "accessoire", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'accessoire').Closed = function()end
 
-RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "divers", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'divers').Closed = function()end
+RMenu.Add('core', 'divers_editor', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu:Get('core', 'divers_editor').Closed = function()end
 
 RMenu.Add('core', 'admin', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Admin Menu", nil))
 RMenu:Get('core', 'admin').Closed = function()end
@@ -284,7 +286,33 @@ function OpenPlayerMenu()
             end, function()
             end)
 
+            RageUI.IsVisible(RMenu:Get('core', 'divers_editor'), true, true, true, function()
+
+                RageUI.ButtonWithStyle("Stopper le record + save", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        StopRecordingAndSaveClip()
+                    end
+                end)
+
+                RageUI.ButtonWithStyle("Stopper le record", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        StopRecordingAndDiscardClip()
+                    end
+                end)
+
+                RageUI.ButtonWithStyle("Start le record", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        StartRecording(1)
+                    end
+                end)
+
+
+            end, function()
+            end)
+
             RageUI.IsVisible(RMenu:Get('core', 'divers'), true, true, true, function()
+                RageUI.ButtonWithStyle("Rockstar éditor", nil, { RightLabel = "→→" }, pGroup ~= "user", function()
+                end, RMenu:Get('core', 'divers_editor'))
                 RageUI.ButtonWithStyle("Activer/Desactiver l'HUD", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         TriggerEvent("rF:HudToogle")
