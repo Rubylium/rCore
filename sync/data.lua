@@ -254,6 +254,7 @@ events = {
     cantPayFacture = "core:CantPayFacture",
     cancelFacture = "core:CancelFacture",
     giveMtoPlayerId = "rF:AddMoneyToPlayer",
+    checkPlate = "core:lspdCheckPlate",
 }
  
 

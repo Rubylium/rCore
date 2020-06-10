@@ -291,12 +291,24 @@ function LoadSheriffData()
     })
 
 
-    RMenu.Add('core', 'sheriff_main', RageUI.CreateMenu("Sheriff", "~b~Menu action sheriff"))
+    RMenu.Add('core', 'sheriff_main', RageUI.CreateMenu("SHERIFF", "~b~Menu action sheriff"))
     RMenu:Get('core', 'sheriff_main').Closed = function()
         open = false
     end
     RMenu.Add('core', 'sheriff_fouille', RageUI.CreateSubMenu(RMenu:Get('core', 'sheriff_main'), "Fouille", "~b~Fouille"))
     RMenu:Get('core', 'sheriff_fouille').Closed = function()end
+
+    RMenu.Add('core', 'sheriff_citizen', RageUI.CreateSubMenu(RMenu:Get('core', 'sheriff_main'), "Véhicule", "~b~Véhicule"))
+    RMenu:Get('core', 'sheriff_citizen').Closed = function()end
+
+    RMenu.Add('core', 'sheriff_citizen_menotte', RageUI.CreateSubMenu(RMenu:Get('core', 'sheriff_citizen'), "Véhicule", "~b~Véhicule"))
+    RMenu:Get('core', 'sheriff_citizen_menotte').Closed = function()end
+
+    RMenu.Add('core', 'sheriff_veh', RageUI.CreateSubMenu(RMenu:Get('core', 'sheriff_main'), "Véhicule", "~b~Véhicule"))
+    RMenu:Get('core', 'sheriff_veh').Closed = function()end
+
+    RMenu.Add('core', 'sheriff_veh_confirme', RageUI.CreateSubMenu(RMenu:Get('core', 'sheriff_veh'), "Véhicule", "~b~Véhicule"))
+    RMenu:Get('core', 'sheriff_veh_confirme').Closed = function()end
 
     local TargetInv = {}
     local TargetWeight = 0
@@ -322,7 +334,7 @@ function LoadSheriffData()
                             if Selected then
                                 local amount = CustomAmount()
                                 if amount ~= nil and amount ~= 0 and amount <= v.count then
-                                    TriggerServerEvent("rF:TransferItemIfTargetCanHoldItReverse", token, TargetID, v.name, amount, v.label, v.count)
+                                    TriggerServerEvent(events.TransferReverse, token, TargetID, v.name, amount, v.label, v.count)
                                     if v.count - amount <= 0 then
                                         TargetInv[k] = nil
                                     else
@@ -337,39 +349,78 @@ function LoadSheriffData()
                     ---Panels
                 end)
 
-                RageUI.IsVisible(RMenu:Get('core', 'sheriff_main'), true, true, true, function()
+                RageUI.IsVisible(RMenu:Get('core', 'sheriff_veh'), true, true, true, function()
 
-                    RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
+                    --RageUI.ButtonWithStyle("Mettre en fourrière sheriff.", "Met en fourrière sheriff le véhicule le plus proche, attention, le joueur ne pourra plus le sortir de son garage!", { }, true, function(Hovered, Active, Selected)
+                    --    if Active then 
+                    --        ClosetVehWithDisplay() 
+                    --    end
+                    --end, RMenu:Get('core', 'sheriff_veh_confirme'))
+--
+                    --RageUI.ButtonWithStyle("Retirer de la fourrière sheriff.", "Retire le véhicule le plus proche de la fourrière sheriff", { }, true, function(Hovered, Active, Selected)
+                    --    if Selected then
+                    --        local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
+                    --        local plate = GetVehicleNumberPlateText(veh)
+                    --        TriggerServerEvent(events.rmvStatussheriff, token, plate, VehToNet(veh))
+                    --    end
+                    --    if Active then 
+                    --        ClosetVehWithDisplay() 
+                    --    end
+                    --end)
+
+                    RageUI.Button("Vérifier la plaque.", nil, true, function(Hovered, Active, Selected)
                         if Selected then
-                            TriggerServerEvent("core:SetServiceStatus", token, pJob)
+                            rUtils.ImportantNotif("Vous demandez une vérification de plaque au central ...")
+                            ExecuteCommand("e cop3")
+                            Wait(10000)
+                            local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
+                            local plate = GetVehicleNumberPlateText(veh)
+                            TriggerServerEvent(events.checkPlate, token, plate)
+                            ClearPedTasks(pPed)
                         end
-                    end) 
-
-                    RageUI.ButtonWithStyle("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
-                        if Selected then
-                            OpenBillCreation()
+                        if Active then 
+                            ClosetVehWithDisplay() 
                         end
                     end)
 
-                    RageUI.ButtonWithStyle("Escorter la personne", nil, {}, true, function(Hovered, Active, Selected)
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'sheriff_veh_confirme'), true, true, true, function()
+
+                    RageUI.ButtonWithStyle("~g~Confirmer la mise en fourrière", "Met en fourrière sheriff le véhicule le plus proche, attention, le joueur ne pourra plus le sortir de son garage!", { }, true, function(Hovered, Active, Selected)
                         if Selected then
-                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
-                            if dst < 2.0 then
-                                local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:EscortPlayer", token, sID)
-                            end
+                            local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
+                            local plate = GetVehicleNumberPlateText(veh)
+                            TriggerServerEvent(events.statussheriff, token, plate, VehToNet(veh))
                         end
-                        if Active then
-                            rUtils.DisplayClosetPlayer()
+                        if Active then 
+                            ClosetVehWithDisplay() 
                         end
                     end)
+
+                    RageUI.ButtonWithStyle("~r~Annuler", nil, { }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            RageUI.GoBack()
+                        end
+                    end)
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'sheriff_citizen'), true, true, true, function()
+
+                    RageUI.ButtonWithStyle("Menotte", nil, {RightLabel = "→"}, true, function(_,h,s)
+                    end, RMenu:Get('core', 'sheriff_citizen_menotte'))
 
                     RageUI.ButtonWithStyle("Fouiller la personne", nil, {}, true, function(_,h,s)
                         if s then 
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local target = GetPlayerServerId(closet)
-                                exports.rFramework:TriggerServerCallback('rF:GetOtherPlayerData', function(inv, weight, money, black)
+                                exports.rFramework:TriggerServerCallback(events.OtherPdata, function(inv, weight, money, black)
                                     TargetInv = inv
                                     TargetWeight = weight
                                     TargetMoney = money
@@ -384,13 +435,38 @@ function LoadSheriffData()
                             rUtils.DisplayClosetPlayer()
                         end
                     end, RMenu:Get('core', 'sheriff_fouille'))
+                    
+                    RageUI.ButtonWithStyle("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            OpenBillCreation()
+                        end
+                    end)
+
+                    RageUI.ButtonWithStyle("Escorter la personne", nil, {}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent(events.escort, token, sID)
+                            end
+                        end
+                        if Active then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'sheriff_citizen_menotte'), true, true, true, function()
 
                     RageUI.ButtonWithStyle("Menotter la personne", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", token, sID, true, true)
+                                TriggerServerEvent(events.cuff, token, sID, true, true)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
@@ -405,7 +481,7 @@ function LoadSheriffData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", token, sID, true, false)
+                                TriggerServerEvent(events.cuff, token, sID, true, false)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 1.0, 1.0, nil, 3000)
                             end
                         end
@@ -419,7 +495,7 @@ function LoadSheriffData()
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:CuffPlayer", token, sID, false, false)
+                                TriggerServerEvent(events.cuff, token, sID, false, false)
                                 rUtils.PlayAnim("mp_arresting", "a_uncuff", 1, 100.0, nil, nil, 5800)
                             end
                         end
@@ -427,6 +503,25 @@ function LoadSheriffData()
                             rUtils.DisplayClosetPlayer()
                         end
                     end)
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'sheriff_main'), true, true, true, function()
+
+                    RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            TriggerServerEvent(events.Service, token, pJob)
+                        end
+                    end) 
+
+                    RageUI.ButtonWithStyle("Action sur citoyen", nil, {RightLabel = "→"}, true, function(_,h,s)
+                    end, RMenu:Get('core', 'sheriff_citizen'))
+
+                    RageUI.ButtonWithStyle("Action sur véhicule", nil, {RightLabel = "→"}, true, function(_,h,s)
+                    end, RMenu:Get('core', 'sheriff_veh'))
+
 
                 end, function()
                     ---Panels

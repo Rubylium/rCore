@@ -834,8 +834,18 @@ function LoadPoliceData()
     RMenu.Add('core', 'lspd_fouille', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Fouille", "~b~Fouille"))
     RMenu:Get('core', 'lspd_fouille').Closed = function()end
 
+    RMenu.Add('core', 'lspd_citizen', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Véhicule", "~b~Véhicule"))
+    RMenu:Get('core', 'lspd_citizen').Closed = function()end
+
+    RMenu.Add('core', 'lspd_citizen_menotte', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_citizen'), "Véhicule", "~b~Véhicule"))
+    RMenu:Get('core', 'lspd_citizen_menotte').Closed = function()end
+
     RMenu.Add('core', 'lspd_veh', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Véhicule", "~b~Véhicule"))
     RMenu:Get('core', 'lspd_veh').Closed = function()end
+
+    RMenu.Add('core', 'lspd_veh_confirme', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_veh'), "Véhicule", "~b~Véhicule"))
+    RMenu:Get('core', 'lspd_veh_confirme').Closed = function()end
+    
 
     local TargetInv = {}
     local TargetWeight = 0
@@ -879,15 +889,10 @@ function LoadPoliceData()
                 RageUI.IsVisible(RMenu:Get('core', 'lspd_veh'), true, true, true, function()
 
                     RageUI.ButtonWithStyle("Mettre en fourrière LSPD.", "Met en fourrière LSPD le véhicule le plus proche, attention, le joueur ne pourra plus le sortir de son garage!", { }, true, function(Hovered, Active, Selected)
-                        if Selected then
-                            local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
-                            local plate = GetVehicleNumberPlateText(veh)
-                            TriggerServerEvent(events.statusLSPD, token, plate, VehToNet(veh))
-                        end
                         if Active then 
                             ClosetVehWithDisplay() 
                         end
-                    end)
+                    end, RMenu:Get('core', 'lspd_veh_confirme'))
 
                     RageUI.ButtonWithStyle("Retirer de la fourrière LSPD.", "Retire le véhicule le plus proche de la fourrière LSPD", { }, true, function(Hovered, Active, Selected)
                         if Selected then
@@ -900,39 +905,52 @@ function LoadPoliceData()
                         end
                     end)
 
+                    RageUI.Button("Vérifier la plaque.", nil, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            rUtils.ImportantNotif("Vous demandez une vérification de plaque au central ...")
+                            ExecuteCommand("e cop3")
+                            Wait(10000)
+                            local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
+                            local plate = GetVehicleNumberPlateText(veh)
+                            TriggerServerEvent(events.checkPlate, token, plate)
+                            ClearPedTasks(pPed)
+                        end
+                        if Active then 
+                            ClosetVehWithDisplay() 
+                        end
+                    end)
+
                 end, function()
                     ---Panels
                 end)
 
-                RageUI.IsVisible(RMenu:Get('core', 'lspd_main'), true, true, true, function()
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_veh_confirme'), true, true, true, function()
 
-                    RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("~g~Confirmer la mise en fourrière", "Met en fourrière LSPD le véhicule le plus proche, attention, le joueur ne pourra plus le sortir de son garage!", { }, true, function(Hovered, Active, Selected)
                         if Selected then
-                            TriggerServerEvent(events.Service, token, pJob)
+                            local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
+                            local plate = GetVehicleNumberPlateText(veh)
+                            TriggerServerEvent(events.statusLSPD, token, plate, VehToNet(veh))
                         end
-                    end) 
-
-                    RageUI.ButtonWithStyle("Action sur véhicule", nil, {RightLabel = "→"}, true, function(_,h,s)
-                    end, RMenu:Get('core', 'lspd_veh'))
-
-                    RageUI.ButtonWithStyle("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
-                        if Selected then
-                            OpenBillCreation()
+                        if Active then 
+                            ClosetVehWithDisplay() 
                         end
                     end)
 
-                    RageUI.ButtonWithStyle("Escorter la personne", nil, {}, true, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("~r~Annuler", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
-                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
-                            if dst < 2.0 then
-                                local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent(events.escort, token, sID)
-                            end
-                        end
-                        if Active then
-                            rUtils.DisplayClosetPlayer()
+                            RageUI.GoBack()
                         end
                     end)
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_citizen'), true, true, true, function()
+
+                    RageUI.ButtonWithStyle("Menotte", nil, {RightLabel = "→"}, true, function(_,h,s)
+                    end, RMenu:Get('core', 'lspd_citizen_menotte'))
 
                     RageUI.ButtonWithStyle("Fouiller la personne", nil, {}, true, function(_,h,s)
                         if s then 
@@ -954,6 +972,31 @@ function LoadPoliceData()
                             rUtils.DisplayClosetPlayer()
                         end
                     end, RMenu:Get('core', 'lspd_fouille'))
+                    
+                    RageUI.ButtonWithStyle("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            OpenBillCreation()
+                        end
+                    end)
+
+                    RageUI.ButtonWithStyle("Escorter la personne", nil, {}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent(events.escort, token, sID)
+                            end
+                        end
+                        if Active then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_citizen_menotte'), true, true, true, function()
 
                     RageUI.ButtonWithStyle("Menotter la personne", nil, {}, true, function(Hovered, Active, Selected)
                         if Selected then
@@ -997,6 +1040,25 @@ function LoadPoliceData()
                             rUtils.DisplayClosetPlayer()
                         end
                     end)
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_main'), true, true, true, function()
+
+                    RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            TriggerServerEvent(events.Service, token, pJob)
+                        end
+                    end) 
+
+                    RageUI.ButtonWithStyle("Action sur citoyen", nil, {RightLabel = "→"}, true, function(_,h,s)
+                    end, RMenu:Get('core', 'lspd_citizen'))
+
+                    RageUI.ButtonWithStyle("Action sur véhicule", nil, {RightLabel = "→"}, true, function(_,h,s)
+                    end, RMenu:Get('core', 'lspd_veh'))
+
 
                 end, function()
                     ---Panels

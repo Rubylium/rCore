@@ -4,7 +4,7 @@ PlayersVehCache = {}
 local LspdVehsCache = {}
 
 RegisterNetEvent("core:GetPlayersVehicle")
-AddEventHandler("core:GetPlayersVehicle", function(token)
+AddEventHandler("core:GetPlayersVehicle", function(token, _nom, _prenom)
     if not exports.rFramework:CheckToken(token, source, "GetPlayersVehicle") then return end
     local source = source
     local id = GetLicense(source)
@@ -28,6 +28,8 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
                     vip = info[i].vip,
                     NetID = nil,
                     lspd = true,
+                    nom = _nom,
+                    prenom = _prenom,
                 })
                 table.insert(LspdVehsCache, {
                     plate = info[i].plate,
@@ -36,6 +38,8 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
                     vip = info[i].vip,
                     NetID = nil,
                     lspd = true,
+                    nom = _nom,
+                    prenom = _prenom,
                 })
             else
                 table.insert(PlayersVehCache[id], {
@@ -45,6 +49,8 @@ AddEventHandler("core:GetPlayersVehicle", function(token)
                     vip = info[i].vip,
                     NetID = nil,
                     lspd = false,
+                    nom = _nom,
+                    prenom = _prenom,
                 })
             end
             print("^2Added ^7["..info[i].plate.."] to ["..source.."] vehicles cache.")
@@ -93,6 +99,27 @@ AddEventHandler("core:SetVehStatusLSPD", function(token, _plate, net)
         end
     end
     DeleteEntityYes(net)
+
+    TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
+end)
+
+RegisterNetEvent("core:lspdCheckPlate")
+AddEventHandler("core:lspdCheckPlate", function(token, _plate)
+    if not exports.rFramework:CheckToken(token, source, "lspdCheckPlate") then return end
+    for k,v in pairs(PlayersVehCache) do
+        for j,i in pairs(PlayersVehCache[k]) do
+            if i.plate == _plate then
+                if PlayersVehCache[k][j].lspd ~= true then
+                    PlayersVehCache[k][j].ranger = false
+                    PlayersVehCache[k][j].NetID = net
+                    PlayersVehCache[k][j].lspd = true
+                    TriggerClientEvent("rF:notification", source, "~o~Information véhicule\n~w~Plaque: ".._plate.."\nEnregistré au nom de: ~b~".. PlayersVehCache[k][j].nom.." ".. PlayersVehCache[k][j].prenom)
+                    return
+                end
+            end
+        end
+    end
+    TriggerClientEvent("rF:notification", source, "~o~Information véhicule\n~w~Plaque: ".._plate.."\nEnregistré au nom de: ~b~Jean Moldu")
 
     TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
 end)

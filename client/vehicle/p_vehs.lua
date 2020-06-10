@@ -35,7 +35,7 @@ end
 function OpenVehMenu(out)
     print(out)
     if open then return end
-    TriggerServerEvent("core:GetPlayersVehicle", token)
+    TriggerServerEvent("core:GetPlayersVehicle", token, pNom, pPrenom)
     open = true
     RageUI.Visible(RMenu:Get('core', 'veh_list'), not RageUI.Visible(RMenu:Get('core', 'veh_list')))
     rUtils.PlayAnim("cellphone@", "cellphone_text_in", 50)
