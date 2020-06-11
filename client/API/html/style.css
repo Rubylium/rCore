@@ -25,3 +25,11 @@
     z-index: 9999;
     display: none;
 }
+
+#mic {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-image: url(img/microphone.png);
+    display: none;
+}

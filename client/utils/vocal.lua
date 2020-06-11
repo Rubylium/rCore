@@ -54,14 +54,32 @@ end
  
 -- Loop
 
+local talking = false
 function InitVoiceChat()
     Citizen.CreateThread(function()
         Citizen.Wait(500)
     
         while true do
             DoVoiceSystem()
+            if NetworkIsPlayerTalking(GetPlayerIndex()) then
+                if not talking then
+                    SendNUIMessage({ 
+                        mic = true
+                    })
+                    talking = true
+                end
+            else
+                if talking then
+                    SendNUIMessage({ 
+                        mic = false
+                    })
+                    talking = false
+                end
+            end
             Citizen.Wait(250)
         end
     end)
-    rUtils.ImportantNotif("Vocal: ✅")
+    rUtils.ImportantNotif("Vocal: ~g~Connecté avec succès")
 end
+
+

@@ -17,6 +17,15 @@ $(function() {
             });
         }
 
+        if (typeof mess.mic !== 'undefined') {
+            if (mess.mic == true) {
+                $("#mic").fadeIn(500);
+            } else {
+                $("#mic").fadeOut(500);
+            }
+
+        }
+
     });
 
 });

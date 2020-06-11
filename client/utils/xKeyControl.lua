@@ -39,6 +39,7 @@ end)
 --end)
 
 rUtils.RegisterControlKey("chest", "Ouvrir le coffre du véhicule", "k", function()
+    if IsCuffed then return end
     OpenVehicleChest()
 end)
 
@@ -76,8 +77,8 @@ end)
 
 local voice = 2
 local voiceData = {
-    [1] = {voice = 10.0, label = "Chuchoter"},
-    [2] = {voice = 15.0, label = "Normal"},
+    [1] = {voice = 7.0, label = "Chuchoter"},
+    [2] = {voice = 13.0, label = "Normal"},
     [3] = {voice = 25.0, label = "Crier"},
 }
 NetworkSetTalkerProximity(voiceData[1].voice)
