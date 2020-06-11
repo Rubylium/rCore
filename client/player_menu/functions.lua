@@ -181,6 +181,15 @@ end
 
 local gamerTags = {}
 local showNames = false
+
+local staffColor = {
+    [0] = {color = "10", tag = ""},
+    [1] = {color = "50", tag = ""},
+    [2] = {color = "200", tag = ""},
+    [3] = {color = "255", tag = ""},
+    [4] = {color = "170", tag = "🛠️"},
+}
+
 function ShowNames()
     showNames = not showNames
     if showNames then
@@ -189,10 +198,22 @@ function ShowNames()
                 local pCoords = GetEntityCoords(pPed, false)
                 for _, v in pairs(GetActivePlayers()) do
                     local otherPed = GetPlayerPed(v)
+                    local staff = DecorGetInt(otherPed, "group")
+                    print(staff)
+                    if staff == nil then 
+                        staff = 0
+                    end
+                    color = staffColor[staff].color
+                    staff = staffColor[staff].tag
+                    
                 
-                    if otherPed ~= pPed then
+                    --if otherPed ~= pPed then
                         if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
-                            gamerTags[v] = CreateFakeMpGamerTag(otherPed, ('[%s] %s'):format(GetPlayerServerId(v), GetPlayerName(v)), false, false, '', 0)
+                            gamerTags[v] = CreateFakeMpGamerTag(otherPed, staff.." ["..GetPlayerServerId(v).."] "..GetPlayerName(v).."("..GetEntityHealth(otherPed)..")", false, false, "", 0)
+                            SetMpGamerTagColour(gamerTags[v], 0, color)
+                            SetMpGamerTagVisibility(gamerTags[v], 2, true)
+                            SetMpGamerTagHealthBarColour(gamerTags[v], 0)
+                            SetMpGamerTagName(gamerTags[v], staff.." ["..GetPlayerServerId(v).."] "..GetPlayerName(v).."("..GetEntityHealth(otherPed)..")")
                             if NetworkIsPlayerTalking(v) then
                                 SetMpGamerTagVisibility(gamerTags[v], 16, 1)
                             else
@@ -202,7 +223,7 @@ function ShowNames()
                             RemoveMpGamerTag(gamerTags[v])
                             gamerTags[v] = nil
                         end
-                    end
+                    --end
                 end
                 Wait(500)
             end
@@ -248,6 +269,7 @@ function NoClip()
                 end
                 SetEntityCoordsNoOffset(pPed, pCoords, true, true, true)
                 SetEntityVisible(pPed, 0, 0)
+                
             end
             SetEntityVisible(pPed, 1, 0)
             SetEntityCollision(pPed, 1, 1)
@@ -257,7 +279,7 @@ function NoClip()
 end
 
 function getCamDirection()
-	local heading = GetGameplayCamRelativeHeading() + GetEntityHeading(pPed)
+    local heading = GetGameplayCamRelativeHeading() + GetEntityHeading(pPed)
 	local pitch = GetGameplayCamRelativePitch()
 	local coords = vector3(-math.sin(heading * math.pi / 180.0), math.cos(heading * math.pi / 180.0), math.sin(pitch * math.pi / 180.0))
 	local len = math.sqrt((coords.x * coords.x) + (coords.y * coords.y) + (coords.z * coords.z))
@@ -293,8 +315,8 @@ Citizen.CreateThread(function()
 
         if not IsPedInAnyVehicle(pPed, 0) then
             if pWeight > 48 then
-                local i = math.random(1,1400)
-                if i == 1400 then
+                local i = math.random(1,1200)
+                if i == 1200 then
                     print("Fall")
                     SetPedToRagdoll(pPed, 1000, 1000, 3, 1, 1, 1)
                     RageUI.Text({message = "Tu as trébuché à cause de tout ce que tu portes", time_display = 3000})

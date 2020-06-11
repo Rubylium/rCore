@@ -40,6 +40,9 @@ RMenu:Get('core', 'admin_jAction').Closed = function()end
 RMenu.Add('core', 'admin_JobList', RageUI.CreateSubMenu(RMenu:Get('core', 'admin_jAction'), "Admin Menu", nil))
 RMenu:Get('core', 'admin_JobList').Closed = function()end
 
+RMenu.Add('core', 'admin_GroupList', RageUI.CreateSubMenu(RMenu:Get('core', 'admin_jAction'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_GroupList').Closed = function()end
+
 local selected = {
     event = nil,
     name = nil,
@@ -65,6 +68,8 @@ Citizen.CreateThread(function()
     ReloadColor()
 end)
 
+
+
 local players = {}
 RegisterNetEvent("core:pList")
 AddEventHandler("core:pList", function(list)
@@ -74,6 +79,7 @@ end)
 
 
 local SelectedPlayer = {}
+local InStaff = false
 function OpenPlayerMenu()
     if open then return end
     open = true
@@ -356,32 +362,41 @@ function OpenPlayerMenu()
 
             RageUI.IsVisible(RMenu:Get('core', 'admin'), true, true, true, function()
                 RageUI.Separator("~b~Menu staff")
-                RageUI.ButtonWithStyle("Liste des joueurs", "Permet de faire des actions sur les joueurs en lignes.", { RightLabel = "→" }, true, function(_,_,s)
+
+                RageUI.Checkbox("Activer le mod staff", nil, InStaff, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
+                    InStaff = Checked;
+                end, function()
+                    TriggerServerEvent(events.staffmod, token, true)
+                end, function()
+                    TriggerServerEvent(events.staffmod, token, false)
+                end)
+
+                RageUI.ButtonWithStyle("Liste des joueurs", "Permet de faire des actions sur les joueurs en lignes.", { RightLabel = "→" }, InStaff, function(_,_,s)
                     if s then
                         TriggerServerEvent("core:pList", token)
                     end
                 end, RMenu:Get('core', 'admin_pList'))
 
-                RageUI.Button("TP Sur marker", nil, true, function(_,_,s)
+                RageUI.Button("TP Sur marker", nil, InStaff, function(_,_,s)
                     if s then
                         GoToBlip()
                     end
                 end)
 
-                RageUI.Button("Nettoyer la zone", nil, true, function(_,_,s)
+                RageUI.Button("Nettoyer la zone", nil, InStaff, function(_,_,s)
                     if s then
                         ClearAreaOfEverything(GetEntityCoords(pPed), 100.0, 0, 0, 0, 0)
                     end
                 end)
 
-                RageUI.Button("Nettoyer la rue", nil, true, function(_,_,s)
+                RageUI.Button("Nettoyer la rue", nil, InStaff, function(_,_,s)
                     if s then
                         ClearAreaOfObjects(GetEntityCoords(pPed), 200.0, 0)
                     end
                 end)
 
 
-                RageUI.ButtonWithStyle("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, InStaff, function(Hovered, Active, Selected)
                     if Active then 
                         ClosetVehWithDisplay() 
                     end
@@ -392,7 +407,7 @@ function OpenPlayerMenu()
                     end
                 end)
 
-                RageUI.ButtonWithStyle("Mettre le véhicule en fourrière", "Permet de Mettre le véhicule le plus proche en fourrière.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("Mettre le véhicule en fourrière", "Permet de Mettre le véhicule le plus proche en fourrière.", { RightBadge = RageUI.BadgeStyle.Car }, InStaff, function(Hovered, Active, Selected)
                     if Active then 
                         ClosetVehWithDisplay() 
                     end
@@ -402,7 +417,7 @@ function OpenPlayerMenu()
                     end
                 end)
 
-                RageUI.ButtonWithStyle("[DEBUG] Fix coffre", "Si un coffre de véhicule est bug, cette option permet de le fix.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                RageUI.ButtonWithStyle("[DEBUG] Fix coffre", "Si un coffre de véhicule est bug, cette option permet de le fix.", { RightBadge = RageUI.BadgeStyle.Car }, InStaff, function(Hovered, Active, Selected)
                     if Active then 
                         ClosetVehWithDisplay() 
                     end
@@ -413,13 +428,13 @@ function OpenPlayerMenu()
                     end
                 end)
 
-                RageUI.Button("Activer les nom", nil, true, function(_,_,s)
+                RageUI.Button("Activer les nom", nil, InStaff, function(_,_,s)
                     if s then
                         ShowNames()
                     end
                 end)
 
-                RageUI.Button("NoClip", nil, true, function(_,_,s)
+                RageUI.Button("NoClip", nil, InStaff, function(_,_,s)
                     if s then
                         NoClip()
                     end
@@ -486,6 +501,9 @@ function OpenPlayerMenu()
                 RageUI.Button("Changer le job", nil, true, function(_,_,s)
                 end, RMenu:Get('core', 'admin_JobList'))
 
+                RageUI.Button("Changer le groupe", nil, pGroup == "dev" or pGroup == "fonda", function(_,_,s)
+                end, RMenu:Get('core', 'admin_GroupList'))
+
             end, function()
             end)
 
@@ -498,6 +516,17 @@ function OpenPlayerMenu()
                             end
                         end)
                     end
+                end
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_GroupList'), true, true, true, function()
+                for k,v in pairs(JobsData.staff) do
+                    RageUI.Button(v.label, nil, true, function(_,_,s)
+                        if s then
+                            TriggerServerEvent(events.group, token, SelectedPlayer.id, v.group)
+                        end
+                    end)
                 end
             end, function()
             end)

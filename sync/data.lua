@@ -182,6 +182,13 @@ conv = {
 
 
 JobsData = {
+    staff = {
+        {label = "Aucun groupe", group = "user"},
+        {label = "Modérateur", group = "mod"},
+        {label = "Remboursement", group = "remb"},
+        {label = "Fondateur", group = "fonda"},
+        {label = "Developpeur", group = "dev"},
+    },
     drusilla = {
         mission = {
             item = "Pizza simple",
@@ -255,6 +262,8 @@ events = {
     cancelFacture = "core:CancelFacture",
     giveMtoPlayerId = "rF:AddMoneyToPlayer",
     checkPlate = "core:lspdCheckPlate",
+    group = "rF:ChangePlayerGroup",
+    staffmod = "rF:Staffmod",
 }
  
 

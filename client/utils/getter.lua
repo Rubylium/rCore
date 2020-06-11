@@ -105,6 +105,17 @@ Citizen.CreateThread(function()
         pPed = GetPlayerPed(-1)
         pVeh = GetVehiclePedIsIn(pPed, 0)
         pVehLast = GetVehiclePedIsIn(pPed, 1)
+        if pGroup == "user" then
+            DecorSetInt(pPed, "group", 0)
+        elseif pGroup == "mod" then
+            DecorSetInt(pPed, "group", 1)
+        elseif pGroup == "remb" then
+            DecorSetInt(pPed, "group", 2)
+        elseif pGroup == "fonda" then
+            DecorSetInt(pPed, "group", 3)
+        elseif pGroup == "dev" then
+            DecorSetInt(pPed, "group", 4)
+        end
         Wait(2000)
     end
 end)
@@ -112,6 +123,11 @@ end)
 RegisterNetEvent("rF:SkinLoaded")
 AddEventHandler("rF:SkinLoaded", function()
     pLoaded = true
+end)
+
+RegisterNetEvent("rF:UpdateGroup")
+AddEventHandler("rF:UpdateGroup", function(group)
+    pGroup = group
 end)
 
 RegisterNetEvent("rF:SendPlayerInventory")
@@ -158,6 +174,7 @@ end)
 
 RegisterNetEvent("rF:initializeinfo")
 AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths, group, vip)
+    DecorRegister("group", 3)
     pJob = job
     pJob_Grade = grade
     pMoney = money

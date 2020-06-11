@@ -78,7 +78,7 @@ Citizen.CreateThread(function()
         end
 
         if #players == 1 then
-            numbers = 0.5
+            numbers = 0.8
         end
         Wait(3000)
     end
