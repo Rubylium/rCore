@@ -727,6 +727,16 @@ function LoadPoliceData()
         cloths = LspdCloths
     })
 
+    rUtils.RegisterGarageZone({
+        pos = vector3(-1102.03, -837.1118, 37.69914),
+        spawns = {
+            {pos = vector3(-1096.732, -832.7906, 37.69968),heading = 308.35607910156,},
+        },
+        vehs = {
+            {spawn = "polmav", nom = "Hélico"},
+        },
+    })
+
 
     rUtils.RegisterGarageZone({
         pos = vector3(-1077.151, -857.4, 5.0),
