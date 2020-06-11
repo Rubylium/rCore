@@ -29,8 +29,8 @@ end)
 local seconde = 1000
 local minute = 60 * seconde
 function DeathTimer()
-    local respawnTime = GetGameTimer() + 1 * minute
-    local min = 1 * minute
+    local respawnTime = GetGameTimer() + 10 * minute
+    local min = 10 * minute
     local sec = 60
     local displayS = 1
     local displayM = 1
