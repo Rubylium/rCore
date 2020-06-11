@@ -24,6 +24,200 @@ Citizen.CreateThread(function()
     end
 end)
 
+
+
+local seconde = 1000
+local minute = 60 * seconde
+function DeathTimer()
+    local respawnTime = GetGameTimer() + 1 * minute
+    local min = 1 * minute
+    local sec = 60
+    local displayS = 1
+    local displayM = 1
+
+    local CanRespawn = false
+    Citizen.CreateThread(function()
+        while pDeath do
+            min = min - 1000
+            sec = sec - 1
+            if min < 0 then
+                min = 0 
+            end
+            if sec < 0 then
+                sec = 60
+            end
+
+            displayM = min / minute
+
+            if GetGameTimer() > respawnTime then
+                CanRespawn = true
+            else
+                CanRespawn = false
+            end
+            Wait(1000)
+        end
+    end)
+
+    Citizen.CreateThread(function()
+        while pDeath do
+            if CanRespawn then
+                if IsControlJustReleased(1, 38) then
+                    RespawnToNearest()
+                end
+                DisplayMessage("Pour respawn, appuyer sur ")
+            else
+                if rUtils.Math.Round(displayM, 0) <= 1 then
+                    DisplayMessage("Temps restant: ~b~"..rUtils.Math.Round(sec, 0).."~s~s.")
+                else
+                    DisplayMessage("Temps restant: ~b~"..rUtils.Math.Round(displayM, 0).."~s~m")
+                end
+            end
+            Wait(1)
+        end
+    end)
+end
+
+
+function DisplayMessage(msg)
+    local scaleform = RequestScaleformMovie("instructional_buttons")
+    while not HasScaleformMovieLoaded(scaleform) do
+        Citizen.Wait(0)
+    end
+    PushScaleformMovieFunction(scaleform, "CLEAR_ALL")
+    PopScaleformMovieFunctionVoid()
+
+    PushScaleformMovieFunction(scaleform, "SET_CLEAR_SPACE")
+    PushScaleformMovieFunctionParameterInt(200)
+    PopScaleformMovieFunctionVoid()
+
+    PushScaleformMovieFunction(scaleform, "SET_DATA_SLOT")
+    PushScaleformMovieFunctionParameterInt(0)
+    N_0xe83a3e3557a56640(GetControlInstructionalButton(2, 38, true))
+    AddTextEntry("respawn", msg)
+    BeginTextCommandScaleformString("respawn")
+    EndTextCommandScaleformString()
+    PopScaleformMovieFunctionVoid()
+
+    PushScaleformMovieFunction(scaleform, "DRAW_INSTRUCTIONAL_BUTTONS")
+    PopScaleformMovieFunctionVoid()
+
+    PushScaleformMovieFunction(scaleform, "SET_BACKGROUND_COLOUR")
+    PushScaleformMovieFunctionParameterInt(0)
+    PushScaleformMovieFunctionParameterInt(0)
+    PushScaleformMovieFunctionParameterInt(0)
+    PushScaleformMovieFunctionParameterInt(80)
+    PopScaleformMovieFunctionVoid()
+    DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 170, 0)
+end
+
+local hopitalCloths = {
+    homme = {
+        {
+            name = "Tenue hopital",
+            cloth = {
+                ["tshirt_1"] = 15,
+                ["tshirt_2"] = 0,
+                ["torso_1"] = 104,
+                ["torso_2"] = 0,
+                ["pants_1"] = 61,
+                ["pants_2"] = 0,
+                ["shoes_1"] = 34,
+                ["shoes_2"] = 0,
+                ["arms"] = 3,
+                ["arms_2"] = 0,
+                ["helmet_1"] = -1,
+                ["helmet_2"] = 0,
+                ["chain_1"] = -1,
+                ["chain_2"] = 0,
+                ["bracelets_1"] = -1,
+                ["bracelets_2"] = 0,
+                ["ears_1"] = -1,
+                ["ears_2"] = 0,
+                ["mask_1"] = 0,
+                ["mask_2"] = 0,
+                ["watches_1"] = -1,
+                ["watches_2"] = 0,
+                ["decals_1"] = 0,
+                ["bags_1"] = 0,
+            },
+        },
+    },
+    femme = {
+        {
+            name = "Tenue hopital",
+            cloth = {
+                ["tshirt_1"] = 15,
+                ["tshirt_2"] = 0,
+                ["torso_1"] = 142,
+                ["torso_2"] = 0,
+                ["pants_1"] = 67,
+                ["pants_2"] = 0,
+                ["shoes_1"] = 35,
+                ["shoes_2"] = 0,
+                ["arms"] = 5,
+                ["arms_2"] = 0,
+                ["helmet_1"] = -1,
+                ["helmet_2"] = 0,
+                ["chain_1"] = -1,
+                ["chain_2"] = 0,
+                ["bracelets_1"] = -1,
+                ["bracelets_2"] = 0,
+                ["ears_1"] = -1,
+                ["ears_2"] = 0,
+                ["mask_1"] = 0,
+                ["mask_2"] = 0,
+                ["watches_1"] = -1,
+                ["watches_2"] = 0,
+                ["decals_1"] = 0,
+                ["bags_1"] = 0,
+            },
+        },  
+    }
+}
+
+rUtils.RegisterClothZone({
+    pos = vector3(346.7586, -1431.278, 32.51108),
+    cloths = hopitalCloths
+})
+
+rUtils.RegisterClothZone({
+    pos = vector3(1830.832, 3681.096, 34.27008),
+    cloths = hopitalCloths
+})
+
+local Hospistal = {
+    {pos = vector3(1826.326, 3677.72, 34.27006),heading = 282.15774536132,},
+    {pos = vector3(338.7272, -1442.798, 32.51092),heading = 315.26651000976,},
+}
+function RespawnToNearest()
+    local nearest = nil
+    local NearDst = 999999999999
+    for k,v in pairs(Hospistal) do
+        local dst = GetDistanceBetweenCoords(GetEntityCoords(pPed), v.pos, true)
+        if dst < NearDst then
+            NearDst = dst
+            nearest = v
+        end
+    end
+
+    SetEntityCoordsNoOffset(pPed, nearest.pos, 0.0, 0.0, 0.0)
+    rUtils.ImportantNotif("~g~Vous avez été réanimé à l'hopital le plus proche après 10 minutes ...")
+
+
+    if GetEntityModel(pPed) == GetHashKey("mp_m_freemode_01") then
+        for k,i in pairs(hopitalCloths.homme[1].cloth) do
+            TriggerEvent("skinchanger:change", k, i)
+        end
+    elseif GetEntityModel(pPed) == GetHashKey("mp_f_freemode_01") then
+        for k,i in pairs(hopitalCloths.femme[1].cloth) do
+            TriggerEvent("skinchanger:change", k, i)
+        end
+    end
+
+
+    ResetDeathStatus()
+end
+
 -- Injured with weapon "move_strafe@injured" "idle"
 
 local FatalDamage = {12844, 31086, 35731, 39317, 65068}
@@ -44,6 +238,7 @@ function SyncDeathWithPlayers()
     ClearPlayerWantedLevel(GetPlayerIndex())
     SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
     TriggerServerEvent(events.SetDeath, token, FatalInjured)
+    DeathTimer()
     Citizen.CreateThread(function()
         local LastMove = "front"
         while pDeath do
@@ -109,7 +304,6 @@ function SyncDeathWithPlayers()
                         if Selected then
                             DidCall = true
                             TriggerServerEvent("core:RegisterCall", token, "medecin", "Demande de réanimation de citoyen.")
-                            print("Appel")
                         end
                     end)
                 else
@@ -143,6 +337,7 @@ function SyncDeathWithPlayers()
         RageUI.Visible(RMenu:Get('core', 'death_call'), false)
     end)
 end
+
 
 RegisterNetEvent("core:ResetDeathStatus")
 AddEventHandler("core:ResetDeathStatus", function()

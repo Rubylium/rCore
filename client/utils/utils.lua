@@ -232,6 +232,12 @@ function rUtils.ImportantNotif(text)
     DrawNotification(true, false)
 end
 
+function rUtils.ShowHelpNotification(msg)
+	AddTextEntry('HelpNotif', msg)
+	BeginTextCommandDisplayHelp('HelpNotif')
+	EndTextCommandDisplayHelp(0, false, false, 10)
+end
+
 function rUtils.ShowAdvancedNotification(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
 	if saveToBrief == nil then saveToBrief = true end
 	AddTextEntry('AdvancedNotification', msg)
