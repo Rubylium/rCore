@@ -252,7 +252,7 @@ function LoadSheriffData()
                     ["decals_2"] = 0,
                     ["arms"] = 20,
                     ["arms_2"] = 1,
-                    ["pants_1"] = 32
+                    ["pants_1"] = 32,
                     ["pants_2"] = 2,
                     ["shoes_1"] = 13,
                     ["shoes_2"] = 0,
@@ -309,7 +309,6 @@ function LoadSheriffData()
                     ["watches_2"] = 0,
                 },
             },
-        },
         },
         femme = {
             {
