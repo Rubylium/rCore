@@ -877,3 +877,11 @@ end)
 RegisterCommand("force", function(source, args, rawCommand)
     ForceVehicleEngineAudio(GetVehiclePedIsIn(pPed, 0), args[1])
 end)
+
+function HaveItem(item)
+	if pInventory[item] ~= nil then
+		return true
+	else
+		return false
+	end
+end

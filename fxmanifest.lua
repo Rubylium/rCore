@@ -74,6 +74,7 @@ exports {
     "ResetDeathStatus",
     "OpenVehicleChest",
     "OpenOrCloseVeh",
+    "HaveItem",
 }
 
 server_scripts {
