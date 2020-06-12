@@ -1,6 +1,6 @@
 
-function LoadDrusillaData()
-    self = JobsData.drusilla
+function LoadCrucialData()
+    self = JobsData.Crucial
 
     rUtils.RegisterGarageZone({
         pos = vector3(297.5036, -962.8582, 29.418),
@@ -16,32 +16,32 @@ function LoadDrusillaData()
 
 
     rUtils.RegisterActionZone({
-        pos = vector3(277.2076, -977.1232, 29.87126),
+        pos = vector3(259.3652, -820.8036, 29.4378),
         action = function()
             OpenSocietyInvMenu()
         end,
     })
 
     rUtils.RegisterActionZone({
-        pos = vector3(273.9544, -975.2388, 29.86874),
+        pos = vector3(262.8672, -820.8632, 29.4378),
         action = function()
-            OpenDrusillasCraftMenu()
+            OpenCrucialsCraftMenu()
         end,
     })
 
 
-    RMenu.Add('core', 'drusilla_main', RageUI.CreateMenu("Drusilla's", "~b~Menu action Drusilla"))
-    RMenu:Get('core', 'drusilla_main').Closed = function()
+    RMenu.Add('core', 'Crucial_main', RageUI.CreateMenu("Crucial Fix", "~b~Menu action Crucial"))
+    RMenu:Get('core', 'Crucial_main').Closed = function()
         open = false
     end
 
-    function OpenDrusillasActionMenu()
+    function OpenCrucialsActionMenu()
         open = true
-        RageUI.Visible(RMenu:Get('core', 'drusilla_main'), not RageUI.Visible(RMenu:Get('core', 'drusilla_main')))
+        RageUI.Visible(RMenu:Get('core', 'Crucial_main'), not RageUI.Visible(RMenu:Get('core', 'Crucial_main')))
         Citizen.CreateThread(function()
             while open do
                 Wait(1)
-                RageUI.IsVisible(RMenu:Get('core', 'drusilla_main'), true, true, true, function()
+                RageUI.IsVisible(RMenu:Get('core', 'Crucial_main'), true, true, true, function()
 
                     RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
@@ -49,7 +49,7 @@ function LoadDrusillaData()
                         end
                     end)
 
-                    RageUI.ButtonWithStyle("lancer une mission de livraison", "Au moins 1 ~b~Pizza simple~s~ est requis.", {}, pInventory[self.mission.item] ~= nil, function(Hovered, Active, Selected)
+                    RageUI.ButtonWithStyle("lancer une mission de livraison", "Au moins 1 ~b~"..self.mission.item.."~s~ est requis.", {}, pInventory[self.mission.item] ~= nil, function(Hovered, Active, Selected)
                         if Selected then
                             NpcJobMissions:StartJobMission(self.mission)
                         end
@@ -68,18 +68,18 @@ function LoadDrusillaData()
     end
 
 
-    RMenu.Add('core', 'drusilla_craft', RageUI.CreateMenu("Drusilla's", "~b~Menu cuisine Drusilla's"))
-    RMenu:Get('core', 'drusilla_craft').Closed = function()
+    RMenu.Add('core', 'Crucial_craft', RageUI.CreateMenu("Crucial's", "~b~Menu cuisine Crucial Fix"))
+    RMenu:Get('core', 'Crucial_craft').Closed = function()
         open = false
     end
 
-    function OpenDrusillasCraftMenu()
+    function OpenCrucialsCraftMenu()
         open = true
-        RageUI.Visible(RMenu:Get('core', 'drusilla_craft'), not RageUI.Visible(RMenu:Get('core', 'drusilla_craft')))
+        RageUI.Visible(RMenu:Get('core', 'Crucial_craft'), not RageUI.Visible(RMenu:Get('core', 'Crucial_craft')))
         Citizen.CreateThread(function()
             while open do
                 Wait(1)
-                RageUI.IsVisible(RMenu:Get('core', 'drusilla_craft'), false, false, false, function()
+                RageUI.IsVisible(RMenu:Get('core', 'Crucial_craft'), false, false, false, function()
                     for k,v in pairs(self.craft) do
                         RageUI.Button(v.nom, v.desc, true, function(Hovered, Active, Selected)
                             if Selected then

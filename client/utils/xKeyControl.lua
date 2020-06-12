@@ -23,6 +23,8 @@ rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function(
         OpenBestBudsMenu()
     elseif pJob == "drusilla" then
         OpenDrusillasActionMenu()
+    elseif pJob == "crucial" then
+        OpenCrucialsActionMenu()
     end
 end)
 

@@ -218,6 +218,24 @@ JobsData = {
                 }
             }
         }
+    },
+    Crucial = {
+        mission = {
+            item = "Sandwich simple",
+            price = 19,
+        },
+        craft = {
+            {
+                nom = "Sandwich simple", 
+                itemName = "sandwich",
+                desc = "Ingrédient: Tranche de jambon 2, 2 tomate, 1 Pain à sandwich",
+                ingredient = {
+                    {label = "Tranche de jambon", count = 2},
+                    {label = "Tomate", count = 1},
+                    {label = "Pain à sandwich", count = 1},
+                }
+            },
+        }
     }
 }
 

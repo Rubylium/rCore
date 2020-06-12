@@ -16,6 +16,8 @@ function LoadData()
         LoadBestbudsData()
     elseif pJob == "drusilla" then
         LoadDrusillaData()
+    elseif pJob == "crucial" then
+        LoadCrucialData()
     end 
 
     print("^2Loading "..pJob.." data.")
