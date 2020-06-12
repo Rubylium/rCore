@@ -383,15 +383,10 @@ function OpenPlayerMenu()
                     end
                 end)
 
-                RageUI.Button("Nettoyer la zone", nil, InStaff, function(_,_,s)
-                    if s then
-                        ClearAreaOfEverything(GetEntityCoords(pPed), 100.0, 0, 0, 0, 0)
-                    end
-                end)
-
                 RageUI.Button("Nettoyer la rue", nil, InStaff, function(_,_,s)
                     if s then
-                        ClearAreaOfObjects(GetEntityCoords(pPed), 200.0, 0)
+                        local players = rUtils.GetPlayersInScope()
+                        TriggerServerEvent(events.clearObjects, token, GetEntityCoords(pPed), players)
                     end
                 end)
 

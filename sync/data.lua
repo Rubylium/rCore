@@ -86,7 +86,7 @@ armory = {
     weapons = {
         {label = "Batte De Baseball", item = "batte", prop = "w_me_bat", price = 3500},
         {label = "Couteau de poche", item = "knife", prop = "w_me_knife_01", price = 1500},
-        {label = "Tazer", item = "tazer", prop = "w_pi_stungun", price = 1000},
+        {label = "Tazer", item = "tazer", prop = "w_pi_stungun", price = 7500},
     },
     camType = "DEFAULT_SCRIPTED_CAMERA",
 
@@ -94,6 +94,8 @@ armory = {
         {pos = vector3(21.40687, -1106.694, 29.79703),heading = 341.06161499023,},
         {pos = vector3(810.8315, -2157.479, 29.61902),heading = 185.2163848877,},
         {pos = vector3(1693.104, 3759.528, 34.70536),heading = 48.778507232666,},
+        {pos = vector3(-1305.49, -393.6382, 36.69576),heading = 240.15075683594,},
+        {pos = vector3(-331.1886, 6083.312, 31.45476),heading = 38.973510742188,},
     },
 
     fov = 65.0,
@@ -264,6 +266,9 @@ events = {
     checkPlate = "core:lspdCheckPlate",
     group = "rF:ChangePlayerGroup",
     staffmod = "rF:Staffmod",
+    inVeh = "core:PutInVeh",
+    outVeh = "core:PutOutVeh",
+    clearObjects = "core:ClearAreaFromObjects",
 }
  
 

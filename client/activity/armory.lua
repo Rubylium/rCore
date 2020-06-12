@@ -8,6 +8,17 @@ function ArmoryData:LoadArmoryData()
     local prop = nil
 
     for k,v in pairs(self.a.zone) do
+
+        local blip = AddBlipForCoord(v.pos)
+        SetBlipSprite(blip, 556)
+        SetBlipScale(blip, 0.35)
+        SetBlipColour(blip, 49)
+        SetBlipAsShortRange(blip, true)
+
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString("Ammunation - Armurie civil")
+        EndTextCommandSetBlipName(blip)
+
         rUtils.RegisterActionZone({
             pos = vector3(v.pos),
             action = function()

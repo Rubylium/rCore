@@ -40,3 +40,12 @@ AddEventHandler("core:BringPlayer", function(token, id)
         TriggerClientEvent("core:ChangepCoords", id, coords)
     end
 end)
+
+RegisterNetEvent("core:ClearAreaFromObjects")
+AddEventHandler("core:ClearAreaFromObjects", function(token, coords, players)
+    if exports.rFramework:CheckToken(token, source, "core:ClearAreaFromObjects") then
+        for k,v in pairs(players) do
+            TriggerClientEvent("core:ClearAreaFromObjects", v, coords)
+        end
+    end
+end)

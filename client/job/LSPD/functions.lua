@@ -97,3 +97,43 @@ function escort()
     end
     DetachEntity(pPed, true, false)
 end
+
+
+Citizen.CreateThread(function()
+	while true do
+        if IsPedInAnyVehicle(GetPlayerPed(-1), false) then
+            Wait(0)
+			if GetPedInVehicleSeat(GetVehiclePedIsIn(GetPlayerPed(-1), false), 0) == GetPlayerPed(-1) then
+				if GetIsTaskActive(GetPlayerPed(-1), 165) then
+					SetPedIntoVehicle(GetPlayerPed(-1), GetVehiclePedIsIn(GetPlayerPed(-1), false), 0)
+				end
+            end
+        else
+            Wait(500)
+		end
+	end
+end)
+
+
+RegisterNetEvent("core:PutInVeh")
+AddEventHandler("core:PutInVeh", function()
+    if EnTrainEscorter then EnTrainEscorter = false end
+    local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
+    local place = GetVehicleMaxNumberOfPassengers(veh)
+
+    for i = 1, place do
+        if IsVehicleSeatFree(veh, i) then
+            TaskWarpPedIntoVehicle(pPed, veh, i)
+            return
+        end
+    end
+
+end)
+
+RegisterNetEvent("core:PutOutVeh")
+AddEventHandler("core:PutOutVeh", function()
+    if EnTrainEscorter then EnTrainEscorter = false end
+    if IsPedInAnyVehicle(pPed, false) then
+        TaskLeaveAnyVehicle(pPed, 0, 0)
+    end
+end)

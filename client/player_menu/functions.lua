@@ -292,6 +292,10 @@ function getCamDirection()
 	return coords
 end
 
+RegisterNetEvent("core:ClearAreaFromObjects")
+AddEventHandler("core:ClearAreaFromObjects", function(coords)
+    ClearAreaOfObjects(coords, 50.0, 0)
+end)
 
 
 RegisterNetEvent("core:ChangepCoords")

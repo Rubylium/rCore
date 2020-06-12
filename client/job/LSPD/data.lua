@@ -776,6 +776,13 @@ function LoadPoliceData()
     })
 
     rUtils.RegisterActionZone({
+        pos = vector3(-1086.47, -832.2222, 5.479732),
+        action = function()
+            OpenSocietyInvMenu()
+        end,
+    })
+
+    rUtils.RegisterActionZone({
         pos = vector3(-1102.956, -829.2413, 14.28279),
         action = function()
             OpenPoliceArmorie()
@@ -995,6 +1002,32 @@ function LoadPoliceData()
                             if dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
                                 TriggerServerEvent(events.escort, token, sID)
+                            end
+                        end
+                        if Active then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+
+                    RageUI.ButtonWithStyle("Mettre dans le véhicule", nil, {}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent(events.inVeh, token, sID)
+                            end
+                        end
+                        if Active then
+                            rUtils.DisplayClosetPlayer()
+                        end
+                    end)
+
+                    RageUI.ButtonWithStyle("Sortir du véhicule", nil, {}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                TriggerServerEvent(events.outVeh, token, sID)
                             end
                         end
                         if Active then

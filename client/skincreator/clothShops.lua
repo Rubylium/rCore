@@ -1,7 +1,25 @@
 local ShopZone = {
     vector3(-158.731, -297.06, 39.7),
     vector3(10.78, 6514.1, 31.8),
+    vector3(124.3256, -218.8684, 54.55784),
+    vector3(428.7264, -800.319, 29.49114),
+    vector3(-1192.826, -772.0496, 17.32482),
 }
+
+
+Citizen.CreateThread(function()
+    for k,v in pairs(ShopZone) do
+        local blip = AddBlipForCoord(v)
+        SetBlipSprite(blip, 366)
+        SetBlipScale(blip, 0.50)
+        SetBlipColour(blip, 17)
+        SetBlipAsShortRange(blip, true)
+
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString("Magasin de vêtements")
+        EndTextCommandSetBlipName(blip)
+    end
+end)
 
 for k,v in pairs(ShopZone) do
     rUtils.RegisterActionZone({
@@ -69,7 +87,7 @@ function OpenClothShop()
     RageUI.Visible(RMenu:Get('core', 'clothshop'), not RageUI.Visible(RMenu:Get('core', 'clothshop')))
     CreateCreatorCam()
     OpenClothShopThread()
-    PlayUrl("clothshop_ambience","https://www.youtube.com/watch?v=neV3EPgvZ3g", 0.05, false)
+    PlayUrl("clothshop_ambience","https://www.youtube.com/watch?v=neV3EPgvZ3g", 0.02, false)
     GetClothValues()
 end
 
@@ -87,7 +105,7 @@ function OpenClothShopThread()
             end
 
             Wait(1)
-            RageUI.IsVisible(RMenu:Get('core', 'clothshop'), true, true, true, function()
+            RageUI.IsVisible(RMenu:Get('core', 'clothshop'), false, false, false, function()
                 RageUI.ButtonWithStyle("Faire une nouvelle tenue", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'tenues_create'))
 
@@ -97,7 +115,7 @@ function OpenClothShopThread()
             end, function()
             end)
 
-            RageUI.IsVisible(RMenu:Get('core', 'tenues_create'), true, true, true, function()
+            RageUI.IsVisible(RMenu:Get('core', 'tenues_create'), false, false, false, function()
                 RageUI.ButtonWithStyle("Enregistrer la tenue actuel.", nil, {}, true, function(_,_,s)
                     if s then
                         local name = CustomString()
@@ -116,7 +134,7 @@ function OpenClothShopThread()
             end)
 
             for k,v in pairs(clothing) do
-                RageUI.IsVisible(RMenu:Get('core', v.item.."1"), true, true, true, function()
+                RageUI.IsVisible(RMenu:Get('core', v.item.."1"), false, false, false, function()
                     RageUI.ButtonWithStyle("Faire tourner son personnage.", nil, {}, true, function(_,_,s)
                         if s then
                             ClearPedTasks(GetPlayerPed(-1))
@@ -165,7 +183,7 @@ function OpenClothShopThread()
                 end)
             end
 
-            RageUI.IsVisible(RMenu:Get('core', 'tenues'), true, true, true, function()
+            RageUI.IsVisible(RMenu:Get('core', 'tenues'), false, false, false, function()
                 open = true
                 for k,v in pairs(pClothing) do
                     RageUI.ButtonWithStyle(v.name, nil, { RightLabel = "Appliquer la tenue →" }, true, function(_,_,s)

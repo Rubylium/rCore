@@ -101,6 +101,7 @@ Citizen.CreateThread(function()
 
     StopAudioScenes()
     InitVoiceChat()
+    LoadBarberShopData()
     while true do
         pPed = GetPlayerPed(-1)
         pVeh = GetVehiclePedIsIn(pPed, 0)

@@ -194,7 +194,7 @@ function GetBarberValues()
 		{price = 5,label = "type barbe",              item = "beard_1", 		max = GetNumHeadOverlayValues(1)-1, min = 0,},
         {price = 3,label = "couleur barbe 1",         item = "beard_3", 		max = GetNumHairColors()-1,		    min = 0,},
         {price = 2,label = "couleur barbe secondaire",item = "beard_4", 		max = GetNumHairColors()-1,         min = 0,},
-        {price = 15,label = "cheveux",               	item = "hair_1",		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 2) - 1,						min = 0,},
+        {price = 15,label = "cheveux",                item = "hair_1",		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 2) - 1,						min = 0,},
 		{price = 0,label = "Style des cheveux",       item = "hair_2",		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 2, GetPedTextureVariation(GetPlayerPed(-1), 2)) - 1, min = 0,},
 		{price = 4,label = "couleur cheveux 1",       item = "hair_color_1", 	max = GetNumHairColors()-1,																min = 0,},
 		{price = 3,label = "couleur cheveux 2",       item = "hair_color_2", 	max = GetNumHairColors()-1,																min = 0,},
@@ -204,7 +204,7 @@ function GetBarberValues()
     names = _names
 end
  
-Citizen.CreateThread(function()
+function LoadBarberShopData()
     GetBarberValues()
     for k,v in pairs(barber) do
         RMenu.Add('core', v.item.."1", RageUI.CreateSubMenu(RMenu:Get('core', 'barberShop'), "BarberShop", "~b~Géstion du visages de votre personnage."))
@@ -214,7 +214,7 @@ Citizen.CreateThread(function()
             PlayRandomClothAnim()
         end
     end
-end)
+end
 
 
 function OpenBarbershopMenu()
