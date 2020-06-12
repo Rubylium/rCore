@@ -183,7 +183,7 @@ local gamerTags = {}
 local showNames = false
 
 local staffColor = {
-    [0] = {color = "10", tag = ""},
+    [0] = {color = "0", tag = ""},
     [1] = {color = "50", tag = ""},
     [2] = {color = "200", tag = ""},
     [3] = {color = "255", tag = ""},
@@ -199,21 +199,22 @@ function ShowNames()
                 for _, v in pairs(GetActivePlayers()) do
                     local otherPed = GetPlayerPed(v)
                     local staff = DecorGetInt(otherPed, "group")
-                    print(staff)
                     if staff == nil then 
                         staff = 0
                     end
-                    color = staffColor[staff].color
-                    staff = staffColor[staff].tag
+                    local color = staffColor[staff].color
+                    local tag = staffColor[staff].tag
                     
                 
                     --if otherPed ~= pPed then
                         if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
-                            gamerTags[v] = CreateFakeMpGamerTag(otherPed, staff.." ["..GetPlayerServerId(v).."] "..GetPlayerName(v).."("..GetEntityHealth(otherPed)..")", false, false, "", 0)
-                            SetMpGamerTagColour(gamerTags[v], 0, color)
+                            gamerTags[v] = CreateFakeMpGamerTag(otherPed, tag.." ["..GetPlayerServerId(v).."] "..GetPlayerName(v).."("..GetEntityHealth(otherPed)..")", false, false, "", 0)
+                            if staff ~= 0 then
+                                SetMpGamerTagColour(gamerTags[v], 0, color)
+                            end
                             SetMpGamerTagVisibility(gamerTags[v], 2, true)
                             SetMpGamerTagHealthBarColour(gamerTags[v], 0)
-                            SetMpGamerTagName(gamerTags[v], staff.." ["..GetPlayerServerId(v).."] "..GetPlayerName(v).."("..GetEntityHealth(otherPed)..")")
+                            SetMpGamerTagName(gamerTags[v], tag.." ["..GetPlayerServerId(v).."] "..GetPlayerName(v).."("..GetEntityHealth(otherPed)..")")
                             if NetworkIsPlayerTalking(v) then
                                 SetMpGamerTagVisibility(gamerTags[v], 16, 1)
                             else
