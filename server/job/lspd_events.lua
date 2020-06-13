@@ -54,3 +54,20 @@ AddEventHandler("core:AskForIdentity", function(token, id)
     end
     TriggerClientEvent("core:AskForIdentity", id, source)
 end)
+
+RegisterNetEvent("core:SendRadioCall")
+AddEventHandler("core:SendRadioCall", function(token, job, code, label, pos, prenom, nom)
+    if not exports.rFramework:CheckToken(token, source, "SendRadioCall") then return end
+    local job = exports.rFramework:GetPlayerJob(source)
+    if allowedJobs[job] == nil then
+        exports.rFramework:AddPlayerLog(source, "Try to send radio call with job "..job, 5)
+    end
+    local PlayersInJobs = GetActivePlayersFromJob(job)
+    for k,v in pairs(PlayersInJobs) do
+        if pos then
+            TriggerClientEvent("core:SendRadioCall", v.id, source, code, label, GetEntityCoords(GetPlayerPed(source)), prenom, nom)
+        else
+            TriggerClientEvent("core:SendRadioCall", v.id, source, code, label, pos, prenom, nom)
+        end
+    end
+end)

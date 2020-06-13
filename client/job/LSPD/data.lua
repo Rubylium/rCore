@@ -844,18 +844,34 @@ function LoadPoliceData()
         end)    
     end
 
+    local inCoolDown = false
+    function RadioCooldown()
+        if not inCoolDown then
+            Citizen.CreateThread(function()
+                inCoolDown = true
+                Wait(5000)
+                inCoolDown = false
+            end)
+            return true
+        else
+            return false
+        end
+    end
+
     RMenu.Add('core', 'lspd_main', RageUI.CreateMenu("POLICE", "~b~Menu action LSPD"))
     RMenu:Get('core', 'lspd_main').Closed = function()
         open = false
     end
-    RMenu.Add('core', 'lspd_fouille', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Fouille", "~b~Fouille"))
-    RMenu:Get('core', 'lspd_fouille').Closed = function()end
+    RMenu.Add('core', 'lspd_radio', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Fouille", "~b~Fouille"))
+    RMenu:Get('core', 'lspd_radio').Closed = function()end
 
     RMenu.Add('core', 'lspd_citizen', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Véhicule", "~b~Véhicule"))
     RMenu:Get('core', 'lspd_citizen').Closed = function()
-        print("Close lspd_citizen")
         open = true
     end
+
+    RMenu.Add('core', 'lspd_fouille', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_citizen'), "Fouille", "~b~Fouille"))
+    RMenu:Get('core', 'lspd_fouille').Closed = function()end
 
     RMenu.Add('core', 'lspd_citizen_menotte', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_citizen'), "Véhicule", "~b~Véhicule"))
     RMenu:Get('core', 'lspd_citizen_menotte').Closed = function()end
@@ -902,6 +918,26 @@ function LoadPoliceData()
                         end) 
                     end
 
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_radio'), true, true, true, function()
+                    for k,v in pairs(JobsData.lspd.radio) do
+                        RageUI.Button("["..v.code.."] "..v.label, nil, true, function(Hovered, Active, Selected)
+                            if Selected then
+                                if RadioCooldown() then
+                                    SendActionTxt(" effectue un "..v.code.." sur sa radio")
+                                    TriggerServerEvent(events.radioCall, token, pJob, v.code, v.label, v.pos, pPrenom, pNom)
+                                    Citizen.CreateThread(function()
+                                        ExecuteCommand("e radio")
+                                        Wait(3000)
+                                        ClearPedTasks(pPed)
+                                    end)
+                                end
+                            end
+                        end)  
+                    end
                 end, function()
                     ---Panels
                 end)
@@ -986,6 +1022,7 @@ function LoadPoliceData()
                         if s then 
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
+                                SendActionTxt(" fouille la personne")
                                 local target = GetPlayerServerId(closet)
                                 exports.rFramework:TriggerServerCallback(events.OtherPdata, function(inv, weight, money, black)
                                     TargetInv = inv
@@ -1112,6 +1149,9 @@ function LoadPoliceData()
 
                     RageUI.ButtonWithStyle("Action sur citoyen", nil, {RightLabel = "→"}, true, function(_,h,s)
                     end, RMenu:Get('core', 'lspd_citizen'))
+
+                    RageUI.ButtonWithStyle("Code radio", nil, {RightLabel = "→"}, true, function(_,h,s)
+                    end, RMenu:Get('core', 'lspd_radio'))
 
                     RageUI.ButtonWithStyle("Action sur véhicule", nil, {RightLabel = "→"}, true, function(_,h,s)
                     end, RMenu:Get('core', 'lspd_veh'))

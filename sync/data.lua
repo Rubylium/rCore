@@ -184,6 +184,16 @@ conv = {
 
 
 JobsData = {
+    lspd = {
+        radio = {
+            {code = "10-19", label = "Retour commissariat", pos = false},
+            {code = "10-20", label = "Position de l'agent", pos = true},
+            {code = "10-31", label = "Poursuite en cours", pos = true},
+            {code = "10-41", label = "Début de patrouille", pos = false},
+            {code = "10-42", label = "Fin de patrouille", pos = false},
+            {code = "10-99", label = "Toutes les unités sur la position", pos = true},
+        }
+    },
     staff = {
         {label = "Aucun groupe", group = "user"},
         {label = "Modérateur", group = "mod"},
@@ -331,6 +341,7 @@ events = {
     outVeh = "core:PutOutVeh",
     clearObjects = "core:ClearAreaFromObjects",
     askId = "core:AskForIdentity",
+    radioCall = "core:SendRadioCall",
 }
  
 

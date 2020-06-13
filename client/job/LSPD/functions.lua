@@ -150,3 +150,22 @@ AddEventHandler("core:PutOutVeh", function()
         TaskLeaveAnyVehicle(pPed, 0, 0)
     end
 end)
+
+
+RegisterNetEvent("core:SendRadioCall")
+AddEventHandler("core:SendRadioCall", function(source, code, label, pos, prenom, nom)
+    if pos == false then
+        rUtils.ShowAdvancedNotification("CENTRAL LSPD", "Code: ~b~"..code, "~o~"..label.."\n~w~Agents: ~o~"..prenom.." "..nom, "CHAR_CALL911", 2)
+    else
+        rUtils.ShowAdvancedNotification("CENTRAL LSPD", "Code: ~b~"..code, "~o~"..label.."\n~w~Agents: ~o~"..prenom.." "..nom, "CHAR_CALL911", 2)
+        local blip = AddBlipForCoord(pos)
+        SetBlipSprite(blip, 4)
+        SetBlipScale(blip, 0.40)
+
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString(prenom.." "..nom.." - ~b~"..code)
+        EndTextCommandSetBlipName(blip)
+        Wait(30*1000)
+        RemoveBlip(blip)
+    end
+end)
