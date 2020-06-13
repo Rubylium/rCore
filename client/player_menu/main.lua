@@ -145,7 +145,7 @@ function OpenPlayerMenu()
                         local idJoueur = GetPlayerServerId(ClosetPlayer)
                         if ClosetPlayer ~= -1 then
                             local amount = CustomAmount() 
-                            if amount ~= nil and amount <= selected.count and dst <= 2.0 then
+                            if amount ~= nil and amount <= selected.count and dst <= 2.0 and amount > 0  then
                                 TriggerServerEvent(events.Transfer, token, idJoueur, selected.name, amount, selected.label, selected.count)
                                 TriggerServerEvent("rF:GetPlayerInventory", token)
                                 RageUI.Visible(RMenu:Get('core', 'inventory'), true)
@@ -189,7 +189,7 @@ function OpenPlayerMenu()
                         moneySelected.type = "Poche: ~g~"
                         moneySelected.count = pMoney
                     end
-                end)
+                end, RMenu:Get('core', 'portefeuille_usage'))
                 RageUI.ButtonWithStyle("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$", nil, {}, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         moneySelected.type = "Banque: ~b~"
@@ -201,7 +201,7 @@ function OpenPlayerMenu()
                         moneySelected.type = "Source inconnu: ~c~"
                         moneySelected.count = pDirty
                     end
-                end)
+                end, RMenu:Get('core', 'portefeuille_usage'))
 
                 if IsPatron(pJob, pJob_Grade) then
                     RageUI.ButtonWithStyle("Ouvrire le menu patron: ~c~"..pJob, nil, {}, true, function(Hovered, Active, Selected)
@@ -232,7 +232,23 @@ function OpenPlayerMenu()
                 RageUI.Separator(moneySelected.type.." "..rUtils.Math.GroupDigits(moneySelected.count).."$")
                 RageUI.ButtonWithStyle("Donner", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
-
+                        local amount = CustomAmount()
+                        if amount ~= nil and amount <= moneySelected.count and amount > 0 then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst ~= nil and dst < 2.0 then
+                                local sID = GetPlayerServerId(closet)
+                                if moneySelected.type == "Source inconnu: ~c~" then
+                                    TriggerServerEvent(events.GiveDirtyMtoplayer, token, sID, amount)
+                                    pDirty = pDirty - amount
+                                else
+                                    TriggerServerEvent(events.GiveMtoPlayer, token, sID, amount)
+                                    pMoney = pMoney - amount
+                                end
+                            end
+                        end
+                    end
+                    if Active then
+                        rUtils.DisplayClosetPlayer()
                     end
                 end)
 
@@ -673,7 +689,7 @@ end
 
 RegisterNetEvent("core:AskForIdentity")
 AddEventHandler("core:AskForIdentity", function(id)
-    TriggerServerEvent("core:ShowIdentityCardToOther", token, id, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pVip)
+    TriggerServerEvent("core:ShowIdentityCardToOther", token, id, 0, pPrenom, pNom, pAge, pVip)
 end)
 
 
