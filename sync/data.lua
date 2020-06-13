@@ -316,6 +316,7 @@ events = {
     fourriereLspdVehCb = "core:GetAllLspdVeh",
     addSociety = "rF:AddSocietyMoney",
     GiveMtoPlayer = "rF:GiveMoneyToPlayer",
+    GiveDirtyMtoplayer = "rF:GiveDirtyMoneyToPlayer",
     giveFactue = "core:SendFacture",
     facturePay = "core:PayFacture",
     facturePaySociety = "rF:PaySociety",

@@ -52,5 +52,5 @@ AddEventHandler("core:AskForIdentity", function(token, id)
     if allowedJobs[job] == nil then
         exports.rFramework:AddPlayerLog(source, "Try to ask id with job "..job, 5)
     end
-    TriggerClientEvent("core:AskForIdentity", id)
+    TriggerClientEvent("core:AskForIdentity", id, source)
 end)
