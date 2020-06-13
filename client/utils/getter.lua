@@ -174,7 +174,7 @@ end)
 
 
 RegisterNetEvent("rF:initializeinfo")
-AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths, group, vip)
+AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths, group, vip, death)
     DecorRegister("group", 3)
     pJob = job
     pJob_Grade = grade
@@ -190,6 +190,11 @@ AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, jo
     pVip = vip
     pClothing = cloths
     LoadData()
+    Wait(1000)
+    if death == 1 then
+        rUtils.ImportantNotif("Tu as été replacé en tant que mort. Il est interdit de se déconnecter pour essayer de se revive.")
+        SetEntityHealth(pPed, 0)
+    end
 end)
 
 
