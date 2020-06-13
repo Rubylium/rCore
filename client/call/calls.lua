@@ -1,10 +1,10 @@
 
-local takeCall = 246
+local takeCall = 38
 local DontWantCall = 73
 RegisterNetEvent("core:SendCall")
 AddEventHandler("core:SendCall", function(id, msg, job)
     rUtils.Notif("~b~Appel "..job.." reçu !\n~o~Message: ~g~"..msg)
-    rUtils.ImportantNotif("Prendre: ~g~Y\n~w~Refuser: ~r~X")
+    rUtils.ImportantNotif("Prendre: ~g~E\n~w~Refuser: ~r~X")
     local oldTime = GetGameTimer()
     local TooLate = true
 
