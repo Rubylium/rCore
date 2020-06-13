@@ -235,6 +235,48 @@ JobsData = {
                     {label = "Pain à sandwich", count = 1},
                 }
             },
+            {
+                nom = "Sandwich poulet: César (halal)", 
+                itemName = "sandwich2",
+                desc = "Ingrédient: Pain à sandwich 1, Poulet 1, Parmasan 1, Salade 1",
+                ingredient = {
+                    {label = "Pain à sandwich", count = 1},
+                    {label = "Poulet", count = 1},
+                    {label = "Parmasan", count = 1},
+                    {label = "Salade", count = 1},
+                }
+            },
+            {
+                nom = "Sandwich Thon (Le pécheur)", 
+                itemName = "sandwich3",
+                desc = "Ingrédient: Pain à sandwich 1, Thon 1, Salade 1",
+                ingredient = {
+                    {label = "Pain à sandwich", count = 1},
+                    {label = "Thon", count = 1},
+                    {label = "Salade", count = 1},
+                }
+            },
+            {
+                nom = "Sandwich vegan (Veggie)", 
+                itemName = "sandwich4",
+                desc = "Ingrédient: Pain à sandwich 1, Avocat 1, Quinoa 1, Tomate 1",
+                ingredient = {
+                    {label = "Pain à sandwich", count = 1},
+                    {label = "Avocat", count = 1},
+                    {label = "Quinoa", count = 1},
+                    {label = "Tomate", count = 1},
+                }
+            },
+            {
+                nom = "Sandwich saucisson: (Le frenchie)", 
+                itemName = "sandwich5",
+                desc = "Ingrédient: Pain à sandwich 1, Saucisson 1, Salade 1",
+                ingredient = {
+                    {label = "Pain à sandwich", count = 1},
+                    {label = "Saucisson", count = 1},
+                    {label = "Salade", count = 1},
+                }
+            },
         }
     }
 }

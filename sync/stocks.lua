@@ -5,6 +5,15 @@ local items = {
     {item = "patepizza", label = "Pâte à pizza", prix = 1, stock = 0},
     {item = "coulisTomate", label = "Coulis de tomate", prix = 1, stock = 0},
     {item = "fromage", label = "Fromage", prix = 1, stock = 0},
+    {item = "tomate", label = "Tomate", prix = 1, stock = 0},
+    {item = "thon", label = "Thon", prix = 1, stock = 0},
+    {item = "parmesan", label = "Parmesan", prix = 1, stock = 0},
+    {item = "poulet", label = "Poulet", prix = 1, stock = 0},
+    {item = "pain2", label = "Pain à sandwich", prix = 1, stock = 0},
+    {item = "quinoa", label = "Quinoa", prix = 1, stock = 0},
+    {item = "salade", label = "Salade", prix = 1, stock = 0},
+    {item = "avocat", label = "Avocat", prix = 1, stock = 0},
+    {item = "saucisson", label = "Saucisson", prix = 1, stock = 0},
 }
 
 
