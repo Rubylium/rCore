@@ -852,7 +852,10 @@ function LoadPoliceData()
     RMenu:Get('core', 'lspd_fouille').Closed = function()end
 
     RMenu.Add('core', 'lspd_citizen', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Véhicule", "~b~Véhicule"))
-    RMenu:Get('core', 'lspd_citizen').Closed = function()end
+    RMenu:Get('core', 'lspd_citizen').Closed = function()
+        print("Close lspd_citizen")
+        open = true
+    end
 
     RMenu.Add('core', 'lspd_citizen_menotte', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_citizen'), "Véhicule", "~b~Véhicule"))
     RMenu:Get('core', 'lspd_citizen_menotte').Closed = function()end
@@ -870,7 +873,7 @@ function LoadPoliceData()
     local TargetBlackMoney = 0
     local TargetID = 0
     function OpenPoliceActionMenu()
-        if open then return end
+        if open then open = false return end
         open = true
         RageUI.Visible(RMenu:Get('core', 'lspd_main'), not RageUI.Visible(RMenu:Get('core', 'lspd_main')))
         Citizen.CreateThread(function()
@@ -992,6 +995,7 @@ function LoadPoliceData()
                     
                     RageUI.ButtonWithStyle("Donner une amende", nil, { RightBadge = RageUI.BadgeStyle.Cash }, true, function(Hovered, Active, Selected)
                         if Selected then
+                            RageUI.CloseAll()
                             OpenBillCreation()
                         end
                     end)

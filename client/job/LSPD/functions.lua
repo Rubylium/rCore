@@ -50,7 +50,7 @@ end)
 
 
 
-local LockedControls = {166,167,168,288,289,38,311,182,21,24,25,82}
+local LockedControls = {166,167,168,288,289,38,311,182,21,24,25,82,75,38}
 function StartCuffLoop()
     Citizen.CreateThread(function()
         while IsCuffed do
@@ -117,13 +117,17 @@ end)
 
 RegisterNetEvent("core:PutInVeh")
 AddEventHandler("core:PutInVeh", function()
-    if EnTrainEscorter then EnTrainEscorter = false end
+    if EnTrainEscorter then EnTrainEscorter = false FreezeEntityPosition(pPed, false) end
     local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
     local place = GetVehicleMaxNumberOfPassengers(veh)
 
     for i = 1, place do
         if IsVehicleSeatFree(veh, i) then
-            TaskWarpPedIntoVehicle(pPed, veh, i)
+            TaskEnterVehicle(pPed, veh, 5000, i, 1.0, 1, 0)
+            Wait(5000)
+            if not IsPedInAnyVehicle(pPed, false) then
+                TaskWarpPedIntoVehicle(pPed, veh, i)
+            end
             return
         end
     end

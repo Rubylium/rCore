@@ -959,7 +959,7 @@ function LoadSheriffData()
     local TargetBlackMoney = 0
     local TargetID = 0
     function OpenSheriffActionMenu()
-        if open then return end
+        if open then open = false return end
         open = true
         RageUI.Visible(RMenu:Get('core', 'sheriff_main'), not RageUI.Visible(RMenu:Get('core', 'sheriff_main')))
         Citizen.CreateThread(function()
