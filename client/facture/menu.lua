@@ -14,6 +14,7 @@ local montant = nil
 local sourceID = nil
 
 function OpenBillCreation()
+    open = false
     IsSocietyBill = false
     society = nil
     raison = nil
@@ -137,6 +138,7 @@ end
 
 RegisterNetEvent("core:GetFacture")
 AddEventHandler("core:GetFacture", function(_IsSocietyBill, _society, _raison, _montant, _sourceID)
+    open = false
     IsSocietyBill = _IsSocietyBill
     society = _society
     raison = _raison
