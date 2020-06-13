@@ -219,7 +219,7 @@ function RespawnToNearest()
 end
 
 -- Injured with weapon "move_strafe@injured" "idle"
-
+local LockedControls = {166,167,168,288,289,38,311,182,21,24,25,82,75,38}
 local FatalDamage = {12844, 31086, 35731, 39317, 65068}
 local DidCall = false
 
@@ -297,6 +297,10 @@ function SyncDeathWithPlayers()
 
             end
 
+            for k,v in pairs(LockedControls) do
+                DisableControlAction(1, v, true)
+            end
+
             RageUI.IsVisible(RMenu:Get('core', 'death_call'), true, true, true, function()
     
                 if not DidCall then
@@ -331,6 +335,9 @@ function SyncDeathWithPlayers()
         StopScreenEffect('DeathFailOut')
         StopAudioScenes()
         StopGameplayHint(true)
+        local coords = GetEntityCoords(pPed)
+        SetEntityHealth(player, 200)
+        SetEntityCoords(player, coords)
         NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
         ClearPlayerWantedLevel(GetPlayerIndex())
         SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
