@@ -20,13 +20,18 @@ RegisterNetEvent("core:TakeCall")
 AddEventHandler("core:TakeCall", function(token, callid)
     if exports.rFramework:CheckToken(token, source) then
         if Calls[callid] ~= nil then
-            if  Calls[callid].taken == false then
+            if Calls[callid].taken == false then
                 Calls[callid].taken = true
                 local dst = #(GetEntityCoords(GetPlayerPed(Calls[callid].target)) - GetEntityCoords(GetPlayerPed(source))) -- Use Z
                 TriggerClientEvent("core:CallTaken", source, dst, GetEntityCoords(GetPlayerPed(Calls[callid].target)))
                 TriggerClientEvent("core:CallTakenTarget", Calls[callid].target, dst, Calls[callid].job)
             else
-                TriggerClientEvent("rF:notification", source, "~r~L'appel à déja été pris!")
+                if Calls[callid].job == "police" then
+                    local dst = #(GetEntityCoords(GetPlayerPed(Calls[callid].target)) - GetEntityCoords(GetPlayerPed(source))) -- Use Z
+                    TriggerClientEvent("core:CallTaken", source, dst, GetEntityCoords(GetPlayerPed(Calls[callid].target)))
+                else
+                    TriggerClientEvent("rF:notification", source, "~r~L'appel à déja été pris!")
+                end
             end
         end
     end
