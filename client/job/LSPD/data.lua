@@ -1021,6 +1021,11 @@ function LoadPoliceData()
                     RageUI.ButtonWithStyle("Fouiller la personne", nil, {}, true, function(_,h,s)
                         if s then 
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            TargetInv = {}
+                            TargetWeight = 0
+                            TargetMoney = 0
+                            TargetBlackMoney = 0
+                            TargetID = 0
                             if dst < 2.0 then
                                 SendActionTxt(" fouille la personne")
                                 local target = GetPlayerServerId(closet)
