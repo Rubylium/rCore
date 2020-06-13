@@ -190,7 +190,7 @@ AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, jo
     pVip = vip
     pClothing = cloths
     LoadData()
-    Wait(1000)
+    Wait(3000)
     if death == 1 then
         rUtils.ImportantNotif("Tu as été replacé en tant que mort. Il est interdit de se déconnecter pour essayer de se revive.")
         SetEntityHealth(pPed, 0)
