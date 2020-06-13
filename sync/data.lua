@@ -329,6 +329,7 @@ events = {
     inVeh = "core:PutInVeh",
     outVeh = "core:PutOutVeh",
     clearObjects = "core:ClearAreaFromObjects",
+    askId = "core:AskForIdentity",
 }
  
 

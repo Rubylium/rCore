@@ -657,7 +657,7 @@ end
 
 function ShowIdentityCard()
     local mug, txd = rUtils.GetPedMugshot(GetPlayerPed(-1))
-    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..pPrenom.."~w~\nNom: ~o~"..pNom.."~w~\nAge:~o~ "..pAge.."~w~\nVIP: ~o~"..pVip, txd, 7, false, false)
+    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..pPrenom.."~w~\nNom: ~o~"..pNom.."~w~\nAge:~o~ "..pAge.."~w~\nVIP: ~o~"..pVip.."~w~\nsID: ~o~"..GetPlayerServerId(NetworkGetPlayerIndexFromPed(GetPlayerPed(-1))), txd, 7, false, false)
     UnregisterPedheadshot(mug)
 end
 
@@ -671,11 +671,16 @@ function ShowIdentityCardToOther()
     end
 end
 
+RegisterNetEvent("core:AskForIdentity")
+AddEventHandler("core:AskForIdentity", function(id)
+    TriggerServerEvent("core:ShowIdentityCardToOther", token, id, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pVip)
+end)
+
 
 RegisterNetEvent("core:ShowIdentityCardToOther")
 AddEventHandler("core:ShowIdentityCardToOther", function(net, source, Prenom, Nom, Age, Vip)
     local ped = GetPlayerPed(GetPlayerFromServerId(source))
     local mug, txd = rUtils.GetPedMugshot(ped)
-    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..Prenom.."~w~\nNom: ~o~"..Nom.."~w~\nAge:~o~ "..Age.."~w~\nVIP: ~o~"..Vip, txd, 7, false, false)
+    rUtils.ShowAdvancedNotification("IDENTITY", "~g~Carte d'identité", "Prénom: ~o~"..Prenom.."~w~\nNom: ~o~"..Nom.."~w~\nAge:~o~ "..Age.."~w~\nVIP: ~o~"..Vip.."~w~\nsID: ~o~"..GetPlayerServerId(GetPlayerFromServerId(source)), txd, 7, false, false)
     UnregisterPedheadshot(mug)
 end)

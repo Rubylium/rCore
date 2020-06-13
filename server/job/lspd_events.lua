@@ -43,3 +43,14 @@ AddEventHandler("core:PutOutVeh", function(token, target)
     end
     TriggerClientEvent("core:PutOutVeh", target)
 end)
+
+
+RegisterNetEvent("core:AskForIdentity")
+AddEventHandler("core:AskForIdentity", function(token, id)
+    if not exports.rFramework:CheckToken(token, source, "AskForIdentity") then return end
+    local job = exports.rFramework:GetPlayerJob(source)
+    if allowedJobs[job] == nil then
+        exports.rFramework:AddPlayerLog(source, "Try to ask id with job "..job, 5)
+    end
+    TriggerClientEvent("core:AskForIdentity", id)
+end)

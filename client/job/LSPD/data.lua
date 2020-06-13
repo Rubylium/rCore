@@ -972,6 +972,16 @@ function LoadPoliceData()
                     RageUI.ButtonWithStyle("Menotte", nil, {RightLabel = "→"}, true, function(_,h,s)
                     end, RMenu:Get('core', 'lspd_citizen_menotte'))
 
+                    RageUI.Button("Récupérer l'identité de la personne", "~r~HRP: Permet de prendre de force l'identité de la personne, à ne pas utiliser quand vous demandez juste l'identité de la personne.", true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
+                            if dst < 2.0 then
+                                local target = GetPlayerServerId(closet)
+                                TriggerServerEvent(events.askId, token, target)
+                            end
+                        end
+                    end)
+
                     RageUI.ButtonWithStyle("Fouiller la personne", nil, {}, true, function(_,h,s)
                         if s then 
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
