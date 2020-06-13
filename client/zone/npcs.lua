@@ -237,11 +237,109 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+    { -- police 
+        model = "s_m_y_cop_01",
+        pos = vector3(-1097.53, -839.9486, 19.00156),
+        heading = 117.415428161,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenStocksShop()
+        end,
+        scenario = "WORLD_HUMAN_COP_IDLES",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
+    { -- police 
+        model = "s_m_y_cop_01",
+        pos = vector3(-1113.776, -826.0406, 19.31736),
+        heading = 38.3785743,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenStocksShop()
+        end,
+        scenario = "WORLD_HUMAN_COP_IDLES",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
+    { -- police 
+        model = "s_m_y_cop_01",
+        pos = vector3(-1110.234, -823.3088, 19.31974),
+        heading = 37.3061,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenStocksShop()
+        end,
+        scenario = "WORLD_HUMAN_COP_IDLES",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
+
+
+local swat = {
+    {pos = vector3(-1082.3, -817.7292, 14.883),heading = 49.885730743408,},
+    {pos = vector3(-1079.134, -815.6598, 14.883),heading = 304.86111450196,},
+    {pos = vector3(-1085.376, -821.3854, 14.883),heading = 125.6315689087,},
+    {pos = vector3(-1077.794, -823.4632, 14.883),heading = 67.810165405274,},
+    {pos = vector3(-1080.34, -822.7182, 14.883),heading = 286.0198059082,},
+}
+
+local police = {
+    {pos = vector3(-1111.202, -850.169, 13.4761),heading = 126.1078414917,},
+    {pos = vector3(-1114.104, -846.695, 13.41016),heading = 127.14124298096,},
+    {pos = vector3(-1120.99, -834.2324, 13.33628),heading = 235.27450561524,},
+    {pos = vector3(-1109.818, -842.1338, 19.31728),heading = 177.12803649902,},
+    {pos = vector3(-1106.054, -847.2042, 19.31728),heading = 77.06421661377,},
+    {pos = vector3(-1103.866, -827.7752, 14.2828),heading = 209.82640075684,},
+    {pos = vector3(-1099.934, -824.7564, 14.2828),heading = 211.03717041016,},
+    {pos = vector3(-1077.378, -856.5096, 5.042846),heading = 200.1636352539,},
+}
+
+local policeChill = {
+    {pos = vector3(-1136.104, -845.2598, 19.31714),heading = 55.21851348877,},
+    {pos = vector3(-1138.28, -843.8088, 19.3169),heading = 244.5990600586,},
+    {pos = vector3(-1136.492, -843.2734, 19.31688),heading = 149.7915802002,},
+    {pos = vector3(-1122.872, -858.708, 19.69246),heading = 287.64477539062,},
+    {pos = vector3(-1121.246, -857.4908, 19.69246),heading = 139.1965637207,},
+}
+
+local policeChillGang = {
+    {pos = vector3(-1109.774, -857.6486, 19.31684),heading = 213.09672546386,},
+    {pos = vector3(-1111.128, -858.6424, 19.31678),heading = 228.39694213868,},
+}
+
+Citizen.CreateThread(function()
+    for k,v in pairs(swat) do
+        table.insert(npcs, {model = "s_m_y_swat_01", pos = v.pos, heading = v.heading, haveAction = false, LoadDst = 50, scenario = "WORLD_HUMAN_COP_IDLES"})
+    end
+
+    for k,v in pairs(police) do
+        table.insert(npcs, {model = "s_m_y_cop_01", pos = v.pos, heading = v.heading, haveAction = false, LoadDst = 50, scenario = "WORLD_HUMAN_COP_IDLES"})
+    end
+
+    for k,v in pairs(policeChill) do
+        table.insert(npcs, {model = "s_m_y_cop_01", pos = v.pos, heading = v.heading, haveAction = false, LoadDst = 50, scenario = "WORLD_HUMAN_AA_COFFEE"})
+    end
+
+    for k,v in pairs(policeChillGang) do
+        table.insert(npcs, {model = "s_m_m_chemsec_01", pos = v.pos, heading = v.heading, haveAction = false, LoadDst = 50, scenario = "WORLD_HUMAN_AA_SMOKE"})
+    end
+end)
 
 
 local ActiveNpcs = {}
 Citizen.CreateThread(function()
+    Wait(1000)
     while true do
         local pCoords = GetEntityCoords(pPed)
         for _,v in pairs(npcs) do
