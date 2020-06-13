@@ -15,36 +15,44 @@ local prevFemaleVariation = 0
 
 RegisterNetEvent("core:CuffPlayer")
 AddEventHandler("core:CuffPlayer", function(status, freeze)
-    if not status then
-        if GetEntityModel(pPed) == femaleHash then -- mp female
-            SetPedComponentVariation(pPed, 7, prevFemaleVariation, 0, 0)
-        elseif GetEntityModel(pPed) == maleHash then -- mp male
-            SetPedComponentVariation(pPed, 7, prevMaleVariation, 0, 0)
-        end
-
-        ClearPedTasks(pPed)
-        FreezeEntityPosition(pPed, false)
-        SetEnableHandcuffs(pPed, false)
-        IsCuffed = false
-        rUtils.PlayAnim("mp_arresting", "b_uncuff", 1, 100.0, nil, nil, 5800)
-    else 
-        IsCuffed = true
-        if GetEntityModel(pPed) == femaleHash then -- mp female
-            prevFemaleVariation = GetPedDrawableVariation(pPed, 7)
-            SetPedComponentVariation(pPed, 7, 25, 0, 0)
-        
-        elseif GetEntityModel(pPed) == maleHash then -- mp male
-            prevMaleVariation = GetPedDrawableVariation(pPed, 7)
-            SetPedComponentVariation(pPed, 7, 41, 0, 0)
-        end
-
-        if freeze then
+    if IsCuffed and status then
+        if not freeze then
+            FreezeEntityPosition(pPed, false)
+        else
             FreezeEntityPosition(pPed, true)
         end
+    else
+        if not status then
+            if GetEntityModel(pPed) == femaleHash then -- mp female
+                SetPedComponentVariation(pPed, 7, prevFemaleVariation, 0, 0)
+            elseif GetEntityModel(pPed) == maleHash then -- mp male
+                SetPedComponentVariation(pPed, 7, prevMaleVariation, 0, 0)
+            end
 
-        SetEnableHandcuffs(pPed, true)
-        rUtils.PlayAnim(dict, anim, flags, 8.0, -8, nil, -1)
-        StartCuffLoop()
+            ClearPedTasks(pPed)
+            FreezeEntityPosition(pPed, false)
+            SetEnableHandcuffs(pPed, false)
+            IsCuffed = false
+            rUtils.PlayAnim("mp_arresting", "b_uncuff", 1, 100.0, nil, nil, 5800)
+        else 
+            IsCuffed = true
+            if GetEntityModel(pPed) == femaleHash then -- mp female
+                prevFemaleVariation = GetPedDrawableVariation(pPed, 7)
+                SetPedComponentVariation(pPed, 7, 25, 0, 0)
+            
+            elseif GetEntityModel(pPed) == maleHash then -- mp male
+                prevMaleVariation = GetPedDrawableVariation(pPed, 7)
+                SetPedComponentVariation(pPed, 7, 41, 0, 0)
+            end
+
+            if freeze then
+                FreezeEntityPosition(pPed, true)
+            end
+
+            SetEnableHandcuffs(pPed, true)
+            rUtils.PlayAnim(dict, anim, flags, 8.0, -8, nil, -1)
+            StartCuffLoop()
+        end
     end
 end)
 
@@ -118,7 +126,8 @@ end)
 RegisterNetEvent("core:PutInVeh")
 AddEventHandler("core:PutInVeh", function()
     if EnTrainEscorter then EnTrainEscorter = false FreezeEntityPosition(pPed, false) end
-    local veh = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
+    local veh, dst = rUtils.GetClosestVehicle(GetEntityCoords(pPed))
+    if dst > 5.0 then return end
     local place = GetVehicleMaxNumberOfPassengers(veh)
 
     for i = 1, place do
