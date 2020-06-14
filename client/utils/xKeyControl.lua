@@ -1,5 +1,6 @@
 InAction = false
 rUtils.RegisterControlKey("inventaire", "Ouvrir l'inventaire", "F5", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsCuffed then return end
     TriggerServerEvent(events.GetInv, token)
     TriggerServerEvent(events.GetAccs, token)
@@ -9,7 +10,7 @@ end)
 
 
 rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function()
-    print(pJob)
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsCuffed then return end
     if pJob == "mecano" then
         OpenMecanoActionMenu()
@@ -29,11 +30,13 @@ rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function(
 end)
 
 rUtils.RegisterControlKey("speed", "[DEV] - Reset slowmotion", "9", function()
-    SetTimeScale(1.0)
+    if UpdateOnscreenKeyboard() == 3 then return end
+    --SetTimeScale(1.0)
 end)
 
 rUtils.RegisterControlKey("slow", "[DEV] - Activer slowmotion", "6", function()
-    SetTimeScale(0.25)
+    if UpdateOnscreenKeyboard() == 3 then return end
+    --SetTimeScale(0.25)
 end)
 
 --rUtils.RegisterControlKey("creator", "[DEV] - Ouvrir le menu de création", "f1", function()
@@ -41,11 +44,13 @@ end)
 --end)
 
 rUtils.RegisterControlKey("chest", "Ouvrir le coffre du véhicule", "k", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsCuffed then return end
     OpenVehicleChest()
 end)
 
 rUtils.RegisterControlKey("removeweapon", "Ranger son arme", "1", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsPedArmed(pPed, 7) then
         local _, pWeapon = GetCurrentPedWeapon(pPed, 1)
         RemoveWeaponFromPed(pPed, pWeapon)
@@ -55,17 +60,20 @@ rUtils.RegisterControlKey("removeweapon", "Ranger son arme", "1", function()
 end)
 
 rUtils.RegisterControlKey("vehlist", "Ouvrir la liste de véhicule", "f2", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsCuffed then return end
     OpenVehMenu()
 end)
 
 rUtils.RegisterControlKey("lock", "Clé du véhicule", "u", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsCuffed then return end
     OpenOrCloseVeh()
 end)
 
 local handsUp = false
 rUtils.RegisterControlKey("hands", "Lever les mains", "x", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsCuffed then return end
     if InAction then return end
     if not handsUp then
@@ -86,6 +94,7 @@ local voiceData = {
 NetworkSetTalkerProximity(voiceData[1].voice)
 
 rUtils.RegisterControlKey("voix", "Portez de la voix", "f1", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     voice = voice + 1
     if voice > 3 then
         voice = 1
@@ -96,6 +105,7 @@ end)
 
 local pointing = false
 rUtils.RegisterControlKey("point", "Pointer du doigt", "b", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsCuffed then return end
     if InAction then return end
     if not pointing then
@@ -147,6 +157,7 @@ end)
 
 local falling = false
 rUtils.RegisterControlKey("fall", "Faire tomber son personnage", "y", function()
+    if UpdateOnscreenKeyboard() == 3 then return end
     if IsPedInAnyVehicle(pPed, false) then return end
     if not falling then
         falling = true
