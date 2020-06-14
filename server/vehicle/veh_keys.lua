@@ -14,6 +14,8 @@ function DeployCb()
         if VehKeys[ids] == nil then
             VehKeys[ids] = {} 
             VehKeys[ids].keys = {}
+        end
+        if VehKeys[ids].keys[plate] ~= nil then
             VehKeys[ids].keys[plate] = true
             print("^2KEYS: ^7Added key "..plate.." for user "..ids)
             cb(true)
@@ -26,7 +28,6 @@ function DeployCb()
 
     exports.rFramework:RegisterServerCallback('core:GiveKeyToTarget', function(source, cb, plate, target)
         local ids = GetLicense(target)
-        print(target, ids)
         if VehKeys[ids] == nil then
             VehKeys[ids] = {}
             VehKeys[ids].keys = {}
