@@ -70,6 +70,17 @@ function OpenBossMenu(_society)
                     end
                 end)
 
+                RageUI.ButtonWithStyle("Blanchir de l'argent", "Permet de déposé de l'argent sale qui sera convertie en argent propre (50%). ~r~Attention, le fisc surveille!", {}, true, function(_,_,s)
+                    if s then 
+                        local amount = BankCustomAmount()
+                        if amount <= pDirty then
+                            TriggerServerEvent(events.washM, token, society, amount)
+                            pDirty = pDirty - amount
+                            TriggerServerEvent("rF:GetSocietyInfos", token, society) -- Refresh
+                        end
+                    end
+                end)
+
             end, function()
             end)
 

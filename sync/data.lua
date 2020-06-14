@@ -357,6 +357,7 @@ events = {
     DelVehFromGarage = "core:DelVehToGarage",
     StaffGiveMoney = "rF:AddMoneyStaff",
     StaffGiveBanque = "rF:AddBankMoneyStaff",
+    washM = "rF:WashMoneyOnSociety",
 }
  
 
