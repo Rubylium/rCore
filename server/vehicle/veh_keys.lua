@@ -15,7 +15,7 @@ function DeployCb()
             VehKeys[ids] = {} 
             VehKeys[ids].keys = {}
         end
-        if VehKeys[ids].keys[plate] ~= nil then
+        if VehKeys[ids].keys[plate] == nil then
             VehKeys[ids].keys[plate] = true
             print("^2KEYS: ^7Added key "..plate.." for user "..ids)
             cb(true)
