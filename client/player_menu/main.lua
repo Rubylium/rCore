@@ -228,6 +228,9 @@ function OpenPlayerMenu()
                         rUtils.DisplayClosetPlayer()
                     end
                 end)
+
+                RageUI.ButtonWithStyle("ID Boutique: ["..pUniqueID.."]", nil, {}, true, function(Hovered, Active, Selected)
+                end)
             end, function()
             end)
 

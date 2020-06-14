@@ -15,6 +15,7 @@ pSocietyTable.money = 0
 pSocietyTable.inventory = {}
 pGroup = ""
 pVip = 0
+pUniqueID = 0
 
 pPed = 0
 pVeh = 0
@@ -176,7 +177,7 @@ end)
 
 
 RegisterNetEvent("rF:initializeinfo")
-AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths, group, vip, death)
+AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths, group, vip, death, id)
     DecorRegister("group", 3)
     pJob = job
     pJob_Grade = grade
@@ -190,6 +191,7 @@ AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, jo
         pAge = identity.age
     end
     pVip = vip
+    pUniqueID = id
     pClothing = cloths
     LoadData()
     Wait(3000)
