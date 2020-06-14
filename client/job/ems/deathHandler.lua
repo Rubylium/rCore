@@ -61,10 +61,11 @@ function DeathTimer()
     Citizen.CreateThread(function()
         while pDeath do
             if CanRespawn then
-                if IsControlJustReleased(1, 38) then
+                --if IsControlJustReleased(1, 38) then
+                    CanRespawn = false
                     RespawnToNearest()
-                end
-                DisplayMessage("Pour respawn, appuyer sur ")
+               --end
+               --DisplayMessage("Pour respawn, appuyer sur ")
             else
                 if rUtils.Math.Round(displayM, 0) <= 1 then
                     DisplayMessage("Temps restant: ~b~"..rUtils.Math.Round(sec, 0).."~s~s.")
