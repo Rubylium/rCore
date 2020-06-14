@@ -103,6 +103,7 @@ Citizen.CreateThread(function()
     InitVoiceChat()
     InitStealVeh()
     LoadBarberShopData()
+    InitRecoil()
     while true do
         pPed = GetPlayerPed(-1)
         pVeh = GetVehiclePedIsIn(pPed, 0)
