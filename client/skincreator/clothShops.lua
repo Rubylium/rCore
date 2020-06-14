@@ -147,12 +147,16 @@ function OpenClothShopThread()
                         for i = v.min, GetNumberOfPedTextureVariations(GetPlayerPed(-1), v.c, value) - 1 do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
                             RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
-                               if s then
-                                   TriggerEvent("skinchanger:change", v.item, i)
-                                   TriggerEvent("rF:SaveSkin", v.item, i)
-                                   TriggerServerEvent("rF:RemoveMoney", token, v.price)
-                               end
-                               if h then
+                                if s then
+                                    if pMoney > v.price then
+                                        TriggerEvent("skinchanger:change", v.item, i)
+                                        TriggerEvent("rF:SaveSkin", v.item, i)
+                                        TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                                    else
+                                        rUtils.Notif("tu n'as pas assez d'argent")
+                                    end
+                                end
+                                if h then
                                     if NotSpamming[k] ~= i then
                                        TriggerEvent("skinchanger:change", v.item, i)
                                        NotSpamming[k] = i
@@ -164,11 +168,15 @@ function OpenClothShopThread()
                         for i = v.min, v.max do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
                             RageUI.ButtonWithStyle(v.label.." "..i, nil, { RightLabel = "→ Acheter [~g~"..v.price.."~s~$]" }, not usingVipPed, function(_,h,s)
-                               if s then
-                                   TriggerEvent("skinchanger:change", v.item, i)
-                                   TriggerEvent("rF:SaveSkin", v.item, i)
-                                   TriggerServerEvent("rF:RemoveMoney", token, v.price)
-                               end
+                                if s then
+                                    if pMoney > v.price then
+                                        TriggerEvent("skinchanger:change", v.item, i)
+                                        TriggerEvent("rF:SaveSkin", v.item, i)
+                                        TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                                    else
+                                        rUtils.Notif("tu n'as pas assez d'argent")
+                                    end
+                                end
                                if h then
                                    if NotSpamming[k] ~= i then
                                        TriggerEvent("skinchanger:change", v.item, i)
