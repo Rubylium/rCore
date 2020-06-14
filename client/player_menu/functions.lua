@@ -190,7 +190,11 @@ local staffColor = {
     [4] = {color = "170", tag = "🛠️"},
 }
 
-function ShowNames()
+function ShowNames(status)
+    if status ~= nil then
+        showNames = false
+        return
+    end
     showNames = not showNames
     if showNames then
         Citizen.CreateThread(function()

@@ -34,6 +34,15 @@ RMenu:Get('core', 'divers_editor').Closed = function()end
 RMenu.Add('core', 'admin', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Admin Menu", nil))
 RMenu:Get('core', 'admin').Closed = function()end
 
+RMenu.Add('core', 'admin_veh', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_veh').Closed = function()end
+
+RMenu.Add('core', 'admin_joueur', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_joueur').Closed = function()end
+
+RMenu.Add('core', 'admin_divers', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_divers').Closed = function()end
+
 RMenu.Add('core', 'admin_pList', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
 RMenu:Get('core', 'admin_pList').Closed = function()end
 
@@ -83,6 +92,7 @@ end)
 
 local SelectedPlayer = {}
 local InStaff = false
+local zoneOnly = false
 function OpenPlayerMenu()
     if open then return end
     open = true
@@ -382,36 +392,7 @@ function OpenPlayerMenu()
             end, function()
             end)
 
-            RageUI.IsVisible(RMenu:Get('core', 'admin'), true, true, true, function()
-                RageUI.Separator("~b~Menu staff")
-
-                RageUI.Checkbox("Activer le mod staff", nil, InStaff, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
-                    InStaff = Checked;
-                end, function()
-                    TriggerServerEvent(events.staffmod, token, true)
-                end, function()
-                    TriggerServerEvent(events.staffmod, token, false)
-                end)
-
-                RageUI.ButtonWithStyle("Liste des joueurs", "Permet de faire des actions sur les joueurs en lignes.", { RightLabel = "→" }, InStaff, function(_,_,s)
-                    if s then
-                        TriggerServerEvent("core:pList", token)
-                    end
-                end, RMenu:Get('core', 'admin_pList'))
-
-                RageUI.Button("TP Sur marker", nil, InStaff, function(_,_,s)
-                    if s then
-                        GoToBlip()
-                    end
-                end)
-
-                RageUI.Button("Nettoyer la rue", nil, InStaff, function(_,_,s)
-                    if s then
-                        local players = rUtils.GetPlayersInScope()
-                        TriggerServerEvent(events.clearObjects, token, GetEntityCoords(pPed), players)
-                    end
-                end)
-
+            RageUI.IsVisible(RMenu:Get('core', 'admin_veh'), true, true, true, function()
 
                 RageUI.ButtonWithStyle("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, InStaff, function(Hovered, Active, Selected)
                     if Active then 
@@ -445,6 +426,38 @@ function OpenPlayerMenu()
                     end
                 end)
 
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_joueur'), true, true, true, function()
+
+                RageUI.ButtonWithStyle("Liste des joueurs", "Permet de faire des actions sur les joueurs en lignes.", { RightLabel = "→" }, InStaff, function(_,_,s)
+                    if s then
+                        TriggerServerEvent("core:pList", token)
+                    end
+                end, RMenu:Get('core', 'admin_pList'))
+
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_divers'), true, true, true, function()
+
+
+                RageUI.Button("TP Sur marker", nil, InStaff, function(_,_,s)
+                    if s then
+                        GoToBlip()
+                    end
+                end)
+
+                RageUI.Button("Nettoyer la rue", nil, InStaff, function(_,_,s)
+                    if s then
+                        local players = rUtils.GetPlayersInScope()
+                        TriggerServerEvent(events.clearObjects, token, GetEntityCoords(pPed), players)
+                    end
+                end)
+
+                
+
                 RageUI.Button("Activer les nom", nil, InStaff, function(_,_,s)
                     if s then
                         ShowNames()
@@ -460,13 +473,53 @@ function OpenPlayerMenu()
             end, function()
             end)
 
+            RageUI.IsVisible(RMenu:Get('core', 'admin'), true, true, true, function()
+                RageUI.Separator("~b~Menu staff")
+
+                RageUI.Checkbox("Activer le mod staff", nil, InStaff, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
+                    InStaff = Checked;
+                end, function()
+                    TriggerServerEvent(events.staffmod, token, true)
+                end, function()
+                    ShowNames(false)
+                    TriggerServerEvent(events.staffmod, token, false)
+                end)
+
+                RageUI.ButtonWithStyle("Action staff sur joueur", nil, { RightLabel = "→" }, InStaff, function(_,_,s)
+                end, RMenu:Get('core', 'admin_joueur'))
+
+                RageUI.ButtonWithStyle("Action staff sur véhicule", nil, { RightLabel = "→" }, InStaff, function(_,_,s)
+                end, RMenu:Get('core', 'admin_veh'))
+
+                RageUI.ButtonWithStyle("Action staff divers", nil, { RightLabel = "→" }, InStaff, function(_,_,s)
+                end, RMenu:Get('core', 'admin_divers'))
+
+
+            end, function()
+            end)
+
             RageUI.IsVisible(RMenu:Get('core', 'admin_pList'), true, true, true, function()
-                for k,v in ipairs(players) do
-                    RageUI.Button("["..v.id.."] - "..v.name, nil, true, function(_,_,s)
-                        if s then
-                            SelectedPlayer = v
-                        end
-                    end, RMenu:Get('core', 'admin_jAction'))
+                RageUI.Checkbox("Zone uniquement", "Afficher uniquement les joueurs de votre zone", zoneOnly, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
+                    zoneOnly = Checked;
+                end, function()
+                end, function()
+                end)
+                if not zoneOnly then
+                    for k,v in ipairs(players) do
+                        RageUI.Button("["..v.id.."] - "..v.name, nil, true, function(_,_,s)
+                            if s then
+                                SelectedPlayer = v
+                            end
+                        end, RMenu:Get('core', 'admin_jAction'))
+                    end
+                else
+                    for k,v in ipairs(GetActivePlayers()) do
+                        RageUI.Button("["..GetPlayerServerId(v).."] - "..GetPlayerName(v), nil, true, function(_,_,s)
+                            if s then
+                                SelectedPlayer = {id = GetPlayerServerId(v), name = GetPlayerName(v)}
+                            end
+                        end, RMenu:Get('core', 'admin_jAction'))
+                    end
                 end
             end, function()
             end)
