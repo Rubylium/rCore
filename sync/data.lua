@@ -354,6 +354,7 @@ events = {
     clearObjects = "core:ClearAreaFromObjects",
     askId = "core:AskForIdentity",
     radioCall = "core:SendRadioCall",
+    DelVehFromGarage = "core:DelVehToGarage",
 }
  
 

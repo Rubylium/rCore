@@ -256,6 +256,33 @@ AddEventHandler("core:SaveVehToGarage", function(token, _id, name, plate, props,
             NetID = nil
         })
     end
+    exports.rFramework:SendLog("``Le joueur ["..source.."] "..GetPlayerName(source).." à vendu le véhicule "..name.." à ["..source.."] "..GetPlayerName(source).."``", "concess")
+end)
+
+
+
+RegisterNetEvent("core:DelVehToGarage")
+AddEventHandler("core:DelVehToGarage", function(token, _plate, price, name, _net)
+    if not exports.rFramework:CheckToken(token, source, "DelVehToGarage") then return end
+    local id = GetLicense(source)
+    
+    if PlayersVehCache[id] ~= nil then
+        for k,v in pairs(PlayersVehCache[id]) do
+            if v.plate == _plate then
+                table.remove(PlayersVehCache[id], k)
+
+                MySQL.Async.execute('DELETE FROM `player_vehs` WHERE plate = @plate', {
+                    ["@plate"] = _plate,
+                }, function(rowsChanged) end)
+
+                DeleteEntityYes(_net)
+                exports.rFramework:_player_add_money(token, source, price)
+                exports.rFramework:SendLog("``Le joueur ["..source.."] "..GetPlayerName(source).." à vendu le véhicule [".._plate.."] "..name.." pour "..price.."``", "veh-vente")
+                return
+            end
+        end
+    end
+    TriggerClientEvent("rF:notification", source, "~r~Action impossible.\n~w~Ce véhicule n'est pas le tien.")
 end)
 
 

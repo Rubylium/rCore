@@ -376,6 +376,58 @@ function LoadConcessData()
         --},
     }
 
+    rUtils.RegisterActionZone({
+        pos = vector3(-83.3046, 80.85424, 71.5157),
+        action = function()
+            OpenSellMenu()
+        end,
+    })
+
+    RMenu.Add('core', 'concess_vente_veh', RageUI.CreateMenu("", "~b~Vendre son véhicule", nil, nil, "root_cause", "shopui_title_legendarymotorsport"))
+    RMenu:Get('core', "concess_vente_veh").Closed = function()
+        open = false
+    end
+
+    local vehSell_price = 0
+    function GetVehPrice(entity)
+        local name = string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(entity)))
+        for k,v in pairs(vehicle) do
+            for _,i in pairs(v.vehs) do
+                if i.vehs == name then
+                    vehSell_price = i.prix / 2
+                end
+            end
+        end
+    end
+
+    function OpenSellMenu()
+        if not IsPedInAnyVehicle(pPed, false) then return end
+        vehSell_price = 0
+        if open then return end
+        GetVehPrice(GetVehiclePedIsIn(pPed, false))
+        RageUI.Visible(RMenu:Get('core', 'concess_vente_veh'), not RageUI.Visible(RMenu:Get('core', 'concess_vente_veh')))
+        open = true
+        Citizen.CreateThread(function()
+            while open do
+                Wait(1)
+                RageUI.IsVisible(RMenu:Get('core', 'concess_vente_veh'), true, true, false, function()
+                    if IsPedInAnyVehicle(pPed, false) then
+                        RageUI.ButtonWithStyle("Vendre le véhicule", nil, { RightLabel = "~g~"..vehSell_price.."$"  }, true, function(Hovered, Active, Selected)
+                            if Selected then
+
+                                TriggerServerEvent(events.DelVehFromGarage, token, GetVehicleNumberPlateText(GetVehiclePedIsIn(pPed, false)), vehSell_price, string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsIn(pPed, false)))), VehToNet(GetVehiclePedIsIn(pPed, false)))
+                            end
+                        end) 
+                    end
+                
+                end, function()
+                end)
+            end
+        end)
+
+    end
+
+    
 
     rUtils.RegisterActionZone({
         pos = vector3(-53.04, 73.4, 71.9),
@@ -470,7 +522,8 @@ function LoadConcessData()
                     end, RMenu:Get('core', "avalaible"))
                 
                     for k,v in pairs(vehicle) do
-                        RageUI.ButtonWithStyle(v.nom, nil, { RightLabel = "→→→" }, true, function()
+                        RageUI.ButtonWithStyle(v.nom, nil, { RightLabel = "→→→" }, true, function(_,_,s)
+                            
                         end, RMenu:Get('core', v.nom))
                     end
                 
@@ -490,9 +543,8 @@ function LoadConcessData()
                                 end
                             end
                             if Selected then
-                            
+                                RenderScriptCams(0, 0, 0, 0, 0)
                                 DeleteVehicle(local_veh.entity)
-                                SetEntityCoords(GetPlayerPed(-1), -53.04, 73.4, 71.9, 0.0, 0.0, 0.0, 0)
                                 GetNearPlayers()
                                 local_veh.price = v.price
                                 TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
@@ -587,7 +639,7 @@ function LoadConcessData()
         RequestModel(model)
         while not HasModelLoaded(model) do Wait(1) end
     
-        local veh = CreateVehicle(model, -75.51985, 74.62209, 71.37163, 255.0, false, true)
+        local veh = CreateVehicle_(model, -75.51985, 74.62209, 71.37163, 255.0, false, true)
         SetVehicleOnGroundProperly(veh)
         FreezeEntityPosition(veh, 1)
         if props then
@@ -605,7 +657,7 @@ function LoadConcessData()
         RequestModel(props.model)
         while not HasModelLoaded(props.model) do Wait(1) end
     
-        local veh = CreateVehicle(props.model, -75.51985, 74.62209, 71.37163, 255.0, true, true)
+        local veh = CreateVehicle_(props.model, -75.51985, 74.62209, 71.37163, 255.0, true, true)
         SetVehicleOnGroundProperly(veh)
         if props then
             rUtils.SetVehicleProperties(veh, props)
