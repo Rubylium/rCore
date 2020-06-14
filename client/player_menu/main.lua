@@ -15,6 +15,9 @@ RMenu:Get('core', 'vip_main').Closed = function()end
 RMenu.Add('core', 'vip_weapon_tint', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_main'), "VIP TINT", "~b~Couleur d'arme de VIP"))
 RMenu:Get('core', 'vip_weapon_tint').Closed = function()end
 
+RMenu.Add('core', 'vip_weapon_aim', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_main'), "Aim", "~b~Changer son type d'aim"))
+RMenu:Get('core', 'vip_weapon_aim').Closed = function()end
+
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "portefeuille", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'portefeuille').Closed = function()end
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
@@ -545,6 +548,8 @@ function OpenPlayerMenu()
             RageUI.IsVisible(RMenu:Get('core', 'vip_main'), true, true, true, function()
                 RageUI.ButtonWithStyle("Teinture d'arme", nil, { RightLabel = "→" }, pVip ~= 0, function()
                 end, RMenu:Get('core', 'vip_weapon_tint'))
+                RageUI.ButtonWithStyle("Animation d'arme", nil, { RightLabel = "→" }, pVip ~= 0, function()
+                end, RMenu:Get('core', 'vip_weapon_aim'))
             end, function()
             end)
 
@@ -562,6 +567,24 @@ function OpenPlayerMenu()
                                 if GetPedWeaponTintIndex(pPed, pWeapon) ~= i then
                                     SetPedWeaponTintIndex(pPed, pWeapon, i)
                                 end
+                            end
+                        end)
+                    end
+                else
+                    RageUI.Button("~r~Tu a besoin d'une arme.", nil, pVip ~= 0, function()
+                    end)
+                end
+            end, function()
+            end)
+
+
+            RageUI.IsVisible(RMenu:Get('core', 'vip_weapon_aim'), true, true, true, function()
+                if IsPedArmed(pPed, 7) then
+                    for k,v in pairs(JobsData.general.AimAnim) do
+                        RageUI.Button(v.label, nil, true, function(_,h,s)
+                            if s then
+                                print("Aim changé en "..v.anim)
+                                SetWeaponAnimationOverride(pPed, GetHashKey(v.anim))
                             end
                         end)
                     end

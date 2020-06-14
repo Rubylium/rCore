@@ -184,6 +184,18 @@ conv = {
 
 
 JobsData = {
+    general = {
+        AimAnim = {
+            {label = "Default", anim = "Default"},
+            {label = "Gang", anim = "Gang"},
+            {label = "Gang 2", anim = "Gang1H"},
+            {label = "Gang Female", anim = "GangFemale"},
+            {label = "Franklin ", anim = "Franklin"},
+            {label = "Michael ", anim = "Michael"},
+            {label = "Trevor ", anim = "Trevor"},
+            {label = "Ballistic ", anim = "Ballistic"},
+        }
+    },
     lspd = {
         radio = {
             {code = "10-19", label = "Retour commissariat", pos = false},
