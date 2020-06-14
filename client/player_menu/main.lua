@@ -469,7 +469,7 @@ function OpenPlayerMenu()
                         NoClip()
                     end
                 end)
-
+ 
             end, function()
             end)
 
@@ -565,6 +565,12 @@ function OpenPlayerMenu()
                         if msg ~= nil then
                             TriggerServerEvent(events.kick, token, SelectedPlayer.id, msg)
                         end
+                    end
+                end)
+
+                RageUI.Button("Revive", nil, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent(events.ResetDeath, token, SelectedPlayer.id)
                     end
                 end)
 
