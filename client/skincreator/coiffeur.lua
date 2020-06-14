@@ -264,10 +264,12 @@ function OpenBarbershopMenuThread()
                                     TriggerEvent("rF:SaveSkin", v.item, i)
                                     TriggerServerEvent("rF:RemoveMoney", token, v.price)
                                     TriggerEvent("skinchanger:change", "helmet_1", -1)
+                                    TriggerEvent("skinchanger:change", "mask_1", 0)
                                 end
                                 if h then
                                     if NotSpamming[k] ~= i then
                                         TriggerEvent("skinchanger:change", "helmet_1", -1)
+                                        TriggerEvent("skinchanger:change", "mask_1", 0)
                                         TriggerEvent("skinchanger:change", v.item, i)
                                         NotSpamming[k] = i
                                     end
@@ -281,11 +283,13 @@ function OpenBarbershopMenuThread()
                                     TriggerEvent("rF:SaveSkin", v.item, i)
                                     TriggerServerEvent("rF:RemoveMoney", token, v.price)
                                     TriggerEvent("skinchanger:change", "helmet_1", -1)
+                                    TriggerEvent("skinchanger:change", "mask_1", 0)
                                 end
                                 if h then
                                     
                                     if NotSpamming[k] ~= i then
                                         TriggerEvent("skinchanger:change", "helmet_1", -1)
+                                        TriggerEvent("skinchanger:change", "mask_1", 0)
                                         TriggerEvent("skinchanger:change", v.item, i)
                                         NotSpamming[k] = i
                                     end
