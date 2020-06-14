@@ -22,9 +22,11 @@ Citizen.CreateThread(function()
                 NearZone = true
                 DrawMarker(25, v.pos.x, v.pos.y, v.pos.z-0.8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 255, 255, 255, 200, 0, 1, 2, 0, nil, nil, 0)
                 if dst < 2.0 then
-                    RageUI.Text({message="Appuyer sur E pour intérargir."})
-                    if IsControlJustReleased(1, 38) then
-                        v.action(v.data)
+                    if not InAction then
+                        RageUI.Text({message="Appuyer sur E pour intérargir."})
+                        if IsControlJustReleased(1, 38) then
+                            v.action(v.data)
+                        end
                     end
                     break
                 end
