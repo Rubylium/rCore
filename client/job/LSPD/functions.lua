@@ -58,7 +58,7 @@ end)
 
 
 
-local LockedControls = {166,167,168,288,289,38,311,182,21,24,25,82,75,38}
+local LockedControls = {166,167,168,288,289,38,311,182,21,24,25,82,75,38,45,80,140,22}
 function StartCuffLoop()
     Citizen.CreateThread(function()
         while IsCuffed do
@@ -169,3 +169,71 @@ AddEventHandler("core:SendRadioCall", function(source, code, label, pos, prenom,
         RemoveBlip(blip)
     end
 end)
+
+
+
+local shieldActive = false
+local shieldEntity = nil
+local hadPistol = false
+
+-- ANIM
+local animDict = "combat@gestures@gang@pistol_1h@beckon"
+local animName = "0"
+
+local prop = "prop_ballistic_shield"
+local pistol = GetHashKey("WEAPON_COMBATPISTOL")
+
+function EnableShield()
+    if pInventory["Arme de poing force de l'ordre"] == nil then 
+        rUtils.Notif("Tu doit avoir une ~b~Arme de poing force de l'ordre~s~ pour faire ça.")
+        return
+    end
+    shieldActive = true
+    local pedPos = GetEntityCoords(ped, false)
+    
+    RequestAnimDict(animDict)
+    while not HasAnimDictLoaded(animDict) do
+        Citizen.Wait(100)
+    end
+
+    TaskPlayAnim(pPed, animDict, animName, 8.0, -8.0, -1, (2 + 16 + 32), 0.0, 0, 0, 0)
+
+    RequestModel(GetHashKey(prop))
+    while not HasModelLoaded(GetHashKey(prop)) do
+        Citizen.Wait(100)
+    end
+
+    local shield = CreateObject_(GetHashKey(prop), pedPos.x, pedPos.y, pedPos.z, 1, 1, 1)
+    shieldEntity = ObjToNet(shield)
+    AttachEntityToEntity(shield, pPed, GetEntityBoneIndexByName(pPed, "IK_L_Hand"), 0.0, -0.05, -0.10, -30.0, 180.0, 40.0, 0, 0, 1, 0, 0, 1)
+    SetWeaponAnimationOverride(pPed, GetHashKey("Gang1H"))
+    GiveWeaponToPed_(pPed, pistol, 300, 0, 1)
+    SetCurrentPedWeapon(pPed, pistol, 1)
+
+    Citizen.CreateThread(function()
+        while shieldActive do
+            if not IsEntityPlayingAnim(pPed, animDict, animName, 1) then
+                RequestAnimDict(animDict)
+                while not HasAnimDictLoaded(animDict) do
+                    Citizen.Wait(100)
+                end
+            
+                TaskPlayAnim(pPed, animDict, animName, 8.0, -8.0, -1, (2 + 16 + 32), 0.0, 0, 0, 0)
+            end
+
+            if IsPedInAnyVehicle(pPed, true) then
+                DisableShield()
+            end
+            Citizen.Wait(100)
+        end
+    end)
+end
+
+function DisableShield()
+    TriggerServerEvent("DeleteEntity", token, shieldEntity)
+    ClearPedTasksImmediately(pPed)
+    SetWeaponAnimationOverride(pPed, GetHashKey("Default"))
+
+    shieldActive = false
+end
+
