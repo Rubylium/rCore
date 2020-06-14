@@ -355,6 +355,8 @@ events = {
     askId = "core:AskForIdentity",
     radioCall = "core:SendRadioCall",
     DelVehFromGarage = "core:DelVehToGarage",
+    StaffGiveMoney = "rF:AddMoneyStaff",
+    StaffGiveBanque = "rF:AddBankMoneyStaff",
 }
  
 

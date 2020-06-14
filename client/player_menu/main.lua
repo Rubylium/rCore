@@ -34,6 +34,9 @@ RMenu:Get('core', 'divers_editor').Closed = function()end
 RMenu.Add('core', 'admin', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Admin Menu", nil))
 RMenu:Get('core', 'admin').Closed = function()end
 
+RMenu.Add('core', 'admin_remb', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_remb').Closed = function()end
+
 RMenu.Add('core', 'admin_veh', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
 RMenu:Get('core', 'admin_veh').Closed = function()end
 
@@ -580,6 +583,30 @@ function OpenPlayerMenu()
                 RageUI.Button("Changer le groupe", nil, pGroup == "dev" or pGroup == "fonda", function(_,_,s)
                 end, RMenu:Get('core', 'admin_GroupList'))
 
+                RageUI.Button("Remboursement", nil, pGroup == "dev" or pGroup == "fonda" or pGroup == "remb", function()
+                end, RMenu:Get('core', 'admin_remb'))
+
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_remb'), true, true, true, function()
+                RageUI.Button("Donner de l'argent", nil, true, function(_,_,s)
+                    if s then
+                        local amount = CustomAmount()
+                        if amount ~= nil and amount > 0 then
+                            TriggerServerEvent(events.StaffGiveMoney, token, tonumber(amount), tonumber(SelectedPlayer.id))
+                        end
+                    end
+                end)
+
+                RageUI.Button("Donner de l'argent en banque", nil, true, function(_,_,s)
+                    if s then
+                        local amount = CustomAmount()
+                        if amount ~= nil and amount > 0 then
+                            TriggerServerEvent(events.StaffGiveBanque, token, tonumber(amount), tonumber(SelectedPlayer.id))
+                        end
+                    end
+                end)
             end, function()
             end)
 
