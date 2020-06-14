@@ -870,6 +870,9 @@ function LoadPoliceData()
         open = true
     end
 
+    RMenu.Add('core', 'lspd_divers', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_main'), "Fouille", "~b~Fouille"))
+    RMenu:Get('core', 'lspd_divers').Closed = function()end
+
     RMenu.Add('core', 'lspd_fouille', RageUI.CreateSubMenu(RMenu:Get('core', 'lspd_citizen'), "Fouille", "~b~Fouille"))
     RMenu:Get('core', 'lspd_fouille').Closed = function()end
 
@@ -888,6 +891,7 @@ function LoadPoliceData()
     local TargetMoney = 0
     local TargetBlackMoney = 0
     local TargetID = 0
+    local ShieldOut = false
     function OpenPoliceActionMenu()
         if open then open = false return end
         open = true
@@ -1161,6 +1165,23 @@ function LoadPoliceData()
                     RageUI.ButtonWithStyle("Action sur véhicule", nil, {RightLabel = "→"}, true, function(_,h,s)
                     end, RMenu:Get('core', 'lspd_veh'))
 
+                    RageUI.ButtonWithStyle("Divers", nil, {RightLabel = "→"}, true, function(_,h,s)
+                    end, RMenu:Get('core', 'lspd_divers'))
+
+                end, function()
+                    ---Panels
+                end)
+
+                RageUI.IsVisible(RMenu:Get('core', 'lspd_divers'), true, true, true, function()
+
+                    RageUI.Checkbox("Sortir un bouclier balistique", nil, ShieldOut, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
+                        ShieldOut = Checked;
+                    end, function()
+                        SendActionTxt(" sort un bouclier balistique")
+                        EnableShield()
+                    end, function()
+                        DisableShield()
+                    end)
 
                 end, function()
                     ---Panels
