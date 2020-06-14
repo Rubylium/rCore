@@ -35,6 +35,7 @@ function MineData:LoadMineData()
                     end)
                     RageUI.Button("Stopper le travail", nil, working, function(_,_,s)
                         if s then 
+                            exports.rFramework:ReloadPlayerCloth()
                             working = false
                         end
                     end)
@@ -168,7 +169,7 @@ function MineData:LoadMineData()
                 if not working then TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj), ObjToNet(pickaxe)}) return end
 
             end
-            exports.rFramework:ReloadPlayerCloth()
+            
         end)
     end
 end
