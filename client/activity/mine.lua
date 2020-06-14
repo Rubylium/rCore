@@ -50,7 +50,83 @@ function MineData:LoadMineData()
 
     local props = self.m.props
 
-    function MineData:StartMineWork()
+    local mineCloths = {
+        homme = {
+            {
+                name = "Mine homme",
+                cloth = {
+                    ["tshirt_1"] = 89,
+                    ["tshirt_2"] = 0,
+                    ["torso_1"] = 238,
+                    ["torso_2"] = 4,
+                    ["pants_1"] = 98,
+                    ["pants_2"] = 6,
+                    ["shoes_1"] = 71,
+                    ["shoes_2"] = 4,
+                    ["arms"] = 51,
+                    ["arms_2"] = 0,
+                    ["helmet_1"] = 25,
+                    ["helmet_2"] = 1,
+                    ["chain_1"] = -1,
+                    ["chain_2"] = 0,
+                    ["bracelets_1"] = -1,
+                    ["bracelets_2"] = 0,
+                    ["ears_1"] = -1,
+                    ["ears_2"] = 0,
+                    ["mask_1"] = 0,
+                    ["mask_2"] = 0,
+                    ["watches_1"] = -1,
+                    ["watches_2"] = 0,
+                    ["decals_1"] = 0,
+                    ["bags_1"] = 0,
+                },
+            },
+        },
+        femme = {
+            {
+                name = "Mine femme",
+                cloth = {
+                    ["tshirt_1"] = 56,
+                    ["tshirt_2"] = 0,
+                    ["torso_1"] = 226,
+                    ["torso_2"] = 19,
+                    ["pants_1"] = 101,
+                    ["pants_2"] = 6,
+                    ["shoes_1"] = 74,
+                    ["shoes_2"] = 4,
+                    ["arms"] = 50,
+                    ["arms_2"] = 0,
+                    ["helmet_1"] = 53,
+                    ["helmet_2"] = 1,
+                    ["chain_1"] = -1,
+                    ["chain_2"] = 0,
+                    ["bracelets_1"] = -1,
+                    ["bracelets_2"] = 0,
+                    ["ears_1"] = -1,
+                    ["ears_2"] = 0,
+                    ["mask_1"] = 0,
+                    ["mask_2"] = 0,
+                    ["watches_1"] = -1,
+                    ["watches_2"] = 0,
+                    ["decals_1"] = 0,
+                    ["bags_1"] = 0,
+                },
+            },  
+        }
+    }
+
+    function MineData:StartMineWork() 
+
+        if GetEntityModel(pPed) == GetHashKey("mp_m_freemode_01") then
+            for k,i in pairs(mineCloths.homme[1].cloth) do
+                TriggerEvent("skinchanger:change", k, i)
+            end
+        elseif GetEntityModel(pPed) == GetHashKey("mp_f_freemode_01") then
+            for k,i in pairs(mineCloths.femme[1].cloth) do
+                TriggerEvent("skinchanger:change", k, i)
+            end
+        end
+
         Citizen.CreateThread(function()
             while working do
                 local r = math.random(-15,15)
@@ -92,6 +168,7 @@ function MineData:LoadMineData()
                 if not working then TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj), ObjToNet(pickaxe)}) return end
 
             end
+            exports.rFramework:ReloadPlayerCloth()
         end)
     end
 end
