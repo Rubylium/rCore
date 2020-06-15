@@ -1,4 +1,9 @@
 local open = false
+
+function SetInventoryOpen()
+    open = false
+end
+
 RMenu.Add('core', 'main', RageUI.CreateMenu("Menu personnel", "~b~Menu personnel de votre personnage"))
 RMenu:Get('core', 'main').Closed = function()
     open = false
@@ -7,7 +12,9 @@ RMenu.Add('core', 'inventory', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "
 RMenu:Get('core', 'inventory').Closed = function()end
 
 RMenu.Add('core', 'inventory_use', RageUI.CreateSubMenu(RMenu:Get('core', 'inventory'), "Inventaire", "~b~Inventaire de votre personnage"))
-RMenu:Get('core', 'inventory_use').Closed = function()end
+RMenu:Get('core', 'inventory_use').Closed = function()
+    open = false
+end
 
 RMenu.Add('core', 'vip_main', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "VIP", "~b~Option VIP"))
 RMenu:Get('core', 'vip_main').Closed = function()end

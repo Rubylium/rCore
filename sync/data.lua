@@ -104,7 +104,7 @@ armory = {
 }
 
 weed = {
-    plante = 30,
+    plante = 50,
     props = {
         [30] = "bkr_prop_weed_01_small_01c",
         [40] = "bkr_prop_weed_01_small_01b",

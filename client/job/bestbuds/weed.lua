@@ -7,31 +7,31 @@ AddEventHandler("core:PlantWeed", function()
 end)
 
 function WeedData:LoadWeedData()
-    local open = false
+    local openeded = false
     local WeedProps = nil
     local ActualProp = nil
     local plante = self.w.plante
     local count = 0.0
     local Deleting = false
 
-    RMenu.Add('core', 'weed_prepa', RageUI.CreateMenu("Weed", "~g~Préparation weed"))
-    RMenu:Get('core', 'weed_prepa').Closed = function()
-        open = false
+    RMenu.Add('core', 'weed_prepar', RageUI.CreateMenu("Weed", "~g~Préparation weed"))
+    RMenu:Get('core', 'weed_prepar').Closed = function()
+        opened = false
         TriggerServerEvent("DeleteEntity", token, WeedProps)
     end
 
-    RMenu.Add('core', 'weed_trait', RageUI.CreateMenu("Weed", "~g~Préparation weed"))
+    RMenu.Add('core', 'weed_trait', RageUI.CreateMenu("Weed ", "~g~Préparation weed"))
     RMenu:Get('core', 'weed_trait').Closed = function()
-        open = false
+        opened = false
     end
 
     RMenu.Add('core', 'weed_ShopSeed', RageUI.CreateMenu("Weed shop", "~g~Achats de graine"))
     RMenu:Get('core', 'weed_ShopSeed').Closed = function()
-        open = false
+        opened = false
         KillNpcCam()
     end
     
-    function OpenWeedSeedShop(npc, offset, camOffset)
+    function openedWeedSeedShop(npc, offset, camOffset)
         if pJob ~= "bestbuds" then rUtils.Notif("Hein ? T'es qui ? Dégage je parle pas aux inconnus.") return end
         local oCoords = GetOffsetFromEntityInWorldCoords(npc, offset[1], offset[2], offset[3])
         local CoordToPoint = GetOffsetFromEntityInWorldCoords(npc, camOffset[1], camOffset[2], camOffset[3])
@@ -43,10 +43,10 @@ function WeedData:LoadWeedData()
         RenderScriptCams(1, 1, 1000, 0, 0)
 
 
-        open = true
+        opened = true
         RageUI.Visible(RMenu:Get('core', 'weed_ShopSeed'), not RageUI.Visible(RMenu:Get('core', 'weed_ShopSeed')))
         Citizen.CreateThread(function()
-            while open do
+            while opened do
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'weed_ShopSeed'), false, false, false, function()
                     RageUI.ButtonWithStyle("Acheté des graine de chanvre", nil, {RightLabel = "~g~2$"}, true, function(_,_,s)
@@ -119,31 +119,34 @@ function WeedData:LoadWeedData()
     
     function StartWeed()
         TaskStartScenarioInPlace(pPed, self.w.scenario, -1, true)
-        RageUI.CloseAll()
+        SetInventoryOpen()
         TriggerServerEvent(events.remove, token, self.w.item, 1)
-        RageUI.Visible(RMenu:Get('core', 'weed_prepa'), not RageUI.Visible(RMenu:Get('core', 'weed_prepa')))
-        open = true
+        RageUI.Visible(RMenu:Get('core', 'weed_prepar'), true)
+        opened = true
         plante = self.w.plante
         count = 0.0
         ActualProp = nil
         Deleting = false
 
         CheckProp()
+        print(count)
         Citizen.CreateThread(function()
-            while open do
+            while opened do
                 Wait(1000)
                 CheckProp()
-                plante = plante - math.random(1,8)
+                plante = tonumber(plante - math.random(1,8))
                 count = count + 0.05
                 if count > 1 then
-                    open = false
+                    opened = false
+                    print("Stop car count > 1")
                 end
-                if plante <= 5 then
-                    open = false
+                if plante < 5 then
+                    opened = false
+                    print("Stop car plante < 5")
                 end
-            end
+            end 
 
-
+            print(count)
             if plante > 90 then
                 TriggerServerEvent(events.give, token, self.w.item2, 3)
             elseif plante < 90 and plante > 70 then
@@ -151,6 +154,7 @@ function WeedData:LoadWeedData()
             elseif plante < 70 and plante > 60 then
                 TriggerServerEvent(events.give, token, self.w.item2, 1)
             else
+                print(count, plante, WeedProps, opened)
                 rUtils.Notif("Tu as raté ta plante, tu n'as rien eu.")
             end
             ClearPedTasks(pPed)
@@ -158,11 +162,13 @@ function WeedData:LoadWeedData()
             TriggerServerEvent("DeleteEntity", token, WeedProps)
         end)
 
+        RageUI.Visible(RMenu:Get('core', 'weed_prepar'), true)
         Citizen.CreateThread(function()
-            while open do
+            while opened do
                 Wait(1)
-                if plante > 100 then
-                    RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
+
+                RageUI.IsVisible(RMenu:Get('core', 'weed_prepar'), false, false, false, function()
+                    if plante > 100 then
                         RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 255, G = 0, B = 0, A = 255} }, true, function(active,_, sel, prog)
                             if IsControlPressed(1, 22) then
                                 plante = plante + self.w.add
@@ -171,11 +177,7 @@ function WeedData:LoadWeedData()
                         RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
                         RageUI.StatisticPanel(count, "Temps", 1)
-
-                    end, function()
-                    end)
-                elseif plante > 80 then
-                    RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
+                    elseif plante > 80 then
                         RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 54, G = 230, B = 34, A = 255} }, true, function(active,_, sel, prog)
                             if IsControlPressed(1, 22) then
                                 plante = plante + self.w.add
@@ -184,11 +186,7 @@ function WeedData:LoadWeedData()
                         RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
                         RageUI.StatisticPanel(count, "Temps", 1)
-
-                    end, function()
-                    end)
-                elseif plante > 70 then
-                    RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
+                    elseif plante > 70 then
                         RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 245, G = 185, B = 66, A = 255} }, true, function(active,_, sel, prog)
                             if IsControlPressed(1, 22) then
                                 plante = plante + self.w.add
@@ -197,11 +195,7 @@ function WeedData:LoadWeedData()
                         RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
                         RageUI.StatisticPanel(count, "Temps", 1)
-
-                    end, function()
-                    end)
-                elseif plante > 60 then
-                    RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
+                    elseif plante > 60 then
                         RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 245, G = 105, B = 66, A = 255} }, true, function(active,_, sel, prog)
                             if IsControlPressed(1, 22) then
                                 plante = plante + self.w.add
@@ -210,11 +204,7 @@ function WeedData:LoadWeedData()
                         RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
                         RageUI.StatisticPanel(count, "Temps", 1)
-
-                    end, function()
-                    end)
-                else
-                    RageUI.IsVisible(RMenu:Get('core', 'weed_prepa'), false, false, false, function()
+                    else
                         RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 255, G = 0, B = 0, A = 255} }, true, function(active,_, sel, prog)
                             if IsControlPressed(1, 22) then
                                 plante = plante + self.w.add
@@ -222,11 +212,11 @@ function WeedData:LoadWeedData()
                         end)
                         RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
 
-                        RageUI.StatisticPanel(count, "Temps", 1)
-
-                    end, function()
-                    end)
-                end
+                        RageUI.StatisticPanel(count, "Temps", 1) 
+                    end
+                    
+                end, function()
+                end)
 
             end
         end)
@@ -236,25 +226,25 @@ function WeedData:LoadWeedData()
     rUtils.RegisterActionZone({
         pos = vector3(382.4778, -816.5658, 29.30418),
         action = function()
-            OpenTraitWeed()
+            openedTraitWeed()
         end,
     })
 
     local Traitment = {}
 
-    function OpenTraitWeed()
-        if open then 
+    function openedTraitWeed()
+        if opened then 
             RageUI.CloseAll() 
-            open = false 
+            opened = false 
             RageUI.Visible(RMenu:Get('core', 'weed_trait'), false) 
             Wait(100)
         end
         local Trating = false
-        open = true
+        opened = true
         Traitment = {}
         RageUI.Visible(RMenu:Get('core', 'weed_trait'), true)
         Citizen.CreateThread(function()
-            while open do
+            while opened do
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'weed_trait'), false, false, false, function()
                     if not Trating then
@@ -298,7 +288,7 @@ function WeedData:LoadWeedData()
         Citizen.CreateThread(function()
             local clicked = 0
             local supposed = 0
-            while open do
+            while opened do
                 
                 for k,v in pairs(Traitment) do
                     if v.clickable then
@@ -320,7 +310,7 @@ function WeedData:LoadWeedData()
                 end
 
                 if supposed >= 20 then
-                    open = false
+                    opened = false
                 end
                 Wait(self.w.TraitWait)
             end
