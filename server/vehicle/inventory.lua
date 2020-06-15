@@ -111,10 +111,12 @@ function RemoveItemFromVeh(source, ClientCount, pWeight, plate, _item, _label, _
                 TriggerClientEvent("rF:notification", source, "~r~Action impossible.\n~w~Tu porte trop de chose.") 
             end
         else
-            -- Desync serveur client
+            -- Desync serveur client 
+            exports.rFramework:AddPlayerLog(source, "AC: Desync client server, count client: "..ClientCount.." / count server: "..iCount.." / item: ".._item.." ".._label.." x".._count, 3)
         end
     else
         -- Desync serveur client
+        exports.rFramework:AddPlayerLog(source, "AC: Desync client server, count client: "..ClientCount.." / count server: 0 / item: ".._item.." ".._label.." x".._count, 3)
     end
 end
 
