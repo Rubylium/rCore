@@ -84,9 +84,13 @@ hunt = {
 
 armory = {
     weapons = {
-        {label = "Batte De Baseball", item = "batte", prop = "w_me_bat", price = 3500},
-        {label = "Couteau de poche", item = "knife", prop = "w_me_knife_01", price = 1500},
-        {label = "Tazer", item = "tazer", prop = "w_pi_stungun", price = 7500},
+        {label = "Batte De Baseball",           item = "batte",     prop = "w_me_bat",                  price = 3500, vip = false},
+        {label = "Couteau",                     item = "knife",     prop = "prop_w_me_knife_01",        price = 3000, vip = false},
+        {label = "Tazer",                       item = "tazer",     prop = "w_pi_stungun",              price = 7500, vip = false},
+        {label = "Couteau de poche à cran",     item = "knifeVip",  prop = "w_me_knife_01",             price = 3000, vip = true},
+        {label = "Club de golf",                item = "golf",      prop = "w_me_gclub",                price = 4500, vip = true},
+        {label = "Machette",                    item = "machette",  prop = "prop_ld_w_me_machette",     price = 3800, vip = true},
+        {label = "Hache",                       item = "hache",     prop = "w_me_hatchet",              price = 3750, vip = true},
     },
     camType = "DEFAULT_SCRIPTED_CAMERA",
 

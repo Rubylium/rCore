@@ -68,6 +68,40 @@ end)
 RegisterNetEvent("core:GetKnife")
 AddEventHandler("core:GetKnife", function()
     RemoveAllPedWeapons(pPed, 1)
+    GiveWeaponToPed_(pPed, GetHashKey("weapon_knife"), 255, false, true)
+    SendActionTxt(" sort un couteau")
+end)
+
+
+RegisterNetEvent("core:GetKnifeVip")
+AddEventHandler("core:GetKnifeVip", function()
+    if pVip == 0 then rUtils.Notif("~r~Action impossible\n~s~Ton niveau VIP est insuffisant pour utiliser l'objet.") return end
+    RemoveAllPedWeapons(pPed, 1)
     GiveWeaponToPed_(pPed, GetHashKey("weapon_switchblade"), 255, false, true)
     SendActionTxt(" sort un couteau")
+end)
+
+RegisterNetEvent("core:weapon_golfclub")
+AddEventHandler("core:weapon_golfclub", function()
+    if pVip == 0 then rUtils.Notif("~r~Action impossible\n~s~Ton niveau VIP est insuffisant pour utiliser l'objet.") return end
+    RemoveAllPedWeapons(pPed, 1)
+    GiveWeaponToPed_(pPed, GetHashKey("weapon_golfclub"), 255, false, true)
+    SendActionTxt(" sort un club de golf")
+end)
+
+
+RegisterNetEvent("core:weapon_machete")
+AddEventHandler("core:weapon_machete", function()
+    if pVip == 0 then rUtils.Notif("~r~Action impossible\n~s~Ton niveau VIP est insuffisant pour utiliser l'objet.") return end
+    RemoveAllPedWeapons(pPed, 1)
+    GiveWeaponToPed_(pPed, GetHashKey("weapon_machete"), 255, false, true)
+    SendActionTxt(" sort une machette")
+end)
+
+RegisterNetEvent("core:weapon_battleaxe")
+AddEventHandler("core:weapon_battleaxe", function()
+    if pVip == 0 then rUtils.Notif("~r~Action impossible\n~s~Ton niveau VIP est insuffisant pour utiliser l'objet.") return end
+    RemoveAllPedWeapons(pPed, 1)
+    GiveWeaponToPed_(pPed, GetHashKey("weapon_battleaxe"), 255, false, true)
+    SendActionTxt(" sort une hache")
 end)

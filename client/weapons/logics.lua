@@ -64,6 +64,47 @@ local batteSetting = {
     zR = 0.0,
 }
 
+local golfSetting = {
+    back_bone = 24816,
+    x = 0.45,
+    y = -0.14,
+    z = 0.15,  
+    xR = 0.0,
+    yR = 270.0,
+    zR = 0.0,
+}
+
+local hacheSettings = {
+    back_bone = 24816,
+    x = -0.41,
+    y = -0.15,
+    z = -0.20,  
+    xR = 90.0,
+    yR = 90.0,
+    zR = 35.0,
+}
+
+local hacheSettings = {
+    back_bone = 24816,
+    x = -0.41,
+    y = -0.15,
+    z = -0.20,  
+    xR = 90.0,
+    yR = 90.0,
+    zR = 35.0,
+}
+
+local machetteSettings = {
+    back_bone = 24816,
+    x = -0.15,
+    y = 0.10,
+    z = 0.22,  
+    xR = 90.0,
+    yR = 270.0,
+    zR = 35.0,
+}
+
+
 weapons = {
     [GetHashKey("weapon_pistol")] = {item = "pistolet",          pvp = true,  itemName = "weapon_pistol"      , prop = "",},
     [GetHashKey("weapon_stungun")] = {item = "tazer",            pvp = true,  itemName = "weapon_stungun"     , prop = "",},
@@ -76,7 +117,12 @@ weapons = {
     [GetHashKey("weapon_musket")] = {item = "musket",            pvp = false, itemName = "weapon_musket"      , prop = "w_ar_musket", settings = musketSetting},
     [GetHashKey("weapon_sniperrifle")] = {item = "huntrifle",    pvp = false, itemName = "weapon_sniperrifle" , prop = "w_sr_sniperrifle", settings = huntrifleSetting},
     [GetHashKey("weapon_bat")] = {item = "batte",                pvp = true, itemName = "weapon_bat" ,          prop = "w_me_bat", settings = batteSetting},
-    [GetHashKey("weapon_switchblade")] = {item = "knife",        pvp = true, itemName = "weapon_switchblade" ,          prop = ""},
+    [GetHashKey("weapon_knife")] = {item = "knife",              pvp = true, itemName = "weapon_knife" ,          prop = ""},
+
+    [GetHashKey("weapon_switchblade")] = {item = "knifeVip",     pvp = true, itemName = "weapon_switchblade" ,          prop = ""},
+    [GetHashKey("weapon_golfclub")] = {item = "golf",            pvp = true, itemName = "weapon_golfclub" ,          prop = "w_me_gclub", settings = golfSetting},
+    [GetHashKey("weapon_machete")] = {item = "machette",         pvp = true, itemName = "weapon_machete" ,          prop = "prop_ld_w_me_machette", settings = machetteSettings},
+    [GetHashKey("weapon_battleaxe")] = {item = "hache",          pvp = true, itemName = "weapon_battleaxe" ,          prop = "w_me_hatchet", settings = hacheSettings},
 }
 
 function IsItemAWeapon(item)

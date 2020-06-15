@@ -54,26 +54,49 @@ function ArmoryData:LoadArmoryData()
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'armory'), true, true, true, function()
                     for k,v in pairs(weaponsInDisplay) do
-                        RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→ ~c~"..v.price.."~w~$" }, true, function(_,_,s)
-                            if s then
-                                Selected.price = v.price
-                                Selected.label = v.label
-                                Selected.item = v.item
-                                local oCoords = GetOffsetFromEntityInWorldCoords(pPed, self.a.oCoords[1], self.a.oCoords[2], self.a.oCoords[3])
-                                local CoordToPoint = GetOffsetFromEntityInWorldCoords(pPed, self.a.CoordToPoint[1], self.a.CoordToPoint[2], self.a.CoordToPoint[3])
-                                ArmoryCam = CreateCam(self.a.camType, 0)
-                                SetCamActive(ArmoryCam, 1)
-                                SetCamCoord(ArmoryCam, CoordToPoint)
-                                SetCamFov(ArmoryCam, self.a.fov)
-                                
-                                rUtils.LoadModel(v.prop)
-                                prop = CreateObject_(GetHashKey(v.prop), oCoords, false, true, false)
-                                FreezeEntityPosition(prop, true)
+                        if not v.vip then
+                            RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→ ~c~"..v.price.."~w~$" }, true, function(_,_,s)
+                                if s then
+                                    Selected.price = v.price
+                                    Selected.label = v.label
+                                    Selected.item = v.item
+                                    local oCoords = GetOffsetFromEntityInWorldCoords(pPed, self.a.oCoords[1], self.a.oCoords[2], self.a.oCoords[3])
+                                    local CoordToPoint = GetOffsetFromEntityInWorldCoords(pPed, self.a.CoordToPoint[1], self.a.CoordToPoint[2], self.a.CoordToPoint[3])
+                                    ArmoryCam = CreateCam(self.a.camType, 0)
+                                    SetCamActive(ArmoryCam, 1)
+                                    SetCamCoord(ArmoryCam, CoordToPoint)
+                                    SetCamFov(ArmoryCam, self.a.fov)
 
-                                PointCamAtEntity(ArmoryCam, prop, 0, 0, 0, 1)
-                                RenderScriptCams(1, 1, 1000, 0, 0)
-                            end
-                        end, RMenu:Get('core', 'armory_watch')) 
+                                    rUtils.LoadModel(v.prop)
+                                    prop = CreateObject_(GetHashKey(v.prop), oCoords, false, true, false)
+                                    FreezeEntityPosition(prop, true)
+
+                                    PointCamAtEntity(ArmoryCam, prop, 0, 0, 0, 1)
+                                    RenderScriptCams(1, 1, 1000, 0, 0)
+                                end
+                            end, RMenu:Get('core', 'armory_watch')) 
+                        else
+                            RageUI.ButtonWithStyle(v.label, nil, { RightLabel = "→ ~c~"..v.price.."~w~$" }, pVip ~= 0, function(_,_,s)
+                                if s then
+                                    Selected.price = v.price
+                                    Selected.label = v.label
+                                    Selected.item = v.item
+                                    local oCoords = GetOffsetFromEntityInWorldCoords(pPed, self.a.oCoords[1], self.a.oCoords[2], self.a.oCoords[3])
+                                    local CoordToPoint = GetOffsetFromEntityInWorldCoords(pPed, self.a.CoordToPoint[1], self.a.CoordToPoint[2], self.a.CoordToPoint[3])
+                                    ArmoryCam = CreateCam(self.a.camType, 0)
+                                    SetCamActive(ArmoryCam, 1)
+                                    SetCamCoord(ArmoryCam, CoordToPoint)
+                                    SetCamFov(ArmoryCam, self.a.fov)
+
+                                    rUtils.LoadModel(v.prop)
+                                    prop = CreateObject_(GetHashKey(v.prop), oCoords, false, true, false)
+                                    FreezeEntityPosition(prop, true)
+
+                                    PointCamAtEntity(ArmoryCam, prop, 0, 0, 0, 1)
+                                    RenderScriptCams(1, 1, 1000, 0, 0)
+                                end
+                            end, RMenu:Get('core', 'armory_watch')) 
+                        end
                     end
                 end, function()
                 end)
