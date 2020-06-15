@@ -119,7 +119,32 @@ function OpenClothShopThread()
                 RageUI.ButtonWithStyle("Enregistrer la tenue actuel.", nil, {}, true, function(_,_,s)
                     if s then
                         local name = CustomString()
-                        TriggerEvent("rF:SaveCloth", name)
+                        if name ~= nil then
+                            if pVip == 0 then
+                                if #pClothing <= 5 then
+                                    TriggerEvent("rF:SaveCloth", name)
+                                    rUtils.Notif("~g~Tenue enregistrée")
+                                else
+                                    rUtils.Notif("~r~Action impossible\n~s~Tu possèdes trop de tenue (5)")
+                                end
+                            elseif pVip == 1 then
+                                if #pClothing <= 10 then
+                                    TriggerEvent("rF:SaveCloth", name)
+                                    rUtils.Notif("~g~Tenue enregistrée")
+                                else
+                                    rUtils.Notif("~r~Action impossible\n~s~Tu possèdes trop de tenue (10)")
+                                end
+                            elseif pVip == 2 then
+                                if #pClothing <= 15 then
+                                    TriggerEvent("rF:SaveCloth", name)
+                                    rUtils.Notif("~g~Tenue enregistrée")
+                                else
+                                    rUtils.Notif("~r~Action impossible\n~s~Tu possèdes trop de tenue (15)")
+                                end
+                            end
+                        else
+                            rUtils.Notif("~r~Action impossible\n~s~Le nom ne peut pas être vide")
+                        end
                     end
                 end)
                 for k,v in pairs(clothing) do
