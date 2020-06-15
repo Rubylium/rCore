@@ -27,12 +27,13 @@ function GetAccessoireValues()
 		{price = 35,label = "Sac", 					item = "bags_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 5) - 1,								min = 0,},
         {price = 13,label = "Chapeau",o="helmet_2", item = "helmet_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 0) - 1,							min = -1,},
         {price = 0,label = "Variante chapeau",      o="helmet_1",           item = "helmet_2", c=0, min = 0, color = true},
-		{price = 20,label = "Lunettes", 			item = "glasses_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = 0,},
-		{price = 15,label = "Montre", 				item = "watches_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 6) - 1,							min = -1,},
+		{price = 20,label = "Lunettes",o="glasses_2", item = "glasses_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = 0,},
+        {price = 0,label = "Variante lunettes",      o="glasses_1",           item = "glasses_2", c=0, min = 0, color = true},
+        {price = 15,label = "Montre", 				item = "watches_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 6) - 1,							min = -1,},
 		{price = 9,label = "Bracelet", 				item = "bracelets_1", 	max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 7) - 1,							min = -1,},
 		{price = 13,label = "Accessoire oreilles", 	item = "ears_1", 		max = GetNumberOfPedPropDrawableVariations(GetPlayerPed(-1), 1) - 1,							min = -1,},
 		{price = 24,label = "Masque",o="mask_2",    item = "mask_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 1) - 1,								min = 0,},
-        {price = 3,label = "Variante masque",       o="mask_1",             item = "mask_2", c=1, min = 0, color = true},
+        {price = 0,label = "Variante masque",       o="mask_1",             item = "mask_2", c=1, min = 0, color = true},
         --{label = "gilet pare-balle 1", 		item = "bproof_1", 		max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
 		--{label = "gilet pare-balle 2", 		item = "bproof_2", 		max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
     }
@@ -128,7 +129,7 @@ function OpenAccessoireShopThread()
                                end
                             end) 
                         end
-                    elseif v.item == "helmet_2" then
+                    elseif v.color ~= nil then
                         local value = exports.rFramework:GetKeyValue(v.o)
                         for i = v.min, 5 do
                             if NotSpamming[k] == nil then NotSpamming[k] = i end
