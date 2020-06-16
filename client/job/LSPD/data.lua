@@ -810,7 +810,7 @@ function LoadPoliceData()
         open = false
     end
 
-    function OpenPoliceFourriere()
+    function OpenPoliceFourriere() 
         if open then return end
         open = true
         exports.rFramework:TriggerServerCallback(events.fourriereLspdVehCb, function(vehs)
@@ -1216,11 +1216,18 @@ function LoadPoliceData()
         },
     }
 
+
     local gilet = {
         {label = "gilet pare-balle 1", item = "bproof_1", max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
         {label = "Variante gilet", o="bproof_1",c=9, item = "bproof_2", max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
     }
-
+    function UpadteGilet()
+        local _gilet = {
+            {label = "gilet pare-balle 1", item = "bproof_1", max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
+            {label = "Variante gilet", o="bproof_1",c=9, item = "bproof_2", max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
+        }
+        gilet = _gilet
+    end
 
     RMenu.Add('core', 'lspd_armorie', RageUI.CreateMenu("POLICE", "~b~Menu action LSPD"))
     RMenu:Get('core', 'lspd_armorie').Closed = function()
@@ -1237,6 +1244,7 @@ function LoadPoliceData()
 
     function OpenPoliceArmorie()
         open = true
+        UpadteGilet()
         TriggerServerEvent("rF:GetPlayerInventory", token)
         RageUI.Visible(RMenu:Get('core', 'lspd_armorie'), not RageUI.Visible(RMenu:Get('core', 'lspd_armorie')))
         Citizen.CreateThread(function()

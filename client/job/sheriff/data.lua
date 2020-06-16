@@ -1203,6 +1203,13 @@ function LoadSheriffData()
         {label = "gilet pare-balle 1", item = "bproof_1", max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
         {label = "Variante gilet", o="bproof_1",c=9, item = "bproof_2", max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
     }
+    function UpadteGilet()
+        local _gilet = {
+            {label = "gilet pare-balle 1", item = "bproof_1", max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 9) - 1,								min = 0,},
+            {label = "Variante gilet", o="bproof_1",c=9, item = "bproof_2", max = GetNumberOfPedTextureVariations(GetPlayerPed(-1), 9, GetPedTextureVariation(GetPlayerPed(-1), 9)) - 1,			min = 0,},
+        }
+        gilet = _gilet
+    end
 
     RMenu.Add('core', 'sheriff_armorie', RageUI.CreateMenu("Sheriff", "~b~Menu action sheriff"))
     RMenu:Get('core', 'sheriff_armorie').Closed = function()
