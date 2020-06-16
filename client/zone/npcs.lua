@@ -283,6 +283,22 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+    { -- gouv 
+        model = "cs_karen_daniels",
+        pos = vector3(409.146, 4829.376, -58.99962),
+        heading = 250.43064880,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenStocksShop()
+        end,
+        scenario = "WORLD_HUMAN_CLIPBOARD",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 
@@ -292,6 +308,9 @@ local swat = {
     {pos = vector3(-1085.376, -821.3854, 14.883),heading = 125.6315689087,},
     {pos = vector3(-1077.794, -823.4632, 14.883),heading = 67.810165405274,},
     {pos = vector3(-1080.34, -822.7182, 14.883),heading = 286.0198059082,},
+    {pos = vector3(415.4358, 4809.63, -58.99792),heading = 265.94485473632,},
+    {pos = vector3(416.705, 4811.09, -58.99792),heading = 156.70530700684,},
+    {pos = vector3(413.9546, 4810.6, -58.99792),heading = 79.348518371582,},
 }
 
 local police = {
@@ -318,6 +337,45 @@ local policeChillGang = {
     {pos = vector3(-1111.128, -858.6424, 19.31678),heading = 228.39694213868,},
 }
 
+local gouvGuard = {
+    {pos = vector3(2515.594, -377.453, 93.14036),heading = 267.9761352539,},
+    {pos = vector3(2515.594, -390.9094, 93.14036),heading = 265.28601074218,},
+    {pos = vector3(2567.384, -332.1112, 93.12178),heading = 178.8547821045,},
+    {pos = vector3(2576.936, -295.8546, 93.40716),heading = 177.60093688964,},
+    {pos = vector3(2581.504, -300.393, 93.07844),heading = 211.33448791504,},
+    {pos = vector3(2574.146, -289.5916, 93.07824),heading = 310.42391967774,},
+    {pos = vector3(2568.058, -295.1608, 93.07816),heading = 89.150207519532,},
+    {pos = vector3(2560.248, -285.778, 92.9925),heading = 289.52410888672,},
+    {pos = vector3(2566.838, -324.607, 92.99282),heading = 48.717975616456,},
+    {pos = vector3(2568.64, -324.628, 92.99272),heading = 328.18670654296,},
+    {pos = vector3(2520.96, -354.7738, 94.12788),heading = 234.16744995118,},
+    {pos = vector3(2488.45, -377.0338, 93.73542),heading = 271.23553466796,},
+    {pos = vector3(2488.28, -391.2926, 93.73544),heading = 269.38391113282,},
+    {pos = vector3(2525.622, -402.498, 93.14032),heading = 321.20635986328,},
+    {pos = vector3(2536.084, -412.9602, 93.14032),heading = 315.02941894532,},
+    {pos = vector3(2525.646, -365.708, 93.14018),heading = 228.50946044922,},
+    {pos = vector3(2536.096, -355.3052, 93.14018),heading = 224.92965698242,},
+    {pos = vector3(2557.114, -599.7096, 64.86174),heading = 103.12203979492,},
+    {pos = vector3(2558.978, -599.8398, 64.9463),heading = 195.97752380372,},
+    {pos = vector3(2565.124, -607.7394, 64.7042),heading = 76.700675964356,},
+    {pos = vector3(433.2896, 4818.216, -58.99958),heading = 316.10470581054,},
+    {pos = vector3(430.1476, 4824.31, -58.99962),heading = 186.65032958984,},
+    {pos = vector3(419.4872, 4815.476, -58.99792),heading = 0.8544751405716,},
+    {pos = vector3(418.033, 4826.088, -58.99962),heading = 98.486083984375,},
+    {pos = vector3(396.729, 4833.864, -58.99964),heading = 184.03701782226,},
+    {pos = vector3(375.2868, 4833.058, -58.99938),heading = 87.978202819824,},
+    {pos = vector3(354.3972, 4841.526, -58.99946),heading = 156.67184448242,},
+    {pos = vector3(335.794, 4836.188, -58.99946),heading = 268.63391113282,},
+    {pos = vector3(336.5228, 4844.926, -58.99948),heading = 250.29638671875,},
+    {pos = vector3(340.9338, 4862.018, -58.9997),heading = 233.99572753906,},
+    {pos = vector3(346.5388, 4861.612, -58.99954),heading = 104.44626617432,},
+}
+
+local gouvChill = {
+    {pos = vector3(2507.59, -394.253, 94.11994),heading = 242.53051757812,},
+    {pos = vector3(2509.25, -395.4226, 94.12002),heading = 66.786911010742,},
+}
+
 Citizen.CreateThread(function()
     for k,v in pairs(swat) do
         table.insert(npcs, {model = "s_m_y_swat_01", pos = v.pos, heading = v.heading, haveAction = false, LoadDst = 50, scenario = "WORLD_HUMAN_COP_IDLES"})
@@ -333,6 +391,14 @@ Citizen.CreateThread(function()
 
     for k,v in pairs(policeChillGang) do
         table.insert(npcs, {model = "s_m_m_chemsec_01", pos = v.pos, heading = v.heading, haveAction = false, LoadDst = 50, scenario = "WORLD_HUMAN_AA_SMOKE"})
+    end
+    
+    for k,v in pairs(gouvGuard) do
+        table.insert(npcs, {model = "mp_m_securoguard_01", pos = v.pos, heading = v.heading, haveAction = false, LoadDst = 100, scenario = "WORLD_HUMAN_COP_IDLES"})
+    end
+
+    for k,v in pairs(gouvChill) do
+        table.insert(npcs, {model = "s_m_m_fiboffice_01", pos = v.pos, heading = v.heading, haveAction = false, LoadDst = 100, scenario = "WORLD_HUMAN_AA_SMOKE"})
     end
 end)
 
@@ -351,14 +417,14 @@ Citizen.CreateThread(function()
                     v.entity = CreatePed_(1, v.model, v.pos.x, v.pos.y, v.pos.z-1.0, v.heading, 0, 0)
                     TaskSetBlockingOfNonTemporaryEvents(v.entity, true)
                     SetBlockingOfNonTemporaryEvents(v.entity, true)
-                    FreezeEntityPosition(v.entity, true)
+                    --FreezeEntityPosition(v.entity, true)
                     if v.haveAction then
                         table.insert(ActiveNpcs, {pos=v.pos, action=v.action, offset=v.camOffset, ped=v.entity, cam=v.camCoords})
                     end
                     if v.scenario ~= nil then
                         TaskStartScenarioInPlace(v.entity, v.scenario, -1, true)
                     end
-                    SetEntityInvincible(v.entity, true)
+                    --SetEntityInvincible(v.entity, true)
                     SetEveryoneIgnorePlayer(GetPlayerIndex(), true)
                     SetPoliceIgnorePlayer(GetPlayerIndex(), true)
                 end

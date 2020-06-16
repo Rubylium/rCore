@@ -167,6 +167,31 @@ function RegisterLspdCallback()
         end
         cb(VehToSend)
     end)
+
+    exports.rFramework:RegisterServerCallback('core:GetVehInFourriere', function(source, cb)
+        local VehToSend = {}
+        for k,v in pairs(PlayersVehCache) do
+            for j,i in pairs(PlayersVehCache[k]) do
+                if i.ranger == false then
+                    if i.lspd == false then
+                        
+                        if DoesEntityExist(NetworkGetEntityFromNetworkId(i.NetID)) == false then
+                            table.insert(VehToSend, {plate = i.plate, props = i.props, can = true})
+                        else
+                            table.insert(VehToSend, {plate = i.plate, props = i.props, can = false})
+                        end
+                    end
+                end
+            end
+        end
+
+        for k,v in pairs(VehToSend) do
+            if type(v.props) ~= "table" then
+                VehToSend[k].props = json.decode(v.props)
+            end
+        end
+        cb(VehToSend)
+    end)
 end
 
 

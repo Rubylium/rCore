@@ -82,12 +82,12 @@ function OpenVehMenu(out)
                                             TriggerServerEvent("rF:GiveMoney", token, 150 * priceByClass[GetVehicleClassFromName(props.model)].place)
                                             return 
                                         end
-                                        rUtils.SpawnVehicle(name, pos, heading, props, function(veh)
-                                            local veh = AddBlipForEntity(veh)
+                                        rUtils.SpawnVehicle(name, pos, heading, props, function(_veh)
+                                            local veh = AddBlipForEntity(_veh)
                                             SetBlipScale(veh, 0.50)
                                             SetBlipSprite(veh, 225)
-                                            DecorSetBool(veh, "OWNED_VEH", true)
-                                            TriggerServerEvent("core:SetVehStatus", token, props.plate, VehToNet(veh))
+                                            DecorSetBool(_veh, "OWNED_VEH", true)
+                                            TriggerServerEvent("core:SetVehStatus", token, props.plate, VehToNet(_veh))
                                         end)
                                         exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
                                             if status then
