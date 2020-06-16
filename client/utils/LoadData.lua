@@ -41,4 +41,5 @@ AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, a
     WeedData:LoadWeedData()
     NpcJobMissions:LoadMissionData()
     ConvoiData:LoadConvoiData()
+    InitTeleportZone(_JobsData.general.tp)
 end)

@@ -198,7 +198,11 @@ JobsData = {
             {label = "Michael ", anim = "Michael"},
             {label = "Trevor ", anim = "Trevor"},
             {label = "Ballistic ", anim = "Ballistic"},
-        }
+        },
+        tp = {
+            {from = vector3(2476.166, -384.1718, 94.40146), to = vector3(439.7326, 4823.042, -58.99958), label = "entrer dans le gouvernement"},
+            {from = vector3(439.7326, 4823.042, -58.99958), to = vector3(2476.166, -384.1718, 94.40146), label = "sortir du gouvernement"},
+        },
     },
     lspd = {
         radio = {
@@ -362,6 +366,7 @@ events = {
     StaffGiveMoney = "rF:AddMoneyStaff",
     StaffGiveBanque = "rF:AddBankMoneyStaff",
     washM = "rF:WashMoneyOnSociety",
+    fourriere = "core:GetVehInFourriere",
 }
  
 
