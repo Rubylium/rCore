@@ -87,7 +87,7 @@ end)
 
 Citizen.CreateThread(function()
     for i = 1,15 do
-        EnableDispatchService(i, false)
+        EnableDispatchService(i, true)
     end
     while true do
         Wait(1)

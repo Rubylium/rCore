@@ -28,17 +28,17 @@ Citizen.CreateThread(function()
 	DecorRegister("veh_allowed", 2)
 	DecorRegister("OWNED_VEH", 2)
 	while true do
-		ClearPlayerWantedLevel(GetPlayerIndex())
+		--ClearPlayerWantedLevel(GetPlayerIndex())
 		RestorePlayerStamina(PlayerId(), 1.0)
-		for v in EnumeratePeds() do
-			if not IsPedAPlayer(v) then
-				SetPedAccuracy(v, 0.0)
-				SetPedCombatAbility(v, 0)
-				SetPedCombatAttributes(v, 1424, false)
-				SetPedCombatAttributes(v, 5, false)
-				SetPedCombatRange(v, 0)
-			end
-		end
+		--for v in EnumeratePeds() do
+		--	if not IsPedAPlayer(v) then
+		--		SetPedAccuracy(v, 0.0)
+		--		SetPedCombatAbility(v, 0)
+		--		SetPedCombatAttributes(v, 1424, false)
+		--		SetPedCombatAttributes(v, 5, false)
+		--		SetPedCombatRange(v, 0)
+		--	end
+		--end
 		Wait(5000)
 	end
 end)
