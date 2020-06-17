@@ -30,7 +30,7 @@ local pedDisplaying = {}
 -- PARAMETERS :
 --      - coords : world coordinates to where you want to draw the text
 --      - text : the text to display
-local function DrawText3D(coords, text)
+function DrawText3D(coords, text)
     local camCoords = GetGameplayCamCoord()
     local dist = #(coords - camCoords)
     

@@ -129,99 +129,45 @@ function WeedData:LoadWeedData()
         Deleting = false
 
         CheckProp()
-        print(count)
+
+        Citizen.CreateThread(function()
+            while opened do
+                Wait(1)
+                while NetToObj(WeedProps) == 0 do Wait(1) end
+                local co = GetEntityCoords(NetToObj(WeedProps))
+                DrawText3D(vector3(co.x, co.y, co.z), "Etats de la plante: ~g~"..plante.."/100")
+            end
+        end)
         Citizen.CreateThread(function()
             while opened do
                 Wait(1000)
                 CheckProp()
-                plante = tonumber(plante - math.random(1,8))
-                count = count + 0.05
-                if count > 1 then
-                    opened = false
-                    print("Stop car count > 1")
+                plante = tonumber(plante + math.random(1,5))
+                local r = math.random(1,10)
+                if r >= 9 then
+                    local pressed = false
+                    while not pressed do
+                        while NetToObj(WeedProps) == 0 do Wait(1) end
+                        local co = GetEntityCoords(NetToObj(WeedProps))
+                        DrawText3D(vector3(co.x, co.y, co.z-0.3), "Appuyer sur ~b~[E]~s~ pour mettre de l'eau")
+                        if IsControlJustReleased(1, 38) then
+                            pressed = true
+                        end
+                        Wait(1)
+                    end
                 end
-                if plante < 5 then
+                if plante >= 100 then
                     opened = false
-                    print("Stop car plante < 5")
                 end
             end 
 
-            print(count)
-            if plante > 90 then
-                TriggerServerEvent(events.give, token, self.w.item2, 3)
-            elseif plante < 90 and plante > 70 then
-                TriggerServerEvent(events.give, token, self.w.item2, 2)
-            elseif plante < 70 and plante > 60 then
-                TriggerServerEvent(events.give, token, self.w.item2, 1)
-            else
-                print(count, plante, WeedProps, opened)
-                rUtils.Notif("Tu as raté ta plante, tu n'as rien eu.")
-            end
+            TriggerServerEvent(events.give, token, self.w.item2, 3)
             ClearPedTasks(pPed)
             Wait(500)
             TriggerServerEvent("DeleteEntity", token, WeedProps)
         end)
-
-        RageUI.Visible(RMenu:Get('core', 'weed_prepar'), true)
-        Citizen.CreateThread(function()
-            while opened do
-                Wait(1)
-
-                RageUI.IsVisible(RMenu:Get('core', 'weed_prepar'), false, false, false, function()
-                    if plante > 100 then
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 255, G = 0, B = 0, A = 255} }, true, function(active,_, sel, prog)
-                            if IsControlPressed(1, 22) then
-                                plante = plante + self.w.add
-                            end
-                        end)
-                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
-
-                        RageUI.StatisticPanel(count, "Temps", 1)
-                    elseif plante > 80 then
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 54, G = 230, B = 34, A = 255} }, true, function(active,_, sel, prog)
-                            if IsControlPressed(1, 22) then
-                                plante = plante + self.w.add
-                            end
-                        end)
-                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
-
-                        RageUI.StatisticPanel(count, "Temps", 1)
-                    elseif plante > 70 then
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 245, G = 185, B = 66, A = 255} }, true, function(active,_, sel, prog)
-                            if IsControlPressed(1, 22) then
-                                plante = plante + self.w.add
-                            end
-                        end)
-                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
-
-                        RageUI.StatisticPanel(count, "Temps", 1)
-                    elseif plante > 60 then
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 245, G = 105, B = 66, A = 255} }, true, function(active,_, sel, prog)
-                            if IsControlPressed(1, 22) then
-                                plante = plante + self.w.add
-                            end
-                        end)
-                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
-
-                        RageUI.StatisticPanel(count, "Temps", 1)
-                    else
-                        RageUI.SliderProgress("État de la plante", plante, 100.0, "", { ProgressBackgroundColor = {R = 0, G = 0, B = 0, A = 255}, ProgressColor = {R = 255, G = 0, B = 0, A = 255} }, true, function(active,_, sel, prog)
-                            if IsControlPressed(1, 22) then
-                                plante = plante + self.w.add
-                            end
-                        end)
-                        RageUI.Separator("État: "..rUtils.Math.Round(plante).."/100")
-
-                        RageUI.StatisticPanel(count, "Temps", 1) 
-                    end
-                    
-                end, function()
-                end)
-
-            end
-        end)
-
     end
+
 
     rUtils.RegisterActionZone({
         pos = vector3(382.4778, -816.5658, 29.30418),

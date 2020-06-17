@@ -31,12 +31,12 @@ end)
 
 rUtils.RegisterControlKey("speed", "[DEV] - Reset slowmotion", "9", function()
     if UpdateOnscreenKeyboard() == 0 then return end
-    --SetTimeScale(1.0)
+    SetTimeScale(1.0)
 end)
 
 rUtils.RegisterControlKey("slow", "[DEV] - Activer slowmotion", "6", function()
     if UpdateOnscreenKeyboard() == 0 then return end
-    --SetTimeScale(0.25)
+    SetTimeScale(0.25)
 end)
 
 --rUtils.RegisterControlKey("creator", "[DEV] - Ouvrir le menu de création", "f1", function()
