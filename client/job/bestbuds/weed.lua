@@ -133,9 +133,8 @@ function WeedData:LoadWeedData()
         Citizen.CreateThread(function()
             while opened do
                 Wait(1)
-                while NetToObj(WeedProps) == 0 do Wait(1) end
                 local co = GetEntityCoords(NetToObj(WeedProps))
-                DrawText3D(vector3(co.x, co.y, co.z), "Etats de la plante: ~g~"..plante.."/100")
+                DrawText3D(vector3(co.x, co.y, co.z+1.5), "Etats de la plante: ~g~"..plante.."/100")
             end
         end)
         Citizen.CreateThread(function()
@@ -147,9 +146,8 @@ function WeedData:LoadWeedData()
                 if r >= 9 then
                     local pressed = false
                     while not pressed do
-                        while NetToObj(WeedProps) == 0 do Wait(1) end
                         local co = GetEntityCoords(NetToObj(WeedProps))
-                        DrawText3D(vector3(co.x, co.y, co.z-0.3), "Appuyer sur ~b~[E]~s~ pour mettre de l'eau")
+                        DrawText3D(vector3(co.x, co.y, co.z+1.4), "Appuyer sur ~b~[E]~s~ pour mettre de l'eau")
                         if IsControlJustReleased(1, 38) then
                             pressed = true
                         end
