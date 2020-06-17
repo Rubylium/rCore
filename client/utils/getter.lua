@@ -36,6 +36,7 @@ function SkipLogo()
 end
 
 Citizen.CreateThread(function()
+    DecorRegister("aim", 3)
     pPed = GetPlayerPed(-1)
     pVeh = GetVehiclePedIsIn(pPed, 0)
     pVehLast = GetVehiclePedIsIn(pPed, 1)
@@ -119,6 +120,19 @@ Citizen.CreateThread(function()
             DecorSetInt(pPed, "group", 3)
         elseif pGroup == "dev" then
             DecorSetInt(pPed, "group", 4)
+        end
+
+        for k,v in pairs(GetActivePlayers()) do
+            local ped = GetPlayerPed(v)
+            if DecorExistOn(ped, "aim") then
+                if DecorGetInt(ped, "aim") == 1 then
+                    SetWeaponAnimationOverride(ped, GetHashKey("Gang1H"))
+                else
+                    SetWeaponAnimationOverride(ped, GetHashKey("Default"))
+                end
+            else
+                SetWeaponAnimationOverride(ped, GetHashKey("Default"))
+            end
         end
         Wait(2000)
     end

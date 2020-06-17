@@ -190,8 +190,8 @@ conv = {
 JobsData = {
     general = {
         AimAnim = {
-            {label = "Par défaut", anim = "Default"},
-            {label = "Gang style", anim = "Gang1H"},
+            {label = "Par défaut", anim = "Default", int = 0},
+            {label = "Gang style", anim = "Gang1H", int = 1},
         },
         tp = {
             {from = vector3(2476.166, -384.1718, 94.40146), to = vector3(439.7326, 4823.042, -58.99958), label = "entrer dans le gouvernement"},

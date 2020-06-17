@@ -28,7 +28,6 @@ function InitStealVeh()
         while true do
             if IsPedInAnyPoliceVehicle(pPed) then
                 if GetPedInVehicleSeat(GetVehiclePedIsIn(pPed, false), -1) == pPed then
-                    print(pJob, allowed[pJob])
                     if allowed[pJob] == nil then
                         rUtils.ImportantNotif("Un système de sécurité t'empêche de démarré")
                         SetVehicleUndriveable(GetVehiclePedIsIn(pPed, false), true)

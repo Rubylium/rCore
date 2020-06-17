@@ -681,6 +681,7 @@ function OpenPlayerMenu()
                             if s then
                                 print("Aim changé en "..v.anim)
                                 SetWeaponAnimationOverride(pPed, GetHashKey(v.anim))
+                                DecorSetInt(pPed, "aim", v.int)
                             end
                         end)
                     end
