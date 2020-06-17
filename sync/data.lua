@@ -361,6 +361,7 @@ events = {
     StaffGiveBanque = "rF:AddBankMoneyStaff",
     washM = "rF:WashMoneyOnSociety",
     fourriere = "core:GetVehInFourriere",
+    GiveDirty = "rF:GiveDirtyMoney",
 }
  
 
