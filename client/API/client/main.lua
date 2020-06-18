@@ -107,7 +107,7 @@ MusicZone = {
         dst = 45.0,
         starting = 60.0,
         pos = vector3(-88.1, -1800.9, 29.81),
-        max = 0.08,
+        max = 0.04,
     },
     {
         name = "resto_chill",
