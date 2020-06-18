@@ -23,6 +23,7 @@ function InitStealVeh()
     local allowed = {
         ["police"] = true,
         ["medecin"] = true,
+        ["sheriff"] = true,
     }
     Citizen.CreateThread(function()
         while true do
