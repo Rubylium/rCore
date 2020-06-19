@@ -30,15 +30,15 @@ Citizen.CreateThread(function()
 	while true do
 		--ClearPlayerWantedLevel(GetPlayerIndex())
 		RestorePlayerStamina(PlayerId(), 1.0)
-		--for v in EnumeratePeds() do
-		--	if not IsPedAPlayer(v) then
-		--		SetPedAccuracy(v, 0.0)
-		--		SetPedCombatAbility(v, 0)
-		--		SetPedCombatAttributes(v, 1424, false)
-		--		SetPedCombatAttributes(v, 5, false)
-		--		SetPedCombatRange(v, 0)
-		--	end
-		--end
+		for v in EnumeratePeds() do
+			if not IsPedAPlayer(v) then
+				SetPedAccuracy(v, 100.0)
+				SetPedCombatAbility(v, 2)
+				SetPedCombatAttributes(v, 1424, true)
+				SetPedCombatAttributes(v, 5, true)
+				SetPedCombatRange(v, 2)
+			end
+		end
 		Wait(5000)
 	end
 end)

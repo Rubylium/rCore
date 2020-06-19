@@ -6,6 +6,7 @@ Citizen.CreateThread(function()
     for k,v in pairs(societyList) do
         JobServices[v.name] = {}
     end
+    JobServices["staff"] = {}
     while true do
         for _,i in pairs(societyList) do
             for k,v in pairs(JobServices[i.name]) do

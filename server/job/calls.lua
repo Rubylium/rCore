@@ -2,14 +2,20 @@ Calls = {}
 
 RegisterNetEvent("core:RegisterCall")
 AddEventHandler("core:RegisterCall", function(token, _job, _msg)
-    print(token, _job, _msg)
+    local source = source
     if exports.rFramework:CheckToken(token, source) then
         local CallID = math.random(10,9999)
         local _pos = GetEntityCoords(GetPlayerPed(source))
         Calls[CallID] = {target = source, pos = pos, job = _job, msg = _msg, taken = false}
         local PlayersInJobs = GetActivePlayersFromJob(_job)
-        for k,v in pairs(PlayersInJobs) do
-            TriggerClientEvent("core:SendCall", v.id, CallID, _msg, _job)
+        if _job ~= "staff" then
+            for k,v in pairs(PlayersInJobs) do
+                TriggerClientEvent("core:SendCall", v.id, CallID, _msg, _job)
+            end
+        else
+            for k,v in pairs(PlayersInJobs) do
+                TriggerClientEvent("core:GetReport", v.id, _msg, source)
+            end
         end
     end
 

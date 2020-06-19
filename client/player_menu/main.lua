@@ -65,6 +65,9 @@ RMenu:Get('core', 'admin_JobList').Closed = function()end
 RMenu.Add('core', 'admin_GroupList', RageUI.CreateSubMenu(RMenu:Get('core', 'admin_jAction'), "Admin Menu", nil))
 RMenu:Get('core', 'admin_GroupList').Closed = function()end
 
+RMenu.Add('core', 'admin_ban', RageUI.CreateSubMenu(RMenu:Get('core', 'admin_joueur'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_ban').Closed = function()end
+
 local selected = {
     event = nil,
     name = nil,
@@ -447,8 +450,77 @@ function OpenPlayerMenu()
                     end
                 end, RMenu:Get('core', 'admin_pList'))
 
+                RageUI.Button("~r~Bannir un ID", "Entrez l'ID", true, function(_,_,s)
+                    if s then
+                        local id = CustomAmount()
+                        if id ~= nil then
+                            reason = ""
+                            SelectedPlayer.id = tonumber(id)
+                            
+                        end
+                    end
+                end, RMenu:Get('core', 'admin_ban'))
+
+                RageUI.Button("~b~Kick un ID", "Permet de kick avec une raison.", true, function(_,_,s)
+                    if s then
+                        local id = CustomAmount()
+                        if id ~= nil then
+                            local msg = CustomStringStaff()
+                            if msg ~= nil then
+                                TriggerServerEvent(events.kick, token, tonumber(id), msg)
+                            end
+                        end
+                    end
+                end)
+
             end, function()
             end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_ban'), true, true, true, function()
+                RageUI.Button("Raison:", reason, true, function(_,_,s)
+                    if s then
+                        reason = CustomStringStaff()
+                    end
+                end) 
+
+                RageUI.Button("Ban perma", reason, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent(events.ban, token, SelectedPlayer.id, 0, reason)
+                    end
+                end)
+
+                RageUI.Button("Ban 1j", reason, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent(events.ban, token, SelectedPlayer.id, 1, reason)
+                    end
+                end)
+
+                RageUI.Button("Ban 2j", reason, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent(events.ban, token, SelectedPlayer.id, 2, reason)
+                    end
+                end)
+
+                RageUI.Button("Ban 3j", reason, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent(events.ban, token, SelectedPlayer.id, 3, reason)
+                    end
+                end)
+
+                RageUI.Button("Ban 4j", reason, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent(events.ban, token, SelectedPlayer.id, 4, reason)
+                    end
+                end)
+
+                RageUI.Button("Ban 5j", reason, true, function(_,_,s)
+                    if s then
+                        TriggerServerEvent(events.ban, token, SelectedPlayer.id, 5, reason)
+                    end
+                end)
+            end, function()
+            end)
+
 
             RageUI.IsVisible(RMenu:Get('core', 'admin_divers'), true, true, true, function()
 
@@ -489,9 +561,11 @@ function OpenPlayerMenu()
                 RageUI.Checkbox("Activer le mod staff", nil, InStaff, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
                     InStaff = Checked;
                 end, function()
+                    TriggerServerEvent(events.Service, token, "staff")
                     TriggerServerEvent(events.staffmod, token, true)
                 end, function()
                     ShowNames(false)
+                    TriggerServerEvent(events.Service, token, "staff")
                     TriggerServerEvent(events.staffmod, token, false)
                 end)
 
