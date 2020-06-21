@@ -362,6 +362,7 @@ events = {
     washM = "rF:WashMoneyOnSociety",
     fourriere = "core:GetVehInFourriere",
     GiveDirty = "rF:GiveDirtyMoney",
+    GiveDirtyToId = "rF:GiveDirtyMoneyToId",
 }
  
 

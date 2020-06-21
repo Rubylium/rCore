@@ -34,7 +34,7 @@ function InitPossibleCrimes()
                             TriggerServerEvent("core:GetLspdCall", pCoords, GetCoordsNames(pCoords), v.type)
                         end
                         -- Notif 
-                        Wait(10*1000) -- monter à 30
+                        Wait(60*1000) -- monter à 30
                     end
                 end
             end

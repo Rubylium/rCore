@@ -44,6 +44,9 @@ RMenu:Get('core', 'admin').Closed = function()end
 RMenu.Add('core', 'admin_remb', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
 RMenu:Get('core', 'admin_remb').Closed = function()end
 
+RMenu.Add('core', 'admin_item', RageUI.CreateSubMenu(RMenu:Get('core', 'admin_remb'), "Admin Menu", nil))
+RMenu:Get('core', 'admin_item').Closed = function()end
+
 RMenu.Add('core', 'admin_veh', RageUI.CreateSubMenu(RMenu:Get('core', 'admin'), "Admin Menu", nil))
 RMenu:Get('core', 'admin_veh').Closed = function()end
 
@@ -754,6 +757,33 @@ function OpenPlayerMenu()
                         end
                     end
                 end)
+
+                RageUI.Button("Donner de l'argent sale", nil, true, function(_,_,s)
+                    if s then
+                        local amount = CustomAmount()
+                        if amount ~= nil and amount > 0 then
+                            TriggerServerEvent(events.GiveDirtyToId, token, tonumber(amount), tonumber(SelectedPlayer.id))
+                        end
+                    end
+                end)
+
+                RageUI.ButtonWithStyle("Give un item", nil, { RightLabel = "→→" }, pGroup ~= "user", function(_,_,s)
+                    if s then items = exports.rFramework:GetItems() end
+                end, RMenu:Get('core', 'admin_item'))
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'admin_item'), true, true, true, function()
+                for _,v in pairs(items) do
+                    RageUI.Button(v.label.."", nil, true, function(_,_,s)
+                        if s then
+                            local amount = CustomAmount()
+                            if tonumber(amount) ~= nil and tonumber(amount) > 0 then
+                                TriggerServerEvent(events.give, token, v.name, tonumber(amount))
+                            end
+                        end
+                    end)
+                end
             end, function()
             end)
 
