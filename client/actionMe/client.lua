@@ -131,8 +131,12 @@ function SendActionTxt(text)
         local pPedSID = GetPlayerServerId(GetPlayerIndex())
         local players = GetActivePlayers()
         local idsToSend = {}
+        local pCoords = GetEntityCoords(pPed)
         for k,v in pairs(players) do
-            table.insert(idsToSend, GetPlayerServerId(v))
+            local dst = GetDistanceBetweenCoords(pCoords, GetEntityCoords(GetPlayerPed(v)), true)
+            if dst < 100 then
+                table.insert(idsToSend, GetPlayerServerId(v))
+            end
         end
         local text = "* la personne" .. text .. " *"
         TriggerServerEvent(events.actionText, token, idsToSend, text, pPedSID)

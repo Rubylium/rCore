@@ -115,7 +115,7 @@ function CreatorMenuThread()
                             RageUI.Popup({message = "~r~Action impossible\n~w~Certains champs n'ont pas été remplie."})
                             return
                         end
-                        TriggerServerEvent(events.Changeidentity, token, Identity)
+                        TriggerServerEvent("rF:ChangePlayerIdentity", token, Identity)
                         KillCreatorCam()
                         RageUI.CloseAll()
                         DisplayMenu = false

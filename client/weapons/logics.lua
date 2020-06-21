@@ -1,5 +1,5 @@
 
-local controls = {12,13,14,15,16,17}
+local controls = {12,13,14,15,16,17, 261, 262, 14, 15, 16, 17, 115,99}
 Citizen.CreateThread(function()
     while true do
         for k,v in pairs(controls) do
@@ -9,17 +9,108 @@ Citizen.CreateThread(function()
     end
 end)
 
+
+local weaponsListXD = {
+    "WEAPON_KNIFE",
+    "WEAPON_KNUCKLE",
+    "WEAPON_NIGHTSTICK",
+    "WEAPON_HAMMER",
+    "WEAPON_BAT",
+    "WEAPON_GOLFCLUB",
+    "WEAPON_CROWBAR",
+    "WEAPON_BOTTLE",
+    "WEAPON_DAGGER",
+    "WEAPON_HATCHET",
+    "WEAPON_MACHETE",
+    "WEAPON_FLASHLIGHT" ,
+    "WEAPON_SWITCHBLADE",
+    "WEAPON_PROXMINE",
+    "WEAPON_BZGAS",
+    "WEAPON_SMOKEGRENADE",
+    "WEAPON_MOLOTOV",
+    "WEAPON_FIREEXTINGUISHER",
+    "WEAPON_PETROLCAN",
+    "WEAPON_SNOWBALL",
+    "WEAPON_FLARE",
+    "WEAPON_BALL",
+    "WEAPON_REVOLVER",
+    "WEAPON_POOLCUE" ,
+    "WEAPON_PIPEWRENCH",
+    "WEAPON_PISTOL",
+    "WEAPON_PISTOL_MK2",
+    "WEAPON_COMBATPISTOL",
+    "WEAPON_APPISTOL",
+    "WEAPON_PISTOL50",
+    "WEAPON_SNSPISTOL",
+    "WEAPON_HEAVYPISTOL",
+    "WEAPON_VINTAGEPISTOL",
+    "WEAPON_STUNGUN",
+    "WEAPON_FLAREGUN",
+    "WEAPON_MARKSMANPISTOL",
+    "WEAPON_MICROSMG",
+    "WEAPON_MINISMG",
+    "WEAPON_SMG",
+    "WEAPON_SMG_MK2",
+    "WEAPON_ASSAULTSMG",
+    "WEAPON_MG",
+    "WEAPON_COMBATMG" ,
+    "WEAPON_COMBATMG_MK2",
+    "WEAPON_COMBATPDW",
+    "WEAPON_GUSENBERG",
+    "WEAPON_MACHINEPISTOL",
+    "WEAPON_ASSAULTRIFLE",
+    "WEAPON_ASSAULTRIFLE_MK2",
+    "WEAPON_CARBINERIFLE",
+    "WEAPON_CARBINERIFLE_MK2",
+    "WEAPON_ADVANCEDRIFLE",
+    "WEAPON_SPECIALCARBINE",
+    "WEAPON_BULLPUPRIFLE",
+    "WEAPON_COMPACTRIFLE",
+    "WEAPON_PUMPSHOTGUN" ,
+    "WEAPON_SWEEPERSHOTGUN",
+    "WEAPON_SAWNOFFSHOTGUN",
+    "WEAPON_BULLPUPSHOTGUN",
+    "WEAPON_ASSAULTSHOTGUN",
+    "WEAPON_MUSKET",
+    "WEAPON_HEAVYSHOTGUN",
+    "WEAPON_DBSHOTGUN",
+    "WEAPON_SNIPERRIFLE",
+    "WEAPON_HEAVYSNIPER",
+    "WEAPON_HEAVYSNIPER_MK2",
+    "WEAPON_MARKSMANRIFLE",
+    "WEAPON_GRENADELAUNCHER",
+    "WEAPON_GRENADELAUNCHER_SMOKE",
+    "WEAPON_RPG",
+    "WEAPON_MINIGUN",
+    "WEAPON_FIREWORK",
+    "WEAPON_RAILGUN",
+    "WEAPON_HOMINGLAUNCHER",
+    "WEAPON_GRENADE",
+    "WEAPON_STICKYBOMB",
+    "WEAPON_COMPACTLAUNCHER",
+    "WEAPON_SNSPISTOL_MK2",
+    "WEAPON_REVOLVER_MK2",
+    "WEAPON_DOUBLEACTION",
+    "WEAPON_SPECIALCARBINE_MK2",
+    "WEAPON_BULLPUPRIFLE_MK2",
+    "WEAPON_PUMPSHOTGUN_MK2",
+    "WEAPON_MARKSMANRIFLE_MK2",
+    "WEAPON_RAYPISTOL",
+    "WEAPON_RAYCARBINE",
+    "WEAPON_RAYMINIGUN",
+    "WEAPON_DIGISCANNER",
+}
+
 Citizen.CreateThread(function()
     while true do
         local pPed = GetPlayerPed(-1)
-        if IsPedArmed(pPed, 7) then
-            local _, pWeapon = GetCurrentPedWeapon(pPed, 1)
-            IsWeaponAllowed(pWeapon)
-        else
-            NetworkSetFriendlyFireOption(true)
-            SetCanAttackFriendly(PlayerPedId(), true, true)
+
+        for k,v in pairs(weaponsListXD) do
+            if HasPedGotWeapon(pPed, GetHashKey(v), false) then
+                IsWeaponAllowed(GetHashKey(v))
+            end
         end
-        Wait(2*1000)
+        Wait(1*1000)
     end
 end)
 
@@ -135,6 +226,11 @@ end
 
 function IsWeaponAllowed(hash)
     Citizen.CreateThread(function()
+        if weapons[hash] == nil then
+            RemoveWeaponFromPed(GetPlayerPed(-1), hash)
+            RemoveAllPedWeapons(GetPlayerPed(-1), 1)
+            return  
+        end
         local item = weapons[hash].item
         if item == nil then
             RemoveWeaponFromPed(GetPlayerPed(-1), hash)

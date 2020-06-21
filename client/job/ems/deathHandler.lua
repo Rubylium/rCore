@@ -228,7 +228,7 @@ local DidCall = false
 local dict = "random@dealgonewrong"
 local anim = "idle_a"
 function SyncDeathWithPlayers()
-    if GetDistanceBetweenCoords(GetEntityCoords(pPed), -50.4601, -1282.68, 29.4294, true) < 5.0 then
+    if GetDistanceBetweenCoords(GetEntityCoords(pPed), -50.4601, -1282.68, 29.4294, true) < 7.0 then
         NetworkSetVoiceActive(true)
         StopScreenEffect('DeathFailOut')
         StopAudioScenes()
@@ -378,5 +378,15 @@ AddEventHandler("core:ResetDeathStatus", function()
 end)
 
 function ResetDeathStatus()
+    NetworkSetVoiceActive(true)
+    StopScreenEffect('DeathFailOut')
+    StopAudioScenes()
+    StopGameplayHint(true)
+    local coords = GetEntityCoords(pPed)
+    SetEntityHealth(pPed, 200)
+    SetEntityCoordsNoOffset(pPed, coords, 0.0, 0.0, 0.0)
+    NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
+    ClearPlayerWantedLevel(GetPlayerIndex())
+    SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
     pDeath = false
 end

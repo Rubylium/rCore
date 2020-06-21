@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
             RageUI.Separator("Géstion société: ~b~"..pJob.."")
             RageUI.ButtonWithStyle("Déposer des objets", nil, { RightLabel = "→" }, true, function(_,_,s)
                 if s then
-                    TriggerServerEvent(events.GetInv token)
+                    TriggerServerEvent(events.GetInv, token)
                 end
             end, RMenu:Get('core', 'society_inv_player'))
 

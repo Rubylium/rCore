@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
 
     while not pLoaded do
         Wait(1)
-        RageUI.Text({message = "Chargement de ton personnange ..."})
+        RageUI.Text({message = "Chargement de ton personnage ..."})
         DisableAllControlActions(1)
 
         local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, -0.5, 10.0)

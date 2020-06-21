@@ -68,7 +68,7 @@ function NpcJobMissions:LoadMissionData()
                 RemoveBlip(blip)
                 started = false
                 Wait(2000)
-                TriggerServerEvent(events.DelEntity token, ObjToNet(obj))
+                TriggerServerEvent(events.DelEntity, token, ObjToNet(obj))
             end)
         else
             StopJobMission()

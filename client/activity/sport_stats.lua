@@ -1,7 +1,7 @@
 
 local stats = {
-    ["Stamina"] = {value = 0, stats = "MP0_STAMINA", baisse = 0.01, label = "Endurance"},
-    ["Strength"] = {value = 0, stats = "MP0_STRENGTH", baisse = 0.01, label = "Force"},
+    ["Stamina"] = {value = 0, stats = "MP0_STAMINA", baisse = 0.005, label = "Endurance"},
+    ["Strength"] = {value = 0, stats = "MP0_STRENGTH", baisse = 0.005, label = "Force"},
 }
 
 
