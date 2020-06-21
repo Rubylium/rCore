@@ -240,7 +240,60 @@ JobsData = {
                     {label = "Coulis de tomate", count = 1},
                     {label = "Fromage", count = 3},
                 }
-            }
+            },
+            {
+                nom = "Bouteille d'eau", 
+                itemName = "eau",
+                desc = "Ingrédient: 1 Bouteille vide",
+                ingredient = {
+                    {label = "Bouteille vide", count = 1},
+                }
+            },
+        }
+    },
+    hotdog = {
+        mission = {
+            item = "Hotdog simple",
+            price = 17,
+        },
+        craft = {
+            {
+                nom = "Hotdog simple", 
+                itemName = "hotdog",
+                desc = "Ingrédient: Saucisse 1, 1 Pain à sandwich",
+                ingredient = {
+                    {label = "Saucisse", count = 1},
+                    {label = "Pain à sandwich", count = 1},
+                }
+            },
+            {
+                nom = "Tacos", 
+                itemName = "tacos",
+                desc = "Ingrédient: 1 Tortilla, 2 Viande de cuisine, 1 Sauce",
+                ingredient = {
+                    {label = "Tortilla", count = 1},
+                    {label = "Viande de cuisine", count = 2},
+                    {label = "Sauce", count = 1},
+                }
+            },
+            {
+                nom = "Kebab", 
+                itemName = "kebab",
+                desc = "Ingrédient: 1 Pain à sandwich, 2 Viande de cuisine, 1 Sauce",
+                ingredient = {
+                    {label = "Pain à sandwich", count = 1},
+                    {label = "Viande de cuisine", count = 2},
+                    {label = "Sauce", count = 1},
+                }
+            },
+            {
+                nom = "Bouteille d'eau", 
+                itemName = "eau",
+                desc = "Ingrédient: 1 Bouteille vide",
+                ingredient = {
+                    {label = "Bouteille vide", count = 1},
+                }
+            },
         }
     },
     Crucial = {
@@ -299,6 +352,14 @@ JobsData = {
                     {label = "Pain à sandwich", count = 1},
                     {label = "Saucisson", count = 1},
                     {label = "Salade", count = 1},
+                }
+            },
+            {
+                nom = "Bouteille d'eau", 
+                itemName = "eau",
+                desc = "Ingrédient: 1 Bouteille vide",
+                ingredient = {
+                    {label = "Bouteille vide", count = 1},
                 }
             },
         }

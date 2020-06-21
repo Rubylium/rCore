@@ -18,6 +18,8 @@ function LoadData()
         LoadDrusillaData()
     elseif pJob == "crucial" then
         LoadCrucialData()
+    elseif pJob == "hotdogs" then
+        LoadhotdogData()
     end 
 
     print("^2Loading "..pJob.." data.")

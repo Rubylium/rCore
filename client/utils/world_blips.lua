@@ -220,6 +220,28 @@ local blips = {
         pos = vector3(2689.816, 3461.326, 56.2292),
         sub = nil
     },
+
+    {
+        name = "Concessionnaire",
+        icon = 225,
+        size = 0.55,
+        color = 13,
+        pos = vector3(-70.64532, 61.85994, 71.88428),
+        sub = nil
+    },
+
+    {
+        name = "Chihuahua HotDogs",
+        icon = 128,
+        size = 0.55,
+        color = 51,
+        pos = vector3(46.72568, -999.01, 29.34878),
+        sub = {
+            title = "Chihuahua HotDogs",
+            text = "Chihuahua HotDogs, c'est avant tout un fast fast-food avec bonne ambiance depuis '82 ! ",
+            infuence = "~o~Faible",
+        },
+    },
 }
 
 

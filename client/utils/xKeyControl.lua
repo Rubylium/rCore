@@ -26,6 +26,8 @@ rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function(
         OpenDrusillasActionMenu()
     elseif pJob == "crucial" then
         OpenCrucialsActionMenu()
+    elseif pJob == "hotdogs" then
+        OpenhotdogsActionMenu()
     end
 end)
 

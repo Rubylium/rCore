@@ -67,6 +67,7 @@ client_scripts {
     "client/job/bestbuds/*.lua",
     "client/job/drusillas/*.lua",
     "client/job/crucial/*.lua",
+    "client/job/hotdogs/*.lua",
 
     -- Audio
     "client/API/client/*.lua",

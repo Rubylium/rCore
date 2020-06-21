@@ -14,6 +14,9 @@ local items = {
     {item = "salade", label = "Salade", prix = 1, stock = 0},
     {item = "avocat", label = "Avocat", prix = 1, stock = 0},
     {item = "saucisson", label = "Saucisson", prix = 1, stock = 0},
+    {item = "sauce", label = "Sauce", prix = 1, stock = 0},
+    {item = "tortilla", label = "Tortilla", prix = 1, stock = 0},
+    {item = "bouteille", label = "Bouteille vide", prix = 1, stock = 0},
 }
 
 
