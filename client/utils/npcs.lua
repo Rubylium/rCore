@@ -78,7 +78,7 @@ Citizen.CreateThread(function()
         end
 
         if #players == 1 then
-            numbers = 0.8
+            numbers = 0.5
         end
         Wait(3000)
     end
@@ -87,7 +87,7 @@ end)
 
 Citizen.CreateThread(function()
     for i = 1,15 do
-        EnableDispatchService(i, true)
+        EnableDispatchService(i, false)
     end
     while true do
         Wait(1)

@@ -38,6 +38,15 @@ AddEventHandler("core:ResetDeathStatus", function(token, target)
     end
 end)
 
+RegisterNetEvent("core:DeathStatus")
+AddEventHandler("core:DeathStatus", function(target)
+    if DeathStatus[target] ~= nil then
+        DeathStatus[target] = {id = target, NeedMedic = 0}
+        TriggerClientEvent("core:ResetDeathStatus", target)
+        exports.rFramework:SetPlayerDeathStatus(target, false)
+    end
+end)
+
 
 RegisterNetEvent("core:SetPlayerDeathStatus")
 AddEventHandler("core:SetPlayerDeathStatus", function(token, status)

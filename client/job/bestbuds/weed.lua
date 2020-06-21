@@ -79,7 +79,7 @@ function WeedData:LoadWeedData()
             else
                 if GetWeedProp() ~= ActualProp then
                     print(ActualProp, GetWeedProp())
-                    TriggerServerEvent("DeleteEntity", token, WeedProps)
+                    TriggerServerEvent("DeleteEntity", token, WeedProps) 
                     Deleting = true
                     while DoesEntityExist(WeedProps) do Wait(100) end
                     Wait(250)

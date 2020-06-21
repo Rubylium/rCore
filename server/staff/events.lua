@@ -7,7 +7,6 @@ AddEventHandler("core:pList", function(token)
         local pCallback = {}
         for k,v in pairs(players) do
            -- pCallback[v] = {id = v, name = GetPlayerName(v)}
-            print(v, GetPlayerName(v))
             table.insert(pCallback, {id = v, name = GetPlayerName(v)})
         end
         --table.sort(pCallback)
@@ -24,6 +23,7 @@ AddEventHandler("core:SendMsgToPlayer", function(token, id, msg)
 end) 
 
 
+
 RegisterNetEvent("core:GotoPlayer")
 AddEventHandler("core:GotoPlayer", function(token, id)
     if exports.rFramework:CheckToken(token, source, "core:GotoPlayer") then
@@ -32,6 +32,13 @@ AddEventHandler("core:GotoPlayer", function(token, id)
     end
 end)
 
+RegisterNetEvent("core:Goto")
+AddEventHandler("core:Goto", function(source, id)
+    local coords = GetEntityCoords(GetPlayerPed(id))
+    TriggerClientEvent("core:ChangepCoords", source, coords)
+end)
+
+
 
 RegisterNetEvent("core:BringPlayer")
 AddEventHandler("core:BringPlayer", function(token, id)
@@ -39,6 +46,12 @@ AddEventHandler("core:BringPlayer", function(token, id)
         local coords = GetEntityCoords(GetPlayerPed(source))
         TriggerClientEvent("core:ChangepCoords", id, coords)
     end
+end)
+
+RegisterNetEvent("core:Bring")
+AddEventHandler("core:Bring", function(source, id)
+    local coords = GetEntityCoords(GetPlayerPed(source))
+    TriggerClientEvent("core:ChangepCoords", id, coords)
 end)
 
 RegisterNetEvent("core:ClearAreaFromObjects")

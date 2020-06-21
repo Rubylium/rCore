@@ -1062,6 +1062,7 @@ function LoadSheriffData()
                         if s then 
                             local closet, dst = rUtils.GetClosestPlayer(GetEntityCoords(pPed))
                             if dst < 2.0 then
+                                SendActionTxt(" fouille la personne")
                                 local target = GetPlayerServerId(closet)
                                 exports.rFramework:TriggerServerCallback(events.OtherPdata, function(inv, weight, money, black)
                                     TargetInv = inv
@@ -1189,11 +1190,11 @@ function LoadSheriffData()
         },
         {
             name = "Arme de poing",
-            item = "pistoletsheriff",
+            item = "pistoletlspd",
             grade = 2,
         },
         {
-            name = "Fusils d'assault sheriff",
+            name = "Fusils d'assault force de l'ordre",
             item = "m4",
             grade = 3,
         },

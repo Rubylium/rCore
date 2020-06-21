@@ -165,6 +165,14 @@ MusicZone = {
         pos = vector3(374.3, -826.14, 29.30),
         max = 0.04,
     },
+    {
+        name = "gouv_combine",
+        link = "https://www.youtube.com/watch?v=Wu7PwGOOdtM", 
+        dst = 10.0,
+        starting = 50.0,
+        pos = vector3(416.705, 4811.09, -58.99792),
+        max = 0.10,
+    },
 }
 
 Citizen.CreateThread(function()

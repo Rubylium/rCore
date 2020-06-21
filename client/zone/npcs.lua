@@ -299,6 +299,22 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+    { -- spawnFaq 
+        model = "csb_reporter",
+        pos = vector3(400.51, -379.017, 46.9221),
+        heading = 26.6701736,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            OpenFaqMenu(ped, _offset, camOffset)
+        end,
+        scenario = "WORLD_HUMAN_CLIPBOARD",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 

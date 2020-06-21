@@ -106,6 +106,7 @@ end)
 local SelectedPlayer = {}
 local InStaff = false
 local zoneOnly = false
+local VeloDePoche = nil
 function OpenPlayerMenu()
     if open then return end
     open = true
@@ -117,7 +118,7 @@ function OpenPlayerMenu()
                 end, RMenu:Get('core', 'inventory'))
                 RageUI.ButtonWithStyle("Portefeuille", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'portefeuille'))
-                RageUI.ButtonWithStyle("Géstion accessoire", nil, { RightLabel = "→→" }, true, function()
+                RageUI.ButtonWithStyle("Gestion accessoire", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'accessoire'))
                 RageUI.ButtonWithStyle("Divers", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'divers'))
@@ -363,11 +364,32 @@ function OpenPlayerMenu()
             RageUI.IsVisible(RMenu:Get('core', 'divers'), true, true, true, function()
                 RageUI.ButtonWithStyle("Rockstar éditor", nil, { RightLabel = "→→" }, pGroup ~= "user", function()
                 end, RMenu:Get('core', 'divers_editor'))
-                RageUI.ButtonWithStyle("Activer/Desactiver l'HUD", nil, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+                RageUI.Button("Activer/Desactiver l'HUD", nil, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         TriggerEvent("rF:HudToogle")
                     end
                 end)
+
+                if VeloDePoche == nil then
+                    RageUI.Button("Sortir son vélo de poche", nil, true, function(Hovered, Active, Selected)
+                        if (Selected) then
+                            local co = GetEntityCoords(pPed)
+                            rUtils.LoadModel("bmx")
+                            rUtils.SpawnVehicle("bmx", vector3(co.x+1.5, co.y, co.z), GetEntityHeading(pPed), nil, function(veh)
+                                VeloDePoche = VehToNet(veh)
+                            end)
+                            SendActionTxt(" sort son vélo de poche")
+                        end
+                    end)
+                else
+                    RageUI.Button("Ranger son vélo de poche", nil, true, function(Hovered, Active, Selected)
+                        if (Selected) then
+                            TriggerServerEvent("DeleteEntity", token, VeloDePoche)
+                            VeloDePoche = nil
+                            SendActionTxt(" range son vélo de poche")
+                        end
+                    end)
+                end
 
                 RageUI.ButtonWithStyle("Props", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then RageUI.Visible(RMenu:Get('core', 'props'), true) OpenPropsMenu() end
@@ -406,6 +428,18 @@ function OpenPlayerMenu()
             end)
 
             RageUI.IsVisible(RMenu:Get('core', 'admin_veh'), true, true, true, function()
+
+                RageUI.ButtonWithStyle("Spawn un véhicule", nil, { RightBadge = RageUI.BadgeStyle.Car }, InStaff, function(Hovered, Active, Selected)
+                    if Selected then
+                        local veh = CustomString()
+                        if veh ~= nil then
+                            rUtils.LoadModel(veh)
+                            rUtils.SpawnVehicle(veh, GetOffsetFromEntityInWorldCoords(pPed, 1.0, 0.0, 0.0), GetEntityHeading(pPed), nil, function()
+                            
+                            end)
+                        end
+                    end
+                end)
 
                 RageUI.ButtonWithStyle("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, InStaff, function(Hovered, Active, Selected)
                     if Active then 
@@ -538,7 +572,38 @@ function OpenPlayerMenu()
                     end
                 end)
 
-                
+                RageUI.Button("Clear les props de la zone", nil, InStaff, function(_,_,s)
+                    if s then
+                        local props = {}
+                        for v in EnumerateObjects() do
+                            if NetworkGetEntityIsNetworked(v) then
+                                table.insert(props, ObjToNet(v))
+                            else
+                                DeleteEntity(v)
+                            end
+                        end
+                        TriggerServerEvent("DeleteEntityTable", token, props)
+                    end
+                end)
+
+                RageUI.Button("Clear les PNJ de la zone", nil, InStaff, function(_,_,s)
+                    if s then
+                        local props = {}
+                        for v in EnumeratePeds() do
+                            if not IsPedAPlayer(v) then
+                                if NetworkGetEntityIsNetworked(v) then
+                                    table.insert(props, ObjToNet(v))
+                                    if IsPedInAnyVehicle(v, false) then
+                                        table.insert(props, ObjToNet(GetVehiclePedIsIn(v, false)))
+                                    end
+                                else
+                                    DeleteEntity(v)
+                                end
+                            end
+                        end
+                        TriggerServerEvent("DeleteEntityTable", token, props)
+                    end
+                end)
 
                 RageUI.Button("Activer les nom", nil, InStaff, function(_,_,s)
                     if s then
@@ -551,6 +616,7 @@ function OpenPlayerMenu()
                         NoClip()
                     end
                 end)
+
  
             end, function()
             end)
@@ -654,7 +720,7 @@ function OpenPlayerMenu()
 
                 RageUI.Button("Revive", nil, true, function(_,_,s)
                     if s then
-                        TriggerServerEvent(events.ResetDeath, token, SelectedPlayer.id)
+                        TriggerServerEvent(events.ResetDeath, token, tonumber(SelectedPlayer.id))
                     end
                 end)
 
@@ -873,6 +939,7 @@ end
 
 function ShowIdentityCardToOther()
     local player, dst = rUtils.GetClosestPlayer(GetEntityCoords(GetPlayerPed(-1)))
+    if dst == nil then return end
     if dst <= 2.0 then
         local sID = GetPlayerServerId(player)
         TriggerServerEvent("core:ShowIdentityCardToOther", token, sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pVip)

@@ -15,6 +15,7 @@ local prevFemaleVariation = 0
 
 RegisterNetEvent("core:CuffPlayer")
 AddEventHandler("core:CuffPlayer", function(status, freeze)
+    RemoveAllPedWeapons_(pPed, 0)
     if IsCuffed and status then
         if not freeze then
             FreezeEntityPosition(pPed, false)
@@ -58,10 +59,11 @@ end)
 
 
 
-local LockedControls = {166,167,168,288,289,38,311,182,21,24,25,82,75,38,45,80,140,22}
+local LockedControls = {166,167,168,288,289,38,311,182,21,24,25,82,75,38,45,80,140,22, 142}
 function StartCuffLoop()
     Citizen.CreateThread(function()
         while IsCuffed do
+            RemoveAllPedWeapons_(pPed, 0)
             if not IsEntityPlayingAnim(pPed, dict, anim, flags) then
                 rUtils.PlayAnim(dict, anim, flags, 8.0, -8, nil, -1)
             end

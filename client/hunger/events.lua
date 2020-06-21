@@ -15,8 +15,27 @@ function Drink()
         Citizen.Wait(3000)
         ClearPedSecondaryTask(pPed)
     end)
+end 
+
+function HealPlayer()
+    TriggerEvent("rF:AddThirst", 100)
+    TriggerEvent("rF:AddHunger", 100)
 end
 
+RegisterCommand("heal", function(source, args, rawCommand)
+    if pGroup ~= "user" then
+        HealPlayer()
+    end
+end, false)
+
+
+RegisterNetEvent("core:DringWater")
+AddEventHandler("core:DringWater", function()
+    TriggerEvent("rF:AddThirst", 30)
+    TriggerEvent("rF:RemoveHunger", 30)
+    TriggerServerEvent(events.remove, token, "Canette de coca", 1)
+    Drink()
+end)
 
 RegisterNetEvent("core:DringCoka")
 AddEventHandler("core:DringCoka", function()

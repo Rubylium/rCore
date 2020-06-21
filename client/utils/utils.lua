@@ -28,15 +28,15 @@ Citizen.CreateThread(function()
 	DecorRegister("veh_allowed", 2)
 	DecorRegister("OWNED_VEH", 2)
 	while true do
-		--ClearPlayerWantedLevel(GetPlayerIndex())
+		ClearPlayerWantedLevel(GetPlayerIndex())
 		RestorePlayerStamina(PlayerId(), 1.0)
 		for v in EnumeratePeds() do
 			if not IsPedAPlayer(v) then
-				SetPedAccuracy(v, 100.0)
-				SetPedCombatAbility(v, 2)
-				SetPedCombatAttributes(v, 1424, true)
-				SetPedCombatAttributes(v, 5, true)
-				SetPedCombatRange(v, 2)
+				SetPedAccuracy(v, 0.0)
+				SetPedCombatAbility(v, 0)
+				SetPedCombatAttributes(v, 1424, false)
+				SetPedCombatAttributes(v, 5, false)
+				SetPedCombatRange(v, 0)
 			end
 		end
 		Wait(5000)
@@ -703,12 +703,16 @@ end
 
 function rUtils.LoadModel(_model)
 	local model = GetHashKey(_model)
-	RequestModel(model)
-	while not HasModelLoaded(model) do
-		print("Waiting model ".._model)
-		Wait(100)
+	if IsModelInCdimage(model) then
+		RequestModel(model)
+		while not HasModelLoaded(model) do
+			print("Waiting model ".._model)
+			Wait(100)
+		end
+		SetModelAsNoLongerNeeded(model)
+	else
+		rUtils.Notif("Modèle inconnu")
 	end
-	SetModelAsNoLongerNeeded(model)
 end
 
 

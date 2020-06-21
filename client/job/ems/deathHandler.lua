@@ -349,7 +349,18 @@ end
 
 RegisterNetEvent("core:ResetDeathStatus")
 AddEventHandler("core:ResetDeathStatus", function()
+    NetworkSetVoiceActive(true)
+    StopScreenEffect('DeathFailOut')
+    StopAudioScenes()
+    StopGameplayHint(true)
+    local coords = GetEntityCoords(pPed)
+    SetEntityHealth(pPed, 200)
+    SetEntityCoordsNoOffset(pPed, coords, 0.0, 0.0, 0.0)
+    NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
+    ClearPlayerWantedLevel(GetPlayerIndex())
+    SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
     pDeath = false
+    HealPlayer()
 end)
 
 function ResetDeathStatus()

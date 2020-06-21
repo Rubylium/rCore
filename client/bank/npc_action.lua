@@ -30,15 +30,6 @@ Citizen.CreateThread(function()
                     TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, "CB", 1)
                 end
             end)
-            RageUI.ButtonWithStyle("Déposer", nil, { RightLabel = "→→→" }, true, function(_,_,s)
-                if s then PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1) end
-            end, RMenu:Get('core', 'atm_deposer'))
-            RageUI.ButtonWithStyle("Retirer", nil, { RightLabel = "→→→" }, true, function(_,_,s)
-                if s then PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1) end
-            end, RMenu:Get('core', 'atm_retirer'))
-            RageUI.ButtonWithStyle("Liste des transactions", nil, { RightLabel = "→→→" }, true, function(_,_,s)
-                if s then PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1) end
-            end, RMenu:Get('core', 'transaction'))
 
         end, function()
         end)
