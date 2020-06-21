@@ -106,7 +106,7 @@ local AllEvents = {
 }
 
 
-local debug = true
+local debug = false
 local AntiSpamEvents = {}
 Citizen.CreateThread(function()
     for k,v in pairs(AllEvents) do

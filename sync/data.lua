@@ -117,7 +117,7 @@ weed = {
         [70] = "bkr_prop_weed_med_01b",
         [80] = "bkr_prop_weed_lrg_01a",
         [90] = "bkr_prop_weed_lrg_01b",
-    },
+    }, 
     spawnOffset = {0.0, 1.0, 0.0},
     scenario = "WORLD_HUMAN_GARDENER_PLANT",
     item = "Graine de chanvre",

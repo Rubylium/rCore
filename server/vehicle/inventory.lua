@@ -7,7 +7,7 @@ local second = 1000
 local minute = 60*second
 Citizen.CreateThread(function()
     while true do
-        Wait(1*minute)
+        Wait(5*minute)
         for k,v in pairs(VehicleInventoryCache) do
             if v.owned == false then
                 local entity = NetworkGetEntityFromNetworkId(v.NetID)
@@ -29,7 +29,7 @@ Citizen.CreateThread(function()
             end
         end
     end
-end)
+end) 
 
 
 RegisterNetEvent("core:GetVehicleInventory")
@@ -82,9 +82,11 @@ function AddItemToVeh(source, plate, _item, _label, _olabel, _count)
     if iCount == nil then
         VehicleInventoryCache[plate].inventory[_label] = {name = _item, label = _label, olabel = _olabel, count = _count}
         exports.rFramework:RemoveItemFromPlayerInv(source, _label, _count)
+        exports.rFramework:SendLog("``Le joueur ["..source.."] "..GetPlayerName(source).." à déposé ".._item.." [".._label.."] x".._count.." dans le véhicule ["..plate.."]``", "veh")
     else
         VehicleInventoryCache[plate].inventory[_label].count = VehicleInventoryCache[plate].inventory[_label].count + _count
         exports.rFramework:RemoveItemFromPlayerInv(source, _label, _count)
+        exports.rFramework:SendLog("``Le joueur ["..source.."] "..GetPlayerName(source).." à déposé ".._item.." [".._label.."] x".._count.." dans le véhicule ["..plate.."]``", "veh")
     end
 end
 
@@ -103,9 +105,11 @@ function RemoveItemFromVeh(source, ClientCount, pWeight, plate, _item, _label, _
                 if iCount - _count <= 0 then
                     VehicleInventoryCache[plate].inventory[_label] = nil
                     exports.rFramework:AddItemToPlayerInvBypass(source, _item, _count, _label, _olabel)
+                    exports.rFramework:SendLog("``Le joueur ["..source.."] "..GetPlayerName(source).." à retiré ".._item.." [".._label.."] x".._count.." dans le véhicule ["..plate.."]``", "veh")
                 else
                     VehicleInventoryCache[plate].inventory[_label].count = VehicleInventoryCache[plate].inventory[_label].count - _count
                     exports.rFramework:AddItemToPlayerInvBypass(source, _item, _count, _label, _olabel)
+                    exports.rFramework:SendLog("``Le joueur ["..source.."] "..GetPlayerName(source).." à retiré ".._item.." [".._label.."] x".._count.." dans le véhicule ["..plate.."]``", "veh")
                 end
             else
                 TriggerClientEvent("rF:notification", source, "~r~Action impossible.\n~w~Tu porte trop de chose.") 

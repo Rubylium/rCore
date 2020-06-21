@@ -15,6 +15,17 @@ for k,v in pairs(ShopZone) do
             OpenBarbershopMenu()
         end,
     })
+
+    local blip = AddBlipForCoord(v)
+    SetBlipSprite(blip, 71)
+    SetBlipScale(blip, 0.50)
+    SetBlipColour(blip, 17)
+    SetBlipAsShortRange(blip, true)
+    SetBlipCategory(blip, 12)
+
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString("Coiffeur - Barbershop")
+    EndTextCommandSetBlipName(blip)
 end
 
 local open = false
