@@ -177,7 +177,7 @@ function OpenPlayerMenu()
                             local amount = CustomAmount() 
                             if amount ~= nil and amount <= selected.count and dst <= 2.0 and amount > 0  then
                                 TriggerServerEvent(events.Transfer, token, idJoueur, selected.name, amount, selected.label, selected.count)
-                                TriggerServerEvent("rF:GetPlayerInventory", token)
+                                TriggerServerEvent(events.GetInv, token)
                                 RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                             else
                                 RageUI.Popup({message = "Aucune personne proche."})
@@ -195,7 +195,7 @@ function OpenPlayerMenu()
                         if (Selected) then
                             RenameAnItem()
                             TriggerServerEvent(events.rename, token, selected.name, selected.newLabel, selected.label)
-                            TriggerServerEvent("rF:GetPlayerInventory", token)
+                            TriggerServerEvent(events.GetInv, token)
                             RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                         end
                     end)
@@ -203,7 +203,7 @@ function OpenPlayerMenu()
                     RageUI.ButtonWithStyle("Réinitialiser ", "~r~Tu ne peu pas rename un item déja rename, tu doit le réinitialiser avant.", { RightLabel = "🛠" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             TriggerServerEvent(events.resetRename, token, selected.name, selected.olabel, selected.label)
-                            TriggerServerEvent("rF:GetPlayerInventory", token)
+                            TriggerServerEvent(events.GetInv, token)
                             RageUI.Visible(RMenu:Get('core', 'inventory'), true)
                         end
                     end)
@@ -387,7 +387,7 @@ function OpenPlayerMenu()
                 else
                     RageUI.Button("Ranger son vélo de poche", nil, true, function(Hovered, Active, Selected)
                         if (Selected) then
-                            TriggerServerEvent("DeleteEntity", token, VeloDePoche)
+                            TriggerServerEvent(events.DelEntity, token, VeloDePoche)
                             VeloDePoche = nil
                             SendActionTxt(" range son vélo de poche")
                         end
@@ -461,7 +461,7 @@ function OpenPlayerMenu()
                     end
                     if Selected then
                         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
-                        TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
+                        TriggerServerEvent(events.DelEntity, token, VehToNet(veh))
                     end
                 end)
 
@@ -472,7 +472,7 @@ function OpenPlayerMenu()
                     if Selected then
                         local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
                         local plate = GetVehicleNumberPlateText(veh)
-                        TriggerServerEvent("core:RemoveChestStatus", token, plate)
+                        TriggerServerEvent(events.rmvVehInvStatus, token, plate)
                     end
                 end)
 
@@ -483,7 +483,7 @@ function OpenPlayerMenu()
 
                 RageUI.ButtonWithStyle("Liste des joueurs", "Permet de faire des actions sur les joueurs en lignes.", { RightLabel = "→" }, InStaff, function(_,_,s)
                     if s then
-                        TriggerServerEvent("core:pList", token)
+                        TriggerServerEvent(events.GetPlayersList, token)
                     end
                 end, RMenu:Get('core', 'admin_pList'))
 
@@ -585,7 +585,7 @@ function OpenPlayerMenu()
                                 DeleteEntity(v)
                             end
                         end
-                        TriggerServerEvent("DeleteEntityTable", token, props)
+                        TriggerServerEvent(events.DelEntityTable, token, props)
                     end
                 end)
 
@@ -604,7 +604,7 @@ function OpenPlayerMenu()
                                 end
                             end
                         end
-                        TriggerServerEvent("DeleteEntityTable", token, props)
+                        TriggerServerEvent(events.DelEntityTable, token, props)
                     end
                 end)
 
@@ -972,7 +972,7 @@ function ShowIdentityCardToOther()
     if dst == nil then return end
     if dst <= 2.0 then
         local sID = GetPlayerServerId(player)
-        TriggerServerEvent("core:ShowIdentityCardToOther", token, sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pVip)
+        TriggerServerEvent(events.ShowIdCardToOther, token, sID, PedToNet(GetPlayerPed(player)), pPrenom, pNom, pAge, pVip)
     else
         RageUI.Popup({message = "~r~Action impossible\n~w~Aucun joueur proche."})
     end
@@ -980,7 +980,7 @@ end
 
 RegisterNetEvent("core:AskForIdentity")
 AddEventHandler("core:AskForIdentity", function(id)
-    TriggerServerEvent("core:ShowIdentityCardToOther", token, id, 0, pPrenom, pNom, pAge, pVip)
+    TriggerServerEvent(events.ShowIdCardToOther, token, id, 0, pPrenom, pNom, pAge, pVip)
 end)
 
 

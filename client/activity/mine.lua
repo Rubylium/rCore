@@ -20,7 +20,7 @@ function MineData:LoadMineData()
         SetCamFov(NPC_CAM, 55.0)
         PointCamAtCoord(NPC_CAM, CoordToPoint)
         RenderScriptCams(1, 1, 1000, 0, 0)
-        TriggerServerEvent("rF:GetPlayerInventory", token)
+        TriggerServerEvent(events.GetInv, token)
         Wait(1000)
         RageUI.Visible(RMenu:Get('core', self.m.npcName), not RageUI.Visible(RMenu:Get('core', self.m.npcName)))
         open = true
@@ -145,11 +145,11 @@ function MineData:LoadMineData()
                     dst = #(oCoords - GetEntityCoords(pPed))
 
 
-                    if not working then TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj)}) return end
+                    if not working then TriggerServerEvent(events.DelEntityTable, token, {ObjToNet(obj)}) return end
                     Wait(1)
                 end
 
-                if not working then TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj)}) return end
+                if not working then TriggerServerEvent(events.DelEntityTable, token, {ObjToNet(obj)}) return end
                 local pickaxe = CreateObject_(GetHashKey(self.m.pickaxe), 0, 0, 0, true, true, true) 
                 AttachEntityToEntity(pickaxe, pPed, GetPedBoneIndex(pPed, 57005), 0.18, -0.02, -0.02, 350.0, 100.00, 140.0, true, true, false, true, 1, true)
                 rUtils.PlayAnim(self.m.dict, self.m.anim, 1, 8.0, 8.0)
@@ -163,10 +163,10 @@ function MineData:LoadMineData()
                 InAction = false
                 CheckMinerSucces()
                 ClearPedTasks(pPed)
-                TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj), ObjToNet(pickaxe)})
-                TriggerServerEvent("rF:AddMoney", token, self.m.earning + rUtils.GetVipBonus(self.m.earning))
+                TriggerServerEvent(events.DelEntityTable, token, {ObjToNet(obj), ObjToNet(pickaxe)})
+                TriggerServerEvent(events.giveMoney, token, self.m.earning + rUtils.GetVipBonus(self.m.earning))
 
-                if not working then TriggerServerEvent("DeleteEntityTable", token, {ObjToNet(obj), ObjToNet(pickaxe)}) return end
+                if not working then TriggerServerEvent(events.DelEntityTable, token, {ObjToNet(obj), ObjToNet(pickaxe)}) return end
 
             end
             

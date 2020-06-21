@@ -93,7 +93,7 @@ function OpenGarage(zones, vehs, dstCheck)
                         local plate = GetVehicleNumberPlateText(veh)
                         RageUI.ButtonWithStyle("Place #"..k.." - ~b~["..plate.."] "..GetDisplayNameFromVehicleModel(GetEntityModel(veh)), nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
                             if Selected then
-                                TriggerServerEvent("DeleteEntity", token, VehToNet(veh))
+                                TriggerServerEvent(events.DelEntity, token, VehToNet(veh))
                             end
                             if Active then
                                 DrawMarker(43, v.pos.x, v.pos.y, v.pos.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 255, 255, 255, 150, 0, 0, 2, 0, nil, nil, 0)

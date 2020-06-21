@@ -1245,7 +1245,7 @@ function LoadPoliceData()
     function OpenPoliceArmorie()
         open = true
         UpadteGilet()
-        TriggerServerEvent("rF:GetPlayerInventory", token)
+        TriggerServerEvent(events.GetInv, token)
         RageUI.Visible(RMenu:Get('core', 'lspd_armorie'), not RageUI.Visible(RMenu:Get('core', 'lspd_armorie')))
         Citizen.CreateThread(function()
             while open do

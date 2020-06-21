@@ -1227,7 +1227,7 @@ function LoadSheriffData()
 
     function OpenSheriffArmorie()
         open = true
-        TriggerServerEvent("rF:GetPlayerInventory", token)
+        TriggerServerEvent(events.GetInv, token)
         RageUI.Visible(RMenu:Get('core', 'sheriff_armorie'), not RageUI.Visible(RMenu:Get('core', 'sheriff_armorie')))
         Citizen.CreateThread(function()
             while open do
@@ -1237,7 +1237,7 @@ function LoadSheriffData()
                         if Selected then
                             for k,v in pairs(pInventory) do
                                 if v.name == "matraque" or v.name == "tazer" or v.name == "pistoletsheriff" or v.name == "m4" then
-                                    TriggerServerEvent("rF:RemoveItem", token, v.label, v.count)
+                                    TriggerServerEvent(events.remove, token, v.label, v.count)
                                 end
                             end
                         end
@@ -1246,7 +1246,7 @@ function LoadSheriffData()
                     for k,v in pairs(weapons) do
                         RageUI.ButtonWithStyle(v.name, nil, { }, v.grade <= pJob_Grade, function(Hovered, Active, Selected)
                             if Selected then
-                                TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, v.item, 1)
+                                TriggerServerEvent(events.AddIf, token, v.item, 1)
                             end
                         end)
                     end
@@ -1425,8 +1425,7 @@ function OpenTigeSheriffMenu()
                             local closet, dst = rUtils.GetClosestPlayer()
                             if dst ~= nil and dst < 2.0 then
                                 local sID = GetPlayerServerId(closet)
-                                TriggerServerEvent("core:DoTig", token, sID, v.count, tigeAction)
-                                --TriggerServerEvent("core:DoTig", token, GetPlayerServerId(GetPlayerIndex()), v.count, tigeAction)
+                                TriggerServerEvent(events.GoInTig, token, sID, v.count, tigeAction)
                             end
                         end
                         if Active then

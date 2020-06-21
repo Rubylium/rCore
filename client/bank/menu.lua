@@ -21,7 +21,7 @@ end
 
 function OpenATM()
     if open then return end
-    TriggerServerEvent("rF:GetPlayerAccounts", token)
+    TriggerServerEvent(events.GetAccs, token)
     PlaySoundFrontend(-1, "ATM_WINDOW", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
     PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1)
     RageUI.Visible(RMenu:Get('core', 'atm'), true)
@@ -50,8 +50,8 @@ function OpenATM()
                     if s then
                         if v <= pMoney then
                             PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1)
-                            TriggerServerEvent("rF:MoveMoneyToBank", token, v)
-                            TriggerServerEvent("rF:GetPlayerAccounts", token)
+                            TriggerServerEvent(events.mTOb, token, v)
+                            TriggerServerEvent(events.GetAccs, token)
                             AddBankTransaction("Dépot de ~g~"..v.."~w~$")
                         end
                     end
@@ -63,8 +63,8 @@ function OpenATM()
                     local montant = BankCustomAmount()
                     if montant ~= 0 and montant ~= nil then
                         if montant <= pMoney then
-                            TriggerServerEvent("rF:MoveMoneyToBank", token, montant)
-                            TriggerServerEvent("rF:GetPlayerAccounts", token)
+                            TriggerServerEvent(events.mTOb, token, montant)
+                            TriggerServerEvent(events.GetAccs, token)
                             PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1)
                             AddBankTransaction("Dépot de ~g~"..montant.."~w~$")
                         end
@@ -80,8 +80,8 @@ function OpenATM()
                 RageUI.ButtonWithStyle("Retirer "..rUtils.Math.GroupDigits(v).."$", nil, { RightLabel = "→→→" }, true, function(_,_,s)
                     if s then
                         PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1)
-                        TriggerServerEvent("rF:MoveMoneyFromBankToPlayer", token, v)
-                        TriggerServerEvent("rF:GetPlayerAccounts", token)
+                        TriggerServerEvent(events.bTOm, token, v)
+                        TriggerServerEvent(events.GetAccs, token)
                         AddBankTransaction("Retrait de ~r~"..v.."~w~$")
                     end
                 end)
@@ -91,8 +91,8 @@ function OpenATM()
                     PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1)
                     local montant = BankCustomAmount()
                     if montant ~= 0 and montant ~= nil then
-                        TriggerServerEvent("rF:MoveMoneyFromBankToPlayer", token, montant)
-                        TriggerServerEvent("rF:GetPlayerAccounts", token)
+                        TriggerServerEvent(events.bTOm, token, montant)
+                        TriggerServerEvent(events.GetAccs, token)
                         PlaySoundFrontend(-1, "PIN_ButtonWithStyle", "ATM_SOUNDS", 1)
                         AddBankTransaction("Retrait de ~r~"..montant.."~w~$")
                     end

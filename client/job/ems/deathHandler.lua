@@ -75,6 +75,7 @@ function DeathTimer()
             end
             Wait(1)
         end
+        DisplayMessage("")
     end)
 end
 
@@ -227,6 +228,19 @@ local DidCall = false
 local dict = "random@dealgonewrong"
 local anim = "idle_a"
 function SyncDeathWithPlayers()
+    if GetDistanceBetweenCoords(GetEntityCoords(pPed), -50.4601, -1282.68, 29.4294, true) < 5.0 then
+        NetworkSetVoiceActive(true)
+        StopScreenEffect('DeathFailOut')
+        StopAudioScenes()
+        StopGameplayHint(true)
+        local coords = vector3(-54.82498, -1282.58, 29.22562)
+        SetEntityHealth(pPed, 200)
+        SetEntityCoordsNoOffset(pPed, coords, 0.0, 0.0, 0.0)
+        NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
+        ClearPlayerWantedLevel(GetPlayerIndex())
+        SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
+        return
+    end
     StartAudioScene("DEATH_SCENE")
     FatalInjured = false
     DidCall = false
@@ -308,7 +322,7 @@ function SyncDeathWithPlayers()
                     RageUI.ButtonWithStyle("Demander un EMS.", nil, { }, true, function(Hovered, Active, Selected)
                         if Selected then
                             DidCall = true
-                            TriggerServerEvent("core:RegisterCall", token, "medecin", "Demande de réanimation de citoyen.")
+                            TriggerServerEvent(events.RegCall, token, "medecin", "Demande de réanimation de citoyen.")
                         end
                     end)
                 else

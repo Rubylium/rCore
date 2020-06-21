@@ -41,7 +41,7 @@ Citizen.CreateThread(function()
         
         for name, attached_object in pairs(attached_weapons) do
             if SelectedWeapon == attached_object.hash then -- equipped
-                TriggerServerEvent("DeleteEntity", token, ObjToNet(attached_object.handle))
+                TriggerServerEvent(events.DelEntity, token, ObjToNet(attached_object.handle))
                 attached_weapons[name] = nil
             end
 
@@ -52,7 +52,7 @@ Citizen.CreateThread(function()
                 end
             end
             if not stillHave then
-                TriggerServerEvent("DeleteEntity", token, ObjToNet(attached_object.handle))
+                TriggerServerEvent(events.DelEntity, token, ObjToNet(attached_object.handle))
                 attached_weapons[name] = nil
             end
         end

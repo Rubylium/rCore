@@ -273,7 +273,7 @@ function OpenBarbershopMenuThread()
                                 if s then
                                     TriggerEvent("skinchanger:change", v.item, i)
                                     TriggerEvent("rF:SaveSkin", v.item, i)
-                                    TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                                    TriggerServerEvent(events.rmvMoney, token, v.price)
                                     TriggerEvent("skinchanger:change", "helmet_1", -1)
                                     TriggerEvent("skinchanger:change", "mask_1", 0)
                                 end
@@ -292,7 +292,7 @@ function OpenBarbershopMenuThread()
                                 if s then
                                     TriggerEvent("skinchanger:change", v.item, i)
                                     TriggerEvent("rF:SaveSkin", v.item, i)
-                                    TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                                    TriggerServerEvent(events.rmvMoney, token, v.price)
                                     TriggerEvent("skinchanger:change", "helmet_1", -1)
                                     TriggerEvent("skinchanger:change", "mask_1", 0)
                                 end

@@ -95,7 +95,7 @@ function OpenFourriere()
                                     if pos ~= false then
                                         rUtils.SpawnVehicle(GetDisplayNameFromVehicleModel(v.props.model), pos, heading, v.props, function(veh)
                                             DecorSetBool(veh, "OWNED_VEH", true)
-                                            TriggerServerEvent("core:SetVehStatus", token, v.plate, VehToNet(veh))
+                                            TriggerServerEvent(events.SetVehStatus, token, v.plate, VehToNet(veh))
                                         end)
                                         table.remove(vehs, k)
                                     else

@@ -399,10 +399,10 @@ Citizen.CreateThread(function()
                         if v.job[pJob] ~= nil then
                             if DoorCache[obj].status == true then
                                 local player = rUtils.GetPlayersInScope()
-                                TriggerServerEvent("core:ChangeDoorStatus", token, player, v.pos.pos, v.pos.model, v.pos.heading, false)
+                                TriggerServerEvent(events.DoorStatus, token, player, v.pos.pos, v.pos.model, v.pos.heading, false)
                             else
                                 local player = rUtils.GetPlayersInScope()
-                                TriggerServerEvent("core:ChangeDoorStatus", token, player, v.pos.pos, v.pos.model, v.pos.heading, true)
+                                TriggerServerEvent(events.DoorStatus, token, player, v.pos.pos, v.pos.model, v.pos.heading, true)
                             end
                         end
                     end
@@ -425,10 +425,10 @@ Citizen.CreateThread(function()
                         if v.job[pJob] ~= nil then
                             if DoorCache[obj].status == true then
                                 local player = rUtils.GetPlayersInScope()
-                                TriggerServerEvent("core:ChangeDoubleDoorStatus", token, player, v.pos[1], v.pos[2], false)
+                                TriggerServerEvent(events.DoubleDoorStatus, token, player, v.pos[1], v.pos[2], false)
                             else
                                 local player = rUtils.GetPlayersInScope()
-                                TriggerServerEvent("core:ChangeDoubleDoorStatus", token, player, v.pos[1], v.pos[2], true)
+                                TriggerServerEvent(events.DoubleDoorStatus, token, player, v.pos[1], v.pos[2], true)
                             end
                         end
                     end

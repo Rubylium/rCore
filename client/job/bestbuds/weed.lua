@@ -17,7 +17,7 @@ function WeedData:LoadWeedData()
     RMenu.Add('core', 'weed_prepar', RageUI.CreateMenu("Weed", "~g~Préparation weed"))
     RMenu:Get('core', 'weed_prepar').Closed = function()
         opened = false
-        TriggerServerEvent("DeleteEntity", token, WeedProps)
+        TriggerServerEvent(events.DelEntity, token, WeedProps)
     end
 
     RMenu.Add('core', 'weed_trait', RageUI.CreateMenu("Weed ", "~g~Préparation weed"))
@@ -79,7 +79,7 @@ function WeedData:LoadWeedData()
             else
                 if GetWeedProp() ~= ActualProp then
                     print(ActualProp, GetWeedProp())
-                    TriggerServerEvent("DeleteEntity", token, WeedProps) 
+                    TriggerServerEvent(events.DelEntity, token, WeedProps) 
                     Deleting = true
                     while DoesEntityExist(WeedProps) do Wait(100) end
                     Wait(250)
@@ -162,7 +162,7 @@ function WeedData:LoadWeedData()
             TriggerServerEvent(events.give, token, self.w.item2, 3)
             ClearPedTasks(pPed)
             Wait(500)
-            TriggerServerEvent("DeleteEntity", token, WeedProps)
+            TriggerServerEvent(events.DelEntity, token, WeedProps)
         end)
     end
 

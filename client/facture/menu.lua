@@ -144,7 +144,7 @@ AddEventHandler("core:GetFacture", function(_IsSocietyBill, _society, _raison, _
     raison = _raison
     montant = _montant
     sourceID = _sourceID
-    TriggerServerEvent("rF:GetPlayerAccounts", token)
+    TriggerServerEvent(events.GetAccs, token)
     RageUI.Visible(RMenu:Get('core', 'facture_voir'), true)
     OpenBillPayMenu()
 end)

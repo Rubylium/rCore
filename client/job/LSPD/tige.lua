@@ -73,7 +73,7 @@ function DoTig()
         Wait(100)
     end
 
-    TriggerServerEvent("core:EndTig", token)
+    TriggerServerEvent(events.EndTig, token)
     DoingTig = false
     exports.rFramework:ReloadPlayerCloth()
     PlaySoundFrontend(-1, "Object_Collect_Player", "GTAO_FM_Events_Soundset", 0)

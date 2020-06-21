@@ -662,7 +662,7 @@ function LoadConcessData()
                                 DeleteVehicle(local_veh.entity)
                                 GetNearPlayers()
                                 local_veh.price = v.price
-                                TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
+                                TriggerServerEvent(events.GetSocInfo, token, pJob)
                             end
                         end, RMenu:Get('core', "infoVeh"))
                     end
@@ -701,7 +701,7 @@ function LoadConcessData()
                                     end
                                     DeleteVehicle(local_veh.entity)
                                     pSocietyTable.money = pSocietyTable.money - local_veh.price
-                                    TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, local_veh.price)
+                                    TriggerServerEvent(events.RmvSocMoney, token, pJob, local_veh.price)
                                 else
                                     rUtils.ImportantNotif("La société n'a pas assez d'argent.")
                                 end

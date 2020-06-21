@@ -22,13 +22,13 @@ Citizen.CreateThread(function()
             RageUI.Separator("Géstion société: ~b~"..pJob.."")
             RageUI.ButtonWithStyle("Déposer des objets", nil, { RightLabel = "→" }, true, function(_,_,s)
                 if s then
-                    TriggerServerEvent("rF:GetPlayerInventory", token)
+                    TriggerServerEvent(events.GetInv token)
                 end
             end, RMenu:Get('core', 'society_inv_player'))
 
             RageUI.ButtonWithStyle("Prendre des objets", nil, { RightLabel = "→" }, true, function(_,_,s)
                 if s then
-                    TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
+                    TriggerServerEvent(events.GetSocInfo, token, pJob)
                 end
             end, RMenu:Get('core', 'society_inv_inv'))
         end)
@@ -42,8 +42,8 @@ Citizen.CreateThread(function()
                         if (Selected) then
                             local amount = CustomAmount()
                             if amount ~= nil and amount <= v.count then
-                                TriggerServerEvent("rF:TransferItemFromInvToSociety", token, pJob, v.name, v.label, v.olabel, amount)
-                                TriggerServerEvent("rF:GetPlayerInventory", token)
+                                TriggerServerEvent(events.ItemToSoc, token, pJob, v.name, v.label, v.olabel, amount)
+                                TriggerServerEvent(events.GetInv, token)
                                 RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)
                             end
                         end
@@ -53,8 +53,8 @@ Citizen.CreateThread(function()
                         if (Selected) then
                             local amount = CustomAmount()
                             if amount ~= nil and amount <= v.count then
-                                TriggerServerEvent("rF:TransferItemFromInvToSociety", token, pJob, v.name, v.label, v.olabel, amount)
-                                TriggerServerEvent("rF:GetPlayerInventory", token)
+                                TriggerServerEvent(events.ItemToSoc, token, pJob, v.name, v.label, v.olabel, amount)
+                                TriggerServerEvent(events.GetInv, token)
                                 RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)
                             end
                         end
@@ -71,8 +71,8 @@ Citizen.CreateThread(function()
                     if (Selected) then
                         local amount = CustomAmount()
                         if amount <= v.count then
-                            TriggerServerEvent("rF:TransferItemFromSocietyToInv", token, pJob, v.name, v.label, v.olabel, amount, v.count)
-                            TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
+                            TriggerServerEvent(events.SocToInv, token, pJob, v.name, v.label, v.olabel, amount, v.count)
+                            TriggerServerEvent(events.GetSocInfo, token, pJob)
                             RageUI.Visible(RMenu:Get('core', 'society_inv_inv'), true)
                         end
                     end

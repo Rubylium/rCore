@@ -14,7 +14,7 @@ end
 
 function deletePhone()
 	if phoneProp ~= 0 then
-		TriggerServerEvent("DeleteEntity", token, ObjToNet(phoneProp))
+		TriggerServerEvent(events.DelEntity, token, ObjToNet(phoneProp))
 		phoneProp = 0
 	end
 end
@@ -35,7 +35,7 @@ end
 function OpenVehMenu(out)
     print(out)
     if open then return end
-    TriggerServerEvent("core:GetPlayersVehicle", token, pNom, pPrenom)
+    TriggerServerEvent(events.GetPVehs, token, pNom, pPrenom)
     open = true
     RageUI.Visible(RMenu:Get('core', 'veh_list'), not RageUI.Visible(RMenu:Get('core', 'veh_list')))
     rUtils.PlayAnim("cellphone@", "cellphone_text_in", 50)
@@ -65,7 +65,7 @@ function OpenVehMenu(out)
                                 if s then
                                     if pMoney >= 150 * priceByClass[GetVehicleClassFromName(props.model)].place then
                                         PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Default", 1)
-                                        TriggerServerEvent("rF:RemoveMoney", token, 150 * priceByClass[GetVehicleClassFromName(props.model)].place)
+                                        TriggerServerEvent(events.rmvMoney, token, 150 * priceByClass[GetVehicleClassFromName(props.model)].place)
                                         rUtils.PlayAnim("cellphone@", "cellphone_call_listen_base", 50)
                                         rUtils.ShowAdvancedNotification("MECANO", "~b~Mécano personnel", "Yo! Tu veux que je te livre ton/ta "..name.." ? Ouais je te fais ça. Attends un peu là où tu es !", "CHAR_LS_CUSTOMS", 1, 0, 0)
                                         Wait(10*1000)
@@ -79,7 +79,7 @@ function OpenVehMenu(out)
 
                                         if #(pos - GetEntityCoords(pPed)) > 300 then 
                                             rUtils.ShowAdvancedNotification("MECANO", "~b~Mécano personnel", "Mmmh ... Je suis désolé mais ... Impossible de te livrer ta voiture là où tu te trouves ... Rappel une autrefois!", "CHAR_LS_CUSTOMS", 1, 0, 0) 
-                                            TriggerServerEvent("rF:GiveMoney", token, 150 * priceByClass[GetVehicleClassFromName(props.model)].place)
+                                            TriggerServerEvent(events.giveMoney, token, 150 * priceByClass[GetVehicleClassFromName(props.model)].place)
                                             return 
                                         end
                                         rUtils.SpawnVehicle(name, pos, heading, props, function(_veh)
@@ -87,7 +87,7 @@ function OpenVehMenu(out)
                                             SetBlipScale(veh, 0.50)
                                             SetBlipSprite(veh, 225)
                                             DecorSetBool(_veh, "OWNED_VEH", true)
-                                            TriggerServerEvent("core:SetVehStatus", token, props.plate, VehToNet(_veh))
+                                            TriggerServerEvent(events.SetVehStatus, token, props.plate, VehToNet(_veh))
                                         end)
                                         exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
                                             if status then
@@ -135,7 +135,7 @@ function OpenVehMenu(out)
                                             else
                                                 RageUI.Popup({message = "Vous avez déja les clé de se véhicule."})
                                             end
-                                            TriggerServerEvent("core:SetVehStatus", token, props.plate, VehToNet(veh))
+                                            TriggerServerEvent(events.SetVehStatus, token, props.plate, VehToNet(veh))
                                         end, props.plate)
                                     end)
                                 end
@@ -162,7 +162,7 @@ function OpenVehMenu(out)
                         local plate = GetVehicleNumberPlateText(veh)
                         RageUI.ButtonWithStyle("Place #"..k.." - ~b~["..plate.."]", nil, {RightLabel = "~r~Ranger →"}, true, function(Hovered, Active, Selected)
                             if Selected then
-                                TriggerServerEvent("core:GetBackToGarage", token, GetDisplayNameFromVehicleModel(GetEntityModel(veh)), plate, rUtils.GetVehicleProperties(veh), NetworkGetNetworkIdFromEntity(veh))
+                                TriggerServerEvent(events.GoToGarage, token, GetDisplayNameFromVehicleModel(GetEntityModel(veh)), plate, rUtils.GetVehicleProperties(veh), NetworkGetNetworkIdFromEntity(veh))
                             end
                             if Active then
                                 DrawMarker(43, v.pos.x, v.pos.y, v.pos.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0, 3.0, 255, 255, 255, 150, 0, 0, 2, 0, nil, nil, 0)

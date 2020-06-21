@@ -147,7 +147,7 @@ function InitMenu()
         UpdateVehProps()
         if not MenuOuvert then
             MenuOuvert = true
-            TriggerServerEvent("rF:GetSocietyInfos", token, pJob)
+            TriggerServerEvent(events.GetSocInfo, token, pJob)
             RageUI.Visible(RMenu:Get('core', 'lscustom'), true)
             local pPed = GetPlayerPed(-1)
             local pVeh = GetVehiclePedIsIn(pPed, 0)
@@ -441,7 +441,7 @@ function InitMenu()
                                             RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
                                             UpdateVehProps()
                                             pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
-                                            TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                            TriggerServerEvent(events.RmvSocMoney, token, pJob, GetPrice(v.basePrice))
                                         else
                                             rUtils.ImportantNotif("La société n'a pas assez d'argent.")
                                         end
@@ -460,7 +460,7 @@ function InitMenu()
                                             rUtils.SetVehicleProperties(GetVehiclePedIsIn(GetPlayerPed(-1), 0), {modLivery = i})
                                             UpdateVehProps()
                                             pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
-                                            TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                            TriggerServerEvent(events.RmvSocMoney, token, pJob, GetPrice(v.basePrice))
                                         else
                                             rUtils.ImportantNotif("La société n'a pas assez d'argent.")
                                         end
@@ -481,7 +481,7 @@ function InitMenu()
                                                 RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
                                                 UpdateVehProps()
                                                 pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
-                                                TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                                TriggerServerEvent(events.RmvSocMoney, token, pJob, GetPrice(v.basePrice))
                                             else
                                                 rUtils.ImportantNotif("La société n'a pas assez d'argent.")
                                             end
@@ -498,7 +498,7 @@ function InitMenu()
                                                 RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
                                                 UpdateVehProps()
                                                 pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
-                                                TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                                TriggerServerEvent(events.RmvSocMoney, token, pJob, GetPrice(v.basePrice))
                                             else
                                                 rUtils.ImportantNotif("La société n'a pas assez d'argent.")
                                             end
@@ -559,7 +559,7 @@ function InitMenu()
                                         RageUI.Popup({message = "Turbo installé"})
                                         UpdateVehProps()
                                         pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
-                                        TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                        TriggerServerEvent(events.RmvSocMoney, token, pJob, GetPrice(v.basePrice))
                                     else
                                         rUtils.ImportantNotif("La société n'a pas assez d'argent.")
                                     end
@@ -584,7 +584,7 @@ function InitMenu()
                                             RageUI.Popup({message = v.name.." "..tostring(i+1).." installé"})
                                             UpdateVehProps()
                                             pSocietyTable.money = pSocietyTable.money - GetPrice(v.basePrice)
-                                            TriggerServerEvent("rF:RemoveSocietyMoney", token, pJob, GetPrice(v.basePrice))
+                                            TriggerServerEvent(events.RmvSocMoney, token, pJob, GetPrice(v.basePrice))
                                         else
                                             rUtils.ImportantNotif("La société n'a pas assez d'argent.")
                                         end

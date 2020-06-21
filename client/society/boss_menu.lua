@@ -12,7 +12,7 @@ local society = nil
 local societyLabels = {} 
 function OpenBossMenu(_society)
     society = _society
-    TriggerServerEvent("rF:GetSocietyInfos", token, _society)
+    TriggerServerEvent(events.GetSocInfo, token, _society)
     RageUI.Visible(RMenu:Get('core', 'boss_menu'), true)
     Citizen.CreateThread(function()
         open = true
@@ -25,7 +25,7 @@ function OpenBossMenu(_society)
                     if s then 
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
-                        TriggerServerEvent("rF:ChangeOtherPlayerJob", token, cSid, pJob)
+                        TriggerServerEvent(events.changeJob, token, cSid, pJob)
                     end
                     if h then
                         rUtils.DisplayClosetPlayer()
@@ -36,7 +36,7 @@ function OpenBossMenu(_society)
                     if s then 
                         local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                         local cSid = GetPlayerServerId(ClosetPlayer)
-                        TriggerServerEvent("rF:ResetPlayerJob", token, cSid)
+                        TriggerServerEvent(events.resetJob, token, cSid)
                     end
                     if h then
                         rUtils.DisplayClosetPlayer()
@@ -53,8 +53,8 @@ function OpenBossMenu(_society)
                     if s then 
                         local amount = BankCustomAmount()
                         if amount <= pMoney then
-                            TriggerServerEvent("rF:PaySociety", token, pJob, amount)
-                            TriggerServerEvent("rF:GetSocietyInfos", token, society) -- Refresh
+                            TriggerServerEvent(events.facturePaySociety, token, pJob, amount)
+                            TriggerServerEvent(events.GetSocInfo, token, society) -- Refresh
                         end
                     end
                 end)
@@ -64,8 +64,8 @@ function OpenBossMenu(_society)
                     if s then 
                         local amount = BankCustomAmount()
                         if amount <= pSocietyTable.money then
-                            TriggerServerEvent("rF:TakeMoneyFromSociety", token, pJob, amount)
-                            TriggerServerEvent("rF:GetSocietyInfos", token, society) -- Refresh
+                            TriggerServerEvent(events.takeMFromSoc, token, pJob, amount)
+                            TriggerServerEvent(events.GetSocInfo, token, society) -- Refresh
                         end
                     end
                 end)
@@ -76,7 +76,7 @@ function OpenBossMenu(_society)
                         if amount <= pDirty then
                             TriggerServerEvent(events.washM, token, society, amount)
                             pDirty = pDirty - amount
-                            TriggerServerEvent("rF:GetSocietyInfos", token, society) -- Refresh
+                            TriggerServerEvent(events.GetSocInfo, token, society) -- Refresh
                         end
                     end
                 end)
@@ -92,7 +92,7 @@ function OpenBossMenu(_society)
                         if s then 
                             local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                             local cSid = GetPlayerServerId(ClosetPlayer)
-                            TriggerServerEvent("rF:ChangePlayerJobGrade", token, cSid, k)
+                            TriggerServerEvent(events.ChangePGrade, token, cSid, k)
                         end
                         if h then
                             rUtils.DisplayClosetPlayer()

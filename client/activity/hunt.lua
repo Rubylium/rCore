@@ -44,7 +44,7 @@ function HuntData:LoadHuntData()
         SetCamFov(NPC_CAM, 55.0)
         PointCamAtCoord(NPC_CAM, CoordToPoint)
         RenderScriptCams(1, 1, 1000, 0, 0)
-        TriggerServerEvent("rF:GetPlayerInventory", token)
+        TriggerServerEvent(events.GetInv, token)
         Wait(1000)
         RageUI.Visible(RMenu:Get('core', 'hunter'), not RageUI.Visible(RMenu:Get('core', 'hunter')))
         open = true
@@ -57,7 +57,7 @@ function HuntData:LoadHuntData()
                         if s then 
                             if pMoney >= 500 then
                                 TriggerServerEvent(self.h.events.buy, token, "permisChasse", 1, 500)
-                                TriggerServerEvent("rF:GetPlayerInventory", token)
+                                TriggerServerEvent(events.GetInv, token)
                             end
                         end
                     end)
@@ -169,7 +169,6 @@ function HuntData:LoadHuntData()
                 if #Entity > 0 then
                     for k,v in pairs(Entity) do
                         RemoveBlip(v.blip)
-                        --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
                         DeleteEntity(v.entity)
                         DeletePed(v.entity)
                         table.remove(Entity, k)
@@ -242,14 +241,11 @@ function HuntData:LoadHuntData()
                     if IsEntityDead(v.entity) then
                         local source = GetPedSourceOfDeath(v.entity)
                         if source ~= pPed then
-                            --rUtils.Notif("Une de vos cible à été tué par un autre chasseur.")
-                            --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
                             DeleteEntity(v.entity)
                             DeletePed(v.entity)
                             RemoveBlip(v.blip)
                         end
                     else
-                        --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
                         DeleteEntity(v.entity)
                         DeletePed(v.entity)
                         RemoveBlip(v.blip)   
@@ -259,7 +255,6 @@ function HuntData:LoadHuntData()
 
                 local dst = GetDistanceBetweenCoords(GetEntityCoords(v.entity), GetEntityCoords(pPed), true)
                 if dst >= 150 then
-                    --TriggerServerEvent("DeleteEntity", token, PedToNet(v.entity))
                     DeleteEntity(v.entity)
                     DeletePed(v.entity)
                     RemoveBlip(v.blip)

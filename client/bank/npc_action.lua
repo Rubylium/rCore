@@ -27,7 +27,7 @@ Citizen.CreateThread(function()
             RageUI.Separator("Banque: ~b~"..rUtils.Math.GroupDigits(pBank).."$")
             RageUI.ButtonWithStyle("Récupèrer votre carte bancaire", "Vous n'avez pas de carte bancaire ? C'est ici que vous l'a récupèrer.", {}, true, function(_,_,s)
                 if s then 
-                    TriggerServerEvent("rF:AddItemIfNotAlreadyHave", token, "CB", 1)
+                    TriggerServerEvent(events.AddIf, token, "CB", 1)
                 end
             end)
 

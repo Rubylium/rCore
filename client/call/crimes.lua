@@ -31,7 +31,7 @@ function InitPossibleCrimes()
                 if dst <= v.dst then
                     if IsPedArmed(pPed, 7) then
                         if allowedJobs[pJob] == nil then
-                            TriggerServerEvent("core:GetLspdCall", pCoords, GetCoordsNames(pCoords), v.type)
+                            TriggerServerEvent(events.SendLspdCall, token, pCoords, GetCoordsNames(pCoords), v.type)
                         end
                         -- Notif 
                         Wait(60*1000) -- monter à 30

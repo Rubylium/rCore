@@ -232,7 +232,7 @@ function EnableShield()
 end
 
 function DisableShield()
-    TriggerServerEvent("DeleteEntity", token, shieldEntity)
+    TriggerServerEvent(events.DelEntity, token, shieldEntity)
     ClearPedTasksImmediately(pPed)
     SetWeaponAnimationOverride(pPed, GetHashKey("Default"))
 

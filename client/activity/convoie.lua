@@ -55,7 +55,7 @@ function ConvoiData:LoadConvoiData()
     local PossibleSpawn = self.c.spawn
     local Veh = nil
     function self:StopWork()
-        TriggerServerEvent("DeleteEntity", token, Veh)
+        TriggerServerEvent(events.DelEntity, token, Veh)
     end
     
     function self:StartWork()

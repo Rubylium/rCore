@@ -86,7 +86,7 @@ function OpenShop()
                 RageUI.ButtonWithStyle("Acheter", nil, {}, true, function(_,_,s)
                     if s then
                         local amount = CustomAmount()
-                        TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, amount, SelectedItem.price)
+                        TriggerServerEvent(events.BuyIf, token, SelectedItem.item, amount, SelectedItem.price)
                     end
                 end)
             end, function()
@@ -110,7 +110,7 @@ function OpenShop()
                 RageUI.ButtonWithStyle("Acheter", nil, {}, true, function(_,_,s)
                     if s then
                         local amount = CustomAmount()
-                        TriggerServerEvent("rF:BuyItemIfCan", token, SelectedItem.item, amount, SelectedItem.price)
+                        TriggerServerEvent(events.BuyIf, token, SelectedItem.item, amount, SelectedItem.price)
                     end
                 end)
             end, function()

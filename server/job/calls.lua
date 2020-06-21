@@ -46,11 +46,13 @@ end)
 
 
 RegisterNetEvent("core:GetLspdCall")
-AddEventHandler("core:GetLspdCall", function(coords, streetName, type)
-    local PlayersInJobs = GetActivePlayersFromJob(type)
-    for k,v in pairs(PlayersInJobs) do
-        data = {["code"] = '10-32', ["name"] = 'Personne armé dans un lieu publique', ["loc"] = streetName}
-        length = 3500
-        TriggerClientEvent("core:GetLspdCall", v.id, type, data, length, coords)
+AddEventHandler("core:GetLspdCall", function(token, coords, streetName, type)
+    if exports.rFramework:CheckToken(token, source) then
+        local PlayersInJobs = GetActivePlayersFromJob(type)
+        for k,v in pairs(PlayersInJobs) do
+            data = {["code"] = '10-32', ["name"] = 'Personne armé dans un lieu publique', ["loc"] = streetName}
+            length = 3500
+            TriggerClientEvent("core:GetLspdCall", v.id, type, data, length, coords)
+        end
     end
 end)

@@ -176,7 +176,7 @@ function OpenClothShopThread()
                                     if pMoney > v.price then
                                         TriggerEvent("skinchanger:change", v.item, i)
                                         TriggerEvent("rF:SaveSkin", v.item, i)
-                                        TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                                        TriggerServerEvent(events.rmvMoney, token, v.price)
                                     else
                                         rUtils.Notif("tu n'as pas assez d'argent")
                                     end
@@ -197,7 +197,7 @@ function OpenClothShopThread()
                                     if pMoney > v.price then
                                         TriggerEvent("skinchanger:change", v.item, i)
                                         TriggerEvent("rF:SaveSkin", v.item, i)
-                                        TriggerServerEvent("rF:RemoveMoney", token, v.price)
+                                        TriggerServerEvent(events.rmvMoney, token, v.price)
                                     else
                                         rUtils.Notif("tu n'as pas assez d'argent")
                                     end
