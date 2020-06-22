@@ -242,6 +242,15 @@ local blips = {
             infuence = "~o~Faible",
         },
     },
+
+    {
+        name = "Auto-école",
+        icon = 225,
+        size = 0.50,
+        color = 13,
+        pos = vector3(-228.7958, -1379.18, 31.22428),
+        sub = nil
+    },
 }
 
 
