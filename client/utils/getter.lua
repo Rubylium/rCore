@@ -54,6 +54,7 @@ Citizen.CreateThread(function()
     PointCamAtCoord(spawnCam, GetEntityCoords(GetPlayerPed(-1)))
 
     RenderScriptCams(1, 0, 1000, 0, 0)
+    TriggerServerEvent("core:RequestGameData")
 
 
     while not pLoaded do
@@ -97,7 +98,6 @@ Citizen.CreateThread(function()
     
 
     TriggerEvent("rF:HudToogle")
-    TriggerServerEvent("core:RequestGameData", token)
     TriggerServerEvent("core:CheckTig", token)
     TriggerServerEvent("core:GetWeather")
 
