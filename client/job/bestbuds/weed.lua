@@ -53,8 +53,8 @@ function WeedData:LoadWeedData()
                         if s then 
                             local amount = CustomAmount()
                             if amount ~= nil and amount > 0 then
-                                if pMoney >= 2 * amount then
-                                    TriggerServerEvent(events.BuyIf, token, "weedseed", amount, 2 * amount)
+                                if pMoney >= 1 * amount then
+                                    TriggerServerEvent(events.BuyIf, token, "weedseed", amount, 1 * amount)
                                 end
                             end
                         end
