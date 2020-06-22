@@ -33,7 +33,7 @@ RegisterNetEvent("core:DringWater")
 AddEventHandler("core:DringWater", function()
     TriggerEvent("rF:AddThirst", 30)
     TriggerEvent("rF:RemoveHunger", 30)
-    TriggerServerEvent(events.remove, token, "Canette de coca", 1)
+    TriggerServerEvent(events.remove, token, "Bouteille d'eau", 1) 
     Drink()
 end)
 
