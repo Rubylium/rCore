@@ -210,7 +210,7 @@ function ShowNames(status)
                     local tag = staffColor[staff].tag
                     
                 
-                    --if otherPed ~= pPed then
+                    if otherPed ~= pPed then
                         if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
                             gamerTags[v] = CreateFakeMpGamerTag(otherPed, tag.." ["..GetPlayerServerId(v).."] "..GetPlayerName(v).."("..GetEntityHealth(otherPed)..")", false, false, "", 0)
                             if staff ~= 0 then
@@ -228,7 +228,7 @@ function ShowNames(status)
                             RemoveMpGamerTag(gamerTags[v])
                             gamerTags[v] = nil
                         end
-                    --end
+                    end
                 end
                 Wait(500)
             end
