@@ -132,7 +132,7 @@ function MineData:LoadMineData()
             while working do
                 local r = math.random(-15,15)
                 local obj = props[math.random(1,#props)]
-                local pos = vector3(self.m.pos.x+r, self.m.pos.y-r, self.m.pos.z)
+                local pos = vector3(self.m.pos.x+r, self.m.pos.y, self.m.pos.z)
                 rUtils.LoadModel(obj)
                 local obj = CreateObject_(GetHashKey(obj), pos, 1, 1, false)
                 PlaceObjectOnGroundProperly(obj)
