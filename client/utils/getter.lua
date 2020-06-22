@@ -107,6 +107,7 @@ Citizen.CreateThread(function()
     LoadBarberShopData()
     InitRecoil()
     InitPossibleCrimes()
+    
     while true do
         pPed = GetPlayerPed(-1)
         pVeh = GetVehiclePedIsIn(pPed, 0)
@@ -122,6 +123,9 @@ Citizen.CreateThread(function()
         elseif pGroup == "dev" then
             DecorSetInt(pPed, "group", 4)
         end
+
+
+        SetEntityProofs(pPed, false, false, true, false, false, 0, 0, 0)
 
         for k,v in pairs(GetActivePlayers()) do
             local ped = GetPlayerPed(v)
