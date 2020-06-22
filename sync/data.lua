@@ -466,8 +466,7 @@ events = {
 local RequestCache = {}
 
 RegisterNetEvent("core:RequestGameData")
-AddEventHandler("core:RequestGameData", function(token)
-    if not exports.rFramework:CheckToken(token, source, "RequestGameData") then return end
+AddEventHandler("core:RequestGameData", function()
     if RequestCache[source] ~= nil then 
         exports.rFramework:AddPlayerLog(source, "Requesting twice game Data", 6)
     end
