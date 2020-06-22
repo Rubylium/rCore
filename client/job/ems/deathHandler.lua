@@ -252,6 +252,7 @@ function SyncDeathWithPlayers()
     NetworkResurrectLocalPlayer(pCoords, heading, 0, 0)
     ClearPlayerWantedLevel(GetPlayerIndex())
     SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
+    while events.SetDeath == nil do Wait(10) print("Waiting for events.SetDeath ")end 
     TriggerServerEvent(events.SetDeath, token, FatalInjured)
     DeathTimer()
     Citizen.CreateThread(function()
