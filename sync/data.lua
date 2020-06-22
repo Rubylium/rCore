@@ -129,7 +129,7 @@ weed = {
 
     mission = {
         item = "Canabis de bonne qualité",
-        price = 19,
+        price = 25,
     },
 } 
 
