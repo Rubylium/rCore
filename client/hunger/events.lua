@@ -133,3 +133,15 @@ AddEventHandler("core:EatKebab", function()
     TriggerServerEvent(events.remove, token, "Kebab", 1)
     EatSomething()
 end)
+
+
+
+RegisterNetEvent("core:UseWeed")
+AddEventHandler("core:UseWeed", function()
+    PlayUrl("weed", "https://www.youtube.com/watch?v=zvEJu3VPE9A", 0.3, false)
+    TriggerServerEvent(events.remove, token, "Canabis de bonne qualité", 1)
+    StartScreenEffect("ChopVision", 0, 0)
+    Wait(1*60000)
+    Destroy("weed")
+    StopScreenEffect("ChopVision")
+end)
