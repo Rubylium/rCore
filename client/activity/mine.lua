@@ -162,9 +162,16 @@ function MineData:LoadMineData()
 
                 InAction = false
                 CheckMinerSucces()
-                ClearPedTasks(pPed)
+                ClearPedTasks(pPed) 
                 TriggerServerEvent(events.DelEntityTable, token, {ObjToNet(obj), ObjToNet(pickaxe)})
-                TriggerServerEvent(events.giveMoney, token, self.m.earning + rUtils.GetVipBonus(self.m.earning))
+
+                if self.m.earning + rUtils.GetVipBonus(self.m.earning) < 100 then
+                    if pVip ~= 0 then
+                        TriggerServerEvent(events.giveMoney, token, self.m.earning + rUtils.GetVipBonus(self.m.earning))
+                    else
+                        TriggerServerEvent(events.giveMoney, token, self.m.earning)
+                    end
+                end
 
                 if not working then TriggerServerEvent(events.DelEntityTable, token, {ObjToNet(obj), ObjToNet(pickaxe)}) return end
 

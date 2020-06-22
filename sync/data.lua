@@ -18,7 +18,7 @@ mine = {
     dict = "melee@large_wpn@streamed_core",
     anim = "ground_attack_on_spot",
 
-    earning = 14,
+    earning = 14.0,
 
 }
 
