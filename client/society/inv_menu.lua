@@ -67,7 +67,7 @@ Citizen.CreateThread(function()
                 end
             end
         end)
-
+ 
         RageUI.IsVisible(RMenu:Get('core', 'society_inv_inv'), true, true, true, function()
             open = true
             RageUI.Separator("Géstion société: ~b~"..pJob.."")
@@ -76,9 +76,13 @@ Citizen.CreateThread(function()
                     if (Selected) then
                         local amount = CustomAmount()
                         if amount <= v.count then
-                            TriggerServerEvent(events.SocToInv, token, pJob, v.name, v.label, v.olabel, amount, v.count)
-                            TriggerServerEvent(events.GetSocInfo, token, pJob)
-                            RageUI.Visible(RMenu:Get('core', 'society_inv_inv'), true)
+                            if pInventory[v.label] ~= nil then
+                                rUtils.Notif("~r~ERREUR: ~b~Un objets avec le rename "..v.label.." éxsite déja dans ton inventaire.")
+                            else
+                                TriggerServerEvent(events.SocToInv, token, pJob, v.name, v.label, v.olabel, amount, v.count)
+                                TriggerServerEvent(events.GetSocInfo, token, pJob)
+                                RageUI.Visible(RMenu:Get('core', 'society_inv_inv'), true)
+                            end
                         end
                     end
                 end)
