@@ -100,11 +100,11 @@ function OpenBillPayMenu()
 
                 RageUI.ButtonWithStyle("~g~Payer la facture", nil, {}, true, function(_,h,s)
                     if s then 
-                        if pMoney >= montant then
+                        if pMoney >= montant then 
                             if not IsSocietyBill then
                                 TriggerServerEvent(events.GiveMtoPlayer, token, sourceID, montant)
                                 TriggerServerEvent(events.facturePay, token, sourceID, montant)
-                                open = false
+                                open = false 
                                 RageUI.CloseAll()
                             else
                                 TriggerServerEvent(events.facturePaySociety, token, society, montant)

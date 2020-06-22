@@ -21,8 +21,6 @@ RegisterNetEvent("core:PayFacture")
 AddEventHandler("core:PayFacture", function(token, target, montant)
     if not exports.rFramework:CheckToken(token, source, "PayFacture") then return end
     TriggerClientEvent("rF:notification", target, "La personne à payer la facture de ~g~"..montant.."~w~$.")
-    TriggerClientEvent('rF:addMoney', target, montant)
-    TriggerClientEvent('rF:rmvMoney', source, montant)
 end)
 
 RegisterNetEvent("core:PayFactureSociety")
