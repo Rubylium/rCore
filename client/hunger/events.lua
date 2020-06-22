@@ -31,8 +31,8 @@ end, false)
 
 RegisterNetEvent("core:DringWater")
 AddEventHandler("core:DringWater", function()
-    TriggerEvent("rF:AddThirst", 30)
-    TriggerEvent("rF:RemoveHunger", 30)
+    TriggerEvent("rF:AddThirst", 60)
+    TriggerEvent("rF:RemoveHunger", 5)
     TriggerServerEvent(events.remove, token, "Bouteille d'eau", 1) 
     Drink()
 end)
@@ -134,6 +134,14 @@ AddEventHandler("core:EatKebab", function()
     EatSomething()
 end)
 
+
+RegisterNetEvent("core:EatPatte")
+AddEventHandler("core:EatPatte", function()
+    TriggerEvent("rF:AddHunger", 60)
+    TriggerEvent("rF:RemoveThirst", 10)
+    TriggerServerEvent(events.remove, token, "Pasta Bolognese", 1)
+    EatSomething()
+end)
 
 
 RegisterNetEvent("core:UseWeed")
