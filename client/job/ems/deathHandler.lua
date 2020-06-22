@@ -361,7 +361,7 @@ function SyncDeathWithPlayers()
     end)
 end
 
-
+ 
 RegisterNetEvent("core:ResetDeathStatus")
 AddEventHandler("core:ResetDeathStatus", function()
     NetworkSetVoiceActive(true)
