@@ -157,7 +157,7 @@ function MineData:LoadMineData()
                 if Mine < 100 then
                     Wait(10*1000)
                 else
-                    Wait(5*1000)
+                    Wait(8*1000)
                 end
 
                 InAction = false
