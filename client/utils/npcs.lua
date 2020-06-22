@@ -93,6 +93,12 @@ Citizen.CreateThread(function()
                 numbers = 0.0
             end
         end
+
+        if pPlayerNumber ~= nil then
+            if pPlayerNumber > 250 then
+                numbers = 0.0
+            end
+        end
         Wait(3000)
     end
 end)

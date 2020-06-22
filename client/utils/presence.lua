@@ -21,10 +21,10 @@ local presence = {
     }
 }
 
-local players = math.random(50,150)
+pPlayerNumber = math.random(50,150)
 RegisterNetEvent("core:GetPlayersNumber")
 AddEventHandler("core:GetPlayersNumber", function(num)
-    players = num
+    pPlayerNumber = num
 end)
 
 local ActualPresence = "default"
@@ -38,7 +38,7 @@ Citizen.CreateThread(function()
         while events.GetNumPlayers == nil do Wait(10) end
         TriggerServerEvent(events.GetNumPlayers, token)
         pres = presence[ActualPresence]
-        SetRichPresence(pres.texte..players.." joueurs.")
+        SetRichPresence(pres.texte..pPlayerNumber.." joueurs.")
         Wait(60*1000)
     end
 end)    
