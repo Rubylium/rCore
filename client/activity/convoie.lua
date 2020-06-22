@@ -87,9 +87,14 @@ function ConvoiData:LoadConvoiData()
                     })
                     Wait(1)
                 end
-                rUtils.ImportantNotif(self.c.FinalMessage .. self.c.earning + rUtils.GetVipBonus(self.c.earning).."$")
-                TriggerServerEvent(events.giveMoney, token, self.c.earning + rUtils.GetVipBonus(self.c.earning))
-                TriggerServerEvent(self.c.stocks, token)
+
+                if GetEntityModel(GetVehiclePedIsIn(pPed, true)) == GetHashKey("mule2") then
+                    rUtils.ImportantNotif(self.c.FinalMessage .. self.c.earning + rUtils.GetVipBonus(self.c.earning).."$")
+                    TriggerServerEvent(events.giveMoney, token, self.c.earning + rUtils.GetVipBonus(self.c.earning))
+                    TriggerServerEvent(self.c.stocks, token)
+                else
+                    rUtils.ImportantNotif("Tu n'a rien eu car tu à oublié ton camion.")
+                end
 
                 SetBlipCoords(blip, -288.7522, -2661.436, 6.159536)
                 SetBlipRoute(blip, true)
