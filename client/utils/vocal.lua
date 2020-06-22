@@ -15,11 +15,11 @@ local lastTargetList = {}
  
  
 local function getGridChunk(x)
-    return math.floor((x + 8192) / 256)
+    return math.floor((x + 8192) / 128)
 end
  
 local function getGridBase(x)
-    return (x * 256) - 8192
+    return (x * 128) - 8192
 end
  
 local function toChannel(v)
