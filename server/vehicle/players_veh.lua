@@ -281,7 +281,7 @@ AddEventHandler("core:SaveVehToGarage", function(token, _id, name, plate, props,
             NetID = nil
         })
     end
-    exports.rFramework:SendLog("``Le joueur ["..source.."] "..GetPlayerName(source).." à vendu le véhicule "..name.." à ["..source.."] "..GetPlayerName(source).."``", "concess")
+    exports.rFramework:SendLog("``Le joueur ["..source.."] "..GetPlayerName(source).." à vendu le véhicule "..name.." à ["..tonumber(_id).."] "..GetPlayerName(tonumber(_id)).."``", "concess")
 end)
 
 
