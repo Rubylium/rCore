@@ -48,7 +48,7 @@ societyList = {
             [1] = {label = "Patron"},
         },
     },
-    {
+    { 
         name = "sheriff",
         grade = {
             [0] = {label = "Junior"},
