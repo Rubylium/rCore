@@ -155,6 +155,8 @@ function CreatorMenuThread()
                             if h then
                                 if NotSpamming[k] ~= i then
                                     TriggerEvent("skinchanger:change", v.item, i)
+                                    TriggerEvent("skinchanger:change", "helmet_1", -1)
+                                    TriggerEvent("skinchanger:change", "mask_1", 0)
                                     NotSpamming[k] = i
                                 end
                             end
