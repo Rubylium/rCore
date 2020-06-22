@@ -458,7 +458,8 @@ events = {
     CloseVeh = "core:CloseVeh",
     GetPVehs = "core:GetPlayersVehicle",
     SetVehStatus = "core:SetVehStatus",
-    GoToGarage = "GetBackToGarage", 
+    GoToGarage = "core:GetBackToGarage", 
+    GetNumPlayers = "core:AskNumPlayers",
 }
  
 
