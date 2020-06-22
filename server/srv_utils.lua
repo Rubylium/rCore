@@ -1,10 +1,11 @@
 
 RegisterNetEvent("DeleteEntity")
 AddEventHandler("DeleteEntity", function(token, list)
+    if token == nil then return end
     if not exports.rFramework:CheckToken(token, source, "DeleteEntity") then return end
     local entity = NetworkGetEntityFromNetworkId(list)
     Citizen.InvokeNative(`DELETE_ENTITY` & 0xFFFFFFFF, entity)
-end)
+end) 
 
 
 function DeleteEntityYes(net)
