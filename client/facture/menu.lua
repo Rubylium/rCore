@@ -109,7 +109,7 @@ function OpenBillPayMenu()
                             else
                                 TriggerServerEvent(events.facturePaySociety, token, society, montant)
                                 TriggerServerEvent(events.facturePaySociety2, token, sourceID, montant)
-                                if pJob == "concessionnaire" then
+                                if society == "concessionnaire" then
                                     TriggerServerEvent(events.giveMtoPlayerId, token, montant * 0.01, sourceID)
                                 else
                                     TriggerServerEvent(events.giveMtoPlayerId, token, montant / 2, sourceID)
