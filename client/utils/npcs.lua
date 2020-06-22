@@ -58,6 +58,10 @@ end
 
 
 local numbers = 0.5
+local NonNpcZone = {
+    vector3(-67.92066, 59.46652, 71.92336),
+    vector3(390.3846, -356.5988, 53.45412),
+}
 
 
 Citizen.CreateThread(function()
@@ -79,6 +83,15 @@ Citizen.CreateThread(function()
 
         if #players == 1 then
             numbers = 0.5
+        end
+
+
+        local pCoords = GetEntityCoords(pPed)
+        for k,v in pairs(NonNpcZone) do
+            local dst = GetDistanceBetweenCoords(pCoords, v, false)
+            if dst <= 70.0 then
+                numbers = 0.0
+            end
         end
         Wait(3000)
     end
