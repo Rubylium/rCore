@@ -49,12 +49,12 @@ function WeedData:LoadWeedData()
             while opened do
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'weed_ShopSeed'), false, false, false, function()
-                    RageUI.ButtonWithStyle("Acheté des graine de chanvre", nil, {RightLabel = "~g~2$"}, true, function(_,_,s)
+                    RageUI.ButtonWithStyle("Acheté des graine de chanvre", nil, {RightLabel = "~g~0.5$"}, true, function(_,_,s)
                         if s then 
                             local amount = CustomAmount()
                             if amount ~= nil and amount > 0 then
-                                if pMoney >= 1 * amount then
-                                    TriggerServerEvent(events.BuyIf, token, "weedseed", amount, 1 * amount)
+                                if pMoney >= 0.5 * amount then
+                                    TriggerServerEvent(events.BuyIf, token, "weedseed", amount, 0.5 * amount)
                                 end
                             end
                         end

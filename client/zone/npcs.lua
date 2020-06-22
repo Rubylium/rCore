@@ -196,7 +196,7 @@ local npcs = {
         heading = 109.7403030,
         haveAction = true,
         action = function(ped, _offset, camOffset)
-            OpenWeedSeedShop(ped, _offset, camOffset)
+            openedWeedSeedShop(ped, _offset, camOffset)
         end,
         scenario = "WORLD_HUMAN_GUARD_PATROL",
         camOffset = {0.0, 1.3, 0.55}, -- pos
