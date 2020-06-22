@@ -121,6 +121,7 @@ function ConvoiData:LoadConvoiData()
         open = false
     end
     function self:OpenStocksShop()
+        if pJob ~= "drusilla" or pJob ~= "crucial" or pJob ~= "hotdogs" then rUtils.ImportantNotif("Désolé, tu ne travail dans un résto.") return end
         TriggerServerEvent(self.c.request, token)
         RageUI.Visible(RMenu:Get('core', "stocks"), not RageUI.Visible(RMenu:Get('core', "stocks")))
         open = true
