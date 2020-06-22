@@ -242,6 +242,15 @@ JobsData = {
                 }
             },
             {
+                nom = "Pasta Bolognese", 
+                itemName = "patteBolo",
+                desc = "Ingrédient: Tomate 1, pâte à pizza 1.",
+                ingredient = {
+                    {label = "Pâte à pizza", count = 1},
+                    {label = "Tomate", count = 1},
+                }
+            },
+            {
                 nom = "Bouteille d'eau", 
                 itemName = "eau",
                 desc = "Ingrédient: 1 Bouteille vide",

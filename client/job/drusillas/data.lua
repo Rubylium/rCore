@@ -11,6 +11,7 @@ function LoadDrusillaData()
         },
         vehs = {
             {spawn = "burrito3", nom = "Van de transport"},
+            {spawn = "faggio3", nom = "Scooter"},
         },
     })
 
