@@ -224,7 +224,7 @@ JobsData = {
             {
                 nom = "Pizza simple", 
                 itemName = "pizza",
-                desc = "Ingrédient: pâte à pizza 1, 2 Oignons, 1 coulis de tomate, 1 fromage.",
+                desc = "Ingrédient: pâte à pizza 1, 1 coulis de tomate, 1 fromage.",
                 ingredient = {
                     {label = "Pâte à pizza", count = 1},
                     {label = "Coulis de tomate", count = 1},
