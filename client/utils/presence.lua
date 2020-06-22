@@ -5,22 +5,27 @@ local presence = {
         id = "717325070837481506",
         image = "redside",
         little = "v6",
-        texte = "Joue sur ... avec "
+        texte = "Joue sur avec "
     },
     ["chasse"] = {
         id = "717325070837481506",
         image = "hunt",
         little = "v6",
-        texte = "Chasse ... avec "
+        texte = "Chasse avec "
     },
     ["sport"] = {
         id = "717325070837481506",
         image = "sport",
         little = "v6",
-        texte = "Fait du sport ... avec "
+        texte = "Fait du sport avec "
     }
 }
 
+local players = math.random(50,150)
+RegisterNetEvent("core:GetPlayersNumber")
+AddEventHandler("core:GetPlayersNumber", function(num)
+    players = num
+end)
 
 local ActualPresence = "default"
 
@@ -28,11 +33,12 @@ Citizen.CreateThread(function()
     local pres = presence[ActualPresence]
 	SetDiscordAppId(pres.id)
 	SetDiscordRichPresenceAsset(pres.image)
-    SetDiscordRichPresenceAssetSmall(pres.little)
-    while true do
+    --SetDiscordRichPresenceAssetSmall(pres.little)
+    while true do 
+        while events.GetNumPlayers == nil do Wait(10) end
+        TriggerServerEvent(events.GetNumPlayers, token)
         pres = presence[ActualPresence]
-        local r = math.random(1,5)
-        SetRichPresence(pres.texte..r.." joueurs.")
+        SetRichPresence(pres.texte..players.." joueurs.")
         Wait(60*1000)
     end
 end)    

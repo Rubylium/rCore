@@ -46,3 +46,11 @@ AddEventHandler("SendInfoToWeb", function(token, msg)
 		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = msg}), { ['Content-Type'] = 'application/json' })
 	end
 end)
+
+
+RegisterNetEvent("core:AskNumPlayers")
+AddEventHandler("core:AskNumPlayers", function(token)
+    if not exports.rFramework:CheckToken(token, source, "core:AskNumPlayers") then return end
+    local players = #GetPlayers()
+    TriggerClientEvent("core:GetPlayersNumber", source, players)
+end)
