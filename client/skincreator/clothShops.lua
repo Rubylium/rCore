@@ -55,17 +55,17 @@ local clothing = {}
 function GetClothValues()
     local _clothing = {
         {price = 24,label = "t-Shirt", r = "tshirt_2", item = "tshirt_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 8) - 1,								min = 0,},
-        {price = 12,c = 8, o = "tshirt_1", label = "Couleur du t-Shirt", 		item = "tshirt_2", 			min = 0,},
+        {price = 0,c = 8, o = "tshirt_1", label = "Couleur du t-Shirt", 		item = "tshirt_2", 			min = 0,},
         {price = 36,label = "Veste", 	r = "torso_2", item = "torso_1", 					max	= GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 11) - 1,								min = 0,},
-        {price = 9,c = 11, o = "torso_1", label = "Couleur de la veste", 	item = "torso_2", 		 		min = 0,},
+        {price = 0,c = 11, o = "torso_1", label = "Couleur de la veste", 	item = "torso_2", 		 		min = 0,},
         {price = 5,label = "calques 1", r = "decals_2", item = "decals_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 10) - 1,								min = 0,},
         {price = 2,c = 10, o = "decals_1", label = "calques 2", 				item = "decals_2", 			min = 0,},
         {price = 12,label = "bras", r = "arms_2", item = "arms", 						max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 3) - 1,								min = 0,},
-        {price = 2,label = "Couleur des gants.", 		item = "arms_2", 					max = 10,																						min = 0,},
+        {price = 0,label = "Couleur des gants.", 		item = "arms_2", 					max = 10,																						min = 0,},
         {price = 15,label = "Pantalon", r = "pants_2", item = "pants_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 4) - 1,								min = 0,},
-        {price = 5,c = 4, o = "pants_1", label = "Variation du pantalon", 				item = "pants_2", 		 	min = 0,},
+        {price = 0,c = 4, o = "pants_1", label = "Variation du pantalon", 				item = "pants_2", 		 	min = 0,},
         {price = 18,label = "chaussures 1", r = "shoes_2", item = "shoes_1", 					max = GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 6) - 1,								min = 0,},
-        {price = 10,c = 6, o = "shoes_1", label = "Style des chaussures", 	item = "shoes_2", 		 	min = 0,},
+        {price = 0,c = 6, o = "shoes_1", label = "Style des chaussures", 	item = "shoes_2", 		 	min = 0,},
     }
     clothing = _clothing
 end
