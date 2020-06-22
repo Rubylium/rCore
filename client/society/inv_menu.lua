@@ -42,6 +42,7 @@ Citizen.CreateThread(function()
                         if (Selected) then
                             local amount = CustomAmount()
                             if amount ~= nil and amount <= v.count then
+                                
                                 TriggerServerEvent(events.ItemToSoc, token, pJob, v.name, v.label, v.olabel, amount)
                                 TriggerServerEvent(events.GetInv, token)
                                 RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)
@@ -53,9 +54,13 @@ Citizen.CreateThread(function()
                         if (Selected) then
                             local amount = CustomAmount()
                             if amount ~= nil and amount <= v.count then
-                                TriggerServerEvent(events.ItemToSoc, token, pJob, v.name, v.label, v.olabel, amount)
-                                TriggerServerEvent(events.GetInv, token)
-                                RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)
+                                if pSocietyTable.inventory[v.label] ~= nil then
+                                    rUtils.Notif("~r~ERREUR: ~b~Un objets avec le rename "..v.label.." éxsite déja.")
+                                else
+                                    TriggerServerEvent(events.ItemToSoc, token, pJob, v.name, v.label, v.olabel, amount)
+                                    TriggerServerEvent(events.GetInv, token)
+                                    RageUI.Visible(RMenu:Get('core', 'society_inv_player'), true)
+                                end
                             end
                         end
                     end)
