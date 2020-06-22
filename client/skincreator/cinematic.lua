@@ -1,6 +1,6 @@
-RegisterCommand("anim", function()
-    StartCreatorEndCinematic()
-end)
+--RegisterCommand("anim", function()
+--    StartCreatorEndCinematic()
+--end)
 
 
 function StartCreatorEndCinematic()
