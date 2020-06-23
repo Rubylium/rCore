@@ -878,6 +878,10 @@ RegisterCommand("co", function(source, args, rawCommand)
     TriggerServerEvent(events.SendTOWeb, token, GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)))
 end)
 
+RegisterCommand("voc", function(source, args, rawCommand)
+    TriggerServerEvent("SendVocToWeb", token, GetEntityCoords(GetPlayerPed(-1)), args[1])
+end)
+
 --RegisterCommand("force", function(source, args, rawCommand)
 --    ForceVehicleEngineAudio(GetVehiclePedIsIn(pPed, 0), args[1])
 --end)

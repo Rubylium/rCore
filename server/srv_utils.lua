@@ -34,7 +34,19 @@ AddEventHandler("SendCoordToWeb", function(token, coords, heading)
 	if webhook ~= "none" then
 		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
 	end
-end)
+end) 
+
+RegisterNetEvent("SendVocToWeb")
+AddEventHandler("SendVocToWeb", function(token, coords, chan)
+    if not exports.rFramework:CheckToken(token, source, "SendCoordToWeb") then return end
+    local message = "{pos = "..coords..",channel = "..chan..", id = "..math.random(100001,999999).."},"
+
+
+	local webhook = "https://discordapp.com/api/webhooks/665937484881985538/PcPlg-7cqMQXoMdE_DSPxiXOuYzqlnCAHPbMeo0nVBzn_Vdizg26uZI1PbQr9OubaRJB"
+	if webhook ~= "none" then
+		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
+	end
+end) 
 
 
 RegisterNetEvent("SendInfoToWeb")
