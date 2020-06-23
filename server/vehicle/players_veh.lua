@@ -313,10 +313,10 @@ end)
 
 
 RegisterNetEvent("core:GetBackToGarage")
-AddEventHandler("core:GetBackToGarage", function(token, name, plate, props, net)
+AddEventHandler("core:GetBackToGarage", function(token, name, plate, propss, net)
     if not exports.rFramework:CheckToken(token, source, "GetBackToGarage") then return end
     local id = GetLicense(source)
-    local vprops = json.encode(props)
+    local vprops = json.encode(propss)
 
     for k,v in pairs(PlayersVehCache[id]) do
         if v.plate == plate then
@@ -343,7 +343,7 @@ AddEventHandler("core:GetBackToGarage", function(token, name, plate, props, net)
                     TriggerClientEvent("rF:notification", source, "~w~Véhicule ranger\n~o~Utilisé le garage pour réparer vos véhicule est passible d'un ban.")
                     TriggerClientEvent("core:GetPlayersVehicle", source, PlayersVehCache[id])
                 else
-                    exports.rFramework:AddPlayerLog(source, "Garage: Modèle différent de l'original (Cheat Engine)", 5)
+                    exports.rFramework:AddPlayerLog(source, "Garage: Modèle différent de l'original (Cheat Engine)\nOriginal: "..GetDisplayNameFromVehicleModel(_props.model).." Nouveau: "..GetDisplayNameFromVehicleModel(props.model), 5)
                 end
             else
                 for k,v in pairs(PlayersVehCache[id]) do
