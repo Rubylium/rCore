@@ -85,7 +85,7 @@ function StartSportAction(data)
         while StillWant do
             RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
             if IsControlPressed(1, 73) then
-                StillWant = false
+                
                 InAction = false
                 ClearPedTasksImmediately(pPed)
                 --ClearPedTasks(pPed)
@@ -96,19 +96,26 @@ function StartSportAction(data)
     end)
 
     Citizen.CreateThread(function()
+        local count = 0
         while StillWant do
             Wait(500)
             if oldTime + 3500 < GetGameTimer() then
                 oldTime = GetGameTimer()
+                
                 if not IsPedActiveInScenario(pPed) then
                     Wait(5000)
                     if not IsPedActiveInScenario(pPed) then
-                        print("Restarted")
-                        TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
+                        StillWant = false
                     end
                 end
+                count = count + 1
                 UpdatePresence("sport")
                 AddStat(data.stat, data.add, data.label)
+                if count > 10 then
+                    StillWant = false
+                    rUtils.ImportantNotif("Tu as terminé ton exercice, change de machine.")
+                    SetEntityCoordsNoOffset(pPed, -60.69826, -1288.276, 30.90508, 0.0, 0.0, 0.0)
+                end
             end
             Wait(0)
         end
