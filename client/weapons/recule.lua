@@ -72,5 +72,19 @@ function InitRecoil()
                 Wait(1000)
             end
     	end
-    end)
+	end)
+	
+
+	Citizen.CreateThread(function()
+		while true do
+			Citizen.Wait(0)
+			if IsPedArmed(pPed, 6) then
+			   	DisableControlAction(1, 140, true)
+				DisableControlAction(1, 141, true)
+				DisableControlAction(1, 142, true)
+			else
+				Wait(500)
+			end
+		end
+	end)
 end
