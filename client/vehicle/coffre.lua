@@ -151,15 +151,20 @@ function OpenVehInventory()
                                 local amount = CustomAmount()
                                 if amount ~= nil and amount > 0 and amount <= v.count then
                                     if VehInvTotal + amount <= VehLimit then
-                                        rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
-                                        TriggerServerEvent(events.AddToVeh, token, vPlate, v.name, v.label, v.olabel, amount)
-                                        IsItemAWeapon(v.name)
-                                        if amount == v.count then
-                                            pInventory[k] = nil
+
+                                        if VehInventory[v.label] ~= nil then
+                                            rUtils.ImportantNotif("~r~ERREUR: ~b~Un item avec le rename "..v.label.." éxiste déja")
                                         else
-                                            pInventory[k].count = pInventory[k].count - amount
+                                            rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
+                                            TriggerServerEvent(events.AddToVeh, token, vPlate, v.name, v.label, v.olabel, amount)
+                                            IsItemAWeapon(v.name)
+                                            if amount == v.count then
+                                                pInventory[k] = nil
+                                            else
+                                                pInventory[k].count = pInventory[k].count - amount
+                                            end
+                                            TempAdd = TempAdd + amount
                                         end
-                                        TempAdd = TempAdd + amount
                                     else
                                         RageUI.Popup({message = "~r~Action impossible\n~w~La quantité dépasse la limite du coffre."})
                                     end
@@ -195,14 +200,18 @@ function OpenVehInventory()
                             if (Selected) then
                                 local amount = CustomAmount()
                                 if amount ~= nil and amount > 0 and amount <= v.count then
-                                    rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
-                                    TriggerServerEvent(events.RmvFromVeh, token, pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
-                                    if amount == v.count then
-                                        VehInventory[k] = nil
+                                    if pInventory[v.label] ~= nil then
+                                        rUtils.ImportantNotif("~r~ERREUR: ~b~Un item avec le rename "..v.label.." éxiste déja")
                                     else
-                                        VehInventory[k].count = VehInventory[k].count - amount
+                                        rUtils.PlayAnim(dict, anim, 48, 8.0, 2.0, 2)
+                                        TriggerServerEvent(events.RmvFromVeh, token, pWeight, v.count, vPlate, v.name, v.label, v.olabel, amount)
+                                        if amount == v.count then
+                                            VehInventory[k] = nil
+                                        else
+                                            VehInventory[k].count = VehInventory[k].count - amount
+                                        end
+                                        GetVehLimit(vClasse, string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(NetToVeh(entity)))))
                                     end
-                                    GetVehLimit(vClasse, string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(NetToVeh(entity)))))
                                 end
                             end
                         end)
