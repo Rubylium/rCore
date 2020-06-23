@@ -229,6 +229,8 @@ function IsWeaponAllowed(hash)
         if weapons[hash] == nil then
             RemoveWeaponFromPed(GetPlayerPed(-1), hash)
             RemoveAllPedWeapons(GetPlayerPed(-1), 1)
+            NetworkSetFriendlyFireOption(false)
+            SetCanAttackFriendly(PlayerPedId(), false, false)
             return  
         end
         local item = weapons[hash].item
