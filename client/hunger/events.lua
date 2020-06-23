@@ -20,6 +20,7 @@ end
 function HealPlayer()
     TriggerEvent("rF:AddThirst", 100)
     TriggerEvent("rF:AddHunger", 100)
+    SetEntityHealth(pPed, 200.0)
 end
 
 RegisterCommand("heal", function(source, args, rawCommand)

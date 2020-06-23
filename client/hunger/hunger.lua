@@ -38,12 +38,12 @@ end)
 Citizen.CreateThread(function()
     while true do
 
-        if NeedToEat then
-            DisableControlAction(1, 21, true)
-            DisableControlAction(1, 22, true)
+        if needToEat then
+            DisableControlAction(0, 21, true)
+            DisableControlAction(0, 22, true)
         end
 
-        if not NeedToEat then
+        if not needToEat then
             Wait(3*1000)
         else
             Wait(1)
