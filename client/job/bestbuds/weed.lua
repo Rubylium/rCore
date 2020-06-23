@@ -194,11 +194,11 @@ function WeedData:LoadWeedData()
                     if not Trating then
                         RageUI.Button("Commencer le traitement.", "5 Weed non traité requis", pInventory[self.w.item2Label] ~= nil, function(_,_,s)
                             if s then 
-                                if pInventory[self.w.item2Label].count >= 5 then
+                                if pInventory[self.w.item2Label].count >= 2 then
 
                                     StartTrait()
                                     Trating = true
-                                    TriggerServerEvent(events.remove, token, self.w.item2Label, 5)
+                                    TriggerServerEvent(events.remove, token, self.w.item2Label, 2)
                                 end
                             end
                         end)
