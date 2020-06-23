@@ -139,6 +139,7 @@ function StartSportAction(data)
                         Wait(5000)
                         if not IsPedActiveInScenario(pPed) then
                             StillWant = false
+                            UpdatePresence("default")
                         end
                     end
                 else
@@ -146,6 +147,7 @@ function StartSportAction(data)
                         Wait(5000)
                         if not IsEntityPlayingAnim(pPed, data.dict, data.anim_, 1) then
                             StillWant = false
+                            UpdatePresence("default")
                         end
                     end
                 end
@@ -156,6 +158,7 @@ function StartSportAction(data)
                     StillWant = false
                     rUtils.ImportantNotif("Tu as terminé ton exercice, change de machine.")
                     SetEntityCoordsNoOffset(pPed, -60.69826, -1288.276, 30.90508, 0.0, 0.0, 0.0)
+                    UpdatePresence("default")
                 end
             end
             Wait(0)
