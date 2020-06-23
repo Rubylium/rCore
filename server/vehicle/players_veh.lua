@@ -327,7 +327,7 @@ AddEventHandler("core:GetBackToGarage", function(token, name, plate, propss, net
                 else
                     _props = v.props
                 end
-                if _props.model == props.model then
+                if _props.model == propss.model then
                     MySQL.Async.execute('UPDATE `player_vehs` SET player_vehs.props = @props WHERE player_vehs.plate = @plate', {
                         ["@props"] = vprops,
                         ["@plate"] = plate,
