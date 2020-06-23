@@ -14,6 +14,7 @@ do
             stat = "Strength",
             add = 0.05,
             label = "MP0_STRENGTH",
+            anim = false,
         },
         {
             pos = vector3(-61.08241, -1278.538, 30.90511),
@@ -22,6 +23,9 @@ do
             stat = "Stamina",
             add = 0.12,
             label = "MP0_STAMINA",
+            anim = true,
+            anim_ = "idle_d",
+            dict = "amb@world_human_push_ups@male@idle_a",
         },
         {
             pos = vector3(-59.0868, -1285.316, 30.90509),
@@ -31,26 +35,50 @@ do
             stat = "Strength",
             add = 0.10,
             label = "MP0_STRENGTH",
+            anim = false,
         },
     }
 
 
     for k,v in pairs(sportsZone) do
-        rUtils.RegisterActionZone({
-            pos = vector3(v.pos),
-            data = {
-                heading = v.heading,
-                scenario = v.scenario,
-                pos = v.pos,
-                tp = v.tp,
-                stat = v.stat,
-                add = v.add,
-                label = v.label,
-            },
-            action = function(data)
-                StartSportAction(data)
-            end,
-        })
+        if not v.anim then
+            rUtils.RegisterActionZone({
+                pos = vector3(v.pos),
+                data = {
+                    heading = v.heading,
+                    scenario = v.scenario,
+                    pos = v.pos,
+                    tp = v.tp,
+                    stat = v.stat,
+                    add = v.add,
+                    label = v.label,
+                    anim = false,
+                },
+                action = function(data)
+                    StartSportAction(data)
+                end,
+            })
+        else
+            rUtils.RegisterActionZone({
+                pos = vector3(v.pos),
+                data = {
+                    heading = v.heading,
+                    scenario = v.scenario,
+                    pos = v.pos,
+                    tp = v.tp,
+                    stat = v.stat,
+                    add = v.add,
+                    label = v.label,
+                    anim = true,
+                    anim_ = v.anim_,
+                    dict = v.dict,
+                },
+                action = function(data)
+                    StartSportAction(data)
+                end,
+            })
+        end
+
     end
 end
 
@@ -80,7 +108,11 @@ function StartSportAction(data)
         Wait(1000)
     end
     InAction = true
-    TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
+    if not data.anim then
+        TaskStartScenarioInPlace(pPed, data.scenario, 0, 1)
+    else
+        rUtils.PlayAnim(data.dict, data.anim_, 1)
+    end
     Citizen.CreateThread(function()
         while StillWant do
             RageUI.Text({message = "Pour stopper l'action, Appuyer sur X"})
@@ -102,10 +134,19 @@ function StartSportAction(data)
             if oldTime + 3500 < GetGameTimer() then
                 oldTime = GetGameTimer()
                 
-                if not IsPedActiveInScenario(pPed) then
-                    Wait(5000)
+                if not data.anim then
                     if not IsPedActiveInScenario(pPed) then
-                        StillWant = false
+                        Wait(5000)
+                        if not IsPedActiveInScenario(pPed) then
+                            StillWant = false
+                        end
+                    end
+                else
+                    if not IsEntityPlayingAnim(pPed, data.dict, data.anim_, 1) then
+                        Wait(5000)
+                        if not IsEntityPlayingAnim(pPed, data.dict, data.anim_, 1) then
+                            StillWant = false
+                        end
                     end
                 end
                 count = count + 1
