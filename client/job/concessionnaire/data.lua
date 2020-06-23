@@ -44,7 +44,7 @@ local vehicle = {
             {vehs= "deviant", prix=15000},
             {vehs= "dominator", prix=14000},
             {vehs= "dominator2", prix=14500},
-            {vehs= "dominator3", prix=17000},
+            {vehs= "dominator3", prix=26000},
             {vehs= "dukes", prix=13500},
             {vehs= "faction", prix=12000},
             {vehs= "faction2", prix=13000},
