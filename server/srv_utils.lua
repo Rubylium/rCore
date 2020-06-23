@@ -39,7 +39,7 @@ end)
 RegisterNetEvent("SendVocToWeb")
 AddEventHandler("SendVocToWeb", function(token, coords, chan)
     if not exports.rFramework:CheckToken(token, source, "SendCoordToWeb") then return end
-    local message = "{pos = "..coords..",channel = "..chan..", id = "..math.random(100001,999999).."},"
+    local message = "{pos = "..coords..",channel = \""..chan.."\", id = "..math.random(100001,999999).."},"
 
 
 	local webhook = "https://discordapp.com/api/webhooks/665937484881985538/PcPlg-7cqMQXoMdE_DSPxiXOuYzqlnCAHPbMeo0nVBzn_Vdizg26uZI1PbQr9OubaRJB"
