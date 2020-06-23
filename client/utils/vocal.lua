@@ -69,6 +69,7 @@ local channels = {
     {pos = vector3(424.1106, -804.9404, 30.83352),channel = "shop-cloth-bestbuds", id = 248156},
     {pos = vector3(229.4266, -886.1542, 31.68242),channel = "tig-lspd", id = 607674},
     {pos = vector3(367.4598, -852.8516, 29.10276),channel = "devant-bestbuds", id = 340476},
+    {pos = vector3(-52.14528, -1756.586, 30.0494),channel = "ltd-mecano", id = 511146},
 }
 
 function InitVoiceChat()
