@@ -115,7 +115,7 @@ MusicZone = {
         dst = 10.0,
         starting = 40.0,
         pos = vector3(265.05, -822.4, 29.4),
-        max = 0.08,
+        max = 0.03,
     },
     {
         name = "chiness_ambient",
@@ -132,14 +132,6 @@ MusicZone = {
         starting = 100.0,
         pos = vector3(-448.02, 271.02, 83.02),
         max = 0.09,
-    },
-    {
-        name = "ifruit_ambient",
-        link = "https://www.youtube.com/watch?v=Eq7rItvK9Vg", 
-        dst = 25.0,
-        starting = 100.0,
-        pos = vector3(-628.32, -277.15, 35.5),
-        max = 0.07,
     },
     {
         name = "shop_ambient",
