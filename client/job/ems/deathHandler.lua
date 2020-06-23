@@ -20,6 +20,22 @@ Citizen.CreateThread(function()
                 SyncDeathWithPlayers()
             end
         end
+
+        if GetEntityHealth(pPed) <= 10 then
+            if GetDistanceBetweenCoords(GetEntityCoords(pPed), -50.4601, -1282.68, 29.4294, true) < 7.0 then
+                NetworkSetVoiceActive(true)
+                StopScreenEffect('DeathFailOut')
+                StopAudioScenes()
+                StopGameplayHint(true)
+                local coords = vector3(-54.82498, -1282.58, 29.22562)
+                SetEntityHealth(pPed, 200)
+                SetEntityCoordsNoOffset(pPed, coords, 0.0, 0.0, 0.0)
+                NetworkResurrectLocalPlayer(GetEntityCoords(pPed), 100.0, 0, 0)
+                ClearPlayerWantedLevel(GetPlayerIndex())
+                SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
+                return
+            end
+        end
         Wait(1*1000)
     end
 end)
@@ -61,11 +77,8 @@ function DeathTimer()
     Citizen.CreateThread(function()
         while pDeath do
             if CanRespawn then
-                --if IsControlJustReleased(1, 38) then
-                    CanRespawn = false
-                    RespawnToNearest()
-               --end
-               --DisplayMessage("Pour respawn, appuyer sur ")
+                CanRespawn = false
+                RespawnToNearest()
             else
                 if rUtils.Math.Round(displayM, 0) <= 1 then
                     DisplayMessage("Temps restant: ~b~"..rUtils.Math.Round(sec, 0).."~s~s.")
