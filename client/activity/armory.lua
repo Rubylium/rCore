@@ -67,7 +67,7 @@ function ArmoryData:LoadArmoryData()
                                     SetCamCoord(ArmoryCam, CoordToPoint)
                                     SetCamFov(ArmoryCam, self.a.fov)
 
-                                    rUtils.LoadModel(v.prop)
+                                    rUtils.LoadModel(GetHashKey(v.prop))
                                     prop = CreateObject_(GetHashKey(v.prop), oCoords, false, true, false)
                                     FreezeEntityPosition(prop, true)
 
@@ -88,7 +88,7 @@ function ArmoryData:LoadArmoryData()
                                     SetCamCoord(ArmoryCam, CoordToPoint)
                                     SetCamFov(ArmoryCam, self.a.fov)
 
-                                    rUtils.LoadModel(v.prop)
+                                    rUtils.LoadModel(GetHashKey(v.prop))
                                     prop = CreateObject_(GetHashKey(v.prop), oCoords, false, true, false)
                                     FreezeEntityPosition(prop, true)
 

@@ -50,7 +50,7 @@ Citizen.CreateThread(function()
             if not v.spawned then
                 if dst <= v.LoadDst then
                     v.spawned = true
-                    rUtils.LoadModel(v.model)
+                    rUtils.LoadModel(GetHashKey(v.model))
                     v.entity = CreateVehicle_(v.model, v.pos.x, v.pos.y, v.pos.z, v.heading, false, 1)
                     SetVehicleOnGroundProperly(v.entity)
                     FreezeEntityPosition(v.entity, true)

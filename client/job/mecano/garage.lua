@@ -37,7 +37,7 @@ function InitMecanoGarage()
                         if Selected then
                             local pos, heading = rUtils.GetZoneFromTable(PointDeSortie)
                             if pos then
-                                rUtils.SpawnVehicle(v.spawn, pos, heading)
+                                rUtils.SpawnVehicle(GetHashKey(v.spawn), pos, heading)
                             else
                                 RageUI.Popup({message = "~r~Action impossible~w~\nAucun point de sortie disponible."})
                             end

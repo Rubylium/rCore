@@ -824,7 +824,7 @@ function LoadPoliceData()
                                 if Selected then
                                     local pos, heading = rUtils.GetZoneFromTable(fourrierePos)
                                     if pos ~= false then
-                                        rUtils.SpawnVehicle(GetDisplayNameFromVehicleModel(v.props.model), pos, heading, v.props, function(veh)
+                                        rUtils.SpawnVehicle(v.props.model, pos, heading, v.props, function(veh)
                                             local veh = AddBlipForEntity(veh)
                                             SetBlipScale(veh, 0.50)
                                             SetBlipSprite(veh, 225)

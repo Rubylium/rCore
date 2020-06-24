@@ -377,8 +377,7 @@ function OpenPlayerMenu()
                     RageUI.Button("Sortir son vélo de poche", nil, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             local co = GetEntityCoords(pPed)
-                            rUtils.LoadModel("bmx")
-                            rUtils.SpawnVehicle("bmx", vector3(co.x+1.5, co.y, co.z), GetEntityHeading(pPed), nil, function(veh)
+                            rUtils.SpawnVehicle(GetHashKey("bmx"), vector3(co.x+1.5, co.y, co.z), GetEntityHeading(pPed), nil, function(veh)
                                 VeloDePoche = VehToNet(veh)
                             end)
                             SendActionTxt(" sort son vélo de poche")
@@ -436,8 +435,8 @@ function OpenPlayerMenu()
                     if Selected then
                         local veh = CustomString()
                         if veh ~= nil then
-                            rUtils.LoadModel(veh)
-                            rUtils.SpawnVehicle(veh, GetOffsetFromEntityInWorldCoords(pPed, 1.0, 0.0, 0.0), GetEntityHeading(pPed), nil, function()
+                            rUtils.LoadModel(GetHashKey(veh))
+                            rUtils.SpawnVehicle(GetHashKey(veh), GetOffsetFromEntityInWorldCoords(pPed, 1.0, 0.0, 0.0), GetEntityHeading(pPed), nil, function()
                             
                             end)
                         end

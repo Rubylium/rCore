@@ -131,7 +131,7 @@ function HuntData:LoadHuntData()
                 if #Entity < self.h.entityMax then
                     Wait(1)
                     local animal = Animals[math.random(1,#Animals)]
-                    rUtils.LoadModel(animal.model)
+                    rUtils.LoadModel(GetHashKey(animal.model))
                     local spawnPointx = PointCentralDeChasse.x+math.random(-self.h.random,self.h.random)
                     local spawnPointy = PointCentralDeChasse.y+math.random(-self.h.random,self.h.random)
                     local spawnPointz = PointCentralDeChasse.z+math.random(-self.h.random,self.h.random)

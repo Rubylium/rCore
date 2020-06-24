@@ -190,7 +190,7 @@ end
 
 function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	rUtils.LoadModel(model)
-	local vehicle = CreateVehicle_(GetHashKey(model), coords, heading, 1, 1)
+	local vehicle = CreateVehicle_(model, coords, heading, 1, 1)
 	SetVehicleDirtLevel(vehicle, 0.0)
 	SetEntityCoordsNoOffset(vehicle, coords.x, coords.y, coords.z+0.5, 0.0, 0.0, 0.0)
 	SetVehicleOnGroundProperly(vehicle)
@@ -701,12 +701,12 @@ rUtils.RegisterClothZone = function(zone)
 	table.insert(clothZone, zone)
 end
 
-function rUtils.LoadModel(_model)
-	local model = GetHashKey(_model)
+function rUtils.LoadModel(_model) 
+	local model = _model
 	if IsModelInCdimage(model) then
 		RequestModel(model)
 		while not HasModelLoaded(model) do
-			print("Waiting model ".._model)
+			print("Waiting model "..model)
 			Wait(100)
 		end
 		SetModelAsNoLongerNeeded(model)
@@ -736,25 +736,6 @@ function rUtils.PlayAnim(dict, anim, flag, blendin, blendout, playbackRate, dura
 	RemoveAnimDict(dict)
 end	
 
-
-
-RegisterCommand('spawnprop', function(source, args, rawCommand)
-	local coords = GetOffsetFromEntityInWorldCoords(pPed, 0.0, 2.0, 0.0)
-	rUtils.LoadModel(args[1])
-	local prop = CreateObject_(GetHashKey(args[1]), coords, 0, 1, 0)
-	FreezeEntityPosition(prop, true)
-	table.insert(props, prop)
-end)
-
-RegisterCommand('clearprop', function(source, args, rawCommand)
-	for k,v in pairs(props) do
-		while DoesEntityExist(v) do
-			DeleteObject(v)
-			Wait(1)
-		end
-	end
-	props = {}
-end)
 
 function rUtils.showHelpNotification(msg)
 	AddTextEntry('HelpNotification', msg)

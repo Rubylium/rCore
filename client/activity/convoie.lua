@@ -62,7 +62,7 @@ function ConvoiData:LoadConvoiData()
         Citizen.CreateThread(function()
             local zone, heading = rUtils.GetZoneFromTable(PossibleSpawn)
             if zone ~= false then
-                rUtils.SpawnVehicle(self.c.veh, zone, heading, nil, function(veh)
+                rUtils.SpawnVehicle(GetHashKey(self.c.veh), zone, heading, nil, function(veh)
                     TaskWarpPedIntoVehicle(pPed, veh, -1)
                     Veh = VehToNet(veh)
                 end)

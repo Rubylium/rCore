@@ -429,7 +429,7 @@ Citizen.CreateThread(function()
             if not v.spawned then
                 if dst <= v.LoadDst then
                     v.spawned = true
-                    rUtils.LoadModel(v.model)
+                    rUtils.LoadModel(GetHashKey(v.model))
                     v.entity = CreatePed_(1, v.model, v.pos.x, v.pos.y, v.pos.z-1.0, v.heading, 0, 0)
                     TaskSetBlockingOfNonTemporaryEvents(v.entity, true)
                     SetBlockingOfNonTemporaryEvents(v.entity, true)

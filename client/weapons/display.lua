@@ -62,7 +62,7 @@ end)
 
 function AttachWeapon(attachModel, modelHash, boneNumber ,x ,y ,z ,xR ,yR ,zR, itemName)
     local bone = GetPedBoneIndex(GetPlayerPed(-1), boneNumber)
-    rUtils.LoadModel(attachModel)
+    rUtils.LoadModel(GetHashKey(attachModel))
 
     attached_weapons[attachModel] = {
         hash = modelHash,

@@ -51,7 +51,7 @@ function OpenGarage(zones, vehs, dstCheck)
                         if Selected then
                             local pos, heading = rUtils.GetZoneFromTable(zones)
                             if pos then
-                                rUtils.SpawnVehicle(v.spawn, pos, heading, _, function(veh)
+                                rUtils.SpawnVehicle(GetHashKey(v.spawn), pos, heading, _, function(veh)
                                     for i = 1,9 do
                                         SetVehicleExtra(veh, i, false)
                                     end

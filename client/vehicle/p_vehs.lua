@@ -6,7 +6,7 @@ local phoneModel = "prop_phone_proto"
 
 function newPhoneProp()
     deletePhone()
-    rUtils.LoadModel(phoneModel)
+    rUtils.LoadModel(GetHashKey(phoneModel))
     phoneProp = CreateObject_(GetHashKey(phoneModel), 1.0, 1.0, 1.0, 1, 1, 0)
 	local bone = GetPedBoneIndex(pPed, 28422)
 	AttachEntityToEntity(phoneProp, pPed, bone, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 0, 0, 2, 1)
@@ -33,7 +33,6 @@ end
 
 
 function OpenVehMenu(out)
-    print(out)
     if open then return end
     TriggerServerEvent(events.GetPVehs, token, pNom, pPrenom)
     open = true
@@ -82,7 +81,7 @@ function OpenVehMenu(out)
                                             TriggerServerEvent(events.giveMoney, token, 150 * priceByClass[GetVehicleClassFromName(props.model)].place)
                                             return 
                                         end
-                                        rUtils.SpawnVehicle(name, pos, heading, props, function(_veh)
+                                        rUtils.SpawnVehicle(props.model, pos, heading, props, function(_veh)
                                             local veh = AddBlipForEntity(_veh)
                                             SetBlipScale(veh, 0.50)
                                             SetBlipSprite(veh, 225)
@@ -124,7 +123,7 @@ function OpenVehMenu(out)
                             RageUI.ButtonWithStyle(name, nil, { RightLabel = "~g~Ranger" }, true, function(_,_,s)
                                 if s then
                                     local pos, heading = rUtils.GetZoneFromTable(out)
-                                    rUtils.SpawnVehicle(name, pos, heading, props, function(veh)
+                                    rUtils.SpawnVehicle(props.model, pos, heading, props, function(veh)
                                         DecorSetBool(veh, "OWNED_VEH", true)
                                         exports.rFramework:TriggerServerCallback('core:AddKeyIfNotAlreadyHave', function(status)
                                             if status then

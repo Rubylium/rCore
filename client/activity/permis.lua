@@ -27,12 +27,12 @@ local points = {
 function StartPermis()
     if pInventory["Permis de conduire"] ~= nil then rUtils.ImportantNotif("Tu à déja ton permis!") return end
     local error = 0
-    rUtils.LoadModel("blista")
+    rUtils.LoadModel(GetHashKey("blista"))
     if not rUtils.IsSpawnPointClear(vector3(-233.2896, -1391.168, 31.25822), 5.0) then rUtils.ImportantNotif("Point de spawn bloqué") return end
     
     TriggerServerEvent(events.rmvMoney, token, 500)
 
-    rUtils.SpawnVehicle("blista", vector3(-233.2896, -1391.168, 31.25822), 180.0, nil, function(veh)
+    rUtils.SpawnVehicle(GetHashKey("blista"), vector3(-233.2896, -1391.168, 31.25822), 180.0, nil, function(veh)
        TaskWarpPedIntoVehicle(pPed, veh, -1) 
        SetVehicleNumberPlateText(veh, "PERMIS"..math.random(1,9))
     end)

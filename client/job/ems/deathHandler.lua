@@ -348,14 +348,14 @@ function SyncDeathWithPlayers()
             end, function()
             end)
 
-            if IsPedDeadOrDying(pPed, 1) then
+            if IsPedDeadOrDying(GetPlayerPed(-1), 1) then
                 FatalInjured = true
                 StartAudioScene("MP_LEADERBOARD_SCENE")
                 NetworkSetVoiceActive(false)
                 StartScreenEffect("DeathFailOut", -1, true)
-                NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
+                NetworkResurrectLocalPlayer(GetEntityCoords(GetPlayerPed(-1)), heading, 0, 0)
                 ClearPlayerWantedLevel(GetPlayerIndex())
-                SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
+                SetPedCurrentWeaponVisible(GetPlayerPed(-1), false, true, 1, 1)
             end
             Wait(1)
         end
@@ -364,12 +364,12 @@ function SyncDeathWithPlayers()
         StopScreenEffect('DeathFailOut')
         StopAudioScenes()
         StopGameplayHint(true)
-        local coords = GetEntityCoords(pPed)
-        SetEntityHealth(pPed, 200)
-        SetEntityCoordsNoOffset(pPed, coords, 0.0, 0.0, 0.0)
-        NetworkResurrectLocalPlayer(GetEntityCoords(pPed), heading, 0, 0)
+        local coords = GetEntityCoords(GetPlayerPed(-1))
+        SetEntityHealth(GetPlayerPed(-1), 200)
+        SetEntityCoordsNoOffset(GetPlayerPed(-1), coords, 0.0, 0.0, 0.0)
+        NetworkResurrectLocalPlayer(GetEntityCoords(GetPlayerPed(-1)), heading, 0, 0)
         ClearPlayerWantedLevel(GetPlayerIndex())
-        SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
+        SetPedCurrentWeaponVisible(GetPlayerPed(-1), false, true, 1, 1)
         RageUI.Visible(RMenu:Get('core', 'death_call'), false)
     end)
 end

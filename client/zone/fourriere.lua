@@ -93,7 +93,7 @@ function OpenFourriere()
                                     local zones = GetFourriereZone()
                                     local pos, heading = rUtils.GetZoneFromTable(zones)
                                     if pos ~= false then
-                                        rUtils.SpawnVehicle(GetDisplayNameFromVehicleModel(v.props.model), pos, heading, v.props, function(veh)
+                                        rUtils.SpawnVehicle(v.props.model, pos, heading, v.props, function(veh)
                                             DecorSetBool(veh, "OWNED_VEH", true)
                                             TriggerServerEvent(events.SetVehStatus, token, v.plate, VehToNet(veh))
                                         end)
