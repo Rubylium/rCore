@@ -166,7 +166,7 @@ function OpenPlayerMenu()
                 RageUI.Separator(selected.label.." ~b~("..rUtils.Math.GroupDigits(selected.count)..")")
                 RageUI.ButtonWithStyle("Utiliser", nil, {}, true, function(Hovered, Active, Selected)
                     if (Selected) then
-                        TriggerEvent("rF:UseItem", selected.name)
+                        TriggerEvent("rF:UseItem", selected.name, items)
                     end
                 end, RMenu:Get('core', 'inventory'))
                 RageUI.ButtonWithStyle("Donner", nil, {RightLabel = "📦"}, true, function(Hovered, Active, Selected)

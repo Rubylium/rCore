@@ -56,7 +56,7 @@ function HuntData:LoadHuntData()
                     RageUI.ButtonWithStyle("Acheté un permis de chasse", nil, {RightLabel = "~g~500$"}, pInventory["Permis de chasse"] == nil, function(_,_,s)
                         if s then 
                             if pMoney >= 500 then
-                                TriggerServerEvent(self.h.events.buy, token, "permisChasse", 1, 500)
+                                TriggerServerEvent(self.h.events.buy, token, "permisChasse", 1, 500, GetItemId("permisChasse"))
                                 TriggerServerEvent(events.GetInv, token)
                             end
                         end
