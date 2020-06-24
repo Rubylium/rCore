@@ -198,7 +198,7 @@ function WeedData:LoadWeedData()
 
                                     StartTrait()
                                     Trating = true
-                                    TriggerServerEvent(events.remove, token, self.w.item2Label, 2)
+                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2), 2)
                                 end
                             end
                         end)

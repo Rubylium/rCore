@@ -29,7 +29,7 @@ AddEventHandler("core:UseMedikit", function()
                             ClearPedTasks(pPed)
                             TriggerServerEvent(events.ResetDeath, token, targetID)
                             StillWant = false
-                            TriggerServerEvent(events.remove, token, "medikit", 1)
+                            TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("medikit"), 1)
                         end
                         Wait(0)
                     end

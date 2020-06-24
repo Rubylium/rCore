@@ -57,3 +57,15 @@ function GetItemId(item)
         end
     end
 end
+
+
+function GetFirstLabelFromItem(item)
+    print(#pInventory)
+    for k,v in pairs(pInventory) do
+        print(pInventory[k].name, item)
+        if pInventory[k].name == item then
+            print(v.label)
+            return v.label
+        end
+    end
+end

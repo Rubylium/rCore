@@ -123,7 +123,7 @@ function LoadhotdogData()
         TaskStartScenarioInPlace(pPed, "PROP_HUMAN_BBQ", -1, true)
         Wait(5000)
         for i = 1, #rec.ingredient do
-            TriggerServerEvent(events.remove, token, rec.ingredient[i].label, rec.ingredient[i].count)
+            TriggerServerEvent(events.remove, token, rec.ingredient[i].label, rec.ingredient[i].count) 
             Wait(3000)
         end
         TriggerServerEvent(events.give, token, rec.itemName, 1, GetItemId(rec.itemName))
