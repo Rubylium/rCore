@@ -867,6 +867,24 @@ end)
 --    ForceVehicleEngineAudio(GetVehiclePedIsIn(pPed, 0), args[1])
 --end)
 
+local SetPerf = N_0xa76359fc80b2438e
+local perf = false
+RegisterCommand("perf", function(source, args, rawCommand)
+	if args[1] == "false" then perf = false return end
+	if args[1] == nil then perf = false return end
+
+	local PerfNum = tonumber(args[1])
+	if not perf then
+		perf = true
+		Citizen.CreateThread(function()
+			while perf do
+				Wait(0)
+				SetPerf(PerfNum)
+			end
+		end)
+	end
+end)
+
 function HaveItem(item)
 	if pInventory[item] ~= nil then
 		return true
