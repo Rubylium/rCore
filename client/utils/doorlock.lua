@@ -316,6 +316,24 @@ local doords = {
             {pos = vector3(-1058.8229980469, -840.68780517578,5.3041172027588), model = -2023754432, heading = 36.76390838623},
         }
     },
+
+    {
+        double = false,
+        job = {["drusilla"] = true},
+        pos = {pos = vector3(290.77651977539, -964.37573242188,29.682369232178), model = 774795636, heading = 180.14141845703},
+    },
+
+    {
+        double = false,
+        job = {["hotdogs"] = true},
+        pos = {pos = vector3(39.562496185303, -1006.3271484375,29.464735031128), model = 661129475, heading = 69.947204589844},
+    },
+
+    {
+        double = false,
+        job = {["bestbuds"] = true},
+        pos = {pos = vector3(381.42156982422, -825.16284179688,29.45322227478), model = -538477509, heading = 180.00003051758},
+    },
 }
 
 local DoorCache = {}
