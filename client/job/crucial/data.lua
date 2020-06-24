@@ -125,7 +125,7 @@ function LoadCrucialData()
             TriggerServerEvent(events.remove, token, rec.ingredient[i].label, rec.ingredient[i].count)
             Wait(3000)
         end
-        TriggerServerEvent(events.give, token, rec.itemName, 1)
+        TriggerServerEvent(events.give, token, rec.itemName, 1, GetItemId(rec.itemName))
         rUtils.ImportantNotif("Vous avez cuisiner une/un "..name)
         InAction = false
         ClearPedTasks(pPed)

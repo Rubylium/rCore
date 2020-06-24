@@ -54,7 +54,7 @@ function WeedData:LoadWeedData()
                             local amount = CustomAmount()
                             if amount ~= nil and amount > 0 then
                                 if pMoney >= 0.5 * amount then
-                                    TriggerServerEvent(events.BuyIf, token, "weedseed", amount, 0.5 * amount)
+                                    TriggerServerEvent(events.BuyIf, token, "weedseed", amount, 0.5 * amount, GetItemId("weedseed"))
                                 end
                             end
                         end
@@ -159,7 +159,7 @@ function WeedData:LoadWeedData()
                 end
             end 
 
-            TriggerServerEvent(events.give, token, self.w.item2, 3)
+            TriggerServerEvent(events.give, token, self.w.item2, 3, GetItemId(self.w.item2))
             ClearPedTasks(pPed)
             Wait(500)
             TriggerServerEvent(events.DelEntity, token, WeedProps)
@@ -262,7 +262,7 @@ function WeedData:LoadWeedData()
             if clicked > supposed / 2 then
                 rUtils.Notif("Traitement réussi!")
                 print(self.w.itemFinal)
-                TriggerServerEvent(events.give, token, self.w.itemFinal, 1)
+                TriggerServerEvent(events.give, token, self.w.itemFinal, 1, GetItemId(self.w.itemFinal))
             else
                 rUtils.ImportantNotif("~r~Traitement échoué!~w~\n"..clicked.."/"..supposed)
             end

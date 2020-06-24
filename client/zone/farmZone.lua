@@ -59,7 +59,7 @@ function StartRecolte(item)
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
             end
-            TriggerServerEvent(events.give, token, item, 1)
+            TriggerServerEvent(events.give, token, item, 1, GetItemId(item))
         end
 
         Wait(0)
@@ -117,7 +117,7 @@ function StartSell(item, price, clean)
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
             end
-            TriggerServerEvent(events.sell, token, item, price + rUtils.GetVipBonus(price), clean)
+            TriggerServerEvent(events.sell, token, item, price + rUtils.GetVipBonus(price), clean, GetItemId(item))
         end
 
         Wait(0)

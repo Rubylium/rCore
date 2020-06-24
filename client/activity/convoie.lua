@@ -148,7 +148,7 @@ function ConvoiData:LoadConvoiData()
                                 local amount = CustomAmount()
                                 if amount ~= nil and amount <= v.stock then
                                     if pMoney >= amount * v.prix then
-                                        TriggerServerEvent(events.BuyIf, token, v.item, amount, v.prix)
+                                        TriggerServerEvent(events.BuyIf, token, v.item, amount, v.prix, GetItemId(v.item))
                                         TriggerServerEvent(self.c.addstocks, token, v.item, amount)
                                         stocks[k].stock =  stocks[k].stock - amount
                                     end

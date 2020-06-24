@@ -480,5 +480,6 @@ AddEventHandler("core:RequestGameData", function()
         exports.rFramework:AddPlayerLog(source, "Requesting twice game Data", 6)
     end
     RequestCache[source] = true
-    TriggerClientEvent("core:RequestGameData", source, JobsData, events, mine, hunt, armory, weed, JobMission, conv)
+    local items = exports.rFramework:GetItems()
+    TriggerClientEvent("core:RequestGameData", source, JobsData, events, mine, hunt, armory, weed, JobMission, conv, items)
 end)

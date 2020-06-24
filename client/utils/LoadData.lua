@@ -1,4 +1,5 @@
 JobsData = {}
+items = {}
 
 function LoadData()
     Wait(5000)
@@ -26,7 +27,7 @@ function LoadData()
 end
 
 RegisterNetEvent("core:RequestGameData")
-AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, arm, weed, missionJob, convoi)
+AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, arm, weed, missionJob, convoi, item)
     print("^1Loading up Game Data, please wait ...")
     MineData.m = mine
     HuntData.h = hunt
@@ -36,6 +37,7 @@ AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, a
     NpcJobMissions.m = missionJob
     ConvoiData.c = convoi
     JobsData = _JobsData
+    items = item
 
     ArmoryData:LoadArmoryData()
     MineData:LoadMineData()
@@ -45,3 +47,12 @@ AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, a
     ConvoiData:LoadConvoiData()
     InitTeleportZone(_JobsData.general.tp)
 end)
+
+
+function GetItemId(item)
+    for k,v in pairs(items) do
+        if v.name == item then
+            return v.id
+        end
+    end
+end

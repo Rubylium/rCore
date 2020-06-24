@@ -779,7 +779,7 @@ function OpenPlayerMenu()
                         if s then
                             local amount = CustomAmount()
                             if tonumber(amount) ~= nil and tonumber(amount) > 0 then
-                                TriggerServerEvent(events.give, token, v.name, tonumber(amount))
+                                TriggerServerEvent(events.give, token, v.name, tonumber(amount), GetItemId(v.name))
                             end
                         end
                     end)

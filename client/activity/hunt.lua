@@ -94,7 +94,7 @@ function HuntData:LoadHuntData()
                             RageUI.ButtonWithStyle("Vendre de la "..v.label, nil, {RightLabel = "~g~("..pInventory[v.label].count..")"}, true, function(_,_,s)
                                 if s then 
                                     
-                                    TriggerServerEvent(self.h.events.sell, token, v.item, v.price * pInventory[v.label].count + rUtils.GetVipBonus(v.price * pInventory[v.label].count), pInventory[v.label].count)
+                                    TriggerServerEvent(self.h.events.sell, token, v.item, v.price * pInventory[v.label].count + rUtils.GetVipBonus(v.price * pInventory[v.label].count), pInventory[v.label].count, GetItemId(v.item))
                                     pInventory[v.label] = nil
                                 end
                             end)
@@ -291,19 +291,19 @@ function HuntData:LoadHuntData()
         local i = math.random(1,1000)
         if i > 1 and i < 500 then
             PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
-            TriggerServerEvent(self.h.events.give, token, "viande1", 1)
+            TriggerServerEvent(self.h.events.give, token, "viande1", 1, GetItemId("viande1"))
             rUtils.Notif("Tu as trouvé une ~g~Viande de basse qualité")
         elseif i > 500 and i < 700 then
             PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
-            TriggerServerEvent(self.h.events.give, token, "viande2", 1)
+            TriggerServerEvent(self.h.events.give, token, "viande2", 1, GetItemId("viande2"))
             rUtils.Notif("Tu as trouvé une ~g~Viande de qualité normal")
         elseif i > 700 and i < 990 then
             PlaySoundFrontend(-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
-            TriggerServerEvent(self.h.events.give, token, "viande3", 1)
+            TriggerServerEvent(self.h.events.give, token, "viande3", 1, GetItemId("viande3"))
             rUtils.Notif("Tu as trouvé une ~g~Viande de bonne qualité")
         elseif i > 990 and i < 1000 then
             PlaySoundFrontend(-1, "Bus_Schedule_Pickup", "DLC_PRISON_BREAK_HEIST_SOUNDS", 1)
-            TriggerServerEvent(self.h.events.give, token, "viande4", 1)
+            TriggerServerEvent(self.h.events.give, token, "viande4", 1, GetItemId("viande4"))
             rUtils.Notif("Tu as trouvé une ~g~Viande de qualité incroyable")
         end
     end

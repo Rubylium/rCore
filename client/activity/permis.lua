@@ -58,7 +58,7 @@ function StartPermis()
 
     if error < 5 then
         rUtils.ImportantNotif("Bravo tu à eu ton permis!")
-        TriggerServerEvent(events.give, token, "permisConduire", 1)
+        TriggerServerEvent(events.give, token, "permisConduire", 1, GetItemId("permisConduire"))
     else
 
         rUtils.ImportantNotif("Mmh, trop d'erreur, essaye de nouveau!")
