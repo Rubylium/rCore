@@ -63,7 +63,7 @@ function HuntData:LoadHuntData()
                     end)
                     RageUI.ButtonWithStyle("Récupèrer une arme de chasse", "Attention, l'arme de chasse doit etre déposé après votre partie de chasse. De lourde amendes sont prévue en cas de non respect.", {}, pInventory["Permis de chasse"] ~= nil, function(_,_,s)
                         if s then 
-                            TriggerServerEvent(self.h.events.addItem, token, "musket", 1)
+                            TriggerServerEvent(self.h.events.addItem, token, "musket", 1) 
                         end
                     end)
                     RageUI.ButtonWithStyle("Récupèrer une arme de chasse pro", "Arme réservée au pro de la chasse, ~r~"..Huntkills.."~w~/100", {RightLabel = Huntkills.."/100"}, Huntkills >= 100, function(_,_,s)

@@ -767,7 +767,6 @@ function OpenPlayerMenu()
                 end)
 
                 RageUI.ButtonWithStyle("Give un item", nil, { RightLabel = "→→" }, pGroup ~= "user", function(_,_,s)
-                    if s then items = exports.rFramework:GetItems() end
                 end, RMenu:Get('core', 'admin_item'))
             end, function()
             end)
