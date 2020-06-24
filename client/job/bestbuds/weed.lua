@@ -115,9 +115,33 @@ function WeedData:LoadWeedData()
             return self.w.props[30]
         end
     end
+
+
+    local AllowedZone = {
+        {pos = vector3(1789.342, 4627.376, 27.58788),heading = 251.13150024414,},
+        {pos = vector3(1808.994, 4636.35, 28.54272),heading = 93.968544006348,},
+        {pos = vector3(2126.652, 2366.134, 87.37476),heading = 70.501258850098,},
+        {pos = vector3(1038.57, -1979.514, 21.56048),heading = 357.28033447266,},
+        {pos = vector3(379.2724, -812.334, 29.84974),heading = 302.26950073242,},
+    }
     
+    function IsZoneAllowed()
+        local pCoords = GetEntityCoords(pPed)
+        for k,v in pairs(AllowedZone) then
+            local dst = GetDistanceBetweenCoords(pCoords, v.pos, true)
+            if dst <= 30.0 then
+                return
+            end
+        end
+        return false
+    end
     
     function StartWeed()
+        if not IsZoneAllowed() then
+            rUtils.ImportantNotif("Tu ne peu pas faire pousser ici")
+            return
+        end
+
         TaskStartScenarioInPlace(pPed, self.w.scenario, -1, true)
         SetInventoryOpen()
         TriggerServerEvent(events.remove, token, self.w.item, 1)
