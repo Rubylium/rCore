@@ -104,7 +104,7 @@ function ArmoryData:LoadArmoryData()
                 RageUI.IsVisible(RMenu:Get('core', 'armory_watch'), true, true, true, function()
                     RageUI.ButtonWithStyle("Acheter une/un "..Selected.label, nil, { RightLabel = "→ ~c~"..Selected.price.."~w~$" }, true, function(_,_,s)
                         if s then
-                            TriggerServerEvent(events.BuyIf, token, Selected.item, 1, Selected.price, GetItemId(SelectedItem.item))
+                            TriggerServerEvent(events.BuyIf, token, Selected.item, 1, Selected.price, GetItemId(Selected.item))
                             RenderScriptCams(0, 1, 1000, 0, 0)
                             DeleteEntity(prop)
                         end
