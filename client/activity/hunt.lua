@@ -94,7 +94,7 @@ function HuntData:LoadHuntData()
                             RageUI.ButtonWithStyle("Vendre de la "..v.label, nil, {RightLabel = "~g~("..pInventory[v.label].count..")"}, true, function(_,_,s)
                                 if s then 
                                     
-                                    TriggerServerEvent(self.h.events.sell, token, v.item, v.price * pInventory[v.label].count + rUtils.GetVipBonus(v.price * pInventory[v.label].count), pInventory[v.label].count, GetItemId(v.item))
+                                    TriggerServerEvent(self.h.events.sell, token, v.item, v.price * pInventory[v.label].count + rUtils.GetVipBonus(v.price * pInventory[v.label].count), pInventory[v.label].count, true, GetItemId(v.item) )
                                     pInventory[v.label] = nil
                                 end
                             end)
