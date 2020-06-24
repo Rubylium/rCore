@@ -292,7 +292,6 @@ function SyncDeathWithPlayers()
                     end 
                 end
             end
-            
             if not FatalInjured then
                 SetPedCanRagdoll(pPed, true)
                 if IsControlPressed(1, 32) then
