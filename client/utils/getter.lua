@@ -128,7 +128,7 @@ Citizen.CreateThread(function()
         end
 
 
-        SetEntityProofs(pPed, false, false, true, false, false, 0, 0, 0)
+        SetEntityProofs(pPed, false, true, true, false, false, 0, 0, 0)
 
         for k,v in pairs(GetActivePlayers()) do
             local ped = GetPlayerPed(v)
