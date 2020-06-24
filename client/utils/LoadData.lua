@@ -23,6 +23,7 @@ function LoadData()
         LoadhotdogData()
     end 
 
+    TriggerServerEvent(events.CheckData, token, pJob)
     print("^2Loading "..pJob.." data.")
 end
 

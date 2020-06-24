@@ -469,6 +469,8 @@ events = {
     SetVehStatus = "core:SetVehStatus",
     GoToGarage = "core:GetBackToGarage", 
     GetNumPlayers = "core:AskNumPlayers",
+    CheckData = "rF:CheckIfJobIsValid",
+    Death = "rF:LogPlayerDeath",
 }
  
 
