@@ -127,10 +127,10 @@ function WeedData:LoadWeedData()
     
     function IsZoneAllowed()
         local pCoords = GetEntityCoords(pPed)
-        for k,v in pairs(AllowedZone) then
+        for k,v in pairs(AllowedZone) do
             local dst = GetDistanceBetweenCoords(pCoords, v.pos, true)
             if dst <= 30.0 then
-                return
+                return true
             end
         end
         return false
