@@ -108,7 +108,7 @@ AddEventHandler("core:lspdCheckPlate", function(token, _plate)
     if not exports.rFramework:CheckToken(token, source, "lspdCheckPlate") then return end
     for k,v in pairs(PlayersVehCache) do
         for j,i in pairs(PlayersVehCache[k]) do
-            if i.plate == _plate then
+            if PlayersVehCache[k][j].plate == _plate then
                 if PlayersVehCache[k][j].lspd ~= true then
                     PlayersVehCache[k][j].NetID = net
                     TriggerClientEvent("rF:notification", source, "~o~Information véhicule\n~w~Plaque: ".._plate.."\nEnregistré au nom de: ~b~".. PlayersVehCache[k][j].nom.." ".. PlayersVehCache[k][j].prenom)
