@@ -67,6 +67,11 @@ AddEventHandler("core:CheckIfCanStartSup", function(id)
         if #GetActivePlayersFromJob("police") >= 2 then
             exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer une braquage de superette avec "..#GetActivePlayersFromJob("police").." policer.")
             TriggerClientEvent("core:GetSupStatus", source, true)
+            for k,v in pairs(PlayersInJobs) do
+                data = {["code"] = '10-31', ["name"] = 'Une alarme de superette vient de sonner, 10-32 vue sur les lieux. Intervention requise.', ["loc"] = streetName}
+                length = 3500
+                TriggerClientEvent("core:GetLspdCall", v.id, type, data, length, coords)
+            end
         else
             TriggerClientEvent("core:GetSupStatus", source, false)
         end
@@ -76,6 +81,11 @@ AddEventHandler("core:CheckIfCanStartSup", function(id)
         if #GetActivePlayersFromJob("police") >= 2 then
             exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer une braquage de superette avec "..#GetActivePlayersFromJob("police").." policer.")
             TriggerClientEvent("core:GetSupStatus", source, true)
+            for k,v in pairs(PlayersInJobs) do
+                data = {["code"] = '10-31', ["name"] = 'Une alarme de superette vient de sonner, 10-32 vue sur les lieux. Intervention requise.', ["loc"] = streetName}
+                length = 3500
+                TriggerClientEvent("core:GetLspdCall", v.id, type, data, length, coords)
+            end
         else
             TriggerClientEvent("core:GetSupStatus", source, false)
         end
