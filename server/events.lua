@@ -64,7 +64,6 @@ end
 RegisterNetEvent("core:CheckIfCanStartSup")
 AddEventHandler("core:CheckIfCanStartSup", function(token, id, streetName, job)
     if not exports.rFramework:CheckToken(token, source, "core:CheckIfCanStartSup") then return end
-    print(id, LockedSup[id])
     if LockedSup[id] == nil then
         if #GetActivePlayersFromJob(job) >= 3 then
             exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer une braquage de superette avec "..#GetActivePlayersFromJob(job).." policer.", "superette")
