@@ -47,3 +47,35 @@ AddEventHandler("core:ChangeDoubleDoorStatus", function(token, players, door1, d
         TriggerClientEvent("core:ChangeDoubleDoorStatus", v, door1, door2, status)
     end
 end)
+
+
+local LockedSup = {}
+
+function StartSupTimer(id)
+    local id = id
+    Citizen.CreateThread(function()
+        LockedSup[id] = {}
+        LockedSup[id].check = false
+        Wait(30*60*1000)
+        LockedSup[id] = nil
+    end)
+end
+
+RegisterNetEvent("core:CheckIfCanStartSup")
+AddEventHandler("core:CheckIfCanStartSup", function(id)
+    if LockedSup[id] == nil then
+        if #GetActivePlayersFromJob("police") >= 2 then
+            TriggerClientEvent("core:GetSupStatus", source, true)
+        else
+            TriggerClientEvent("core:GetSupStatus", source, false)
+        end
+    elseif LockedSup[id].check == false then
+        TriggerClientEvent("core:GetSupStatus", source, false)
+    else
+        if #GetActivePlayersFromJob("police") >= 2 then
+            TriggerClientEvent("core:GetSupStatus", source, true)
+        else
+            TriggerClientEvent("core:GetSupStatus", source, false)
+        end
+    end
+end)

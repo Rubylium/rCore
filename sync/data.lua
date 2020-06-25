@@ -215,6 +215,11 @@ JobsData = {
         {label = "Fondateur", group = "fonda"},
         {label = "Developpeur", group = "dev"},
     },
+    superette = {
+        zone = {
+            {pos = vector3(29.1523, -1339.914, 29.49702),heading = 278.76934814454,},
+        },
+    },
     drusilla = {
         mission = {
             item = "Pizza simple",
@@ -471,6 +476,7 @@ events = {
     GetNumPlayers = "core:AskNumPlayers",
     CheckData = "rF:CheckIfJobIsValid",
     Death = "rF:LogPlayerDeath",
+    StartSup = "core:CheckIfCanStartSup",
 }
  
 

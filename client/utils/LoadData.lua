@@ -39,6 +39,7 @@ AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, a
     ConvoiData.c = convoi
     JobsData = _JobsData
     items = item
+    avalaibleBraquo = _JobsData.superette
 
     ArmoryData:LoadArmoryData()
     MineData:LoadMineData()
