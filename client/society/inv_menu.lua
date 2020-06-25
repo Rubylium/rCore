@@ -41,7 +41,7 @@ Citizen.CreateThread(function()
                     RageUI.ButtonWithStyle(v.olabel.." ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                         if (Selected) then
                             local amount = CustomAmount()
-                            if amount ~= nil and amount <= v.count then
+                            if amount ~= nil and amount <= v.count and amount > 0 then
                                 
                                 TriggerServerEvent(events.ItemToSoc, token, pJob, v.name, v.label, v.olabel, amount)
                                 TriggerServerEvent(events.GetInv, token)
@@ -75,7 +75,7 @@ Citizen.CreateThread(function()
                 RageUI.ButtonWithStyle(v.olabel.." ["..v.label.."] ~b~("..rUtils.Math.GroupDigits(v.count)..")", nil, { RightLabel = "→" }, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         local amount = CustomAmount()
-                        if amount <= v.count then
+                        if amount ~= nil and amount > 0 and amount <= v.count then
                             if pInventory[v.label] ~= nil then
                                 rUtils.Notif("~r~ERREUR: ~b~Un objets avec le rename "..v.label.." éxsite déja dans ton inventaire.")
                             else
