@@ -51,9 +51,18 @@ function StartPermis()
                 rUtils.ImportantNotif("~r~+ 1 Erreur ! Surveille ta vitesse !\nErreur: "..error.."/5")
                 Wait(2000)
             end
+
+            if error >= 5 then
+                break
+            end
             Wait(1)
         end
         RemoveBlip(blip)
+        if error > 5 then
+            TriggerServerEvent(events.DelEntity, token, VehToNet(GetVehiclePedIsIn(pPed, false)))
+            SetEntityCoordsNoOffset(pPed, -233.2896, -1391.168, 31.25822, 0.0, 0.0, 0.0)
+            break
+        end
     end
 
     if error < 5 then
