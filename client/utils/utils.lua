@@ -857,11 +857,7 @@ end)
 
 RegisterCommand("co", function(source, args, rawCommand)
     TriggerServerEvent(events.SendTOWeb, token, GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)))
-end)
-
-RegisterCommand("voc", function(source, args, rawCommand)
-    TriggerServerEvent("SendVocToWeb", token, GetEntityCoords(GetPlayerPed(-1)), args[1])
-end)
+end) 
 
 RegisterCommand("kick", function(source, args, rawCommand)
     local target    = tonumber(args[1])
