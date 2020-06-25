@@ -330,7 +330,7 @@ function HelpPlayer()
                             oldTime = GetGameTimer()
                             ClearPedTasks(pPed)
                             TriggerServerEvent(events.ResetDeath, token, targetID)
-                            TriggerServerEvent(events.giveMoney, token, 50.0)
+                            TriggerServerEvent(events.giveMoney, token, 100.0)
                             StillWant = false
                         end
                         Wait(0)
