@@ -69,41 +69,41 @@ end
 RegisterNetEvent("core:CheckIfCanStartSup")
 AddEventHandler("core:CheckIfCanStartSup", function(token, id, streetName, job)
     print("^2SUPERETTE:^7")
-    print(token, id, streetName, job)
+    print(id, streetName, job, GetActivePlayersFromJob(job))
     if not exports.rFramework:CheckToken(token, source, "core:CheckIfCanStartSup") then return end
-    local JobList = GetActivePlayersFromJob(job)
+    local JobList, num = GetActivePlayersFromJob(job)
     if LockedSup[id] == nil then
-        if #JobList >= 2 then
-            exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer une braquage de superette avec "..#JobList.." policer.", "superette")
+        if num >= 2 then
+            exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer un braquage de superette avec "..num.." policer.", "superette")
             TriggerClientEvent("core:GetSupStatus", source, true)
             for k,v in pairs(JobList) do
                 data = {["code"] = '10-31', ["name"] = 'Une alarme de superette vient de sonner, 10-32 vue sur les lieux. Intervention requise.', ["loc"] = streetName}
-                length = 3500
+                length = 60000
                 TriggerClientEvent("core:GetLspdCall", v.id, type, data, length, GetEntityCoords(GetPlayerPed(source)))
             end
             StartSupTimer(id)
             return
         else
-            TriggerClientEvent("core:GetSupStatus", source, false, job..": "..#JobList.."/2")
+            TriggerClientEvent("core:GetSupStatus", source, false, job..": "..num.."/2")
             return
         end
     elseif LockedSup[id].check == false then
         TriggerClientEvent("core:GetSupStatus", source, false, "La caisse est vide.")
         return
     else
-        if #JobList >= 2 then
-            exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer une braquage de superette avec "..#JobList.." policer.", "superette")
+        if num >= 2 then
+            exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer un braquage de superette avec "..num.." policer.", "superette")
             TriggerClientEvent("core:GetSupStatus", source, true)
             for k,v in pairs(JobList) do
                 data = {["code"] = '10-31', ["name"] = 'Une alarme de superette vient de sonner, 10-32 vue sur les lieux. Intervention requise.', ["loc"] = streetName}
-                length = 3500
+                length = 60000
                 TriggerClientEvent("core:GetLspdCall", v.id, type, data, length, GetEntityCoords(GetPlayerPed(source)))
             end
             StartSupTimer(id)
             return
         else
-            TriggerClientEvent("core:GetSupStatus", source, false, job..": "..#JobList.."/2")
+            TriggerClientEvent("core:GetSupStatus", source, false, job..": "..num.."/2")
             return
         end
     end
-end) 
+end)

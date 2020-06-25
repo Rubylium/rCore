@@ -24,7 +24,7 @@ function InitBraquageSup()
         else
             maxMoney = math.random(2000,5000)
             StartBraquo()
-        end
+        end 
     end) 
 
 
