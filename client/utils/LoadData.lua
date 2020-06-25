@@ -48,6 +48,7 @@ AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, a
     NpcJobMissions:LoadMissionData()
     ConvoiData:LoadConvoiData()
     InitTeleportZone(_JobsData.general.tp)
+    InitBraquageSup()
 end)
 
 
