@@ -110,9 +110,7 @@ AddEventHandler("core:lspdCheckPlate", function(token, _plate)
         for j,i in pairs(PlayersVehCache[k]) do
             if i.plate == _plate then
                 if PlayersVehCache[k][j].lspd ~= true then
-                    PlayersVehCache[k][j].ranger = false
                     PlayersVehCache[k][j].NetID = net
-                    PlayersVehCache[k][j].lspd = true
                     TriggerClientEvent("rF:notification", source, "~o~Information véhicule\n~w~Plaque: ".._plate.."\nEnregistré au nom de: ~b~".. PlayersVehCache[k][j].nom.." ".. PlayersVehCache[k][j].prenom)
                     return
                 end
