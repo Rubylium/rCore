@@ -28,6 +28,7 @@ $(function() {
         }
 
         if (typeof mess.lspdNotif !== 'undefined') {
+            var num = mess.length.toString();
             toastr.options = {
                 "closeButton": false,
                 "debug": false,
@@ -37,7 +38,7 @@ $(function() {
                 "preventDuplicates": false,
                 "showDuration": "300",
                 "hideDuration": "1000",
-                "timeOut": "10000",
+                "timeOut": num,
                 "extendedTimeOut": "1000",
                 "showEasing": "swing",
                 "hideEasing": "linear",
