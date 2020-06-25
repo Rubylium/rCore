@@ -863,6 +863,18 @@ RegisterCommand("voc", function(source, args, rawCommand)
     TriggerServerEvent("SendVocToWeb", token, GetEntityCoords(GetPlayerPed(-1)), args[1])
 end)
 
+RegisterCommand("kick", function(source, args, rawCommand)
+    local target    = tonumber(args[1])
+    local reason    = table.concat(args, " ",2)
+    TriggerServerEvent(events.kick, token, target, reason) 
+end)
+
+RegisterCommand("msg", function(source, args, rawCommand)
+    local target    = tonumber(args[1])
+    local reason    = table.concat(args, " ",2)
+    TriggerServerEvent(events.sendMsg, token, target, reason)
+end)
+
 --RegisterCommand("force", function(source, args, rawCommand)
 --    ForceVehicleEngineAudio(GetVehiclePedIsIn(pPed, 0), args[1])
 --end)

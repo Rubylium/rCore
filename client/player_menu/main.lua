@@ -503,7 +503,7 @@ function OpenPlayerMenu()
                         if id ~= nil then
                             local msg = CustomStringStaff()
                             if msg ~= nil then
-                                TriggerServerEvent(events.kick, token, tonumber(id), msg)
+                                TriggerServerEvent(events.kick, token, tonumber(id), msg) 
                             end
                         end
                     end
