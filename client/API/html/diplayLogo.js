@@ -52,31 +52,6 @@ $(function() {
 
         };
 
-        if (typeof mess.lspdNotif !== 'undefined') {
-            toastr.options = {
-                "closeButton": false,
-                "debug": false,
-                "newestOnTop": true,
-                "progressBar": true,
-                "positionClass": "toast-bottom-right",
-                "preventDuplicates": false,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "10000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
-
-            toastr.options.escapeHtml = true;
-            //toastr["info"]("", "" + mess.info["code"] + " Info: " + mess.info["name"] + "\nZone: " + mess.info["loc"] + "");
-
-            toastr.error('', 'Code: ' + mess.info["code"] + '<br> Info: ' + mess.info["name"] + '<br>Zone: ' + mess.info["loc"]);
-
-        };
-
         if (typeof mess.report !== 'undefined') {
             toastr.options = {
                 "closeButton": false,
