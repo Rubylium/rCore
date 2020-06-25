@@ -109,11 +109,11 @@ function OpenBillPayMenu()
                             else
                                 TriggerServerEvent(events.facturePaySociety, token, society, montant)
                                 TriggerServerEvent(events.facturePaySociety2, token, sourceID, montant)
-                                --if society == "concessionnaire" then
-                                    TriggerServerEvent(events.giveMtoPlayerId, token, montant * 0.05, sourceID)
-                                --else
-                                --    TriggerServerEvent(events.giveMtoPlayerId, token, montant / 2, sourceID)
-                                --end
+                                if society == "concessionnaire" or society == "mecano" then
+                                    TriggerServerEvent(events.giveMtoPlayerId, token, montant * 0.01, sourceID)
+                                else
+                                    TriggerServerEvent(events.giveMtoPlayerId, token, montant / 2, sourceID)
+                                end
                                 open = false
                                 RageUI.CloseAll()
                             end
