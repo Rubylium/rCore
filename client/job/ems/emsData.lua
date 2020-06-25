@@ -330,13 +330,20 @@ function HelpPlayer()
                             oldTime = GetGameTimer()
                             ClearPedTasks(pPed)
                             TriggerServerEvent(events.ResetDeath, token, targetID)
+                            TriggerServerEvent(events.giveMoney, token, 50.0)
                             StillWant = false
                         end
                         Wait(0)
                     end
                 end)
             else
-                RageUI.Popup({message = "La personne n'a pas besoin de soin."})
+                if GetEntityHealth(target) == 200 then
+                    RageUI.Popup({message = "La personne n'a pas besoin de soin."})
+                else
+                    TaskStartScenarioInPlace(pPed, "CODE_HUMAN_MEDIC_KNEEL", -1, true)
+                    Wait(5000)
+                    TriggerServerEvent(events.ResetDeath, token, targetID)
+                end
             end
         end, targetID) 
     else
