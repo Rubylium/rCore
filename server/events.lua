@@ -2,7 +2,11 @@ RegisterNetEvent("core:SendFacture")
 AddEventHandler("core:SendFacture", function(token, target, IsSocietyBill, society, raison, montant)
     if not exports.rFramework:CheckToken(token, source, "SendFacture") then return end
     TriggerClientEvent("core:GetFacture", target, IsSocietyBill, society, raison, montant, source)
-    exports.rFramework:SendLog("Le joueur **["..source.."]** "..GetPlayerName(source).." à donner une facture à **["..target.."]** "..GetPlayerName(target).." de **"..montant.."$** avec la raison: "..raison, "facture")
+    if IsSocietyBill then
+        exports.rFramework:SendLog("Le joueur **["..source.."]** "..GetPlayerName(source).." à donner une facture de société "..society.." à **["..target.."]** "..GetPlayerName(target).." de **"..montant.."$** avec la raison: "..raison, "facture")
+    else
+        exports.rFramework:SendLog("Le joueur **["..source.."]** "..GetPlayerName(source).." à donner une facture à **["..target.."]** "..GetPlayerName(target).." de **"..montant.."$** avec la raison: "..raison, "facture")
+    end
 end)
 
 RegisterNetEvent("core:CantPayFacture")
