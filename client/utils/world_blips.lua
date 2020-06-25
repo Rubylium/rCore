@@ -251,6 +251,32 @@ local blips = {
         pos = vector3(-228.7958, -1379.18, 31.22428),
         sub = nil
     },
+
+    {
+        name = "Fourrière",
+        icon = 642,
+        size = 0.50,
+        color = 47,
+        pos = vector3(487.227, -1309.152, 29.25486),
+        sub = nil
+    },
+    {
+        name = "Fourrière",
+        icon = 642,
+        size = 0.50,
+        color = 47,
+        pos = vector3(1645.304, 3807.474, 35.27508),
+        sub = nil
+    },
+    {
+        name = "Fourrière",
+        icon = 642,
+        size = 0.50,
+        color = 47,
+        pos = vector3(-198.9714, 6267.282, 32.40396),
+        sub = nil
+    },
+    
 }
 
 
@@ -262,6 +288,7 @@ Citizen.CreateThread(function()
         SetBlipScale(blip, v.size)
         SetBlipColour(blip, v.color)
         SetBlipAsShortRange(blip, true)
+        SetBlipCategory(blip, 8)
 
         BeginTextCommandSetBlipName("STRING")
         AddTextComponentString(v.name)
