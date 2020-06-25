@@ -18,14 +18,14 @@ function InitBraquageSup()
     end)
 
     RegisterNetEvent("core:GetSupStatus")
-    AddEventHandler("core:GetSupStatus", function(status)
-        if not status then
-            rUtils.ImportantNotif("Tu ne peux pas braquer ici pour l'instant ....")
+    AddEventHandler("core:GetSupStatus", function(status, raison)
+        if status == false then
+            rUtils.ImportantNotif("Tu ne peux pas braquer ici pour l'instant ....\n"..raison)
         else
             maxMoney = 6000
             StartBraquo()
         end
-    end)
+    end) 
 
 
     function FoundNearestSup()
