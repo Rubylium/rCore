@@ -70,7 +70,8 @@ function InitBraquageSup()
 
             while maxMoney >= 0 do
                 local money = math.random(50,100)
-                rUtils.ImportantNotif("~g~+ "..money)
+                maxMoney = maxMoney - money
+                rUtils.ImportantNotif("~g~+ "..money.."$\n~s~Caisse: ~g~"..maxMoney.."$")
                 TriggerServerEvent(events.GiveDirty, token, money)
                 PlaySoundFrontend(-1, "LOCAL_PLYR_CASH_COUNTER_COMPLETE", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 1)
 
