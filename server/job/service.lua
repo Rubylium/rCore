@@ -37,7 +37,7 @@ end)
 
 function GetActivePlayersFromJob(job)
     if JobServices[job] ~= nil then
-        return JobServices[job]
+        return JobServices[job], #JobServices[job]
     else
         return {}
     end
