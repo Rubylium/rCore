@@ -216,9 +216,18 @@ JobsData = {
         {label = "Developpeur", group = "dev"},
     },
     superette = {
-        zone = {
-            {pos = vector3(29.1523, -1339.914, 29.49702),heading = 278.76934814454,},
-        },
+        {pos = vector3(29.1523, -1339.914, 29.49702),heading = 278.76934814454, job = "police"},
+        {pos = vector3(-43.91654, -1749.338, 29.42102),heading = 141.21952819824, job = "police"},
+        {pos = vector3(-1219.66, -915.3108, 11.3263),heading = 49.730266571044, job = "police"},
+        {pos = vector3(-1479.56, -374.222, 39.16334),heading = 206.7963104248, job = "police"},
+        {pos = vector3(1126.546, -981.6112, 45.41588),heading = 36.31362915039, job = "police"},
+        {pos = vector3(378.4374, 332.906, 103.5664),heading = 254.18759155274, job = "police"},
+
+        {pos = vector3(2674.042, 3286.612, 55.24112),heading = 331.26135253906, job = "sheriff"},
+        {pos = vector3(2674.042, 3286.612, 55.24112),heading = 331.26135253906, job = "sheriff"},
+        {pos = vector3(1959.518, 3748.47, 32.34374),heading = 309.29452514648, job = "sheriff"},
+        {pos = vector3(1734.78, 6420.25, 35.03722),heading = 246.17741394042, job = "sheriff"},
+        {pos = vector3(-3047.342, 586.1912, 7.908926),heading = 35.10389328003, job = "sheriff"},
     },
     drusilla = {
         mission = {
