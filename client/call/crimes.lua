@@ -58,7 +58,7 @@ AddEventHandler("core:GetLspdCall", function(_type, _data, _length, _coords)
 
 
         BeginTextCommandSetBlipName("STRING")
-        AddTextComponentString(_data["code"].." - ".._data["name"])
+        AddTextComponentString(_data["code"])
         EndTextCommandSetBlipName(blip)
 
         Wait(60*1000)
