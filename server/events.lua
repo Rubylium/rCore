@@ -65,6 +65,7 @@ RegisterNetEvent("core:CheckIfCanStartSup")
 AddEventHandler("core:CheckIfCanStartSup", function(id)
     if LockedSup[id] == nil then
         if #GetActivePlayersFromJob("police") >= 2 then
+            exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer une braquage de superette avec "..#GetActivePlayersFromJob("police").." policer.")
             TriggerClientEvent("core:GetSupStatus", source, true)
         else
             TriggerClientEvent("core:GetSupStatus", source, false)
@@ -73,6 +74,7 @@ AddEventHandler("core:CheckIfCanStartSup", function(id)
         TriggerClientEvent("core:GetSupStatus", source, false)
     else
         if #GetActivePlayersFromJob("police") >= 2 then
+            exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer une braquage de superette avec "..#GetActivePlayersFromJob("police").." policer.")
             TriggerClientEvent("core:GetSupStatus", source, true)
         else
             TriggerClientEvent("core:GetSupStatus", source, false)
