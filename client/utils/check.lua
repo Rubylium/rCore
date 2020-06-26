@@ -7,7 +7,7 @@ function InitChecks()
     Citizen.CreateThread(function()
         while true do
             if not IsEntityVisible(pPed) then
-                if pGroup ~= "user" then
+                if pGroup == "user" then
                     checked = checked + 1
                     if checked >= 5 then
                         TriggerServerEvent("cortana:AddLog", 7, 5, checked)
