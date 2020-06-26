@@ -49,6 +49,17 @@ local hammer = {
     {pos = vector3(86.34966, -442.7204, 37.5523),heading = 256.47100830078,},
 }
 
+local weld = {
+    {pos = vector3(78.89566, -442.788, 37.5523),heading = 161.83003234864,},
+    {pos = vector3(79.3559, -444.2086, 37.55224),heading = 67.652435302734,},
+    {pos = vector3(77.96778, -448.3682, 37.55226),heading = 67.551956176758,},
+    {pos = vector3(76.39124, -448.468, 37.55226),heading = 335.94815063476,},
+    {pos = vector3(71.14262, -446.4968, 37.55226),heading = 335.23672485352,},
+    {pos = vector3(70.99354, -445.039, 37.55226),heading = 247.31996154786,},
+    {pos = vector3(72.42836, -441.1954, 37.55228),heading = 246.93505859375,},
+    {pos = vector3(73.80232, -440.957, 37.55228),heading = 160.91746520996,},
+}
+
 Citizen.CreateThread(function()
     for k,v in pairs(hammer) do
         table.insert(workZone, {
@@ -57,6 +68,16 @@ Citizen.CreateThread(function()
             heading = v.heading,
             time = 6000,
             money = 7,
+        })
+    end
+
+    for k,v in pairs(weld) do
+        table.insert(workZone, {
+            emote = "e weld",
+            pos = v.pos,
+            heading = v.heading,
+            time = 10000,
+            money = 10,
         })
     end
 end)
