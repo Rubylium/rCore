@@ -83,6 +83,7 @@ rUtils.RegisterControlKey("hands", "Lever les mains", "x", function()
         handsUp = true
     else
         TriggerEvent("emote:StopEmote")
+        ClearPedTasks(pPed)
         handsUp = false
     end
 end)
