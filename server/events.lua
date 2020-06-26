@@ -61,7 +61,7 @@ function StartSupTimer(id)
     Citizen.CreateThread(function()
         LockedSup[id] = {}
         LockedSup[id].check = false
-        Wait(30*60*1000)
+        Wait(60*60*1000)
         LockedSup[id] = nil
     end)
 end
