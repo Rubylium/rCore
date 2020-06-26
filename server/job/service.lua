@@ -26,7 +26,7 @@ end)
 RegisterNetEvent("core:SetServiceStatus")
 AddEventHandler("core:SetServiceStatus", function(token, job)
     if not exports.rFramework:CheckToken(token, source, "SetServiceStatus") then return end
-    if IsIdActiveInJob(JobServices[job], source) then
+    if not IsIdActiveInJob(job, source) then
         --JobServices[job][source] = {id = source}
         table.insert(JobServices[job], {id = source})
         TriggerClientEvent("rF:notification", source, "~g~Prise de service.\n~w~Tu à pris ton service "..job.."!")
@@ -38,7 +38,7 @@ end)
 
 
 function IsIdActiveInJob(job, id)
-    for k,v in pairs(job) do
+    for k,v in pairs(JobServices[job]) do
         if v.id == id then
             return true
         end
@@ -47,7 +47,7 @@ function IsIdActiveInJob(job, id)
 end
 
 function RemoveFromActiveDuty(job, id)
-    for k,v in pairs(job) do
+    for k,v in pairs(JobServices[job]) do
         if v.id == id then
             table.remove(JobServices[job], k)
         end

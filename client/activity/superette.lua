@@ -66,6 +66,13 @@ function InitBraquageSup()
                     inBraquo = false
                     return
                 end
+
+                if pDeath then
+                    rUtils.ImportantNotif("Braquage annulé, tu est trop loin.")
+                    Destroy("SUPERETTE")
+                    inBraquo = false
+                    return
+                end
             end
 
             while maxMoney >= 0 do
@@ -78,6 +85,13 @@ function InitBraquageSup()
                 local pCoords = GetEntityCoords(pPed)
                 local dst = GetDistanceBetweenCoords(braquo, pCoords, true)
                 if dst > 9.0 then
+                    rUtils.ImportantNotif("Braquage annulé, tu est trop loin.")
+                    Destroy("SUPERETTE")
+                    inBraquo = false
+                    return
+                end
+
+                if pDeath then
                     rUtils.ImportantNotif("Braquage annulé, tu est trop loin.")
                     Destroy("SUPERETTE")
                     inBraquo = false
