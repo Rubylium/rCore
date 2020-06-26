@@ -7,35 +7,35 @@ local workZone = {
         pos = vector3(87.48754, -419.674, 37.55276),
         heading = 158.18992614,
         time = 10000,
-        money = 10,
+        money = 11,
     },
     {
         emote = "e weld",
         pos = vector3(86.29858, -424.9816, 37.5523),
         heading = 71.574913024,
         time = 10000,
-        money = 10,
+        money = 11,
     },
     {
         emote = "e weld",
         pos = vector3(84.85888, -425.0366, 37.55244),
         heading =  330.570648,
         time = 10000,
-        money = 10,
+        money = 11,
     },
     {
         emote = "e weld",
         pos = vector3(79.66342, -422.9928, 37.55242),
         heading = 333.9955444336,
         time = 10000,
-        money = 10,
+        money = 11,
     },
     {
         emote = "e weld",
         pos = vector3(81.1464, -417.908, 37.5528),
         heading = 249.337280273,
         time = 10000,
-        money = 10,
+        money = 11,
     },
 }
 
@@ -67,7 +67,7 @@ Citizen.CreateThread(function()
             pos = v.pos,
             heading = v.heading,
             time = 6000,
-            money = 7,
+            money = 8,
         })
     end
 
@@ -77,7 +77,7 @@ Citizen.CreateThread(function()
             pos = v.pos,
             heading = v.heading,
             time = 10000,
-            money = 10,
+            money = 11,
         })
     end
 end)
