@@ -235,10 +235,10 @@ function StartSportAction(data)
                 count = count + 1
                 UpdatePresence("sport")
                 AddStat(data.stat, data.add, data.label)
-                if count > 30 then
+                if count > 20 then
                     StillWant = false
                     rUtils.ImportantNotif("Tu as terminé ton exercice, change de machine.")
-                    SetEntityCoordsNoOffset(pPed, v.respawn, 0.0, 0.0, 0.0)
+                    SetEntityCoordsNoOffset(pPed, data.respawn, 0.0, 0.0, 0.0)
                     UpdatePresence("default")
                 end
             end
