@@ -190,7 +190,7 @@ end
 
 function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	rUtils.LoadModel(model)
-	local vehicle = CreateVehicle_(model, coords, heading, 1, 1)
+	local vehicle = CreateVehicle_(model, coords, heading, 1, 0)
 	SetVehicleDirtLevel(vehicle, 0.0)
 	SetEntityCoordsNoOffset(vehicle, coords.x, coords.y, coords.z+0.5, 0.0, 0.0, 0.0)
 	SetVehicleOnGroundProperly(vehicle)
