@@ -222,6 +222,8 @@ JobsData = {
         {pos = vector3(-1479.56, -374.222, 39.16334),heading = 206.7963104248, job = "police"},
         {pos = vector3(1126.546, -981.6112, 45.41588),heading = 36.31362915039, job = "police"},
         {pos = vector3(378.4374, 332.906, 103.5664),heading = 254.18759155274, job = "police"},
+        {pos = vector3(1159.926, -314.9232, 69.20504),heading = 71.328224182128, job = "police"},
+        {pos = vector3(2549.948, 384.8386, 108.623),heading = 324.6224975586, job = "police"},
 
         {pos = vector3(2674.042, 3286.612, 55.24112),heading = 331.26135253906, job = "sheriff"},
         {pos = vector3(2674.042, 3286.612, 55.24112),heading = 331.26135253906, job = "sheriff"},
