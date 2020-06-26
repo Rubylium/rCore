@@ -82,7 +82,7 @@ rUtils.RegisterControlKey("hands", "Lever les mains", "x", function()
         rUtils.PlayAnim("random@mugging3", "handsup_standing_base", 49, 8.0, -8.0)
         handsUp = true
     else
-        ClearPedTasks(pPed)
+        TriggerEvent("emote:StopEmote")
         handsUp = false
     end
 end)
