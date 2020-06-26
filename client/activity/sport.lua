@@ -15,6 +15,7 @@ do
             add = 0.05,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-61.01798, -1289.204, 30.9051),
         },
         {
             pos = vector3(-61.08241, -1278.538, 30.90511),
@@ -26,6 +27,7 @@ do
             anim = true,
             anim_ = "idle_d",
             dict = "amb@world_human_push_ups@male@idle_a",
+            respawn = vector3(-61.01798, -1289.204, 30.9051),
         },
         {
             pos = vector3(-59.0868, -1285.316, 30.90509),
@@ -36,6 +38,7 @@ do
             add = 0.10,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-61.01798, -1289.204, 30.9051),
         },
 
 
@@ -48,6 +51,7 @@ do
             add = 0.10,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-1203.232, -1570.356, 4.60799),
         },
         {
             pos = vector3(-1204.948, -1564.142, 4.609482),
@@ -58,6 +62,7 @@ do
             add = 0.10,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-1203.232, -1570.356, 4.60799),
         },
 
 
@@ -69,6 +74,7 @@ do
             add = 0.05,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-1203.232, -1570.356, 4.60799),
         },
         {
             pos = vector3(-1208.992, -1559.206, 4.60844),
@@ -78,6 +84,7 @@ do
             add = 0.05,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-1203.232, -1570.356, 4.60799),
         },
         {
             pos = vector3(-1210.486, -1561.294, 4.607992),
@@ -87,6 +94,7 @@ do
             add = 0.05,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-1203.232, -1570.356, 4.60799),
         },
         {
             pos = vector3(-1202.542, -1573.024, 4.60799),
@@ -96,6 +104,7 @@ do
             add = 0.05,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-1203.232, -1570.356, 4.60799),
         },
         {
             pos = vector3(-1198.312, -1573.678, 4.610016),
@@ -105,6 +114,7 @@ do
             add = 0.05,
             label = "MP0_STRENGTH",
             anim = false,
+            respawn = vector3(-1203.232, -1570.356, 4.60799),
         },
     }
 
@@ -122,6 +132,7 @@ do
                     add = v.add,
                     label = v.label,
                     anim = false,
+                    respawn = v.respawn,
                 },
                 action = function(data)
                     StartSportAction(data)
@@ -141,6 +152,7 @@ do
                     anim = true,
                     anim_ = v.anim_,
                     dict = v.dict,
+                    respawn = v.respawn,
                 },
                 action = function(data)
                     StartSportAction(data)
@@ -226,7 +238,7 @@ function StartSportAction(data)
                 if count > 30 then
                     StillWant = false
                     rUtils.ImportantNotif("Tu as terminé ton exercice, change de machine.")
-                    SetEntityCoordsNoOffset(pPed, -60.69826, -1288.276, 30.90508, 0.0, 0.0, 0.0)
+                    SetEntityCoordsNoOffset(pPed, v.respawn, 0.0, 0.0, 0.0)
                     UpdatePresence("default")
                 end
             end
