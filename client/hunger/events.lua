@@ -159,6 +159,40 @@ end)
 ShakeGameplayCam("DRUNK_SHAKE", 0.0)
 StopScreenEffect("DrugsDrivingIn")
 
+RegisterNetEvent("core:UseWeedOgKush")
+AddEventHandler("core:UseWeedOgKush", function()
+    RequestAnimSet("MOVE_M@DRUNK@MODERATEDRUNK_HEAD_UP")
+    while not HasAnimSetLoaded("MOVE_M@DRUNK@MODERATEDRUNK_HEAD_UP") do
+      Citizen.Wait(1)
+    end 
+
+    PlayUrl("weed", "https://www.youtube.com/watch?v=BC_wA09fqeU", 0.25, false)
+    while not isPlaying("weed") do Wait(1) end
+    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weedak47"), 1)
+    AnimpostfxPlay("DrugsDrivingIn", 0, 0)
+
+    ShakeGameplayCam("DRUNK_SHAKE", 0.5)
+
+    SetPedMovementClipset(PlayerPedId(), "MOVE_M@DRUNK@MODERATEDRUNK_HEAD_UP", 1.0)
+    RemoveAnimSet("MOVE_M@DRUNK@MODERATEDRUNK_HEAD_UP")
+
+    Wait(30*1000)
+    SetGameplayEntityHint(pPed, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0)
+    SetGameplayHintFov(400.0)
+    ShakeGameplayCam("DRUNK_SHAKE", 5.0)
+    Wait(60*1000)
+    ShakeGameplayCam("DRUNK_SHAKE", 3.0)
+
+    while getVolume("weed") > 0.0 do
+        setVolume("weed", getVolume("weed") - 0.1)
+        
+        Wait(1000)
+    end
+    ShakeGameplayCam("DRUNK_SHAKE", 0.0)
+    Destroy("weed")
+    StopScreenEffect("DrugsDrivingIn")
+end)
+
 
 RegisterNetEvent("core:UseWeedWhiteWidow")
 AddEventHandler("core:UseWeedWhiteWidow", function()
