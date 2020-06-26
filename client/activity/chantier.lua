@@ -220,7 +220,7 @@ function StartChantierWork()
                 Wait(self.time)
                 TriggerEvent("emote:StopEmote")
                 ExecuteCommand("e shakeoff")
-                TriggerServerEvent(events.giveMoney, token, self.money)
+                TriggerServerEvent(events.giveMoney, token, self.money +  rUtils.GetVipBonus(self.money)) 
                 InAction = false
             end
         end
