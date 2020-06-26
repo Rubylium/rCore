@@ -264,10 +264,10 @@ function NoClip()
                 end
             
                 if IsDisabledControlJustPressed(1, 15) then
-                    NoClipSpeed = NoClipSpeed + 0.1
+                    NoClipSpeed = NoClipSpeed + 0.3
                 end
                 if IsDisabledControlJustPressed(1, 14) then
-                    NoClipSpeed = NoClipSpeed - 0.1
+                    NoClipSpeed = NoClipSpeed - 0.3
                     if NoClipSpeed < 0 then
                         NoClipSpeed = 0
                     end
