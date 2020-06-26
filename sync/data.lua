@@ -127,6 +127,10 @@ weed = {
     add = 0.1, 
     TraitWait = 1500,
 
+    prep1item = "weedak47",
+    prep1label = "Canabis type AK47",
+
+
     mission = {
         item = "Canabis de bonne qualité",
         price = 25,

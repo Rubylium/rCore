@@ -216,13 +216,21 @@ function WeedData:LoadWeedData()
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'weed_trait'), false, false, false, function()
                     if not Trating then
-                        RageUI.Button("Commencer le traitement.", "5 Weed non traité requis", pInventory[self.w.item2Label] ~= nil, function(_,_,s)
+                        RageUI.Button("Préparer: ~b~"..self.w.item2Label, "2 Weed non traité requis", pInventory[self.w.item2Label] ~= nil, function(_,_,s)
                             if s then 
                                 if pInventory[self.w.item2Label].count >= 2 then
-
-                                    StartTrait()
+                                    StartTrait(self.w.itemFinal)
                                     Trating = true
                                     TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2), 2)
+                                end
+                            end
+                        end)
+                        RageUI.Button("Préparer: ~b~"..self.w.prep1label, "2 Weed non traité requis", pInventory[self.w.prep1label] ~= nil, function(_,_,s)
+                            if s then 
+                                if pInventory[self.w.prep1label].count >= 2 then
+                                    StartTrait(self.w.prep1item)
+                                    Trating = true
+                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.prep1item), 2)
                                 end
                             end
                         end)
@@ -252,7 +260,7 @@ function WeedData:LoadWeedData()
     end
 
 
-    function StartTrait()
+    function StartTrait(item)
         Citizen.CreateThread(function()
             local clicked = 0
             local supposed = 0
@@ -285,8 +293,7 @@ function WeedData:LoadWeedData()
 
             if clicked > supposed / 2 then
                 rUtils.Notif("Traitement réussi!")
-                print(self.w.itemFinal)
-                TriggerServerEvent(events.give, token, self.w.itemFinal, 1, GetItemId(self.w.itemFinal))
+                TriggerServerEvent(events.give, token, item, 1, GetItemId(item))
             else
                 rUtils.ImportantNotif("~r~Traitement échoué!~w~\n"..clicked.."/"..supposed)
             end

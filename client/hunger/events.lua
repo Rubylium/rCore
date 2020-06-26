@@ -147,10 +147,84 @@ end)
 
 RegisterNetEvent("core:UseWeed")
 AddEventHandler("core:UseWeed", function()
-    PlayUrl("weed", "https://www.youtube.com/watch?v=zvEJu3VPE9A", 0.3, false)
+    PlayUrl("weed", "https://www.youtube.com/watch?v=zvEJu3VPE9A", 0.15, false)
     TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weed2"), 1)
     StartScreenEffect("ChopVision", 0, 0)
     Wait(1*60000)
     Destroy("weed")
     StopScreenEffect("ChopVision")
+end)
+
+
+ShakeGameplayCam("DRUNK_SHAKE", 0.0)
+StopScreenEffect("DrugsDrivingIn")
+
+
+RegisterNetEvent("core:UseWeedWhiteWidow")
+AddEventHandler("core:UseWeedWhiteWidow", function()
+    RequestAnimSet("move_m@drunk@moderatedrunk")
+    while not HasAnimSetLoaded("move_m@drunk@moderatedrunk") do
+      Citizen.Wait(1)
+    end 
+
+    PlayUrl("weed", "https://www.youtube.com/watch?v=OC7cNS0GINo", 0.25, false)
+    while not isPlaying("weed") do Wait(1) end
+    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weedak47"), 1)
+    AnimpostfxPlay("DrugsDrivingIn", 0, 0)
+
+    ShakeGameplayCam("DRUNK_SHAKE", 0.5)
+
+    SetPedMovementClipset(PlayerPedId(), "move_m@drunk@moderatedrunk", 0.2)
+    RemoveAnimSet("move_m@drunk@moderatedrunk")
+
+    Wait(12*1000)
+    SetGameplayEntityHint(pPed, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0)
+    SetGameplayHintFov(400.0)
+    for i = 1,60 do
+        ShakeGameplayCam("DRUNK_SHAKE", math.random(3,10) + 0.1)
+        Wait(1000)
+    end
+
+    while getVolume("weed") > 0.0 do
+        setVolume("weed", getVolume("weed") - 0.1)
+        Wait(1000)
+    end
+    ShakeGameplayCam("DRUNK_SHAKE", 0.0)
+    Destroy("weed")
+    StopScreenEffect("DrugsDrivingIn")
+end)
+
+
+RegisterNetEvent("core:UseWeedAk47")
+AddEventHandler("core:UseWeedAk47", function()
+    RequestAnimSet("move_m@drunk@verydrunk")
+    while not HasAnimSetLoaded("move_m@drunk@verydrunk") do
+      Citizen.Wait(1)
+    end 
+
+    PlayUrl("weed", "https://www.youtube.com/watch?v=OC7cNS0GINo", 0.4, false)
+    while not isPlaying("weed") do Wait(1) end
+    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weedak47"), 1)
+    AnimpostfxPlay("DrugsDrivingIn", 0, 0)
+
+    ShakeGameplayCam("DRUNK_SHAKE", 0.5)
+
+    SetPedMovementClipset(PlayerPedId(), "move_m@drunk@verydrunk", 0.2)
+    RemoveAnimSet("move_m@drunk@verydrunk")
+
+    Wait(49*1000)
+    SetGameplayEntityHint(pPed, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0)
+    SetGameplayHintFov(400.0)
+    for i = 1,60 do
+        ShakeGameplayCam("DRUNK_SHAKE", math.random(10,100) + 0.1)
+        Wait(1000)
+    end
+
+    while getVolume("weed") > 0.0 do
+        setVolume("weed", getVolume("weed") - 0.1)
+        Wait(1000)
+    end
+    ShakeGameplayCam("DRUNK_SHAKE", 0.0)
+    Destroy("weed")
+    StopScreenEffect("DrugsDrivingIn")
 end)
