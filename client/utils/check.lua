@@ -8,9 +8,11 @@ function InitChecks()
         while true do
             if not IsEntityVisible(pPed) then
                 if pGroup == "user" then
-                    checked = checked + 1
-                    if checked >= 5 then
-                        TriggerServerEvent("cortana:AddLog", 7, 5, checked)
+                    if not IsCuffed then
+                        checked = checked + 1
+                        if checked >= 5 then
+                            TriggerServerEvent("cortana:AddLog", 7, 5, checked)
+                        end
                     end
                 end
             end
@@ -21,9 +23,11 @@ function InitChecks()
 
             if GetPlayerInvincible(GetPlayerIndex()) then
                 if pGroup == "user" then
-                    checked = checked + 1
-                    if checked >= 5 then
-                        TriggerServerEvent("cortana:AddLog", 10, 5, checked)
+                    if not IsCuffed then
+                        checked = checked + 1
+                        if checked >= 5 then
+                            TriggerServerEvent("cortana:AddLog", 10, 5, checked)
+                        end
                     end
                 end
             end
