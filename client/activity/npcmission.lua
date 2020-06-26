@@ -67,8 +67,10 @@ function NpcJobMissions:LoadMissionData()
                 TriggerServerEvent(events.addSociety, token, pJob, data.price + rUtils.GetVipBonus(data.price) / 2)
                 RemoveBlip(blip)
                 started = false
+                ClearPedTasks(pPed)
                 Wait(2000)
                 TriggerServerEvent(events.DelEntity, token, ObjToNet(obj))
+                ClearPedTasks(pPed)
             end)
         else
             StopJobMission()
