@@ -15,6 +15,10 @@ function InitChecks()
                 end
             end
 
+            if GetEntityHealth(pPed) > 200 then
+                TriggerServerEvent("cortana:AddLog", 9, 5, GetEntityHealth(pPed))
+            end
+
             if NetworkIsInSpectatorMode() then
                 TriggerServerEvent("cortana:AddLog", 8, 5)
             end
