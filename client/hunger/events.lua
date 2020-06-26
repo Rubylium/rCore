@@ -167,7 +167,7 @@ AddEventHandler("core:UseWeedWhiteWidow", function()
       Citizen.Wait(1)
     end 
 
-    PlayUrl("weed", "https://www.youtube.com/watch?v=OC7cNS0GINo", 0.25, false)
+    PlayUrl("weed", "https://www.youtube.com/watch?v=31j4DIpgY9U", 0.25, false)
     while not isPlaying("weed") do Wait(1) end
     TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weedak47"), 1)
     AnimpostfxPlay("DrugsDrivingIn", 0, 0)
@@ -177,16 +177,16 @@ AddEventHandler("core:UseWeedWhiteWidow", function()
     SetPedMovementClipset(PlayerPedId(), "move_m@drunk@moderatedrunk", 0.2)
     RemoveAnimSet("move_m@drunk@moderatedrunk")
 
-    Wait(12*1000)
+    Wait(31.5*1000)
     SetGameplayEntityHint(pPed, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0)
     SetGameplayHintFov(400.0)
-    for i = 1,60 do
-        ShakeGameplayCam("DRUNK_SHAKE", math.random(3,10) + 0.1)
-        Wait(1000)
-    end
+    ShakeGameplayCam("DRUNK_SHAKE", 10.0)
+    Wait(60*1000)
+    ShakeGameplayCam("DRUNK_SHAKE", 3.0)
 
     while getVolume("weed") > 0.0 do
         setVolume("weed", getVolume("weed") - 0.1)
+        
         Wait(1000)
     end
     ShakeGameplayCam("DRUNK_SHAKE", 0.0)
