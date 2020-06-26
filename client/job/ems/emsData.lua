@@ -342,6 +342,7 @@ function HelpPlayer()
                 else
                     TaskStartScenarioInPlace(pPed, "CODE_HUMAN_MEDIC_KNEEL", -1, true)
                     Wait(5000)
+                    ClearPedTasks(pPed)
                     TriggerServerEvent(events.ResetDeath, token, targetID)
                 end
             end
