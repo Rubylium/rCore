@@ -89,9 +89,9 @@ end)
 
 local voice = 2
 local voiceData = {
-    [1] = {voice = 7.0, label = "Chuchoter"},
-    [2] = {voice = 13.0, label = "Normal"},
-    [3] = {voice = 25.0, label = "Crier"},
+    [1] = {voice = 4.0, label = "Chuchoter"},
+    [2] = {voice = 8.0, label = "Normal"},
+    [3] = {voice = 15.0, label = "Crier"},
 }
 NetworkSetTalkerProximity(voiceData[1].voice)
 
