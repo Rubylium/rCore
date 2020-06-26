@@ -284,6 +284,15 @@ local blips = {
         pos = vector3(-198.9714, 6267.282, 32.40396),
         sub = nil
     },
+
+    {
+        name = "Chantier",
+        icon = 478,
+        size = 0.50,
+        color = 81,
+        pos = vector3(84.73204, -390.227, 41.06246),
+        sub = nil
+    },
     
 }
 
