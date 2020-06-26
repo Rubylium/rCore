@@ -315,6 +315,22 @@ local npcs = {
         entity = nil,
         LoadDst = 100,
     },
+
+    { -- spawnFaq 
+        model = "s_m_y_construct_02",
+        pos = vector3(87.0439, -390.3884, 41.146),
+        heading = 319.454223,
+        haveAction = true,
+        action = function(ped, _offset, camOffset)
+            OpenChantierMenu(ped, _offset, camOffset)
+        end,
+        scenario = "WORLD_HUMAN_CLIPBOARD",
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 100,
+    },
 }
 
 
