@@ -129,6 +129,14 @@ local blips = {
             infuence = "~o~Faible",
         },
     },
+    {
+        name = "LS Sports",
+        icon = 311,
+        size = 0.55,
+        color = 26,
+        pos = vector3(-1202.162, -1566.84, 4.611064),
+        sub = nil
+    },
 
     {
         name = "Hopital - Sandy Shores",

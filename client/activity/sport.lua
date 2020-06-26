@@ -37,6 +37,75 @@ do
             label = "MP0_STRENGTH",
             anim = false,
         },
+
+
+        {
+            pos = vector3(-1199.824, -1571.408, 4.60957),
+            heading = 37.746078491,
+            scenario = "PROP_HUMAN_MUSCLE_CHIN_UPS_PRISON",
+            tp = true,
+            stat = "Strength",
+            add = 0.10,
+            label = "MP0_STRENGTH",
+            anim = false,
+        },
+        {
+            pos = vector3(-1204.948, -1564.142, 4.609482),
+            heading = 213.989105,
+            scenario = "PROP_HUMAN_MUSCLE_CHIN_UPS_PRISON",
+            tp = true,
+            stat = "Strength",
+            add = 0.10,
+            label = "MP0_STRENGTH",
+            anim = false,
+        },
+
+
+        {
+            pos = vector3(-1197.422, -1566.428, 4.619752),
+            heading = 255.8386,
+            scenario = "WORLD_HUMAN_MUSCLE_FREE_WEIGHTS",
+            stat = "Strength",
+            add = 0.05,
+            label = "MP0_STRENGTH",
+            anim = false,
+        },
+        {
+            pos = vector3(-1208.992, -1559.206, 4.60844),
+            heading = 255.8386,
+            scenario = "WORLD_HUMAN_MUSCLE_FREE_WEIGHTS",
+            stat = "Strength",
+            add = 0.05,
+            label = "MP0_STRENGTH",
+            anim = false,
+        },
+        {
+            pos = vector3(-1210.486, -1561.294, 4.607992),
+            heading = 255.8386,
+            scenario = "WORLD_HUMAN_MUSCLE_FREE_WEIGHTS",
+            stat = "Strength",
+            add = 0.05,
+            label = "MP0_STRENGTH",
+            anim = false,
+        },
+        {
+            pos = vector3(-1202.542, -1573.024, 4.60799),
+            heading = 255.8386,
+            scenario = "WORLD_HUMAN_MUSCLE_FREE_WEIGHTS",
+            stat = "Strength",
+            add = 0.05,
+            label = "MP0_STRENGTH",
+            anim = false,
+        },
+        {
+            pos = vector3(-1198.312, -1573.678, 4.610016),
+            heading = 255.8386,
+            scenario = "WORLD_HUMAN_MUSCLE_FREE_WEIGHTS",
+            stat = "Strength",
+            add = 0.05,
+            label = "MP0_STRENGTH",
+            anim = false,
+        },
     }
 
 
