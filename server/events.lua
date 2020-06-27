@@ -54,6 +54,20 @@ AddEventHandler("core:ChangeDoubleDoorStatus", function(token, players, door1, d
 end)
 
 
+RegisterServerEvent('core:CarryPeople:sync')
+AddEventHandler('core:CarryPeople:sync', function(token, target, animationLib,animationLib2, animation, animation2, distans, distans2, height,targetSrc,length,spin,controlFlagSrc,controlFlagTarget,animFlagTarget)
+    if not exports.rFramework:CheckToken(token, source, "core:CarryPeople:sync") then return end
+	TriggerClientEvent('CarryPeople:syncTarget', targetSrc, source, animationLib2, animation2, distans, distans2, height, length,spin,controlFlagTarget,animFlagTarget)
+	TriggerClientEvent('CarryPeople:syncMe', source, animationLib, animation,length,controlFlagSrc,animFlagTarget)
+end)
+
+RegisterServerEvent('core:CarryPeople:stop')
+AddEventHandler('core:CarryPeople:stop', function(token, targetSrc)
+    if not exports.rFramework:CheckToken(token, source, "core:CarryPeople:sync") then return end
+	TriggerClientEvent('CarryPeople:cl_stop', targetSrc)
+end)
+
+
 local LockedSup = {}
 
 function StartSupTimer(id)
