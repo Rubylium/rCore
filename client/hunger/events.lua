@@ -168,7 +168,7 @@ AddEventHandler("core:UseWeedOgKush", function()
 
     PlayUrl("weed", "https://www.youtube.com/watch?v=BC_wA09fqeU", 0.25, false)
     while not isPlaying("weed") do Wait(1) end
-    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weedak47"), 1)
+    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("ogkush"), 1)
     AnimpostfxPlay("DrugsDrivingIn", 0, 0)
 
     ShakeGameplayCam("DRUNK_SHAKE", 0.5)
@@ -190,7 +190,7 @@ AddEventHandler("core:UseWeedOgKush", function()
     end
     ShakeGameplayCam("DRUNK_SHAKE", 0.0)
     Destroy("weed")
-    StopScreenEffect("DrugsDrivingIn")
+    StopScreenEffect("DrugsDrivingIn") 
 end)
 
 
@@ -203,7 +203,7 @@ AddEventHandler("core:UseWeedWhiteWidow", function()
 
     PlayUrl("weed", "https://www.youtube.com/watch?v=31j4DIpgY9U", 0.25, false)
     while not isPlaying("weed") do Wait(1) end
-    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weedak47"), 1)
+    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("whitewidow"), 1)
     AnimpostfxPlay("DrugsDrivingIn", 0, 0)
 
     ShakeGameplayCam("DRUNK_SHAKE", 0.5)
