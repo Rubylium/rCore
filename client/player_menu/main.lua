@@ -310,6 +310,30 @@ function OpenPlayerMenu()
                         end
                     end)
                 end
+                RageUI.ButtonWithStyle("Raccourcie #1", nil, {RightLabel = "~g~"..itemFastControl[1].label}, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        itemFastControl[1].label = selected.label
+                        itemFastControl[1].item = selected.name
+                    end
+                end)
+                RageUI.ButtonWithStyle("Raccourcie #2", nil, {RightLabel = "~g~"..itemFastControl[2].label}, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        itemFastControl[2].label = selected.label
+                        itemFastControl[2].item = selected.name
+                    end
+                end)
+                RageUI.ButtonWithStyle("Raccourcie #3", nil, {RightLabel = "~g~"..itemFastControl[3].label}, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        itemFastControl[3].label = selected.label
+                        itemFastControl[3].item = selected.name
+                    end
+                end)
+                RageUI.ButtonWithStyle("Raccourcie #4", nil, {RightLabel = "~g~"..itemFastControl[4].label}, true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        itemFastControl[4].label = selected.label
+                        itemFastControl[4].item = selected.name
+                    end
+                end)
 
             end, function()
             end)

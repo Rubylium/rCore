@@ -31,15 +31,15 @@ rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function(
     end
 end)
 
-rUtils.RegisterControlKey("speed", "[DEV] - Reset slowmotion", "9", function()
-    if UpdateOnscreenKeyboard() == 0 then return end
-    --SetTimeScale(1.0)
-end)
-
-rUtils.RegisterControlKey("slow", "[DEV] - Activer slowmotion", "6", function()
-    if UpdateOnscreenKeyboard() == 0 then return end
-    --SetTimeScale(0.25)
-end)
+--rUtils.RegisterControlKey("speed", "[DEV] - Reset slowmotion", "9", function()
+--    if UpdateOnscreenKeyboard() == 0 then return end
+--    --SetTimeScale(1.0)
+--end)
+--
+--rUtils.RegisterControlKey("slow", "[DEV] - Activer slowmotion", "6", function()
+--    if UpdateOnscreenKeyboard() == 0 then return end
+--    --SetTimeScale(0.25)
+--end)
 
 --rUtils.RegisterControlKey("creator", "[DEV] - Ouvrir le menu de création", "f1", function()
 --    OpenCreatorMenu()
@@ -173,5 +173,44 @@ rUtils.RegisterControlKey("fall", "Faire tomber son personnage", "y", function()
         end)
     else
         falling = false
+    end
+end)
+
+itemFastControl = {
+    [1] = {label = "Aucun", item = ""},
+    [2] = {label = "Aucun", item = ""},
+    [3] = {label = "Aucun", item = ""},
+    [4] = {label = "Aucun", item = ""},
+}
+
+rUtils.RegisterControlKey("item1", "Raccourcie Item #1", "&", function()
+    if pInventory[itemFastControl[1].label] ~= nil then
+        TriggerEvent("rF:UseItem", itemFastControl[1].item, items)
+    else
+        rUtils.ImportantNotif("Tu ne possèdes pas l'item lié à se raccourcit.")
+    end
+end)
+
+rUtils.RegisterControlKey("item2", "Raccourcie Item #1", "é", function()
+    if pInventory[itemFastControl[2].label] ~= nil then
+        TriggerEvent("rF:UseItem", itemFastControl[2].item, items)
+    else
+        rUtils.ImportantNotif("Tu ne possèdes pas l'item lié à se raccourcit.")
+    end
+end)
+
+rUtils.RegisterControlKey("item3", "Raccourcie Item #1", "\"", function()
+    if pInventory[itemFastControl[3].label] ~= nil then
+        TriggerEvent("rF:UseItem", itemFastControl[3].item, items)
+    else
+        rUtils.ImportantNotif("Tu ne possèdes pas l'item lié à se raccourcit.")
+    end
+end)
+
+rUtils.RegisterControlKey("item4", "Raccourcie Item #1", "'", function()
+    if pInventory[itemFastControl[4].label] ~= nil then
+        TriggerEvent("rF:UseItem", itemFastControl[4].item, items)
+    else
+        rUtils.ImportantNotif("Tu ne possèdes pas l'item lié à se raccourcit.")
     end
 end)
