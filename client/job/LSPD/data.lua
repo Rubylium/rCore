@@ -1151,6 +1151,19 @@ function LoadPoliceData()
                         end
                     end)
 
+                    RageUI.Button("Vérifier la plaque (CID).", nil, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            local plate = CustomString()
+                            if plate ~= nil then
+                                rUtils.ImportantNotif("Vous demandez une vérification de plaque au central ...")
+                                ExecuteCommand("e cop3")
+                                Wait(10000)
+                                TriggerServerEvent(events.checkPlate, token, plate)
+                                ClearPedTasks(pPed)
+                            end
+                        end
+                    end)
+
                 end, function()
                     ---Panels
                 end)
