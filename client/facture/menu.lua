@@ -98,7 +98,7 @@ function OpenBillPayMenu()
                 RageUI.Separator("Raison: "..raison)
                 RageUI.Separator("Montant: ~g~"..montant.."~w~$")
 
-                RageUI.ButtonWithStyle("~g~Payer la facture", nil, {}, true, function(_,h,s)
+                RageUI.ButtonWithStyle("~g~Payer la facture en liquide", nil, {}, true, function(_,h,s)
                     if s then 
                         if pMoney >= montant then 
                             if not IsSocietyBill then
@@ -107,7 +107,7 @@ function OpenBillPayMenu()
                                 open = false 
                                 RageUI.CloseAll()
                             else
-                                TriggerServerEvent(events.facturePaySociety, token, society, montant)
+                                TriggerServerEvent(events.facturePaySociety, token, society, montant, false)
                                 TriggerServerEvent(events.facturePaySociety2, token, sourceID, montant)
                                 if society == "concessionnaire" or society == "mecano" then
                                     TriggerServerEvent(events.giveMtoPlayerId, token, montant * 0.01, sourceID)
@@ -117,6 +117,25 @@ function OpenBillPayMenu()
                                 open = false
                                 RageUI.CloseAll()
                             end
+                        else
+                            TriggerServerEvent(events.cantPayFacture, token, sourceID, montant)
+                            open = false
+                            RageUI.CloseAll()
+                        end
+                    end
+                end)
+                RageUI.ButtonWithStyle("~g~Payer la facture avec CB", nil, {}, IsSocietyBill, function(_,h,s)
+                    if s then 
+                        if pBank >= montant then 
+                            TriggerServerEvent(events.facturePaySociety, token, society, montant, true)
+                            TriggerServerEvent(events.facturePaySociety2, token, sourceID, montant)
+                            if society == "concessionnaire" or society == "mecano" then
+                                TriggerServerEvent(events.giveMtoPlayerId, token, montant * 0.01, sourceID)
+                            else
+                                TriggerServerEvent(events.giveMtoPlayerId, token, montant / 2, sourceID)
+                            end
+                            open = false 
+                            RageUI.CloseAll()
                         else
                             TriggerServerEvent(events.cantPayFacture, token, sourceID, montant)
                             open = false
