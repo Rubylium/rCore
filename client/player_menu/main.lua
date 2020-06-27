@@ -25,6 +25,12 @@ RMenu:Get('core', 'vip_weapon_tint').Closed = function()end
 RMenu.Add('core', 'vip_weapon_aim', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_main'), "Aim", "~b~Changer son type d'aim"))
 RMenu:Get('core', 'vip_weapon_aim').Closed = function()end
 
+RMenu.Add('core', 'vip_peds', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_main'), "Ped", "~b~Changer son type de ped"))
+RMenu:Get('core', 'vip_peds').Closed = function()end
+
+RMenu.Add('core', 'vip_peds_animals', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_peds'), "Animals", "~b~Changer son animals"))
+RMenu:Get('core', 'vip_peds_animals').Closed = function()end
+
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "portefeuille", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'portefeuille').Closed = function()end
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
@@ -105,6 +111,106 @@ AddEventHandler("core:pList", function(list)
     print("Players list loaded")
 end)
 
+
+local peds = {
+    normal = {
+        {label = "GangSter", model = "g_m_y_armgoon_02", vip = true},
+        {label = "GangSter2", model = "a_m_m_soucent_01", vip = true},
+        {label = "GangSter3", model = "g_m_y_strpunk_02", vip = true},
+        {label = "GangSter4", model = "g_m_y_strpunk_01", vip = true},
+        {label = "Tatoo", model = "u_m_y_tattoo_01", vip = true},
+        {label = "Pretre", model = "ig_priest", vip = true},
+        {label = "Jesus", model = "u_m_m_jesus_01", vip = true},
+        {label = "Dealer", model = "s_m_y_dealer_01", vip = true},
+        {label = "David", model = "g_m_m_armgoon_01", vip = true},
+        {label = "Gros Tony", model = "g_m_m_armboss_01", vip = true},
+        {label = "Coka", model = "a_m_o_acult_02", vip = true},
+        {label = "Cletus", model = "ig_cletus", vip = true},
+        {label = "Boucher", model = "s_m_m_migrant_01", vip = true},
+        {label = "Biggy", model = "a_m_m_afriamer_01", vip = true},
+        {label = "Clochard1", model = "a_m_o_soucent_02", vip = true},
+        {label = "Clochard2", model = "a_m_o_soucent_03", vip = true},
+        {label = "Clochard3", model = "a_m_m_trampbeac_01", vip = true},
+        {label = "Clochard4", model = "a_m_o_tramp_01", vip = true},
+    
+        {label = "Mecano1", model = "s_m_m_autoshop_01", vip = true},
+        {label = "Mecano2", model = "s_m_m_autoshop_02", vip = true},
+        {label = "Mecano3", model = "s_m_y_xmech_02", vip = true},
+        {label = "Bloods", model = "ig_claypain", vip = true},
+        {label = "Ballas1", model = "g_m_y_ballaeast_01", vip = true},
+        {label = "Ballas2", model = "g_m_y_ballaorig_01", vip = true},
+        {label = "Ballas3", model = "g_f_y_ballas_01", vip = true},
+        {label = "OG Ballas", model = "ig_ballasog", vip = true},
+        {label = "Famillies", model = "g_m_y_famca_01", vip = true},
+        {label = "Famillies2", model = "g_m_y_famdnf_01", vip = true},
+        {label = "Famillies3", model = "g_m_y_famfor_01", vip = true},
+        {label = "Famillies4", model = "g_f_y_families_01", vip = true},
+        {label = "Famillies5", model = "g_f_y_families_01", vip = true},
+        {label = "Famillies6", model = "csb_g", vip = true},
+        {label = "OG Famillies", model = "ig_lamardavis", vip = true},
+        {label = "OG Gang", model = "a_m_m_og_boss_01", vip = true},
+    
+        {label = "Fermier1", model = "ig_old_man1a", vip = true},
+        {label = "Fermier2", model = "ig_old_man2", vip = true},
+        {label = "Fermier3", model = "ig_omega", vip = true},
+        {label = "Fermier4", model = "ig_oneil", vip = true},
+    
+        {label = "Aztecas1", model = "ig_ortega", vip = true},
+        {label = "Aztecas2", model = "csb_oscar", vip = true},
+        {label = "Madrazo", model = "g_m_y_pologoon_01", vip = true},
+        {label = "Madrazo2", model = "u_m_m_partytarget", vip = true},
+    
+        {label = "Marabunta Boss", model = "g_m_y_salvaboss_01", vip = true},
+        {label = "Marabunta1", model = "g_m_y_salvagoon_01", vip = true},
+        {label = "Marabunta2", model = "g_m_y_salvagoon_02", vip = true},
+        {label = "Marabunta3", model = "g_m_y_salvagoon_03", vip = true},
+        {label = "Marabunta Boss", model = "g_m_y_salvaboss_01", vip = true},
+    
+        {label = "Crips", model = "a_m_m_soucent_03", vip = true},
+    
+        {label = "Lost1", model = "g_f_y_lost_01", vip = true},
+        {label = "Lost2", model = "g_m_y_lost_01", vip = true},
+        {label = "Lost3", model = "g_m_y_lost_02", vip = true},
+        {label = "Lost4", model = "g_m_y_lost_03", vip = true},
+    
+        {label = "Hao", model = "ig_hao", vip = true},
+        {label = "Korean1", model = "g_m_m_korboss_01", vip = true},
+        {label = "Korean2", model = "g_m_y_korean_01", vip = true},
+        {label = "Korean3", model = "g_m_y_korean_02", vip = true},
+        {label = "Korean4", model = "g_m_y_korlieut_01", vip = true},
+        {label = "Korean5", model = "a_m_o_ktown_01", vip = true},
+        {label = "Korean6", model = "a_m_y_ktown_01", vip = true},
+        {label = "Korean7", model = "ig_chengsr", vip = true},
+    
+        {label = "Vagos1", model = "a_m_y_hiker_01", vip = true},
+        {label = "Vagos Boss", model = "g_m_m_mexboss_01", vip = true},
+        {label = "Vagos2", model = "g_m_m_mexboss_02", vip = true},
+        {label = "Vagos3", model = "g_m_y_mexgang_01", vip = true},
+        {label = "Vagos4", model = "g_m_y_mexgoon_01", vip = true},
+        {label = "Vagos5", model = "g_m_y_mexgoon_02", vip = true},
+        {label = "Vagos6", model = "g_m_y_mexgoon_03", vip = true},
+        {label = "Vagos7", model = "a_m_y_mexthug_01", vip = true},
+        {label = "Vagos8", model = "mp_m_g_vagfun_01", vip = true},
+        {label = "Vagos9", model = "ig_vagspeak", vip = true},
+    },
+
+    animals =  {
+        {label = "Chien1", model = "a_c_poodle", vip = true},
+        {label = "Cochon", model = "a_c_pig", vip = true},
+        {label = "Chien2", model = "a_c_husky", vip = true},
+        {label = "Poule", model = "a_c_hen", vip = true},
+        {label = "Biche", model = "a_c_deer", vip = true},
+        {label = "Chien3", model = "a_c_chop", vip = true},
+        {label = "Chat", model = "a_c_cat_01", vip = true},
+        {label = "Sanglier", model = "a_c_boar", vip = true},
+        {label = "Vache", model = "a_c_cow", vip = true},
+        {label = "Coyotte", model = "a_c_coyote", vip = true},
+        {label = "Chien4", model = "a_c_retriever", vip = true},
+        {label = "Chien5", model = "a_c_shepherd", vip = true},
+        {label = "Chien6", model = "a_c_westy", vip = true},
+    },
+    
+}
 
 local SelectedPlayer = {}
 local InStaff = false
@@ -814,6 +920,32 @@ function OpenPlayerMenu()
                 end, RMenu:Get('core', 'vip_weapon_tint'))
                 RageUI.ButtonWithStyle("Animation d'arme", nil, { RightLabel = "→" }, pVip ~= 0, function()
                 end, RMenu:Get('core', 'vip_weapon_aim'))
+                RageUI.ButtonWithStyle("Peds - Personnnage OneShot", nil, { RightLabel = "→" }, pVip ~= 0, function()
+                end, RMenu:Get('core', 'vip_peds'))
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'vip_peds'), true, true, true, function()
+                RageUI.ButtonWithStyle("Animals - Personnnage OneShot", nil, { RightLabel = "→" }, pVip ~= 0, function()
+                end, RMenu:Get('core', 'vip_peds_animals'))
+                RageUI.ButtonWithStyle("Peds - Personnnage définitif ( Soon )", nil, { RightLabel = "→" }, pVip ~= 0, function()
+                end)
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'vip_peds_animals'), true, true, true, function(_,_,s)
+                for k,v in pairs(peds.animals) do
+                    RageUI.Button(v.label, nil, true, function(_,h,s)
+                        if s then
+                            rUtils.LoadModel(GetHashKey(v.model))
+                            SetPlayerModel(GetPlayerIndex(), v.model)
+                            SetPedDefaultComponentVariation(GetPlayerPed(-1))
+                            rUtils.ImportantNotif("~r~Rappel! ~s~Un animal ne parle pas! Tout abus sera sanctionné!")
+                            rUtils.ImportantNotif("~r~Rappel! ~s~En tant qu'animal certaine animation peuvent être bug, merci *de ne pas les utiliser*")
+                        end
+                    end)
+                end
+
             end, function()
             end)
 

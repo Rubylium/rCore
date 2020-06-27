@@ -276,7 +276,7 @@ function CreatorMenuThread()
             RageUI.IsVisible(RMenu:Get('core', "skincreator_identity"), true, true, true, function()
                 open = true
                 if Identity.prenom == nil then
-                    RageUI.ButtonWithStyle("Prénom: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Prénom: ", nil, { RightLabel = "→ Changer" }, true, function(_,h,s)
                         if s then
                             local prenom = CustomString()
                             if prenom ~= nil and prenom ~= "" then
@@ -285,7 +285,7 @@ function CreatorMenuThread()
                         end
                     end) 
                 else
-                    RageUI.ButtonWithStyle("Prénom: ", nil, { RightLabel = "~g~"..Identity.prenom }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Prénom: ", nil, { RightLabel = "~g~"..Identity.prenom }, true, function(_,h,s)
                         if s then
                             local prenom = CustomString()
                             if prenom ~= nil and prenom ~= "" then
@@ -296,7 +296,7 @@ function CreatorMenuThread()
                 end
 
                 if Identity.nom == nil then
-                    RageUI.ButtonWithStyle("Nom: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Nom: ", nil, { RightLabel = "→ Changer" }, true, function(_,h,s)
                         if s then
                             local nom = CustomString()
                             if nom ~= nil and nom ~= "" then
@@ -305,7 +305,7 @@ function CreatorMenuThread()
                         end
                     end) 
                 else
-                    RageUI.ButtonWithStyle("Nom: ", nil, { RightLabel = "~g~"..Identity.nom }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Nom: ", nil, { RightLabel = "~g~"..Identity.nom }, true, function(_,h,s)
                         if s then
                             local nom = CustomString()
                             if nom ~= nil and nom ~= "" then
@@ -316,7 +316,7 @@ function CreatorMenuThread()
                 end
 
                 if Identity.age == nil then
-                    RageUI.ButtonWithStyle("Age: ", nil, { RightLabel = "→ Changer" }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Age: ", nil, { RightLabel = "→ Changer" }, true, function(_,h,s)
                         if s then
                             local age = tonumber(CustomString())
                             if age ~= nil and age ~= "" then
@@ -329,7 +329,7 @@ function CreatorMenuThread()
                         end
                     end) 
                 else
-                    RageUI.ButtonWithStyle("Age: ", nil, { RightLabel = "~g~"..Identity.age }, not usingVipPed, function(_,h,s)
+                    RageUI.ButtonWithStyle("Age: ", nil, { RightLabel = "~g~"..Identity.age }, true, function(_,h,s)
                         if s then
                             local age = tonumber(CustomString())
                             if age ~= nil and age ~= "" then
