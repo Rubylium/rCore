@@ -41,8 +41,11 @@ RMenu:Get('core', 'accessoire').Closed = function()end
 
 RMenu.Add('core', 'divers', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "divers", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'divers').Closed = function()end
-RMenu.Add('core', 'divers_editor', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
+RMenu.Add('core', 'divers_editor', RageUI.CreateSubMenu(RMenu:Get('core', 'divers'), "Inventaire", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'divers_editor').Closed = function()end
+
+RMenu.Add('core', 'divers_color', RageUI.CreateSubMenu(RMenu:Get('core', 'divers'), "Couleur", "~b~Couleur du menu"))
+RMenu:Get('core', 'divers_color').Closed = function()end
 
 RMenu.Add('core', 'admin', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Admin Menu", nil))
 RMenu:Get('core', 'admin').Closed = function()end
@@ -490,9 +493,45 @@ function OpenPlayerMenu()
             end, function()
             end)
 
+            RageUI.IsVisible(RMenu:Get('core', 'divers_color'), true, true, true, function()
+
+                local self = RMenu:Get('core', 'divers_color')
+                self.EnableMouse = true
+            
+                RageUI.Progress("Rouge", menuColor[1], 255, nil, true, true,function(Hovered, Active, Selected,Color)
+                    menuColor[1] = Color
+                    ReloadColor()
+                end)
+            
+                RageUI.Progress("Vert", menuColor[2], 255, nil, true, true,function(Hovered, Active, Selected,Color)
+                    menuColor[2] = Color
+                    ReloadColor()
+                end)
+            
+                RageUI.Progress("Bleu", menuColor[3], 255, nil, true, true,function(Hovered, Active, Selected,Color)
+                    menuColor[3] = Color
+                    ReloadColor()
+                end)
+            
+                RageUI.Separator("")
+            
+                RageUI.ButtonWithStyle("Appliquer la couleur", nil, {}, true, function(Hovered, Active, Selected)
+                    if Selected then
+                        SetResourceKvpInt("menuR", menuColor[1])
+                        SetResourceKvpInt("menuG", menuColor[2])
+                        SetResourceKvpInt("menuB", menuColor[3])
+                        ReloadColor()
+                    end
+                end)
+            end, function()
+            end)
+
             RageUI.IsVisible(RMenu:Get('core', 'divers'), true, true, true, function()
-                RageUI.ButtonWithStyle("Rockstar éditor", nil, { RightLabel = "→→" }, pGroup ~= "user", function()
+                RageUI.ButtonWithStyle("Rockstar éditor", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'divers_editor'))
+                RageUI.ButtonWithStyle("Couleur du menu", nil, { RightLabel = "→→" }, true, function()
+                end, RMenu:Get('core', 'divers_color'))
+
                 RageUI.Button("Activer/Desactiver l'HUD", nil, true, function(Hovered, Active, Selected)
                     if (Selected) then
                         TriggerEvent("rF:HudToogle")
@@ -522,33 +561,9 @@ function OpenPlayerMenu()
                 RageUI.ButtonWithStyle("Props", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then RageUI.Visible(RMenu:Get('core', 'props'), true) OpenPropsMenu() end
                 end)
-
-                local self = RMenu:Get('core', 'divers')
-                self.EnableMouse = true
-            
-                RageUI.Progress("Rouge", menuColor[1], 255, nil, true, true,function(Hovered, Active, Selected,Color)
-                    menuColor[1] = Color
-                    ReloadColor()
-                end)
-            
-                RageUI.Progress("Vert", menuColor[2], 255, nil, true, true,function(Hovered, Active, Selected,Color)
-                    menuColor[2] = Color
-                    ReloadColor()
-                end)
-            
-                RageUI.Progress("Bleu", menuColor[3], 255, nil, true, true,function(Hovered, Active, Selected,Color)
-                    menuColor[3] = Color
-                    ReloadColor()
-                end)
-            
-                RageUI.Separator("")
-            
-                RageUI.ButtonWithStyle("Appliquer la couleur", nil, {}, true, function(Hovered, Active, Selected)
-                    if Selected then
-                        SetResourceKvpInt("menuR", menuColor[1])
-                        SetResourceKvpInt("menuG", menuColor[2])
-                        SetResourceKvpInt("menuB", menuColor[3])
-                        ReloadColor()
+                RageUI.Button("Porter la personne la plus proche", nil, true, function(_,_,s)
+                    if s then 
+                        CarryNearest() 
                     end
                 end)
 
