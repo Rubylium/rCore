@@ -498,6 +498,8 @@ events = {
     CheckData = "rF:CheckIfJobIsValid",
     Death = "rF:LogPlayerDeath",
     StartSup = "core:CheckIfCanStartSup",
+    CarrySync = "core:CarryPeople:sync",
+    CarryStop = "core:CarryPeople:stop",
 }
  
 
