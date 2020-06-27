@@ -130,6 +130,12 @@ weed = {
     prep1item = "weedak47",
     prep1label = "Canabis type AK47",
 
+    prep2item = "whitewidow",
+    prep2label = "Canabis type WhiteWidow",
+
+    prep3item = "ogkush",
+    prep3label = "Canabis type Og Kush",
+
 
     mission = {
         item = "Canabis de bonne qualité",
