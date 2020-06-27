@@ -56,7 +56,7 @@ function InitBraquageSup()
         local braquo = GetEntityCoords(pPed)
         Citizen.CreateThread(function()
             rUtils.ImportantNotif("Tu commences le braquage, tiens 1m avant de commencer à gagner de l'argent!")
-            for i = 1,30 do
+            for i = 1,60 do
                 Wait(1000)
                 local pCoords = GetEntityCoords(pPed)
                 local dst = GetDistanceBetweenCoords(braquo, pCoords, true)
