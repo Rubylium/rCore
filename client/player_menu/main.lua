@@ -196,14 +196,10 @@ local peds = {
 
     animals =  {
         {label = "Chien1", model = "a_c_poodle", vip = true},
-        {label = "Cochon", model = "a_c_pig", vip = true},
         --{label = "Chien2", model = "a_c_husky", vip = true},
         {label = "Poule", model = "a_c_hen", vip = true},
-        {label = "Biche", model = "a_c_deer", vip = true},
         --{label = "Chien3", model = "a_c_chop", vip = true},
         {label = "Chat", model = "a_c_cat_01", vip = true},
-        {label = "Sanglier", model = "a_c_boar", vip = true},
-        {label = "Vache", model = "a_c_cow", vip = true},
         {label = "Coyotte", model = "a_c_coyote", vip = true},
         --{label = "Chien4", model = "a_c_retriever", vip = true},
         --{label = "Chien5", model = "a_c_shepherd", vip = true},
@@ -934,6 +930,13 @@ function OpenPlayerMenu()
             end)
 
             RageUI.IsVisible(RMenu:Get('core', 'vip_peds_animals'), true, true, true, function(_,_,s)
+                RageUI.Button("Reprendre son personnage.", nil, true, function(_,h,s)
+                    if s then
+                        TriggerEvent("skinchanger:getSkin", function(skin)
+                            TriggerEvent("skinchanger:LoadForTheFirsTime", skin)
+                        end)
+                    end
+                end)
                 for k,v in pairs(peds.animals) do
                     RageUI.Button(v.label, nil, true, function(_,h,s)
                         if s then
