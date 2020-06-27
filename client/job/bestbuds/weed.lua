@@ -225,30 +225,30 @@ function WeedData:LoadWeedData()
                                 end
                             end
                         end)
-                        RageUI.Button("Préparer: ~b~"..self.w.prep1label, "15 Weed non traité requis", pInventory[self.w.prep1label] ~= nil, function(_,_,s)
+                        RageUI.Button("Préparer: ~b~"..self.w.prep1label, "15 Weed non traité requis", pInventory[self.w.item2Label] ~= nil, function(_,_,s)
                             if s then 
-                                if pInventory[self.w.prep1label].count >= 15 then
+                                if pInventory[self.w.item2Label].count >= 15 then
                                     StartTrait(self.w.prep1item)
                                     Trating = true
-                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.prep1item), 15)
+                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2Label), 15)
                                 end
                             end
                         end)
-                        RageUI.Button("Préparer: ~b~"..self.w.prep2label, "10 Weed non traité requis", pInventory[self.w.prep2label] ~= nil, function(_,_,s)
+                        RageUI.Button("Préparer: ~b~"..self.w.prep2label, "10 Weed non traité requis", pInventory[self.w.item2Label] ~= nil, function(_,_,s)
                             if s then 
-                                if pInventory[self.w.prep2label].count >= 10 then
+                                if pInventory[self.w.item2Label].count >= 10 then
                                     StartTrait(self.w.prep2item)
                                     Trating = true
-                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.prep2item), 10)
+                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2Label), 10)
                                 end
                             end
                         end)
-                        RageUI.Button("Préparer: ~b~"..self.w.prep3label, "5 Weed non traité requis", pInventory[self.w.prep3label] ~= nil, function(_,_,s)
+                        RageUI.Button("Préparer: ~b~"..self.w.prep3label, "5 Weed non traité requis", pInventory[self.w.item2Label] ~= nil, function(_,_,s)
                             if s then 
-                                if pInventory[self.w.prep3label].count >= 5 then
+                                if pInventory[self.w.item2Label].count >= 5 then
                                     StartTrait(self.w.prep3item)
                                     Trating = true
-                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.prep3item), 5)
+                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2Label), 5)
                                 end
                             end
                         end)
