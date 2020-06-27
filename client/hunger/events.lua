@@ -147,7 +147,7 @@ end)
 
 RegisterNetEvent("core:UseWeed")
 AddEventHandler("core:UseWeed", function()
-    PlayUrl("weed", "https://www.youtube.com/watch?v=zvEJu3VPE9A", 0.15, false)
+    PlayUrl("weed", "https://www.youtube.com/watch?v=zvEJu3VPE9A", 0.05, false)
     TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weed2"), 1)
     StartScreenEffect("ChopVision", 0, 0)
     Wait(1*60000)
@@ -166,7 +166,7 @@ AddEventHandler("core:UseWeedOgKush", function()
       Citizen.Wait(1)
     end 
 
-    PlayUrl("weed", "https://www.youtube.com/watch?v=BC_wA09fqeU", 0.25, false)
+    PlayUrl("weed", "https://www.youtube.com/watch?v=BC_wA09fqeU", 0.10, false)
     while not isPlaying("weed") do Wait(1) end
     TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("ogkush"), 1)
     AnimpostfxPlay("DrugsDrivingIn", 0, 0)
@@ -201,7 +201,7 @@ AddEventHandler("core:UseWeedWhiteWidow", function()
       Citizen.Wait(1)
     end 
 
-    PlayUrl("weed", "https://www.youtube.com/watch?v=31j4DIpgY9U", 0.25, false)
+    PlayUrl("weed", "https://www.youtube.com/watch?v=31j4DIpgY9U", 0.15, false)
     while not isPlaying("weed") do Wait(1) end
     TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("whitewidow"), 1)
     AnimpostfxPlay("DrugsDrivingIn", 0, 0)
@@ -236,7 +236,7 @@ AddEventHandler("core:UseWeedAk47", function()
       Citizen.Wait(1)
     end 
 
-    PlayUrl("weed", "https://www.youtube.com/watch?v=OC7cNS0GINo", 0.4, false)
+    PlayUrl("weed", "https://www.youtube.com/watch?v=OC7cNS0GINo", 0.25, false)
     while not isPlaying("weed") do Wait(1) end
     TriggerServerEvent(events.remove, token, GetFirstLabelFromItem("weedak47"), 1)
     AnimpostfxPlay("DrugsDrivingIn", 0, 0)
