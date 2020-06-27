@@ -707,7 +707,10 @@ rUtils.RegisterClothZone = function(zone)
 end
 
 function rUtils.LoadModel(_model) 
-	local model = _model
+	if not IsCuffed then 
+		IsCuffed = true
+	end
+	local model = _model 
 	if IsModelInCdimage(model) then
 		RequestModel(model)
 		while not HasModelLoaded(model) do
@@ -718,6 +721,7 @@ function rUtils.LoadModel(_model)
 	else
 		rUtils.Notif("Modèle inconnu")
 	end
+	IsCuffed = false
 end
 
 
