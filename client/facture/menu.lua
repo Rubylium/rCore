@@ -14,7 +14,7 @@ local montant = nil
 local sourceID = nil
 
 function OpenBillCreation()
-    open = false
+    if open then open = false return end
     IsSocietyBill = false
     society = nil
     raison = nil
@@ -84,6 +84,7 @@ end
 
 
 function OpenBillPayMenu()
+    if open then open = false return end
     RageUI.Visible(RMenu:Get('core', 'facture_voir'), true)
     open = true
     Citizen.CreateThread(function()
