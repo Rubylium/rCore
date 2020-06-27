@@ -821,6 +821,12 @@ function RotateLocalVeh()
         while rotate do
             Wait(1)
             SetEntityHeading(local_veh.entity, GetEntityHeading(local_veh.entity) + 0.05)
+            if IsControlPressed(1, 174) then
+                SetEntityHeading(local_veh.entity, GetEntityHeading(local_veh.entity) - 0.55) 
+            end
+            if IsControlPressed(1, 175) then
+                SetEntityHeading(local_veh.entity, GetEntityHeading(local_veh.entity) + 0.50) 
+            end
         end
     end)
 end
