@@ -1316,18 +1316,25 @@ end
 
 RMenu.Add('core', 'sheriff_tige', RageUI.CreateMenu("SHERIFF", "~b~Traveaux forcé SHERIFF"))
 local tige = {
-    {
-        titre = "Petits travaux forcés",
-        count = 50,
-    },
-    {
-        titre = "travaux forcés",
-        count = 100,
-    },
-    {
-        titre = "Long travaux forcés",
-        count = 200,
-    },
+    {titre = "TIG - 10",count = 10,},
+    {titre = "TIG - 20",count = 10,},
+    {titre = "TIG - 30",count = 10,},
+    {titre = "TIG - 40",count = 10,},
+    {titre = "TIG - 50",count = 10,},
+    {titre = "TIG - 60",count = 10,},
+    {titre = "TIG - 70",count = 10,},
+    {titre = "TIG - 80",count = 10,},
+    {titre = "TIG - 90",count = 10,},
+    {titre = "TIG - 100",count = 10,},
+    {titre = "TIG - 110",count = 10,},
+    {titre = "TIG - 120",count = 10,},
+    {titre = "TIG - 130",count = 10,},
+    {titre = "TIG - 150",count = 10,},
+    {titre = "TIG - 160",count = 10,},
+    {titre = "TIG - 170",count = 10,},
+    {titre = "TIG - 180",count = 10,},
+    {titre = "TIG - 190",count = 10,},
+    {titre = "TIG - 200",count = 10,},
 }
 
 local tigeAction = {
