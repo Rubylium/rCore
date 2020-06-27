@@ -644,17 +644,19 @@ function LoadConcessData()
                     for _,v in pairs(vehs_avalaible) do
                         local displaytext = GetDisplayNameFromVehicleModel(v.prop.model)
                         local veh_name
+                        local VipVeh = false
                         if v.label == nil then
                             veh_name = GetLabelText(displaytext)
                         else
                             veh_name = v.label
+                            VipVeh = true
                         end
                     
                         RageUI.ButtonWithStyle(veh_name, "", {}, true, function(Hovered, Active, Selected)
                             if Active then
                                 if local_veh.model ~= v.prop.model then
                                     DeleteVehicle(local_veh.entity)
-                                    CreateLocalVeh(v.prop.model, v.prop)
+                                    CreateLocalVeh(v.prop.model, v.prop, veh_name)
                                 end
                             end
                             if Selected then
@@ -672,10 +674,12 @@ function LoadConcessData()
                 RageUI.IsVisible(RMenu:Get('core', "infoVeh"), true, true, false, function()
                     local displaytext = GetDisplayNameFromVehicleModel(local_veh.model)
                     local veh_name
+                    local vip = false
                     if local_veh.name == nil then
                         veh_name = GetLabelText(displaytext)
                     else
                         veh_name = local_veh.name
+                        vip = true
                     end
                     RageUI.ButtonWithStyle("Nom du véhicule: "..veh_name, "", {}, true, function(Hovered, Active, Selected)
                     end)
@@ -693,7 +697,7 @@ function LoadConcessData()
                                     local id = GetPlayerServerId(v)
                                     local props = local_veh.props
                                     local props_final, plate = CreateVeh(props)
-                                    TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final, 0)
+                                    TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final, vip)
                                     for n,i in pairs(vehs_avalaible) do
                                         if local_veh.props.plate == i.prop.plate then
                                             table.remove(vehs_avalaible, n)
