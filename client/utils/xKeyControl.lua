@@ -183,7 +183,7 @@ itemFastControl = {
     [4] = {label = "Aucun", item = ""},
 }
 
-rUtils.RegisterControlKey("item1", "Raccourcie Item #1", "&", function()
+rUtils.RegisterControlKey("item1", "Raccourcie Item #1", "é", function()
     if pInventory[itemFastControl[1].label] ~= nil then
         TriggerEvent("rF:UseItem", itemFastControl[1].item, items)
     else
@@ -191,7 +191,7 @@ rUtils.RegisterControlKey("item1", "Raccourcie Item #1", "&", function()
     end
 end)
 
-rUtils.RegisterControlKey("item2", "Raccourcie Item #1", "é", function()
+rUtils.RegisterControlKey("item2", "Raccourcie Item #2", "\"", function()
     if pInventory[itemFastControl[2].label] ~= nil then
         TriggerEvent("rF:UseItem", itemFastControl[2].item, items)
     else
@@ -199,7 +199,7 @@ rUtils.RegisterControlKey("item2", "Raccourcie Item #1", "é", function()
     end
 end)
 
-rUtils.RegisterControlKey("item3", "Raccourcie Item #1", "\"", function()
+rUtils.RegisterControlKey("item3", "Raccourcie Item #3", "'", function()
     if pInventory[itemFastControl[3].label] ~= nil then
         TriggerEvent("rF:UseItem", itemFastControl[3].item, items)
     else
@@ -207,7 +207,7 @@ rUtils.RegisterControlKey("item3", "Raccourcie Item #1", "\"", function()
     end
 end)
 
-rUtils.RegisterControlKey("item4", "Raccourcie Item #1", "'", function()
+rUtils.RegisterControlKey("item4", "Raccourcie Item #4", "(", function()
     if pInventory[itemFastControl[4].label] ~= nil then
         TriggerEvent("rF:UseItem", itemFastControl[4].item, items)
     else
