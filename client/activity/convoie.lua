@@ -76,7 +76,12 @@ function ConvoiData:LoadConvoiData()
                         message = self.c.message,
                         time_display = 2100,
                     })
-                    Wait(2000)
+
+                    if not working then
+                        RemoveBlip(blip)
+                        return
+                    end
+                    Wait(30)
                 end
                 while dst > 2 do
                     dst = GetDistanceBetweenCoords(GetEntityCoords(pPed), self.c.PointArriver, true)
@@ -85,6 +90,10 @@ function ConvoiData:LoadConvoiData()
                         message = self.c.message2,
                         time_display = 1,
                     })
+                    if not working then
+                        RemoveBlip(blip)
+                        return
+                    end
                     Wait(1)
                 end
 
@@ -105,7 +114,11 @@ function ConvoiData:LoadConvoiData()
                         message = self.c.message3,
                         time_display = 2100,
                     })
-                    Wait(2000)
+                    if not working then
+                        RemoveBlip(blip)
+                        return
+                    end
+                    Wait(30)
                 end
 
                 RemoveBlip(blip)
