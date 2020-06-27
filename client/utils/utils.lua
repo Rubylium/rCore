@@ -362,7 +362,8 @@ rUtils.GetVehicleProperties = function(vehicle)
 
 	if vehicle ~= nil then
 		if not AreAllVehicleWindowsIntact(vehicle) then
-			for i = 1,10 do
+			for i = 1,6 do
+				print(IsVehicleWindowIntact(vehicle, i))
 				props.windowStatus[i] = IsVehicleWindowIntact(vehicle, i)
 			end
 		end
@@ -628,18 +629,22 @@ rUtils.SetVehicleProperties = function(vehicle, props)
 		SetVehicleLivery(vehicle, props.modLivery)
 	end
 
-	if props.windowStatus ~= nil then
-		for k,v in pairs(props.windowStatus) do
-			if not v then
-				SmashVehicleWindow(vehicle, k) 
+	if DoesEntityExist(vehicle) then
+		if props.windowStatus ~= nil then
+			for i = 1,6 do
+				print(i, props.windowStatus[i], IsVehicleWindowIntact(vehicle, i))
+				if props.windowStatus[i] ~= nil and props.windowStatus[i] == false and IsVehicleWindowIntact(vehicle, i) ~= false then
+					print("Broken window, maybe should crash now")
+					SmashVehicleWindow(vehicle, i) 
+				end
 			end
 		end
-	end
 
-	if props.tyres ~= nil then
-		for k,v in pairs(props.tyres) do
-			if v then
-				SetVehicleTyreBurst(vehicle, tonumber(k), true, 1000.0)
+		if props.tyres ~= nil then
+			for k,v in pairs(props.tyres) do
+				if v then
+					SetVehicleTyreBurst(vehicle, tonumber(k), true, 100.0)
+				end
 			end
 		end
 	end
