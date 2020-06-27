@@ -84,7 +84,7 @@ AddEventHandler("core:CheckIfCanStartSup", function(token, id, streetName, job)
             StartSupTimer(id)
             return
         else
-            TriggerClientEvent("core:GetSupStatus", source, false, job..": "..num.."/2")
+            TriggerClientEvent("core:GetSupStatus", source, false, job..": "..num.."/5")
             return
         end
     elseif LockedSup[id].check == false then
@@ -102,7 +102,7 @@ AddEventHandler("core:CheckIfCanStartSup", function(token, id, streetName, job)
             StartSupTimer(id)
             return
         else
-            TriggerClientEvent("core:GetSupStatus", source, false, job..": "..num.."/2")
+            TriggerClientEvent("core:GetSupStatus", source, false, job..": "..num.."/5")
             return
         end
     end
