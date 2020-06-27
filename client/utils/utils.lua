@@ -196,6 +196,7 @@ function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	SetVehicleOnGroundProperly(vehicle)
 	SetEntityHeading(vehicle, heading)
 	DecorSetBool(vehicle, "veh_allowed", true)
+	SetEntityAsMissionEntity(vehicle, 1, 1)
 	if props ~= nil then
 		rUtils.SetVehicleProperties(vehicle, props)
 	end
