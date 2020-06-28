@@ -651,6 +651,7 @@ function LoadConcessData()
                             veh_name = v.label
                             VipVeh = true
                         end
+                        local_veh.vip = v.vip
                     
                         RageUI.ButtonWithStyle(veh_name, "", {}, true, function(Hovered, Active, Selected)
                             if Active then
@@ -735,7 +736,8 @@ function LoadConcessData()
                                 end
                                 if (Selected) then
                                     local props = rUtils.GetVehicleProperties(local_veh.entity)
-                                    table.insert(vehs_avalaible, {prop = props, price = i.prix, label = i.label})
+                                    local vip = IsVehVIP(i.vehs)
+                                    table.insert(vehs_avalaible, {prop = props, price = i.prix, label = i.label, vip = vip})
                                     rUtils.Notif("Véhicule '"..veh_name.."' ajouté à la liste.\nPrix d'achats: ~g~"..i.prix)
                                 end
                             end)
@@ -745,6 +747,24 @@ function LoadConcessData()
                 end
             end
         end)
+    end
+
+
+    function IsVehVIP(name)
+        local vip = false
+        for k,v in pairs(vehicle[11].vehs) do
+            if name == v.vehs then
+                vip = true
+                break
+            end
+        end
+        for k,v in pairs(vehicle[12].vehs) do
+            if name == v.vehs then
+                vip = true
+                break
+            end
+        end
+        return vip
     end
     
     
@@ -812,11 +832,6 @@ function CreateLocalVeh(model, props, name, vip)
     local_veh.entity = veh
     local_veh.model = model
     local_veh.props = rUtils.GetVehicleProperties(veh)
-    if vip ~= nil then
-        local_veh.vip = true
-    else
-        local_veh.vip = false
-    end
     if name ~= nil then local_veh.name = name end
     SetModelAsNoLongerNeeded(model)
     rotate = false
