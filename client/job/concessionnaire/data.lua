@@ -656,7 +656,7 @@ function LoadConcessData()
                             if Active then
                                 if local_veh.model ~= v.prop.model then
                                     DeleteVehicle(local_veh.entity)
-                                    CreateLocalVeh(v.prop.model, v.prop, veh_name)
+                                    CreateLocalVeh(v.prop.model, v.prop, veh_name, VipVeh)
                                 end
                             end
                             if Selected then
@@ -697,7 +697,7 @@ function LoadConcessData()
                                     local id = GetPlayerServerId(v)
                                     local props = local_veh.props
                                     local props_final, plate = CreateVeh(props)
-                                    TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final, vip)
+                                    TriggerServerEvent(events.AddVeh, token, id, displaytext, plate, props_final, local_veh.vip)
                                     for n,i in pairs(vehs_avalaible) do
                                         if local_veh.props.plate == i.prop.plate then
                                             table.remove(vehs_avalaible, n)
@@ -797,7 +797,7 @@ function LoadConcessData()
 end
 
 
-function CreateLocalVeh(model, props, name)
+function CreateLocalVeh(model, props, name, vip)
     RenderScriptCams(1, 0, 0, 0, 0)
     RequestModel(model)
     while not HasModelLoaded(model) do Wait(1) end
@@ -812,6 +812,11 @@ function CreateLocalVeh(model, props, name)
     local_veh.entity = veh
     local_veh.model = model
     local_veh.props = rUtils.GetVehicleProperties(veh)
+    if vip ~= nil then
+        local_veh.vip = true
+    else
+        local_veh.vip = false
+    end
     if name ~= nil then local_veh.name = name end
     SetModelAsNoLongerNeeded(model)
     rotate = false
