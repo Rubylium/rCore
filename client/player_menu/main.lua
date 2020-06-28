@@ -199,13 +199,13 @@ local peds = {
 
     animals =  {
         {label = "Chien1", model = "a_c_poodle", vip = true},
-        --{label = "Chien2", model = "a_c_husky", vip = true},
+        {label = "Chien2", model = "a_c_husky", vip = true},
         {label = "Poule", model = "a_c_hen", vip = true},
-        --{label = "Chien3", model = "a_c_chop", vip = true},
+        {label = "Chien3", model = "a_c_chop", vip = true},
         {label = "Chat", model = "a_c_cat_01", vip = true},
         {label = "Coyotte", model = "a_c_coyote", vip = true},
-        --{label = "Chien4", model = "a_c_retriever", vip = true},
-        --{label = "Chien5", model = "a_c_shepherd", vip = true},
+        {label = "Chien4", model = "a_c_retriever", vip = true},
+        {label = "Chien5", model = "a_c_shepherd", vip = true},
         {label = "Chien6", model = "a_c_westy", vip = true},
     },
     
@@ -981,7 +981,7 @@ function OpenPlayerMenu()
                         if s then
                             rUtils.LoadModel(GetHashKey(v.model))
                             SetPlayerModel(GetPlayerIndex(), v.model)
-                            SetPedDefaultComponentVariation(GetPlayerPed(-1))
+                            SetPedRandomComponentVariation(GetPlayerPed(-1), 0)
                             rUtils.ImportantNotif("~r~Rappel! ~s~Un animal ne parle pas! Tout abus sera sanctionné!")
                             rUtils.ImportantNotif("~r~Rappel! ~s~En tant qu'animal certaine animation peuvent être bug, merci *de ne pas les utiliser*")
                         end
