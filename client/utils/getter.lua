@@ -239,6 +239,12 @@ AddEventHandler("rF:SendPlayerAccounts", function(money, bank, dirty)
     pDirty = dirty
 end)
 
+local RealIdentity = {}
+function ResetIdentity()
+    pPrenom = RealIdentity.prenom
+    pNom = RealIdentity.nom
+    pAge = RealIdentity.age
+end
 
 RegisterNetEvent("rF:initializeinfo")
 AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, job, grade, skin, identity, cloths, group, vip, death, id)
@@ -253,6 +259,7 @@ AddEventHandler("rF:initializeinfo", function(money, dirtyMoney, bankBalance, jo
         pPrenom = identity.prenom
         pNom = identity.nom
         pAge = identity.age
+        RealIdentity = identity
     end
     pVip = vip
     pUniqueID = id
