@@ -242,7 +242,7 @@ Externe = {
 	{
 		name = "Liverys",
 		modType = 48,
-		basePrice = 7500,
+		basePrice = 1200,
 	},
 }
 
