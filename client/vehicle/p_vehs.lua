@@ -51,16 +51,16 @@ function OpenVehMenu(out)
                         local props = v.props
                         local name = GetDisplayNameFromVehicleModel(props.model)
                         if v.vip == 1 and pVip == 0 then
-                            RageUI.ButtonWithStyle("[VIP] - "..name, nil, { RightLabel = "~r~Véhicule sortie / en fourrière" }, false, function(_,_,s)
+                            RageUI.ButtonWithStyle("[VIP] - "..name, "Plaque: ~b~"..props.plate, { RightLabel = "~r~Véhicule sortie / en fourrière" }, false, function(_,_,s)
                             end)
                         elseif v.lspd == true then
-                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~r~SAISIE LSPD" }, true, function(_,_,s)
+                            RageUI.ButtonWithStyle(name,  "Plaque: ~b~"..props.plate, { RightLabel = "~r~SAISIE LSPD" }, true, function(_,_,s)
                             end)
                         elseif not v.ranger then
-                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~r~Véhicule sortie / en fourrière" }, true, function(_,_,s)
+                            RageUI.ButtonWithStyle(name,  "Plaque: ~b~"..props.plate, { RightLabel = "~r~Véhicule sortie / en fourrière" }, true, function(_,_,s)
                             end)
                         else
-                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~g~".. 150 * priceByClass[GetVehicleClassFromName(props.model)].place .."$" }, true, function(_,_,s)
+                            RageUI.ButtonWithStyle(name,  "Plaque: ~b~"..props.plate, { RightLabel = "~g~".. 150 * priceByClass[GetVehicleClassFromName(props.model)].place .."$" }, true, function(_,_,s)
                                 if s then
                                     if pMoney >= 150 * priceByClass[GetVehicleClassFromName(props.model)].place then
                                         PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Default", 1)
@@ -111,16 +111,16 @@ function OpenVehMenu(out)
                         local props = v.props
                         local name = GetDisplayNameFromVehicleModel(props.model)
                         if v.vip == 1 and pVip == 0 then
-                            RageUI.ButtonWithStyle("[VIP] - "..name, nil, { RightLabel = "~r~Véhicule sortie / en fourrière" }, false, function(_,_,s)
+                            RageUI.ButtonWithStyle("[VIP] - "..name,  "Plaque: ~b~"..props.plate, { RightLabel = "~r~Véhicule sortie / en fourrière" }, false, function(_,_,s)
                             end)
                         elseif v.lspd == true then
-                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~r~SAISIE LSPD" }, true, function(_,_,s)
+                            RageUI.ButtonWithStyle(name,  "Plaque: ~b~"..props.plate, { RightLabel = "~r~SAISIE LSPD" }, true, function(_,_,s)
                             end)
                         elseif not v.ranger then
-                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~r~Véhicule sortie / en fourrière" }, true, function(_,_,s)
+                            RageUI.ButtonWithStyle(name,  "Plaque: ~b~"..props.plate, { RightLabel = "~r~Véhicule sortie / en fourrière" }, true, function(_,_,s)
                             end)
                         else
-                            RageUI.ButtonWithStyle(name, nil, { RightLabel = "~g~Ranger" }, true, function(_,_,s)
+                            RageUI.ButtonWithStyle(name,  "Plaque: ~b~"..props.plate, { RightLabel = "~g~Ranger" }, true, function(_,_,s)
                                 if s then
                                     local pos, heading = rUtils.GetZoneFromTable(out)
                                     rUtils.SpawnVehicle(props.model, pos, heading, props, function(veh)
