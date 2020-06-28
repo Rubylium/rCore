@@ -203,7 +203,7 @@ function rUtils.SpawnVehicle(model, coords, heading, props, cb)
 	if cb ~= nil then 
 		cb(vehicle)
 	end 
-	SetModelAsNoLongerNeeded(model)
+	--SetModelAsNoLongerNeeded(model)
 end
 
 function rUtils.GetClosestObject(vector, radius, modelHash, testFunction)
@@ -718,7 +718,7 @@ function rUtils.LoadModel(_model)
 			print("Waiting model "..model)
 			Wait(100)
 		end
-		SetModelAsNoLongerNeeded(model)
+		--SetModelAsNoLongerNeeded(model)
 	else
 		rUtils.Notif("Modèle inconnu")
 	end
