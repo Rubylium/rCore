@@ -1,6 +1,7 @@
 InAction = false
 rUtils.RegisterControlKey("inventaire", "Ouvrir l'inventaire", "F5", function()
     if UpdateOnscreenKeyboard() == 0 then return end
+    if pDeath then return end
     if IsCuffed then return end
     TriggerServerEvent(events.GetInv, token)
     TriggerServerEvent(events.GetAccs, token)
@@ -11,6 +12,7 @@ end)
 
 rUtils.RegisterControlKey("metier", "Ouvrir le menu de métier", "F6", function()
     if UpdateOnscreenKeyboard() == 0 then return end
+    if pDeath then return end
     if IsCuffed then return end
     if pJob == "mecano" then
         OpenMecanoActionMenu()
@@ -47,12 +49,14 @@ end)
 
 rUtils.RegisterControlKey("chest", "Ouvrir le coffre du véhicule", "k", function()
     if UpdateOnscreenKeyboard() == 0 then return end
+    if pDeath then return end
     if IsCuffed then return end
     OpenVehicleChest()
 end)
 
 rUtils.RegisterControlKey("removeweapon", "Ranger son arme", "1", function()
     if UpdateOnscreenKeyboard() == 0 then return end
+    if pDeath then return end
     if IsPedArmed(pPed, 7) then
         local _, pWeapon = GetCurrentPedWeapon(pPed, 1)
         RemoveWeaponFromPed(pPed, pWeapon)
@@ -63,12 +67,14 @@ end)
 
 rUtils.RegisterControlKey("vehlist", "Ouvrir la liste de véhicule", "f2", function()
     if UpdateOnscreenKeyboard() == 0 then return end
+    if pDeath then return end
     if IsCuffed then return end
     OpenVehMenu()
 end)
 
 rUtils.RegisterControlKey("lock", "Clé du véhicule", "u", function()
     if UpdateOnscreenKeyboard() == 0 then return end
+    if pDeath then return end
     if IsCuffed then return end
     OpenOrCloseVeh()
 end)
@@ -76,6 +82,7 @@ end)
 local handsUp = false
 rUtils.RegisterControlKey("hands", "Lever les mains", "x", function()
     if UpdateOnscreenKeyboard() == 0 then return end
+    if pDeath then return end
     if IsCuffed then return end
     if InAction then return end
     if not handsUp then
@@ -111,6 +118,7 @@ rUtils.RegisterControlKey("point", "Pointer du doigt", "b", function()
     if UpdateOnscreenKeyboard() == 0 then return end
     if IsCuffed then return end
     if InAction then return end
+    if pDeath then return end
     if not pointing then
         RequestAnimDict("anim@mp_point")
         while not HasAnimDictLoaded("anim@mp_point") do Wait(1) end
@@ -184,6 +192,9 @@ itemFastControl = {
 }
 
 rUtils.RegisterControlKey("item1", "Raccourcie Item #1", "é", function()
+    if IsCuffed then return end
+    if InAction then return end
+    if pDeath then return end
     if pInventory[itemFastControl[1].label] ~= nil then
         TriggerEvent("rF:UseItem", itemFastControl[1].item, items)
     else
@@ -192,6 +203,9 @@ rUtils.RegisterControlKey("item1", "Raccourcie Item #1", "é", function()
 end)
 
 rUtils.RegisterControlKey("item2", "Raccourcie Item #2", "\"", function()
+    if IsCuffed then return end
+    if InAction then return end
+    if pDeath then return end
     if pInventory[itemFastControl[2].label] ~= nil then
         TriggerEvent("rF:UseItem", itemFastControl[2].item, items)
     else
@@ -200,6 +214,9 @@ rUtils.RegisterControlKey("item2", "Raccourcie Item #2", "\"", function()
 end)
 
 rUtils.RegisterControlKey("item3", "Raccourcie Item #3", "'", function()
+    if IsCuffed then return end
+    if InAction then return end
+    if pDeath then return end
     if pInventory[itemFastControl[3].label] ~= nil then
         TriggerEvent("rF:UseItem", itemFastControl[3].item, items)
     else
@@ -208,6 +225,9 @@ rUtils.RegisterControlKey("item3", "Raccourcie Item #3", "'", function()
 end)
 
 rUtils.RegisterControlKey("item4", "Raccourcie Item #4", "(", function()
+    if IsCuffed then return end
+    if InAction then return end
+    if pDeath then return end
     if pInventory[itemFastControl[4].label] ~= nil then
         TriggerEvent("rF:UseItem", itemFastControl[4].item, items)
     else
