@@ -365,7 +365,7 @@ end)
 
 Citizen.CreateThread(function()
     while true do
-        Wait(1500)
+        Wait(3500)
         for _,v in pairs(doords) do
             if not v.double then
                 local obj = GetClosestObjectOfType(v.pos.pos, 2.0, v.pos.model, false, false, false)
@@ -397,7 +397,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-
+local closetObj = nil
 Citizen.CreateThread(function()
     while true do
         local nearDoor = false
@@ -406,16 +406,18 @@ Citizen.CreateThread(function()
                 local dst = #(GetEntityCoords(pPed) - v.pos.pos)
                 if dst <= 1.5 then
                     nearDoor = true
-                    local obj = GetClosestObjectOfType(v.pos.pos, 2.0, v.pos.model, false, false, false)
-                    if DoorCache[obj] == nil then break end
-                    if DoorCache[obj].status ~= true then
-                        DrawTxt(GetEntityCoords(obj), "Appuyer sur E pour ouvrir la porte.")
+                    if closetObj == nil then
+                        closetObj = GetClosestObjectOfType(v.pos.pos, 2.0, v.pos.model, false, false, false)
+                    end
+                    if DoorCache[closetObj] == nil then break end
+                    if DoorCache[closetObj].status ~= true then
+                        DrawTxt(GetEntityCoords(closetObj), "Appuyer sur E pour ~r~fermer la porte.")
                     else
-                        DrawTxt(GetEntityCoords(obj), "Appuyer sur E pour fermer la porte.")
+                        DrawTxt(GetEntityCoords(closetObj), "Appuyer sur E pour ~g~ouvrir la porte.")
                     end
                     if IsControlJustReleased(1, 38) then
                         if v.job[pJob] ~= nil then
-                            if DoorCache[obj].status == true then
+                            if DoorCache[closetObj].status == true then
                                 local player = rUtils.GetPlayersInScope()
                                 TriggerServerEvent(events.DoorStatus, token, player, v.pos.pos, v.pos.model, v.pos.heading, false)
                             else
@@ -433,15 +435,18 @@ Citizen.CreateThread(function()
                 local dst = #(GetEntityCoords(pPed) - v.pos[1].pos)
                 if dst <= 2.5 then
                     nearDoor = true
-                    local obj = GetClosestObjectOfType(v.pos[1].pos, 2.0, v.pos[1].model, false, false, false)
-                    if DoorCache[obj] ~= nil then
-                        DrawTxt(GetEntityCoords(obj), "Appuyer sur E pour ouvrir les portes.")
+                    if closetObj == nil then
+                        closetObj = GetClosestObjectOfType(v.pos[1].pos, 2.0, v.pos[1].model, false, false, false)
+                    end
+                    if DoorCache[closetObj] == nil then break end
+                    if DoorCache[closetObj].status ~= true then
+                        DrawTxt(GetEntityCoords(closetObj), "Appuyer sur E pour ~r~fermer les portes.")
                     else
-                        DrawTxt(GetEntityCoords(obj), "Appuyer sur E pour fermer les portes.")
+                        DrawTxt(GetEntityCoords(closetObj), "Appuyer sur E pour ~g~ouvrir les portes.")
                     end
                     if IsControlJustReleased(1, 38) then
                         if v.job[pJob] ~= nil then
-                            if DoorCache[obj].status == true then
+                            if DoorCache[closetObj].status == true then
                                 local player = rUtils.GetPlayersInScope()
                                 TriggerServerEvent(events.DoubleDoorStatus, token, player, v.pos[1], v.pos[2], false)
                             else
@@ -460,8 +465,9 @@ Citizen.CreateThread(function()
         end
 
         if nearDoor then
-            Wait(1)
+            Wait(3)
         else
+            closetObj = nil
             Wait(750)
         end
     end
