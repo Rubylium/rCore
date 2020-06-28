@@ -31,6 +31,9 @@ RMenu:Get('core', 'vip_peds').Closed = function()end
 RMenu.Add('core', 'vip_peds_animals', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_peds'), "Animals", "~b~Changer son animals"))
 RMenu:Get('core', 'vip_peds_animals').Closed = function()end
 
+RMenu.Add('core', 'vip_peds_peds', RageUI.CreateSubMenu(RMenu:Get('core', 'vip_peds'), "Peds", "~b~Changer son peds"))
+RMenu:Get('core', 'vip_peds_peds').Closed = function()end
+
 RMenu.Add('core', 'portefeuille', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "portefeuille", "~b~Inventaire de votre personnage"))
 RMenu:Get('core', 'portefeuille').Closed = function()end
 RMenu.Add('core', 'portefeuille_usage', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Inventaire", "~b~Inventaire de votre personnage"))
@@ -961,8 +964,36 @@ function OpenPlayerMenu()
             end)
 
             RageUI.IsVisible(RMenu:Get('core', 'vip_peds'), true, true, true, function()
+                RageUI.ButtonWithStyle("Nom OneShot: ", pNom, { RightLabel = "~g~"..pNom }, pVip ~= 0, function(_,_,s)
+                    if s then
+                        if GetEntityModel(pPed) ~= GetHashKey("mp_f_freemode_01") and GetEntityModel(pPed) ~= GetHashKey("mp_m_freemode_01") then
+                            local name = CustomString()
+                            if name ~= nil then
+                                pNom = name
+                            end
+                        else
+                            rUtils.ImportantNotif("Interdit de faire une identité OneShot avec ton vrais personnage.")
+                        end
+                    end
+                end)
+                RageUI.ButtonWithStyle("Prénom OneShot: ", pPrenom, { RightLabel = "~g~"..pPrenom }, pVip ~= 0, function(_,_,s)
+                    if s then
+                        if GetEntityModel(pPed) ~= GetHashKey("mp_f_freemode_01") and GetEntityModel(pPed) ~= GetHashKey("mp_m_freemode_01") then
+                            local name = CustomString()
+                            if name ~= nil then
+                                pPrenom = name
+                            end
+                        else
+                            rUtils.ImportantNotif("Interdit de faire une identité OneShot avec ton vrais personnage.")
+                        end
+                    end
+                end)
                 RageUI.ButtonWithStyle("Animals - Personnnage OneShot", nil, { RightLabel = "→" }, pVip ~= 0, function()
                 end, RMenu:Get('core', 'vip_peds_animals'))
+                RageUI.ButtonWithStyle("Peds - Personnnage OneShot", nil, { RightLabel = "→" }, pVip ~= 0, function()
+                end, RMenu:Get('core', 'vip_peds_peds'))
+
+
                 RageUI.ButtonWithStyle("Peds - Personnnage définitif ( Soon )", nil, { RightLabel = "→" }, pVip ~= 0, function()
                 end)
             end, function()
@@ -974,6 +1005,7 @@ function OpenPlayerMenu()
                         TriggerEvent("skinchanger:getSkin", function(skin)
                             TriggerEvent("skinchanger:LoadForTheFirsTime", skin)
                         end)
+                        ResetIdentity()
                     end
                 end)
                 for k,v in pairs(peds.animals) do
@@ -984,6 +1016,30 @@ function OpenPlayerMenu()
                             SetPedRandomComponentVariation(GetPlayerPed(-1), 0)
                             rUtils.ImportantNotif("~r~Rappel! ~s~Un animal ne parle pas! Tout abus sera sanctionné!")
                             rUtils.ImportantNotif("~r~Rappel! ~s~En tant qu'animal certaine animation peuvent être bug, merci *de ne pas les utiliser*")
+                        end
+                    end)
+                end
+
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'vip_peds_peds'), true, true, true, function(_,_,s)
+                RageUI.Button("Reprendre son personnage.", nil, true, function(_,h,s)
+                    if s then
+                        TriggerEvent("skinchanger:getSkin", function(skin)
+                            TriggerEvent("skinchanger:LoadForTheFirsTime", skin)
+                        end)
+                        ResetIdentity()
+                    end
+                end)
+                for k,v in pairs(peds.normal) do
+                    RageUI.Button(v.label, "Interdiction de prendre des ped de gang si vous n'en faite pas partie!", true, function(_,h,s)
+                        if s then
+                            rUtils.LoadModel(GetHashKey(v.model))
+                            SetPlayerModel(GetPlayerIndex(), v.model)
+                            SetPedRandomComponentVariation(GetPlayerPed(-1), 0)
+                            rUtils.ImportantNotif("~r~Rappel! ~s~Votre personnnage est un perso OneShot!")
+                            rUtils.ImportantNotif("~r~Rappel! ~s~Interdiction de prendre des ped de gang si vous n'en faite pas partie!")
                         end
                     end)
                 end
