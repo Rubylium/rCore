@@ -37,19 +37,23 @@ end)
 
 
 RegisterNetEvent("core:ChangeDoorStatus")
-AddEventHandler("core:ChangeDoorStatus", function(token, players, pos, model, heading, status)
+AddEventHandler("core:ChangeDoorStatus", function(token, players, pos, model, heading, status, id)
     if not exports.rFramework:CheckToken(token, source, "core:ChangeDoorStatus") then return end
+
+    doords[id].status = status
     for k,v in pairs(players) do
-        TriggerClientEvent("core:ChangeDoorStatus", v, pos, model, heading, status)
+        TriggerClientEvent("core:ChangeDoorStatus", v, pos, model, heading, status, id)
     end
 end)
 
 
 RegisterNetEvent("core:ChangeDoubleDoorStatus")
-AddEventHandler("core:ChangeDoubleDoorStatus", function(token, players, door1, door2, status)
+AddEventHandler("core:ChangeDoubleDoorStatus", function(token, players, door1, door2, status, id)
     if not exports.rFramework:CheckToken(token, source, "core:ChangeDoubleDoorStatus") then return end
+
+    doords[id].status = status
     for k,v in pairs(players) do
-        TriggerClientEvent("core:ChangeDoubleDoorStatus", v, door1, door2, status)
+        TriggerClientEvent("core:ChangeDoubleDoorStatus", v, door1, door2, status, id)
     end
 end)
 

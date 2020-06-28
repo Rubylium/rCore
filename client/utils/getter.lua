@@ -108,6 +108,7 @@ Citizen.CreateThread(function()
     InitRecoil()
     InitPossibleCrimes()
     InitChecks()
+    InitDoorSync()
 
     SetWeaponDamageModifier(133987706, 0.0)
     SetWeaponDamageModifier(-1553120962, 0.0)

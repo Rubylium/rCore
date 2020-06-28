@@ -28,7 +28,7 @@ function LoadData()
 end
 
 RegisterNetEvent("core:RequestGameData")
-AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, arm, weed, missionJob, convoi, item)
+AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, arm, weed, missionJob, convoi, item, doors)
     print("^1Loading up Game Data, please wait ...")
     MineData.m = mine
     HuntData.h = hunt
@@ -40,6 +40,7 @@ AddEventHandler("core:RequestGameData", function(_JobsData, event, mine, hunt, a
     JobsData = _JobsData
     items = item
     avalaibleBraquo = _JobsData.superette
+    doords = doors
 
     ArmoryData:LoadArmoryData()
     MineData:LoadMineData()
