@@ -322,7 +322,7 @@ function SyncDeathWithPlayers()
             else
                 SetPedCanRagdoll(pPed, true)
                 SetPedToRagdoll(pPed, 1000, 1000, 0, 0, 0, 0)
-
+                DisableControlAction(0, 249, true)
             end
 
             for k,v in pairs(LockedControls) do
