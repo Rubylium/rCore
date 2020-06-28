@@ -224,13 +224,13 @@ function WeedData:LoadWeedData()
                                     TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2), 2)
                                 end
                             end
-                        end)
+                        end) 
                         RageUI.Button("Préparer: ~b~"..self.w.prep1label, "15 Weed non traité requis", pInventory[self.w.item2Label] ~= nil, function(_,_,s)
                             if s then 
                                 if pInventory[self.w.item2Label].count >= 15 then
                                     StartTrait(self.w.prep1item)
                                     Trating = true
-                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2Label), 15)
+                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2), 15)
                                 end
                             end
                         end)
@@ -239,7 +239,7 @@ function WeedData:LoadWeedData()
                                 if pInventory[self.w.item2Label].count >= 10 then
                                     StartTrait(self.w.prep2item)
                                     Trating = true
-                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2Label), 10)
+                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2), 10)
                                 end
                             end
                         end)
@@ -248,7 +248,7 @@ function WeedData:LoadWeedData()
                                 if pInventory[self.w.item2Label].count >= 5 then
                                     StartTrait(self.w.prep3item)
                                     Trating = true
-                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2Label), 5)
+                                    TriggerServerEvent(events.remove, token, GetFirstLabelFromItem(self.w.item2), 5)
                                 end
                             end
                         end)
