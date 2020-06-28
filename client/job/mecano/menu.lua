@@ -23,6 +23,11 @@ function InitMecanoActionMenu()
                 Wait(1)
                 RageUI.IsVisible(RMenu:Get('core', 'mecano_main'), true, true, true, function()
 
+                    RageUI.ButtonWithStyle("Changer son status de service.", nil, { }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            TriggerServerEvent(events.Service, token, pJob)
+                        end
+                    end) 
 
                     RageUI.ButtonWithStyle("Action sur véhicule", nil, { RightLabel = "→→→" }, true, function()
                     end, RMenu:Get('core', 'vehAction'))
