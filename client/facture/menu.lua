@@ -61,7 +61,7 @@ function OpenBillCreation()
     
                 RageUI.ButtonWithStyle("Donner la facture", nil, {}, true, function(_,h,s)
                     if s then 
-                        if raison ~= nil and montant ~= nil then
+                        if raison ~= nil and montant ~= nil and montant > 0 then
                             local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                             local cSid = GetPlayerServerId(ClosetPlayer)
                             TriggerServerEvent(events.giveFactue, token, cSid, IsSocietyBill, pJob, raison, montant)
