@@ -173,8 +173,7 @@ function RegisterLspdCallback()
             for k,v in pairs(PlayersVehCache[id]) do
                 if v.ranger == false then
                     if v.lspd == false then
-
-                        if DoesEntityExist(NetworkGetEntityFromNetworkId(v.NetID)) == false then
+                        if NetworkGetEntityFromNetworkId(v.NetID) == 0 or GetEntityCoords(NetworkGetEntityFromNetworkId(v.NetID)) == vector3(0, 0, 0) then
                             table.insert(VehToSend, {plate = v.plate, props = v.props, can = true})
                         else
                             table.insert(VehToSend, {plate = v.plate, props = v.props, can = false})
