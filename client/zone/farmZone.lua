@@ -15,7 +15,7 @@ Citizen.CreateThread(function()
                         if v.type == 1 then
                             StartRecolte(v.item)
                         elseif v.type == 2 then
-                            StartTrait(v.oItem, v.iItem)
+                            StartTraits(v.oItem, v.iItem)
                         elseif v.type == 3 then
                             StartSell(v.item, v.price, v.clean)
                         end
@@ -67,7 +67,7 @@ function StartRecolte(item)
 end
 
 
-function StartTrait(oItem, iItem)
+function StartTraits(oItem, iItem)
     local oldTime = GetGameTimer()
     local StillWant = true
 
@@ -117,7 +117,12 @@ function StartSell(item, price, clean)
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
             end
-            TriggerServerEvent(events.sell, token, item, price + rUtils.GetVipBonus(price), clean, GetItemId(item))
+            TriggerServerEvent(events.sell, token, item, price + rUtils.GetVipBonus(price), 1, clean, GetItemId(item))
+            if clean then
+                rUtils.ImportantNotif("~g~+"..price + rUtils.GetVipBonus(price).."$")
+            else
+                rUtils.ImportantNotif("~g~+"..price + rUtils.GetVipBonus(price).."$\n~s~Source inconnue")
+            end
         end
 
         Wait(0)
