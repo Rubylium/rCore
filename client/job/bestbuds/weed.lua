@@ -198,6 +198,31 @@ function WeedData:LoadWeedData()
         end,
     })
 
+    rUtils.RegisterActionZone({
+        pos = vector3(1038.51, -1977.796, 21.56422),
+        action = function()
+            openedTraitWeed()
+        end,
+    })
+
+    rUtils.RegisterActionZone({
+        pos = vector3(1806.984, 4635.804, 28.54702),
+        action = function()
+            openedTraitWeed()
+        end,
+    })
+
+
+    rUtils.RegisterFarmZone({
+        pos = vector3(-1262.43, -1139.244, 7.532102),
+        type = 3,
+        item = "weed2",
+        price = 130,
+        clean = false,
+    })
+
+
+
     local Traitment = {}
 
     function openedTraitWeed()
