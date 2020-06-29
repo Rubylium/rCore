@@ -251,7 +251,7 @@ function SyncDeathWithPlayers()
         NetworkResurrectLocalPlayer(GetEntityCoords(pPed), 100.0, 0, 0)
         ClearPlayerWantedLevel(GetPlayerIndex())
         SetPedCurrentWeaponVisible(pPed, false, true, 1, 1)
-        pDeath = false
+        pDeath = false 
         return
     end
     CheckDeathCause()
