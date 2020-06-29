@@ -1,4 +1,4 @@
-local npcs = {
+npcs = {
     { -- bank
         model = "s_m_m_fiboffice_02",
         pos = vector3(243.6, 226.25, 106.2),
@@ -330,6 +330,34 @@ local npcs = {
         spawned = false,
         entity = nil,
         LoadDst = 100,
+    },
+    { -- bank
+        model = "s_m_y_dealer_01",
+        pos = vector3(1152.68, -431.9762, 67.01252),
+        heading = 73.911911,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenBankDialog(ped, _offset, camOffset)
+        end,
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 25,
+    },
+    { 
+        model = "s_m_y_dealer_01",
+        pos = vector3(-1262.592, -1139.236, 7.532302),
+        heading = 252.73065185,
+        haveAction = false,
+        action = function(ped, _offset, camOffset)
+            OpenBankDialog(ped, _offset, camOffset)
+        end,
+        camOffset = {0.0, 1.3, 0.55}, -- pos
+        camCoords = {0.0, 0.0, 0.7}, -- visé
+        spawned = false,
+        entity = nil,
+        LoadDst = 25,
     },
 }
 
