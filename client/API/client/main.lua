@@ -103,18 +103,18 @@ MusicZone = {
     },
     {
         name = "mecano_ambient",
-        link = "https://www.youtube.com/watch?v=Y_l1a3OvD5w", 
-        dst = 45.0,
+        link = "https://www.youtube.com/watch?v=UxB0Um6F4gs", 
+        dst = 35.0,
         starting = 60.0,
         pos = vector3(-88.1, -1800.9, 29.81),
-        max = 0.04,
+        max = 0.02,
     },
     {
         name = "resto_chill",
         link = "https://www.youtube.com/watch?v=Si_f4Km3snQ", 
         dst = 10.0,
         starting = 40.0,
-        pos = vector3(265.05, -822.4, 29.4),
+        pos = vector3(-95.99364, -1813.036, 29.55412),
         max = 0.03,
     },
     {
