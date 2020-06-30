@@ -501,6 +501,8 @@ events = {
     CarrySync = "core:CarryPeople:sync",
     CarryStop = "core:CarryPeople:stop",
     AskSyndDoors = "core:AskingDoorSync",
+    rmvDirty = "rF:RemoveDirtyMoney",
+    VehInvSync = "core:SyncInvMoney",
 }
 
 doords = {

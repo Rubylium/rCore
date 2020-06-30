@@ -1,4 +1,5 @@
 local VehInventory = {}
+local BoiteAGant = {}
 local VehLimit = 0
 local VehInvTotal = 0
 local TempAdd = 0
@@ -18,12 +19,23 @@ end
 
 RMenu.Add('core', 'veh_inv', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~Coffre du véhicule"))
 RMenu:Get('core', 'veh_inv').Closed = function()end
+
+RMenu.Add('core', 'veh_money', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~Boîte à gants"))
+RMenu:Get('core', 'veh_money').Closed = function()end
+
 RMenu.Add('core', 'veh_pInv', RageUI.CreateSubMenu(RMenu:Get('core', 'veh_main'), "Coffre véhicule", "~b~inventaire du joueur"))
 RMenu:Get('core', 'veh_pInv').Closed = function()end
 
 RegisterNetEvent("core:GetVehicleInventory")
-AddEventHandler("core:GetVehicleInventory", function(inv)
+AddEventHandler("core:GetVehicleInventory", function(inv, boitagant)
     VehInventory = inv
+    BoiteAGant = boitagant
+    if BoiteAGant.money == nil then
+        BoiteAGant.money = 0
+    end
+    if BoiteAGant.dirty == nil then
+        BoiteAGant.dirty = 0
+    end
 end)
 
 RegisterNetEvent("core:OpenVehHood")
@@ -114,10 +126,65 @@ function OpenVehInventory()
                     if s then TriggerServerEvent(events.GetVehInv, token, vPlate, entity, DecorExistOn(NetToEnt(entity), "OWNED_VEH")) TempAdd = 0 end
                 end, RMenu:Get('core', 'veh_inv'))
 
+                RageUI.ButtonWithStyle("Boîte à gants", nil, { RightLabel = "→→" }, true, function(_,_,s)
+                    if s then TriggerServerEvent(events.GetInv, token) end
+                end, RMenu:Get('core', 'veh_money'))
+
                 RageUI.ButtonWithStyle("Déposer", nil, { RightLabel = "→→" }, true, function(_,_,s)
                     if s then TriggerServerEvent(events.GetInv, token) end
                 end, RMenu:Get('core', 'veh_pInv'))
                 
+            end, function()
+            end)
+
+            RageUI.IsVisible(RMenu:Get('core', 'veh_money'), true, true, true, function()
+
+                RageUI.Separator("Poche")
+                RageUI.ButtonWithStyle("Déposer argent: ", nil, { RightLabel = "~g~"..pMoney.."$" }, true, function(_,_,s)
+                    if s then 
+                        local amount = CustomAmount()
+                        if amount ~= nil and amount <= pMoney and amount > 0 then
+                            BoiteAGant.money = BoiteAGant.money + amount
+                            TriggerServerEvent(events.rmvMoney, token, tonumber(amount)) 
+                            TriggerServerEvent(events.VehInvSync, token, vPlate, BoiteAGant)
+                            pMoney = pMoney - amount
+                        end
+                    end
+                end)
+                RageUI.ButtonWithStyle("Déposer source inconnue: ", nil, { RightLabel = "~g~"..pDirty.."$" }, true, function(_,_,s)
+                    if s then 
+                        local amount = CustomAmount()
+                        if amount ~= nil and amount <= pDirty and amount > 0 then
+                            BoiteAGant.dirty = BoiteAGant.dirty + amount
+                            TriggerServerEvent(events.rmvDirty, token, tonumber(amount)) 
+                            TriggerServerEvent(events.VehInvSync, token, vPlate, BoiteAGant)
+                            pDirty = pDirty - amount
+                        end
+                    end
+                end)
+                RageUI.Separator("Véhicule")
+                RageUI.ButtonWithStyle("Prendre argent: ", nil, { RightLabel = "~g~"..BoiteAGant.money.."$" }, true, function(_,_,s)
+                    if s then 
+                        local amount = CustomAmount()
+                        if amount ~= nil and amount <= BoiteAGant.money and amount > 0 then
+                            BoiteAGant.money = BoiteAGant.money - amount
+                            TriggerServerEvent(events.giveMoney, token, tonumber(amount))
+                            TriggerServerEvent(events.VehInvSync, token, vPlate, BoiteAGant)
+                            pMoney = pMoney + amount
+                        end
+                    end
+                end)
+                RageUI.ButtonWithStyle("Prendre source inconnue: ", nil, { RightLabel = "~g~"..BoiteAGant.dirty.."$" }, true, function(_,_,s)
+                    if s then 
+                        local amount = CustomAmount()
+                        if amount ~= nil and amount <= BoiteAGant.dirty and amount > 0 then
+                            BoiteAGant.dirty = BoiteAGant.dirty - amount
+                            TriggerServerEvent(events.GiveDirty, token, tonumber(amount))
+                            TriggerServerEvent(events.VehInvSync, token, vPlate, BoiteAGant)
+                            pDirty = pDirty + amount
+                        end
+                    end
+                end)
             end, function()
             end)
 

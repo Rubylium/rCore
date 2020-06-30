@@ -16,9 +16,10 @@ Citizen.CreateThread(function()
                     VehicleInventoryCache[v.plate] = nil
                 end
             else
-                MySQL.Async.execute('UPDATE `veh_inventory` SET veh_inventory.plate = @plate, veh_inventory.inventory = @inventory WHERE veh_inventory.plate = @plate', {
+                MySQL.Async.execute('UPDATE `veh_inventory` SET veh_inventory.plate = @plate, veh_inventory.money = @money, veh_inventory.inventory = @inventory WHERE veh_inventory.plate = @plate', {
                     ["@plate"] = v.plate,
                     ["@inventory"] = json.encode(v.inventory),
+                    ["@money"] = json.encode(v.money),
                 }, function(rowsChanged) end)  
                 print("^2Saving ^7["..v.plate.."] to BDD.") -- debug
                 local entity = NetworkGetEntityFromNetworkId(v.NetID)
@@ -35,11 +36,12 @@ end)
 RegisterNetEvent("core:GetVehicleInventory")
 AddEventHandler("core:GetVehicleInventory", function(token, plate, net, _owned)
     if not exports.rFramework:CheckToken(token, source, "GetVehicleInventory") then return end
+    local source = source
     local plate = plate
     for k,v in pairs(VehicleInventoryCache) do
         local VehCache = VehicleInventoryCache[plate]
         if VehCache ~= nil then
-            TriggerClientEvent("core:GetVehicleInventory", source, VehCache.inventory)
+            TriggerClientEvent("core:GetVehicleInventory", source, VehCache.inventory, VehCache.money)
             return
         end
     end
@@ -51,12 +53,22 @@ AddEventHandler("core:GetVehicleInventory", function(token, plate, net, _owned)
     if info[1] ~= nil then
         for k,v in pairs(info) do
             local decodedInv = json.decode(v.inventory)
-            VehicleInventoryCache[plate] = {plate = v.plate,inventory = decodedInv, owned = 1, NetID = net}
+            local decodedMoney 
+            if v.money == nil then 
+                decodedMoney = {} 
+                decodedMoney.money = 0
+                decodedMoney.dirty = 0
+            else 
+                decodedMoney = json.decode(v.money) 
+            end
+            VehicleInventoryCache[plate] = {plate = v.plate, inventory = decodedInv, money = decodedMoney, owned = 1, NetID = net}
             print("^2Added ^7["..v.plate.."] to vehicle cache with "..#decodedInv.." items in it.")
+            TriggerClientEvent("core:GetVehicleInventory", source, VehicleInventoryCache[plate].inventory, VehicleInventoryCache[plate].money)
         end
     else
-        VehicleInventoryCache[plate] = {plate = plate, inventory = {}, owned = _owned, NetID = net,}
+        VehicleInventoryCache[plate] = {plate = plate, inventory = {}, money = {}, owned = _owned, NetID = net,}
         print("^2Creating dynamic cache for ^7["..plate.."] with an owned status of "..tostring(_owned)..".")
+        TriggerClientEvent("core:GetVehicleInventory", source, VehicleInventoryCache[plate].inventory, VehicleInventoryCache[plate].money)
         
         if _owned then
             Citizen.CreateThread(function()
@@ -70,6 +82,12 @@ AddEventHandler("core:GetVehicleInventory", function(token, plate, net, _owned)
     return {}
 end)
 
+RegisterNetEvent("core:SyncInvMoney")
+AddEventHandler("core:SyncInvMoney", function(token, plate, sync)
+    if not exports.rFramework:CheckToken(token, source, "SyncInvMoney") then return end
+    VehicleInventoryCache[plate].money = sync
+    TriggerClientEvent("core:GetVehicleInventory", source, VehicleInventoryCache[plate].inventory, VehicleInventoryCache[plate].money)
+end)
 
 RegisterNetEvent("core:AddItemToVeh")
 AddEventHandler("core:AddItemToVeh", function(token, plate, _item, _label, _olabel, _count)
