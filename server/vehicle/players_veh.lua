@@ -171,7 +171,7 @@ function RegisterLspdCallback()
         local id = GetLicense(source)
         if PlayersVehCache[id] ~= nil then
             for k,v in pairs(PlayersVehCache[id]) do
-                if v.ranger == false then
+                --if v.ranger == false then
                     if v.lspd == false then
                         if NetworkGetEntityFromNetworkId(v.NetID) == 0 or GetEntityCoords(NetworkGetEntityFromNetworkId(v.NetID)) == vector3(0, 0, 0) then
                             table.insert(VehToSend, {plate = v.plate, props = v.props, can = true})
@@ -179,7 +179,7 @@ function RegisterLspdCallback()
                             table.insert(VehToSend, {plate = v.plate, props = v.props, can = false})
                         end
                     end
-                end
+                --end
             end
 
             for k,v in pairs(VehToSend) do
