@@ -254,6 +254,7 @@ function NoClip()
                 local camCoords = getCamDirection()
                 SetEntityVelocity(pPed, 0.01, 0.01, 0.01)
                 SetEntityCollision(pPed, 0, 1)
+                FreezeEntityPosition(pPed, true)
 
                 if IsControlPressed(0, 32) then
                     pCoords = pCoords + (NoClipSpeed * camCoords)
@@ -276,6 +277,7 @@ function NoClip()
                 SetEntityVisible(pPed, 0, 0)
                 
             end
+            FreezeEntityPosition(pPed, false)
             SetEntityVisible(pPed, 1, 0)
             SetEntityCollision(pPed, 1, 1)
         end)
