@@ -50,6 +50,9 @@ RMenu:Get('core', 'divers_editor').Closed = function()end
 RMenu.Add('core', 'divers_color', RageUI.CreateSubMenu(RMenu:Get('core', 'divers'), "Couleur", "~b~Couleur du menu"))
 RMenu:Get('core', 'divers_color').Closed = function()end
 
+RMenu.Add('core', 'divers_radio', RageUI.CreateSubMenu(RMenu:Get('core', 'divers'), "Couleur", "~b~Couleur du menu"))
+RMenu:Get('core', 'divers_radio').Closed = function()end
+
 RMenu.Add('core', 'admin', RageUI.CreateSubMenu(RMenu:Get('core', 'main'), "Admin Menu", nil))
 RMenu:Get('core', 'admin').Closed = function()end
 
@@ -100,6 +103,30 @@ local accessoire = {
     mask = true,
 }
 local menuColor = {66, 173, 245}
+
+local radio = {
+    [1] = {job = "police", label = "Dispatch"},
+    [2] = {job = "police", label = "Secteur 1"},
+    [3] = {job = "police", label = "Secteur 2"},
+    [4] = {job = "police", label = "Secteur 3"},
+    [5] = {job = "police", label = "Secteur 4"},
+    [6] = {job = "police", label = "Secteur 1/2"},
+    [7] = {job = "police", label = "Secteur 3/4"},
+    [8] = {job = "police", label = "TAC 1"},
+    [9] = {job = "police", label = "TAC 2"},
+    [10] = {job = "police", label = "TAC 3"},
+    [11] = {job = "police", label = "TAC 4"},
+    [12] = {job = "police", label = "TAC 5"},
+    [13] = {job = "medecin", label = "Exemple EMS"},
+    [14] = {job = "medecin", label = "Exemple EMS"},
+    [15] = {job = "medecin", label = "Exemple EMS"},
+    [16] = {job = "sheriff", label = "Sheriff #1"},
+    [17] = {job = "sheriff", label = "Sheriff #3"},
+    [18] = {job = "sheriff", label = "Sheriff #4"},
+    [19] = {job = "sheriff", label = "Sheriff #5"},
+    [20] = {job = "sheriff", label = "Sheriff #6"},
+}
+
 Citizen.CreateThread(function()
     Wait(1000)
     menuColor[1] = GetResourceKvpInt("menuR")
@@ -529,11 +556,40 @@ function OpenPlayerMenu()
             end, function()
             end)
 
+            RageUI.IsVisible(RMenu:Get('core', 'divers_radio'), true, true, true, function()
+                RageUI.Button("Stopper la radio", "", true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        exports.saltychat:SetRadioChannel("", true)
+                    end
+                end) 
+
+                for k,v in ipairs(radio) do
+                    if pJob == v.job then
+                        RageUI.Button("Radio: "..v.label, "Radio réservé au job "..v.job, true, function(Hovered, Active, Selected)
+                            if (Selected) then
+                                exports.saltychat:SetRadioChannel(k, true)
+                            end
+                        end) 
+                    end
+                end
+
+                for i=1,100 do
+                    RageUI.Button("Radio: "..i.." civil", "", true, function(Hovered, Active, Selected)
+                        if (Selected) then
+                            exports.saltychat:SetRadioChannel(i, true)
+                        end
+                    end)
+                end
+            end, function()
+            end)
+
             RageUI.IsVisible(RMenu:Get('core', 'divers'), true, true, true, function()
                 RageUI.ButtonWithStyle("Rockstar éditor", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'divers_editor'))
                 RageUI.ButtonWithStyle("Couleur du menu", nil, { RightLabel = "→→" }, true, function()
                 end, RMenu:Get('core', 'divers_color'))
+                RageUI.ButtonWithStyle("Radio", nil, { RightLabel = "→→" }, true, function()
+                end, RMenu:Get('core', 'divers_radio'))
 
                 RageUI.Button("Activer/Desactiver l'HUD", nil, true, function(Hovered, Active, Selected)
                     if (Selected) then
