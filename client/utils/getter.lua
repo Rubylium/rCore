@@ -117,6 +117,8 @@ Citizen.CreateThread(function()
         pPed = GetPlayerPed(-1)
         pVeh = GetVehiclePedIsIn(pPed, 0)
         pVehLast = GetVehiclePedIsIn(pPed, 1)
+        SetEntityAsMissionEntity(pVeh, 1, 1)
+        SetEntityAsMissionEntity(pVehLast, 1, 1)
         if pGroup == "user" then
             DecorSetInt(pPed, "group", 0)
         elseif pGroup == "mod" then
