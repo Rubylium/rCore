@@ -29,7 +29,7 @@ AddEventHandler("core:OnVoiceDisconnect", function()
     IsAlive = false
 end)
 
-
+local TalkingToRadio = false
 Citizen.CreateThread(function()
     while true do
         if not IsAlive then
