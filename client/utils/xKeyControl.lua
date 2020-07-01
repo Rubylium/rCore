@@ -95,23 +95,23 @@ rUtils.RegisterControlKey("hands", "Lever les mains", "x", function()
     end
 end)
 
-local voice = 2
-local voiceData = {
-    [1] = {voice = 4.0, label = "Chuchoter"},
-    [2] = {voice = 8.0, label = "Normal"},
-    [3] = {voice = 15.0, label = "Crier"},
-}
-NetworkSetTalkerProximity(voiceData[1].voice)
-
-rUtils.RegisterControlKey("voix", "Portez de la voix", "f1", function()
-    if UpdateOnscreenKeyboard() == 0 then return end
-    voice = voice + 1
-    if voice > 3 then
-        voice = 1
-    end
-    NetworkSetTalkerProximity(voiceData[voice].voice)
-    rUtils.ImportantNotif("Voix changé en: "..voiceData[voice].label)
-end)
+--local voice = 2
+--local voiceData = {
+--    [1] = {voice = 4.0, label = "Chuchoter"},
+--    [2] = {voice = 8.0, label = "Normal"},
+--    [3] = {voice = 15.0, label = "Crier"},
+--}
+--NetworkSetTalkerProximity(voiceData[1].voice)
+--
+--rUtils.RegisterControlKey("voix", "Portez de la voix", "f1", function()
+--    if UpdateOnscreenKeyboard() == 0 then return end
+--    voice = voice + 1
+--    if voice > 3 then
+--        voice = 1
+--    end
+--    NetworkSetTalkerProximity(voiceData[voice].voice)
+--    rUtils.ImportantNotif("Voix changé en: "..voiceData[voice].label)
+--end)
 
 local pointing = false
 rUtils.RegisterControlKey("point", "Pointer du doigt", "b", function()
