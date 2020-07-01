@@ -73,7 +73,7 @@ end)
 
 
 local LockedSup = {}
-
+local GlobalCooldown = false
 function StartSupTimer(id)
     local id = id
     Citizen.CreateThread(function()
@@ -84,10 +84,21 @@ function StartSupTimer(id)
     end)
 end
 
+
+function StartGlobalCooldown()
+    Citizen.CreateThread(function()
+        GlobalCooldown = true
+        Wait(30*60*1000)
+        GlobalCooldown = false
+    end)
+end
+
 RegisterNetEvent("core:CheckIfCanStartSup")
 AddEventHandler("core:CheckIfCanStartSup", function(token, id, streetName, job)
-    print("^2SUPERETTE:^7")
-    print(id, streetName, job, GetActivePlayersFromJob(job))
+    if GlobalCooldown then 
+        TriggerClientEvent("core:GetSupStatus", source, false, "La caisse est vide.")
+        return
+    end
     if not exports.rFramework:CheckToken(token, source, "core:CheckIfCanStartSup") then return end
     local JobList, num = GetActivePlayersFromJob(job)
     if LockedSup[id] == nil then

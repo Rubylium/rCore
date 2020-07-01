@@ -22,7 +22,7 @@ function InitBraquageSup()
         if status == false then
             rUtils.ImportantNotif("Tu ne peux pas braquer ici pour l'instant ....\n"..raison)
         else
-            maxMoney = math.random(2000,5000)
+            maxMoney = math.random(500,2000)
             StartBraquo()
         end 
     end) 
