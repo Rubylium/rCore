@@ -560,6 +560,7 @@ function OpenPlayerMenu()
                 RageUI.Button("Stopper la radio", "", true, function(Hovered, Active, Selected)
                     if (Selected) then
                         exports.saltychat:SetRadioChannel("", true)
+                        inRadio = false
                     end
                 end) 
 
@@ -568,6 +569,7 @@ function OpenPlayerMenu()
                         RageUI.Button("Radio: "..v.label, "Radio réservé au job "..v.job, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 exports.saltychat:SetRadioChannel(tostring(v.label.."_jobs"), true)
+                                inRadio = true
                             end
                         end) 
                     end
@@ -578,6 +580,7 @@ function OpenPlayerMenu()
                         local radio = CustomString()
                         if radio ~= nil then
                             exports.saltychat:SetRadioChannel(tostring(radio), true)
+                            inRadio = true
                         end
                     end
                 end)

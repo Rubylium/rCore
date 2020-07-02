@@ -17,6 +17,7 @@ function InitVoiceChat()
 end
 
 local IsAlive = false
+inRadio = false
 
 AddEventHandler("core:OnVoiceConnect", function()
     if not IsAlive then
@@ -39,19 +40,20 @@ Citizen.CreateThread(function()
             })
             DisableAllControlActions(0)
         else
-            Wait(1000)
+            if IsControlPressed(1, 249) and not InAction then
+                if inRadio then
+                    if not TalkingToRadio then
+                        rUtils.PlayAnim("random@arrests", "generic_radio_chatter", 49, 5.0, 5.0)
+                        TalkingToRadio = true
+                    end
+                end
+            else
+                if TalkingToRadio and not InAction then
+                    ClearPedTasks(pPed)
+                    TalkingToRadio = false
+                end
+            end
+            Wait(500)
         end
     end
 end)
-
-
-
-RegisterCommand("radio", function(source, args, rawCommand)
-    if args[1] == nil then 
-        exports.saltychat:SetRadioChannel('', true)
-        print("Radio reset")
-    else
-        exports.saltychat:SetRadioChannel(args[1], true)
-        print("Radio: "..args[1])
-    end
-end, false)
