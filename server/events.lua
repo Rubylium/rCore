@@ -103,6 +103,7 @@ AddEventHandler("core:CheckIfCanStartSup", function(token, id, streetName, job)
     local JobList, num = GetActivePlayersFromJob(job)
     if LockedSup[id] == nil then
         if num >= 5 then
+            StartGlobalCooldown()
             exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer un braquage de superette avec "..num.." policer.", "superette")
             TriggerClientEvent("core:GetSupStatus", source, true)
             for k,v in pairs(JobList) do
@@ -121,6 +122,7 @@ AddEventHandler("core:CheckIfCanStartSup", function(token, id, streetName, job)
         return
     else
         if num >= 5 then
+            StartGlobalCooldown()
             exports.rFramework:SendLog("["..source.."] "..GetPlayerName(source).." à lancer un braquage de superette avec "..num.." policer.", "superette")
             TriggerClientEvent("core:GetSupStatus", source, true)
             for k,v in pairs(JobList) do
