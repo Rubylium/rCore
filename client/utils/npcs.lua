@@ -112,7 +112,7 @@ Citizen.CreateThread(function()
         Wait(1)
 	    SetVehicleDensityMultiplierThisFrame(numbers)
 	    SetPedDensityMultiplierThisFrame(numbers)
-	    SetRandomVehicleDensityMultiplierThisFrame(numbers)
+        SetRandomVehicleDensityMultiplierThisFrame(numbers)
 	    SetParkedVehicleDensityMultiplierThisFrame(numbers)
 	    SetScenarioPedDensityMultiplierThisFrame(numbers, numbers)
     end
