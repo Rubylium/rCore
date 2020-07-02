@@ -567,19 +567,21 @@ function OpenPlayerMenu()
                     if pJob == v.job then
                         RageUI.Button("Radio: "..v.label, "Radio réservé au job "..v.job, true, function(Hovered, Active, Selected)
                             if (Selected) then
-                                exports.saltychat:SetRadioChannel(tostring(v.label), true)
+                                exports.saltychat:SetRadioChannel(tostring(v.label.."_jobs"), true)
                             end
                         end) 
                     end
                 end
 
-                for i=1,100 do
-                    RageUI.Button("Radio: "..i.." civil", "", true, function(Hovered, Active, Selected)
-                        if (Selected) then
-                            exports.saltychat:SetRadioChannel(i, true)
+                RageUI.Button("Entrez une fréquence", "Entrez un nom de radio, vous y serez automatiquement connecté.", true, function(Hovered, Active, Selected)
+                    if (Selected) then
+                        local radio = CustomString()
+                        if radio ~= nil then
+                            exports.saltychat:SetRadioChannel(tostring(radio), true)
                         end
-                    end)
-                end
+                    end
+                end)
+
             end, function()
             end)
 
