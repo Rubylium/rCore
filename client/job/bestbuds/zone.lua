@@ -32,7 +32,7 @@ rUtils.RegisterFarmZone({
 
 
 rUtils.RegisterFarmZone({
-    pos = vector3(1152.68, -431.9762, 67.01252),
+    pos = vector3(-430.8148, 291.7604, 86.06242),
     type = 3,
     item = "coke2",
     price = 150,

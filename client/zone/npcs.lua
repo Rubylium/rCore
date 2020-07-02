@@ -347,8 +347,8 @@ npcs = {
     },
     { 
         model = "s_m_y_dealer_01",
-        pos = vector3(-1262.592, -1139.236, 7.532302),
-        heading = 252.73065185,
+        pos = vector3(-430.8148, 291.7604, 86.06242),
+        heading = 219.946441,
         haveAction = false,
         action = function(ped, _offset, camOffset)
             OpenBankDialog(ped, _offset, camOffset)
