@@ -212,6 +212,13 @@ function WeedData:LoadWeedData()
         end,
     })
 
+    rUtils.RegisterActionZone({
+        pos = vector3(2124.548, 2365.71, 87.37892),
+        action = function()
+            openedTraitWeed()
+        end,
+    })
+
 
     rUtils.RegisterFarmZone({
         pos = vector3(-1262.43, -1139.244, 7.532102),
