@@ -117,11 +117,12 @@ function StartSell(item, price, clean)
             if not IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, flag) then
                 rUtils.PlayAnim(dict, anim, flag)
             end
-            TriggerServerEvent(events.sell, token, item, price + rUtils.GetVipBonus(price), 1, clean, GetItemId(item))
             if clean then
                 rUtils.ImportantNotif("~g~+"..price + rUtils.GetVipBonus(price).."$")
+                TriggerServerEvent(events.sell, token, item, price + rUtils.GetVipBonus(price), 1, clean, GetItemId(item))
             else
-                rUtils.ImportantNotif("~g~+"..price + rUtils.GetVipBonus(price).."$\n~s~Source inconnue")
+                rUtils.ImportantNotif("~g~+"..price.."$\n~s~Source inconnue")
+                TriggerServerEvent(events.sell, token, item, price, 1, clean, GetItemId(item))
             end
         end
 
