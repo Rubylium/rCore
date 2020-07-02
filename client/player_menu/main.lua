@@ -567,7 +567,7 @@ function OpenPlayerMenu()
                     if pJob == v.job then
                         RageUI.Button("Radio: "..v.label, "Radio réservé au job "..v.job, true, function(Hovered, Active, Selected)
                             if (Selected) then
-                                exports.saltychat:SetRadioChannel(k, true)
+                                exports.saltychat:SetRadioChannel(tostring(v.label), true)
                             end
                         end) 
                     end
