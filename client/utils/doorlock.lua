@@ -15,7 +15,6 @@ end
 
 RegisterNetEvent("core:SyncDoors")
 AddEventHandler("core:SyncDoors", function(doors)
-    print("^2DOORS: ^7Synced.")
     doords = doors
 end)
 
