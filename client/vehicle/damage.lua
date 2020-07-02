@@ -22,11 +22,11 @@ local cfg = {
 
 	preventVehicleFlip = true,					-- If true, you can't turn over an upside down vehicle
 
-	sundayDriver = true,						-- If true, the accelerator response is scaled to enable easy slow driving. Will not prevent full throttle. Does not work with binary accelerators like a keyboard. Set to false to disable. The included stop-without-reversing and brake-light-hold feature does also work for keyboards.
+	sundayDriver = false,						-- If true, the accelerator response is scaled to enable easy slow driving. Will not prevent full throttle. Does not work with binary accelerators like a keyboard. Set to false to disable. The included stop-without-reversing and brake-light-hold feature does also work for keyboards.
 	sundayDriverAcceleratorCurve = 7.5,			-- The response curve to apply to the accelerator. Range 0.0 to 10.0. Higher values enables easier slow driving, meaning more pressure on the throttle is required to accelerate forward. Does nothing for keyboard drivers
 	sundayDriverBrakeCurve = 5.0,				-- The response curve to apply to the Brake. Range 0.0 to 10.0. Higher values enables easier braking, meaning more pressure on the throttle is required to brake hard. Does nothing for keyboard drivers
 
-	displayBlips = true,						-- Show blips for mechanics locations
+	displayBlips = false,						-- Show blips for mechanics locations
 
 	compatibilityMode = false,					-- prevents other scripts from modifying the fuel tank health to avoid random engine failure with BVA 2.01 (Downside is it disabled explosion prevention)
 
@@ -46,7 +46,7 @@ local cfg = {
 				1.0,		--	5: Sports Classics
 				1.0,		--	6: Sports
 				1.0,		--	7: Super
-				0.25,		--	8: Motorcycles
+				0.01,		--	8: Motorcycles
 				0.7,		--	9: Off-road
 				0.25,		--	10: Industrial
 				1.0,		--	11: Utility

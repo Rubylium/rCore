@@ -127,7 +127,6 @@ AddEventHandler("core:RemoveVehStatusLSPD", function(token, _plate, net)
     if not exports.rFramework:CheckToken(token, source, "SetVehStatus") then return end
     for k,v in pairs(PlayersVehCache) do
         for j,i in pairs(PlayersVehCache[k]) do
-            print(i.plate, _plate)
             if i.plate == _plate then
                 if PlayersVehCache[k][j].lspd == true then
                     PlayersVehCache[k][j].ranger = false
@@ -171,7 +170,7 @@ function RegisterLspdCallback()
         local id = GetLicense(source)
         if PlayersVehCache[id] ~= nil then
             for k,v in pairs(PlayersVehCache[id]) do
-                --if v.ranger == false then
+                if v.ranger == false then
                     if v.lspd == false then
                         if NetworkGetEntityFromNetworkId(v.NetID) == 0 or GetEntityCoords(NetworkGetEntityFromNetworkId(v.NetID)) == vector3(0, 0, 0) then
                             table.insert(VehToSend, {plate = v.plate, props = v.props, can = true})
@@ -179,7 +178,7 @@ function RegisterLspdCallback()
                             table.insert(VehToSend, {plate = v.plate, props = v.props, can = false})
                         end
                     end
-                --end
+                end
             end
 
             for k,v in pairs(VehToSend) do
