@@ -234,3 +234,11 @@ rUtils.RegisterControlKey("item4", "Raccourcie Item #4", "(", function()
         rUtils.ImportantNotif("Tu ne possèdes pas l'item lié à se raccourcit.")
     end
 end)
+
+
+rUtils.RegisterControlKey("helicam", "Ouvrir la camera hélico", "e", function()
+    if IsCuffed then return end
+    if InAction then return end
+    if pDeath then return end
+    CanOpenHeliCam()
+end)
