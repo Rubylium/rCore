@@ -194,9 +194,9 @@ end
 RegisterNetEvent("core:AttachVeh")
 AddEventHandler("core:AttachVeh", function(target, plateau, attach)
     if attach then
-        AttachEntityToEntity(NetToEnt(target), NetToEnt(plateau), 20, -0.5, -5.0, 1.0, 0.0, 0.0, 0.0, false, true, false, false, 20, true)
+        AttachEntityToEntity(NetToEnt(target), NetToEnt(plateau), 20, -0.5, -5.0, 1.0, 0.0, 0.0, 0.0, false, false, true, false, 20, true)
     else
-        AttachEntityToEntity(NetToEnt(target), NetToEnt(plateau), 20, -0.5, -12.0, 1.0, 0.0, 0.0, 0.0, false, true, false, false, 20, true)
+        AttachEntityToEntity(NetToEnt(target), NetToEnt(plateau), 20, -0.5, -12.0, 1.0, 0.0, 0.0, 0.0, false, false, true, false, 20, true)
         DetachEntity(NetToEnt(target), true, true)
     end
 end)
