@@ -284,6 +284,39 @@ JobsData = {
                     {label = "Bouteille vide", count = 1},
                 }
             },
+            {
+                nom = "Nespresso", 
+                itemName = "cafe",
+                desc = "Ingrédient: Aucun",
+                ingredient = {
+                    --{label = "Bouteille vide", count = 1},
+                }
+            },
+            {
+                nom = "Vin", 
+                itemName = "vin",
+                desc = "Ingrédient: 1 Bouteille vide",
+                ingredient = {
+                    {label = "Bouteille vide", count = 1},
+                }
+            },
+            {
+                nom = "Tiramisù", 
+                itemName = "tiramisu",
+                desc = "Ingrédient: 1 pain de cuisine, 1 fromage",
+                ingredient = {
+                    {label = "Pain de cuisine", count = 1},
+                    {label = "Fromage", count = 1},
+                }
+            },
+            {
+                nom = "Panna Cotta", 
+                itemName = "pannacotta",
+                desc = "Ingrédient: 1 fromage",
+                ingredient = {
+                    {label = "Fromage", count = 1},
+                }
+            },
         }
     },
     hotdog = {
