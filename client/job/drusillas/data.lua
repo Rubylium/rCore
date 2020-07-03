@@ -84,6 +84,8 @@ function LoadDrusillaData()
                     for k,v in pairs(self.craft) do
                         RageUI.Button(v.nom, v.desc, true, function(Hovered, Active, Selected)
                             if Selected then
+                                RageUI.CloseAll()
+                                open = false
                                 CraftSomething(v.nom)
                             end
                         end)
