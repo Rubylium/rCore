@@ -72,6 +72,13 @@ AddEventHandler('core:CarryPeople:stop', function(token, targetSrc)
 end)
 
 
+RegisterNetEvent("core:AttachVeh")
+AddEventHandler("core:AttachVeh", function(token, target, ServerID, pVehLast, attach)
+    if not exports.rFramework:CheckToken(token, source, "core:AttachVeh") then return end
+    TriggerClientEvent('core:AttachVeh', ServerID, target, pVehLast, attach)
+end)
+
+
 local LockedSup = {}
 local GlobalCooldown = false
 function StartSupTimer(id)

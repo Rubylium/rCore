@@ -503,6 +503,7 @@ events = {
     AskSyndDoors = "core:AskingDoorSync",
     rmvDirty = "rF:RemoveDirtyMoney",
     VehInvSync = "core:SyncInvMoney",
+    AttachVeh = "core:AttachVeh",
 }
 
 doords = {

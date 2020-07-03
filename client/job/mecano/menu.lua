@@ -2,6 +2,8 @@ local open = false
 
 function InitMecanoActionMenu()
 
+    local AttachedVeh = nil
+
     RMenu.Add('core', 'mecano_main', RageUI.CreateMenu("", "~b~Ménu action mécano", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
     RMenu.Add('core', 'vehAction', RageUI.CreateSubMenu(RMenu:Get('core', 'mecano_main'), "", "~b~Ménu action mécano", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
     RMenu.Add('core', 'animation', RageUI.CreateSubMenu(RMenu:Get('core', 'mecano_main'), "", "~b~Ménu action mécano", nil, nil, "shopui_title_carmod", "shopui_title_carmod"))
@@ -41,17 +43,7 @@ function InitMecanoActionMenu()
                         end
                     end)
 
-                   --RageUI.ButtonWithStyle("Annoncé mécano ouvert", nil, { RightBadge = RageUI.BadgeStyle.Tick }, true, function(Hovered, Active, Selected)
-                   --    if Selected then
-                   --        TriggerServerEvent('AnnounceMecanoOuvert')
-                   --    end
-                   --end)
 
-                   --RageUI.ButtonWithStyle("Annoncé mécano fermer", nil, { RightBadge = RageUI.BadgeStyle.Lock }, true, function(Hovered, Active, Selected)
-                   --    if Selected then
-                   --        TriggerServerEvent('AnnounceMecanoFerme')
-                   --    end
-                   --end)
 
                 end, function()
                     ---Panels
@@ -59,6 +51,31 @@ function InitMecanoActionMenu()
 
 
                 RageUI.IsVisible(RMenu:Get('core', 'vehAction'), true, true, true, function()
+
+                    RageUI.ButtonWithStyle("Attacher au plateau", "Permets d'attacher le véhicule le plus proche au plateau. ~r~Votre derniers véhicule doit être un plateau", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
+                        if Active then 
+                            ClosetVehWithDisplay() 
+                        end
+                        if Selected then
+                            if GetEntityModel(pVehLast) == GetHashKey("flatbed") then
+                                if AttachedVeh == nil then
+                                    local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
+                                    local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
+                                    if GetEntityModel(veh) ~= GetHashKey("flatbed") then
+                                        TriggerServerEvent(events.AttachVeh, token, VehToNet(veh), ServerID, VehToNet(pVehLast), true)
+                                        AttachedVeh = VehToNet(veh)
+                                    end
+                                else
+                                    local veh = NetToEnt(AttachedVeh)
+                                    local ServerID = GetPlayerServerId(NetworkGetEntityOwner(veh))
+                                    TriggerServerEvent(events.AttachVeh, token, AttachedVeh, ServerID, VehToNet(pVehLast), false)
+                                    AttachedVeh = nil
+                                end
+                            else
+                                rUtils.Notif("Ton derniers véhicule n'est pas un plateau.")
+                            end
+                        end
+                    end)
 
                     RageUI.ButtonWithStyle("Réparer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
@@ -70,6 +87,7 @@ function InitMecanoActionMenu()
                             TriggerServerEvent(events.repair, token, VehToNet(veh), ServerID)
                         end
                     end)
+
 
                     RageUI.ButtonWithStyle("Nettoyer le véhicule", "Permet de réparer le véhicule le plus proche.", { RightBadge = RageUI.BadgeStyle.Car }, true, function(Hovered, Active, Selected)
                         if Active then 
@@ -171,6 +189,17 @@ function InitMecanoActionMenu()
 
 
 end
+
+
+RegisterNetEvent("core:AttachVeh")
+AddEventHandler("core:AttachVeh", function(target, plateau, attach)
+    if attach then
+        AttachEntityToEntity(NetToEnt(target), NetToEnt(plateau), 20, -0.5, -5.0, 1.0, 0.0, 0.0, 0.0, false, true, false, false, 20, true)
+    else
+        AttachEntityToEntity(NetToEnt(target), NetToEnt(plateau), 20, -0.5, -12.0, 1.0, 0.0, 0.0, 0.0, false, true, false, false, 20, true)
+        DetachEntity(NetToEnt(target), true, true)
+    end
+end)
 
 function ClosetVehWithDisplay()
     local veh = rUtils.GetClosestVehicle(GetEntityCoords(GetPlayerPed(-1)), nil)
