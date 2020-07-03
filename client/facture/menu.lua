@@ -27,13 +27,13 @@ function OpenBillCreation()
             RageUI.IsVisible(RMenu:Get('core', 'facture_cree'), true, true, true, function()
                 open = true
     
-                RageUI.Checkbox("Facture de société ?", nil, IsSocietyBill, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
-                    IsSocietyBill = Checked;
-                end, function()
-                    -- check
-                end, function()
-                    -- uncheck
-                end) 
+                --RageUI.Checkbox("Facture de société ?", nil, IsSocietyBill, { Style = RageUI.CheckboxStyle.Tick }, function(Hovered, Selected, Active, Checked)
+                --    IsSocietyBill = Checked;
+                --end, function()
+                --    -- check
+                --end, function()
+                --    -- uncheck
+                --end) 
     
                 if IsSocietyBill then
                     RageUI.Separator("Facture: ~b~"..pJob.."")
@@ -64,7 +64,7 @@ function OpenBillCreation()
                         if raison ~= nil and montant ~= nil and montant > 0 then
                             local ClosetPlayer, dst = rUtils.GetClosestPlayer()
                             local cSid = GetPlayerServerId(ClosetPlayer)
-                            TriggerServerEvent(events.giveFactue, token, cSid, IsSocietyBill, pJob, raison, montant)
+                            TriggerServerEvent(events.giveFactue, token, cSid, true, pJob, raison, montant)
                             open = false
                             RageUI.CloseAll()
                         end
