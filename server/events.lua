@@ -145,3 +145,50 @@ AddEventHandler("core:CheckIfCanStartSup", function(token, id, streetName, job)
         end
     end
 end)
+
+
+
+
+local EventStarted = false
+
+
+local events = {
+    [1] = {
+        zones = {
+            vector3(1398.204, 3057.338, 43.50012),
+            vector3(996.319, 3163.868, 39.67824),
+            vector3(394.4724, 3163.372, 52.30212),
+            vector3(535.5374, 2929.966, 39.26488),
+            vector3(24.03494, 3049.004, 40.50146),
+            vector3(1209.924, 3458.056, 48.0141),
+            vector3(1862.308, 3425.862, 45.84152),
+            vector3(2257.948, 3543.404, 61.22238),
+            vector3(2657.624, 4192.084, 48.61658),
+            vector3(2614.678, 4554.16, 38.8365),
+            vector3(-298.061, 3521.984, 110.0384),
+            vector3(-1572.1, 3145.66, 38.2677),
+            vector3(-2036.444, 1619.348, 256.5556),
+        },
+        price = 1200,
+    },
+}
+
+RegisterCommand("startevent", function(source, args, rawCommand)
+    local zone = events[1].zones[math.random(1,#events[1].zones)]
+    TriggerClientEvent("core:StartActivity", -1, 1, zone)
+end, false)
+
+RegisterNetEvent("core:WinEvent")
+AddEventHandler("core:WinEvent", function(token, type)
+    exports.rFramework:_player_add_money(token, source, events[type].price)
+    TriggerClientEvent("core:StopActivity", -1)
+end)
+
+--Citizen.CreateThread(function()
+--    while true do
+--        local r = math.random(1,2)
+--        local zone = events[r].zones[math.random(1,#events[1].zones)]
+--        TriggerClientEvent("core:StartActivity", -1, r, zone)
+--        Wait(30*60*1000)
+--    end
+--end)
